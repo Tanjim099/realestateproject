@@ -54,11 +54,11 @@ export const register = async (req, res, next) => {
     try {
         const { firstName, lastName, email, phone, password, otp } = req.body;
         if (!firstName || !lastName || !email || phone || password, !otp) {
-            return next(new asyncHandler("All Fields are required", 400));
+            return next(new ApiError(400, "All Fields are required"));
         }
         const userExists = await authModel.findOne({ email });
         if (userExists) {
-            return next(new asyncHandler("Email Already Exists", 400));
+            return next(new ApiError(400, "Email Already Exists"));
         }
 
         const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
@@ -124,16 +124,16 @@ export const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         if (!email, password) {
-            return next(new asyncHandler("All Fields are required", 400));
+            return next(new ApiError(400, "All Fields are required"));
         }
 
         const user = await authModel.findOne({ email });
         if (!user) {
-            return next(new asyncHandler("Email is not registered", 404));
+            return next(new ApiError(404, "Email is not registered"));
         }
         const match = await camparePassword(password, user.password);
         if (!match) {
-            return next(new asyncHandler("Invalid Password", 404));
+            return next(new ApiError(404, "Invalid Password"));
         }
         res.status(201).json(
             new ApiResponse(200, user, "User login Successfully")
