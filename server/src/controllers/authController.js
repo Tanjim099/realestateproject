@@ -1,15 +1,72 @@
 import authModel from "../models/authModel.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import uploadCloudinary from "../utils/cloudinary.js";
+import otpGenerator from 'otp-generator';
+import OTP from "../models/otpModel.js";
+
+
+export const sendOTP = asyncHandler(async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            next(new ApiError(403, 'Email is required'));
+        }
+
+        const existUser = await authModel.findOne({ email });
+
+        if (existUser) {
+            next(new ApiError(403, 'User is already exist,Please try to login'));
+        }
+
+        var otp = otpGenerator.generate(6, {
+            upperCaseAlphabets: false,
+            lowerCaseAlphabets: false,
+            specialChars: false,
+        });
+
+        const result = await OTP.findOne({ otp: otp });
+
+        while (result) {
+            otp = otpGenerator.generate(6, {
+                upperCaseAlphabets: false,
+            });
+        }
+
+        const otpPayload = { email, otp };
+        const otpBody = await OTP.create(otpPayload);
+
+        // console.log(otpBody);
+
+        return res.status(201).json(
+            new ApiResponse(200, otpBody, 'OTP send successfully...')
+        )
+
+    } catch (Error) {
+        console.log(Error.message);
+        next(new ApiError(500, Error.message));
+    }
+});
 
 export const register = async (req, res, next) => {
     try {
-        const { firstName, lastName, email, phone, password } = req.body;
-        if (!firstName || !lastName || !email || phone || password) {
+        const { firstName, lastName, email, phone, password, otp } = req.body;
+        if (!firstName || !lastName || !email || phone || password, !otp) {
             return next(new asyncHandler("All Fields are required", 400));
         }
         const userExists = await authModel.findOne({ email });
         if (userExists) {
             return next(new asyncHandler("Email Already Exists", 400));
+        }
+
+        const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
+        console.log(response);
+
+        if (response.length === 0) {
+            return next(new ApiError(400, 'The OTP is not valid'));
+        } else if (otp !== response[0].otp) {
+            return next(new ApiError(400, 'The OTP is not valid'));
         }
 
         const user = await authModel.create({
@@ -24,30 +81,39 @@ export const register = async (req, res, next) => {
             }
         })
 
-        if (req.file) {
-            const result = await cloudinary.v2.uploader.upload(req.file.path, {
-                folder: "realestate"
-            });
+        // if (req.file) {
+        //     const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        //         folder: "realestate"
+        //     });
 
-            if (result) {
-                user.avatar.public_id = result.public_id;
-                user.avatar.secure_url = result.secure_url;
-            }
-            fs.rm(`uploads/${req.file.filename}`)
-        };
+        //     if (result) {
+        //         user.avatar.public_id = result.public_id;
+        //         user.avatar.secure_url = result.secure_url;
+        //     }
+        //     fs.rm(`uploads/${req.file.filename}`)
+        // };
 
+        const avatarLocalPath = req.files?.avatar[0]?.path;
+
+        if (!avatarLocalPath) {
+            throw new ApiError(400, "Avatar file is required");
+        }
+
+        const avatar = await uploadCloudinary(avatarLocalPath);
+
+        if (!avatar) {
+            throw new ApiError(400, "Avatar file is required");
+        }
+
+        console.log(avatar);
+        
         await user.save();
-        res.status(200).json({
-            success: true,
-            message: "User Register Successfully",
-            user
-        })
+
+        return res.status(201).json(
+            new ApiResponse(200, user, "User registered Successfully")
+        )
+
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            success: false,
-            message: "Error while creating account",
-            error
-        })
+        throw new ApiError(500, error.message);
     }
 }

@@ -1,6 +1,5 @@
 import nodemailer from 'nodemailer';
 
-
 const sendEmail = async function (email, subject, message) {
     try {
         let transporter = nodemailer.createTransport({
@@ -11,17 +10,19 @@ const sendEmail = async function (email, subject, message) {
             }
         });
 
-        const info = transporter.sendMail({
+        const info = await transporter.sendMail({
             from: process.env.SMTP_FROM_EMAIL,
-            to: `${email}`,
-            subject: `${subject}`,
-            message: `${message}`
+            to: email,
+            subject: subject,
+            text: message, 
         });
 
-        console.log('EMAIL SEND SUCCESSFULLY -> ',info);
+        console.log('EMAIL SENT SUCCESSFULLY -> ', info);
+        return info;
 
-    } catch (Error) {
-        console.log('EMAIL SEND FAILED -> ', Error);
+    } catch (error) {
+        console.error('EMAIL SEND FAILED -> ', error);
+        throw error; 
     }
 }
 
