@@ -169,3 +169,34 @@ export const logout = async (req, res, next) => {
         throw new ApiError(500, error.message);
     }
 }
+
+
+export const updateUser = async (req, res, next) => {
+    try {
+
+        const { firstName, lastName, phone } = req.body;
+        const { id } = req.params;
+        const user = await authModel.findById(id);
+
+        user.firstName = firstName || user.firstName;
+        user.lastName = lastName || user.lastName;
+        user.phone = phone || user.phone;
+
+        const avatarLocalPath = req.files?.avatar[0]?.path;
+
+        const avatar = await uploadCloudinary(avatarLocalPath);
+
+        if (!avatar) {
+            throw new ApiError(400, "Avatar file is required");
+        }
+
+        await user.save();
+
+        return res.status(201).json(
+            new ApiResponse(200, user, "User updated Successfully")
+        )
+
+    } catch (error) {
+        throw new ApiError(500, error.message);
+    }
+}
