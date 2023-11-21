@@ -5,6 +5,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import uploadCloudinary from "../utils/cloudinary.js";
 import otpGenerator from 'otp-generator';
 import OTP from "../models/otpModel.js";
+import JWT from "jsonwebtoken";
 import { camparePassword, hashPassword } from "../helpers/authHelper.js";
 
 
@@ -135,9 +136,35 @@ export const login = async (req, res, next) => {
         if (!match) {
             return next(new ApiError(404, "Invalid Password"));
         }
+
+        const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
+            secure: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000, //7days
+            httpOnly: true
+        });
+        console.log("token->", token)
+        res.cookie("token", token)
         res.status(201).json(
-            new ApiResponse(200, user, "User login Successfully")
+            new ApiResponse(200, user, "User login Successfully"),
+            token
         )
+    } catch (error) {
+        throw new ApiError(500, error.message);
+    }
+}
+
+export const logout = async (req, res, next) => {
+    try {
+        res.cookie("token", null, {
+            secure: true,
+            maxAge: 0,
+            httpOnly: true
+        })
+
+        res.status(201).json({
+            success: true,
+            message: "User Logout Successfully"
+        })
     } catch (error) {
         throw new ApiError(500, error.message);
     }
