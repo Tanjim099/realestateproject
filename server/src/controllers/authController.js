@@ -5,6 +5,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import uploadCloudinary from "../utils/cloudinary.js";
 import otpGenerator from 'otp-generator';
 import OTP from "../models/otpModel.js";
+import { camparePassword, hashPassword } from "../helpers/authHelper.js";
 
 
 export const sendOTP = asyncHandler(async (req, res, next) => {
@@ -69,12 +70,13 @@ export const register = async (req, res, next) => {
             return next(new ApiError(400, 'The OTP is not valid'));
         }
 
+        const hashedPassword = await hashPassword(password);
         const user = await authModel.create({
             firstName,
             lastName,
             email,
             phone,
-            password,
+            password: hashedPassword,
             avatar: {
                 public_id: "DUMMY",
                 secure_url: "https://res.cloudinary.com/du9jzqlpt/image/upload/v1674647316/avatar_drzgxv.jpg"
@@ -106,7 +108,7 @@ export const register = async (req, res, next) => {
         }
 
         console.log(avatar);
-        
+
         await user.save();
 
         return res.status(201).json(
@@ -117,3 +119,5 @@ export const register = async (req, res, next) => {
         throw new ApiError(500, error.message);
     }
 }
+
+
