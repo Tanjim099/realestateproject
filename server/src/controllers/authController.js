@@ -120,4 +120,25 @@ export const register = async (req, res, next) => {
     }
 }
 
+export const login = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        if (!email, password) {
+            return next(new asyncHandler("All Fields are required", 400));
+        }
 
+        const user = await authModel.findOne({ email });
+        if (!user) {
+            return next(new asyncHandler("Email is not registered", 404));
+        }
+        const match = await camparePassword(password, user.password);
+        if (!match) {
+            return next(new asyncHandler("Invalid Password", 404));
+        }
+        res.status(201).json(
+            new ApiResponse(200, user, "User login Successfully")
+        )
+    } catch (error) {
+        throw new ApiError(500, error.message);
+    }
+}
