@@ -1,4 +1,4 @@
-import {Schema ,model} from "mongoose";
+import { Schema, model } from "mongoose";
 
 const authSchema = new Schema({
     firstName: {
@@ -30,32 +30,14 @@ const authSchema = new Schema({
     },
     password: {
         type: String,
-        required: [true, 'Password is Required'],
-        select: false,
-        minLength: [8, 'Password must be at least 8 charchter']
+        required: true
     },
-    avatar: {
-        public_id: {
-            type: String
-        },
-        secure_url: {
-            type: String
-        }
-    },
-    role: {
-        type: String,
-        enum: ['USER', 'ADMIN'],
-        default: 'USER',
-    },
-    forgetPasswordToken: String,
-    forgetPasswordExpiry: Date,
-    token: {
-        type: String
+    resetPasswordToken: String,
+    resetPasswordExpiry: Date,
+    token:{
+        type:String
     }
-
-}, {
-    timestamps: true
-});
+}, { timestamps: true });
 
 const authModel = model("auth", authSchema);
 export default authModel
