@@ -1,10 +1,6 @@
 {
   "dependencies": {
-<<<<<<< HEAD
-    "bcrypt": "^5.1.1",
-=======
     "cloudinary": "^1.41.0",
->>>>>>> 62f79cb8e374d8909b749753cb71386f20ad0544
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
