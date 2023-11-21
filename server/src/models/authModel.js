@@ -1,19 +1,21 @@
-import mongoose from "mongoose";
+import {Schema ,model} from "mongoose";
 
-const authSchema = new mongoose.Schema({
+const authSchema = new Schema({
     firstName: {
         type: String,
-        required: true,
+        required: [true, 'FirstName is Required'],
+        lowercase: true,
         trim: true
     },
     lastName: {
         type: String,
-        required: true,
+        required: [true, 'LastName is Required'],
+        lowercase: true,
         trim: true
     },
     email: {
         type: String,
-        required: true,
+        required: [true, 'Email is Required'],
         unique: true,
         lowercase: true,
         trim: true,
@@ -28,9 +30,32 @@ const authSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'Password is Required'],
+        select: false,
+        minLength: [8, 'Password must be at least 8 charchter']
+    },
+    avatar: {
+        public_id: {
+            type: String
+        },
+        secure_url: {
+            type: String
+        }
+    },
+    role: {
+        type: String,
+        enum: ['USER', 'ADMIN'],
+        default: 'USER',
+    },
+    forgetPasswordToken: String,
+    forgetPasswordExpiry: Date,
+    token: {
+        type: String
     }
-}, { timestamps: true });
 
-const authModel = mongoose.model("auth", authSchema);
+}, {
+    timestamps: true
+});
+
+const authModel = model("auth", authSchema);
 export default authModel
