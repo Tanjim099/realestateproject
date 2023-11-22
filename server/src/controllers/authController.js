@@ -255,3 +255,18 @@ export const updateUser = async (req, res, next) => {
         throw new ApiError(500, error.message);
     }
 }
+
+export const getUserProfile = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const user = await authModel.findById(id);
+        if (!user) {
+            next(new ApiError(400, "Error in getting profile"));
+        }
+        res.status(201).json(
+            new ApiResponse(200, user, "User fateched Successfully")
+        )
+    } catch (error) {
+        throw new ApiError(500, error.message);
+    }
+}
