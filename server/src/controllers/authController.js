@@ -39,7 +39,7 @@ export const sendOTP = asyncHandler(async (req, res, next) => {
         const otpPayload = { email, otp };
         const otpBody = await OTP.create(otpPayload);
 
-        // console.log(otpBody);
+        console.log(otpBody);
 
         return res.status(201).json(
             new ApiResponse(200, otpBody, 'OTP send successfully...')
