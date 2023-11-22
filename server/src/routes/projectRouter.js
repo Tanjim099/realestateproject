@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProject, getProject } from "../controllers/projectController.js";
+import { createProject, getAllProject, getProject } from "../controllers/projectController.js";
 import upload from "../middlewares/multerMiddleware.js";
 
 const router = Router();
@@ -11,4 +11,5 @@ router.post('/create', upload.fields([
 ]), createProject);
 
 router.get("/get/:id", getProject);
+router.get("/getall", getAllProject);
 export default router;
