@@ -166,7 +166,7 @@ const updateProject = asyncHandler(async (req, res, next) => {
     }
 })
 
-
+//get single project
 const getProject = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -182,7 +182,7 @@ const getProject = async (req, res, next) => {
     }
 }
 
-
+//get all project
 const getAllProject = async (req, res, next) => {
     try {
         const { page = 1, limit = 10 } = req.query;
@@ -198,9 +198,23 @@ const getAllProject = async (req, res, next) => {
     }
 }
 
+
+//delete project
+const deleteProject = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const project = await Project.findByIdAndDelete(id);
+        res.status(201).json(
+            new ApiResponse(200, project, "Project deleted Successfully...")
+        )
+    } catch (error) {
+        return next(new ApiError(500, Error.message));
+    }
+}
 export {
     createProject,
     updateProject,
     getProject,
-    getAllProject
+    getAllProject,
+    deleteProject
 }
