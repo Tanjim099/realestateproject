@@ -1,6 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import authRoutes from "./routes/authRoute.js";
+import projectRoutes from "./routes/projectRouter.js";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 const app = express();
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 
 //routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/project", projectRoutes);
 
 app.all('*', (req, res) => {
     return res.status(404).json({
