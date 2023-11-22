@@ -51,15 +51,19 @@ export const sendOTP = asyncHandler(async (req, res, next) => {
     }
 });
 
-export const register = async (req, res, next) => {
+export const register = asyncHandler(async (req, res, next) => {
     try {
+
         const { firstName, lastName, email, phone, password, otp } = req.body;
+
         if (!firstName || !lastName || !email || phone || password, !otp) {
-            return next(new ApiError(400, "All Fields are required"));
+            return next(new asyncHandler("All Fields are required", 400));
         }
+
         const userExists = await authModel.findOne({ email });
+
         if (userExists) {
-            return next(new ApiError(400, "Email Already Exists"));
+            return next(new asyncHandler("Email Already Exists", 400));
         }
 
         const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
@@ -119,84 +123,4 @@ export const register = async (req, res, next) => {
     } catch (error) {
         throw new ApiError(500, error.message);
     }
-}
-
-export const login = async (req, res, next) => {
-    try {
-        const { email, password } = req.body;
-        if (!email, password) {
-            return next(new ApiError(400, "All Fields are required"));
-        }
-
-        const user = await authModel.findOne({ email });
-        if (!user) {
-            return next(new ApiError(404, "Email is not registered"));
-        }
-        const match = await camparePassword(password, user.password);
-        if (!match) {
-            return next(new ApiError(404, "Invalid Password"));
-        }
-
-        const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
-            secure: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000, //7days
-            httpOnly: true
-        });
-        console.log("token->", token)
-        res.cookie("token", token)
-        res.status(201).json(
-            new ApiResponse(200, user, "User login Successfully"),
-            token
-        )
-    } catch (error) {
-        throw new ApiError(500, error.message);
-    }
-}
-
-export const logout = async (req, res, next) => {
-    try {
-        res.cookie("token", null, {
-            secure: true,
-            maxAge: 0,
-            httpOnly: true
-        })
-
-        res.status(201).json({
-            success: true,
-            message: "User Logout Successfully"
-        })
-    } catch (error) {
-        throw new ApiError(500, error.message);
-    }
-}
-
-
-export const updateUser = async (req, res, next) => {
-    try {
-
-        const { firstName, lastName, phone } = req.body;
-        const { id } = req.params;
-        const user = await authModel.findById(id);
-
-        user.firstName = firstName || user.firstName;
-        user.lastName = lastName || user.lastName;
-        user.phone = phone || user.phone;
-
-        const avatarLocalPath = req.files?.avatar[0]?.path;
-
-        const avatar = await uploadCloudinary(avatarLocalPath);
-
-        if (!avatar) {
-            throw new ApiError(400, "Avatar file is required");
-        }
-
-        await user.save();
-
-        return res.status(201).json(
-            new ApiResponse(200, user, "User updated Successfully")
-        )
-
-    } catch (error) {
-        throw new ApiError(500, error.message);
-    }
-}
+})
