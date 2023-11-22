@@ -211,10 +211,43 @@ const deleteProject = async (req, res, next) => {
         return next(new ApiError(500, Error.message));
     }
 }
+
+//search Project
+const searchProject = async (req, res, next) => {
+    try {
+        const { page = 1, limit = 10, name, location, developer, floorPlan, } = req.query;
+
+        const query = {};
+        if (name) {
+            query.name = { $regex: new RegExp(name, "i") };
+        }
+        if (location) {
+            query.location = { $regex: new RegExp(location, "i") };
+        }
+        if (developer) {
+            query.developer = { $regex: new RegExp(developer, "i") };
+        }
+        if (floorPlan) {
+            query.floorPlan = { $regex: new RegExp(floorPlan, "i") };
+        }
+
+        const projects = await Project.find(query).limit(limit * 1).skip((page - 1) * limit).exec();
+
+        const count = await Project.countDocuments(query);
+        res.status(200).json({
+            projects,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page
+        })
+    } catch (error) {
+        return next(new ApiError(500, Error.message));
+    }
+}
 export {
     createProject,
     updateProject,
     getProject,
     getAllProject,
-    deleteProject
+    deleteProject,
+    searchProject
 }

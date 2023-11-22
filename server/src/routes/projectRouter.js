@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProject, deleteProject, getAllProject, getProject } from "../controllers/projectController.js";
+import { createProject, deleteProject, getAllProject, getProject, searchProject } from "../controllers/projectController.js";
 import upload from "../middlewares/multerMiddleware.js";
 import { isAdmin } from "../middlewares/authMiddleware.js";
 
@@ -14,4 +14,5 @@ router.post('/create', upload.fields([
 router.get("/get/:id", getProject);
 router.get("/getall", getAllProject);
 router.delete("/delete/:id", isAdmin, deleteProject);
+router.get("/search/project", searchProject);
 export default router;
