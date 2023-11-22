@@ -49,15 +49,19 @@ export const sendOTP = asyncHandler(async (req, res, next) => {
     }
 });
 
-export const register = async (req, res, next) => {
+export const register = asyncHandler(async (req, res, next) => {
     try {
+
         const { firstName, lastName, email, phone, password, otp } = req.body;
+
         if (!firstName || !lastName || !email || phone || password, !otp) {
-            return next(new asyncHandler("All Fields are required", 400));
+            return next(new ApiError("All Fields are required", 400));
         }
+
         const userExists = await authModel.findOne({ email });
+
         if (userExists) {
-            return next(new asyncHandler("Email Already Exists", 400));
+            return next(new ApiError("Email Already Exists", 400));
         }
 
         const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
@@ -106,7 +110,7 @@ export const register = async (req, res, next) => {
         }
 
         console.log(avatar);
-        
+
         await user.save();
 
         return res.status(201).json(
@@ -116,4 +120,4 @@ export const register = async (req, res, next) => {
     } catch (error) {
         throw new ApiError(500, error.message);
     }
-}
+})
