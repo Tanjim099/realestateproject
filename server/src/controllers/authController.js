@@ -5,6 +5,8 @@ import asyncHandler from "../utils/asyncHandler.js";
 import uploadCloudinary from "../utils/cloudinary.js";
 import otpGenerator from 'otp-generator';
 import OTP from "../models/otpModel.js";
+import JWT from "jsonwebtoken";
+import { camparePassword, hashPassword } from "../helpers/authHelper.js";
 
 
 export const sendOTP = asyncHandler(async (req, res, next) => {
@@ -55,13 +57,13 @@ export const register = asyncHandler(async (req, res, next) => {
         const { firstName, lastName, email, phone, password, otp } = req.body;
 
         if (!firstName || !lastName || !email || phone || password, !otp) {
-            return next(new ApiError("All Fields are required", 400));
+            return next(new asyncHandler("All Fields are required", 400));
         }
 
         const userExists = await authModel.findOne({ email });
 
         if (userExists) {
-            return next(new ApiError("Email Already Exists", 400));
+            return next(new asyncHandler("Email Already Exists", 400));
         }
 
         const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
@@ -73,12 +75,13 @@ export const register = asyncHandler(async (req, res, next) => {
             return next(new ApiError(400, 'The OTP is not valid'));
         }
 
+        const hashedPassword = await hashPassword(password);
         const user = await authModel.create({
             firstName,
             lastName,
             email,
             phone,
-            password,
+            password: hashedPassword,
             avatar: {
                 public_id: "DUMMY",
                 secure_url: "https://res.cloudinary.com/du9jzqlpt/image/upload/v1674647316/avatar_drzgxv.jpg"
