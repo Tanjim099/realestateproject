@@ -5,7 +5,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import uploadCloudinary from "../utils/cloudinary.js";
 import otpGenerator from 'otp-generator';
 import OTP from "../models/otpModel.js";
-import JWT from "jsonwebtoken";
+import JWT from 'jsonwebtoken';
 import { camparePassword, hashPassword } from "../helpers/authHelper.js";
 
 
@@ -39,7 +39,7 @@ export const sendOTP = asyncHandler(async (req, res, next) => {
         const otpPayload = { email, otp };
         const otpBody = await OTP.create(otpPayload);
 
-        console.log(otpBody);
+        // console.log(otpBody);
 
         return res.status(201).json(
             new ApiResponse(200, otpBody, 'OTP send successfully...')
@@ -51,9 +51,13 @@ export const sendOTP = asyncHandler(async (req, res, next) => {
     }
 });
 
-export const register = async (req, res, next) => {
+export const register = asyncHandler(async (req, res, next) => {
     try {
+        console.log("Starting...");
+
         const { firstName, lastName, email, phone, password, otp } = req.body;
+        console.log(typeof otp);
+
         if (!firstName || !lastName || !email || phone || password, !otp) {
             return next(new ApiError(400, "All Fields are required"));
         }
@@ -65,9 +69,9 @@ export const register = async (req, res, next) => {
         const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
         console.log(response);
 
-        if (response.length === 0) {
+        if (response.otp.length === 0) {
             return next(new ApiError(400, 'The OTP is not valid'));
-        } else if (otp !== response[0].otp) {
+        } else if (otp !== response.otp) {
             return next(new ApiError(400, 'The OTP is not valid'));
         }
 
@@ -96,7 +100,8 @@ export const register = async (req, res, next) => {
         //     fs.rm(`uploads/${req.file.filename}`)
         // };
 
-        const avatarLocalPath = req.files?.avatar[0]?.path;
+        const avatarLocalPath = req.file.path;
+        // console.log(avatarLocalPath);
 
         if (!avatarLocalPath) {
             throw new ApiError(400, "Avatar file is required");
@@ -108,7 +113,10 @@ export const register = async (req, res, next) => {
             throw new ApiError(400, "Avatar file is required");
         }
 
-        console.log(avatar);
+        user.avatar.public_id = avatar.public_id;
+        user.avatar.secure_url = avatar.secure_url;
+
+
 
         await user.save();
 
@@ -117,39 +125,52 @@ export const register = async (req, res, next) => {
         )
 
     } catch (error) {
-        throw new ApiError(500, error.message);
+        next(new ApiError(500, error.message));
     }
-}
+})
 
 export const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        if (!email, password) {
+
+        console.log(password);
+        if (!email, !password) {
             return next(new ApiError(400, "All Fields are required"));
         }
 
         const user = await authModel.findOne({ email });
+
+        console.log(user.password);
+
         if (!user) {
             return next(new ApiError(404, "Email is not registered"));
         }
+
         const match = await camparePassword(password, user.password);
+        console.log(match);
+
         if (!match) {
             return next(new ApiError(404, "Invalid Password"));
         }
 
         const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
-            secure: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000, //7days
-            httpOnly: true
+            expiresIn: 7 * 24 * 60 * 60 * 1000,
         });
         console.log("token->", token)
-        res.cookie("token", token)
+        res.cookie("token", token,{
+            secure: true,
+            httpOnly:true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        })
+
+        user.token = token;
+        await user.save();
+
         res.status(201).json(
-            new ApiResponse(200, user, "User login Successfully"),
-            token
+            new ApiResponse(200, user, "User login Successfully")
         )
     } catch (error) {
-        throw new ApiError(500, error.message);
+        next(new ApiError(500, error.message));
     }
 }
 
@@ -166,7 +187,7 @@ export const logout = async (req, res, next) => {
             message: "User Logout Successfully"
         })
     } catch (error) {
-        throw new ApiError(500, error.message);
+        nexy(new ApiError(500, error.message));
     }
 }
 
@@ -182,13 +203,21 @@ export const updateUser = async (req, res, next) => {
         user.lastName = lastName || user.lastName;
         user.phone = phone || user.phone;
 
-        const avatarLocalPath = req.files?.avatar[0]?.path;
+        const avatarLocalPath = req.file.path;
+        // console.log(avatarLocalPath);
+
+        if (!avatarLocalPath) {
+             next(new ApiError(400, "Avatar file is required"));
+        }
 
         const avatar = await uploadCloudinary(avatarLocalPath);
 
         if (!avatar) {
-            throw new ApiError(400, "Avatar file is required");
+            next(new ApiError(400, "Avatar file is required"));
         }
+
+        user.avatar.public_id = avatar.public_id;
+        user.avatar.secure_url = avatar.secure_url;
 
         await user.save();
 

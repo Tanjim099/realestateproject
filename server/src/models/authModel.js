@@ -35,17 +35,25 @@ const authSchema = new Schema({
     },
     resetPasswordToken: String,
     resetPasswordExpiry: Date,
-    token:{
-        type:String
+    token: {
+        type: String
+    },
+    avatar: {
+        public_id: {
+            type: String,
+        },
+        secure_url: {
+            type: String
+        }
     }
 }, { timestamps: true });
 
-authSchema.pre('save',async function(next){
-    if(!this.isModified('password')){
-        next();
-    }
-    this.password = await bcrypt.hash(this.password,10);
-});
+// authSchema.pre('save', async function (next) {
+//     if (!this.isModified('password')) {
+//         next();
+//     }
+//     this.password = await bcrypt.hash(this.password, 10);
+// });
 
 const authModel = model("auth", authSchema);
 export default authModel
