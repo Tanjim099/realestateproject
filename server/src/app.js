@@ -1,8 +1,8 @@
 import express from "express";
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import authRoutes from "./routes/authRoute.js";
 import cookieParser from "cookie-parser";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
 const app = express();
 
 
@@ -33,5 +33,6 @@ app.all('*', (req, res) => {
     });
 });
 
+app.use(errorMiddleware);
 
 export default app;

@@ -1,6 +1,6 @@
 import express from "express";
 import { login, logout, register, sendOTP, updateUser } from "../controllers/authController.js";
-import { upload } from "../middlewares/multerMiddleware.js";
+import  upload  from "../middlewares/multerMiddleware.js";
 const authRoutes = express.Router();
 
 //register
