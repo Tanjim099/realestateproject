@@ -55,9 +55,10 @@ const createProject = asyncHandler(async (req, res, next) => {
                 );
 
                 project.gallery = project.gallery.concat(galleyResult.map((result) => ({
+                    
                     public_id: result.public_id,
                     secure_url: result.secure_url,
-                })));
+                }))); 
 
                 project.amenities = project.amenities.concat(amenitiesResult.map((result) => ({
                     image: {
