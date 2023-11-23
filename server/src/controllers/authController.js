@@ -55,7 +55,7 @@ export const register = asyncHandler(async (req, res, next) => {
     try {
         console.log("Starting...");
 
-        const { firstName, lastName, email, phone, password, otp } = req.body;
+        const { firstName, lastName, email, phone, password, otp, answer } = req.body;
         console.log(typeof otp);
 
         if (!firstName || !lastName || !email || phone || password, !otp) {
@@ -82,6 +82,7 @@ export const register = asyncHandler(async (req, res, next) => {
             email,
             phone,
             password: hashedPassword,
+            answer,
             avatar: {
                 public_id: "DUMMY",
                 secure_url: "https://res.cloudinary.com/du9jzqlpt/image/upload/v1674647316/avatar_drzgxv.jpg"
@@ -101,7 +102,7 @@ export const register = asyncHandler(async (req, res, next) => {
         // };
 
         const avatarLocalPath = req.file.path;
-        // console.log(avatarLocalPath);
+        console.log("avatarLocalPath", avatarLocalPath);
 
         if (!avatarLocalPath) {
             throw new ApiError(400, "Avatar file is required");
@@ -112,7 +113,7 @@ export const register = asyncHandler(async (req, res, next) => {
         if (!avatar) {
             throw new ApiError(400, "Avatar file is required");
         }
-
+        console.log("avatar", avatar)
         user.avatar.public_id = avatar.public_id;
         user.avatar.secure_url = avatar.secure_url;
 
