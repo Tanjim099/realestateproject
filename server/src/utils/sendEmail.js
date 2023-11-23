@@ -14,7 +14,7 @@ const sendEmail = async function (email, subject, message) {
             from: process.env.SMTP_FROM_EMAIL,
             to: email,
             subject: subject,
-            text: message, 
+            html: `${message}`, 
         });
 
         console.log('EMAIL SENT SUCCESSFULLY -> ', info);

@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import sendEmail from "../utils/sendEmail.js";
+import otpTemplate from "../mail/template/emailVerification.js";
 
 
 const otpSchema = new Schema({
@@ -22,7 +23,7 @@ const otpSchema = new Schema({
 async function sendVerificationEmail(email, otp) {
     try {
         // console.log('Starting...');
-        const mailResponse = await sendEmail(email, 'Verification Email', otp);
+        const mailResponse = await sendEmail(email, 'Verification Email', otpTemplate(otp));
         console.log("Email sent successfully: ", mailResponse.response);
     } catch (Error) {
         console.log("Error occurred while sending email: ", Error);
