@@ -45,7 +45,11 @@ const authSchema = new Schema({
         secure_url: {
             type: String
         }
-    }
+    },
+    answer: {
+        type: String,
+        required: true
+    },
 }, { timestamps: true });
 
 // authSchema.pre('save', async function (next) {

@@ -166,9 +166,88 @@ const updateProject = asyncHandler(async (req, res, next) => {
     }
 })
 
+//get single project
+const getProject = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const project = await Project.findById(id);
+        if (!project) {
+            return next(new ApiError(403, 'Invalid Project id'));
+        }
+        res.status(201).json(
+            new ApiResponse(200, project, "Project feched Successfully...")
+        )
+    } catch (error) {
+        return next(new ApiError(500, Error.message));
+    }
+}
+
+//get all project
+const getAllProject = async (req, res, next) => {
+    try {
+        const { page = 1, limit = 10 } = req.query;
+
+        const allProjects = await Project.find().limit(limit * 1).skip((page - 1) * limit).exec().sort({ createdAt: -1 });
+        const count = await Project.countDocuments();
+
+        res.status(201).json(
+            new ApiResponse(200, allProjects, "All Projects feched Successfully...")
+        )
+    } catch (error) {
+        return next(new ApiError(500, Error.message));
+    }
+}
 
 
+//delete project
+const deleteProject = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const project = await Project.findByIdAndDelete(id);
+        res.status(201).json(
+            new ApiResponse(200, project, "Project deleted Successfully...")
+        )
+    } catch (error) {
+        return next(new ApiError(500, Error.message));
+    }
+}
+
+//search Project
+const searchProject = async (req, res, next) => {
+    try {
+        const { page = 1, limit = 10, name, location, developer, floorPlan, } = req.query;
+
+        const query = {};
+        if (name) {
+            query.name = { $regex: new RegExp(name, "i") };
+        }
+        if (location) {
+            query.location = { $regex: new RegExp(location, "i") };
+        }
+        if (developer) {
+            query.developer = { $regex: new RegExp(developer, "i") };
+        }
+        if (floorPlan) {
+            query.floorPlan = { $regex: new RegExp(floorPlan, "i") };
+        }
+
+        const projects = await Project.find(query).limit(limit * 1).skip((page - 1) * limit).exec();
+
+        const count = await Project.countDocuments(query);
+        res.status(200).json({
+            projects,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page
+        })
+    } catch (error) {
+        return next(new ApiError(500, Error.message));
+    }
+}
 export {
     createProject,
-    updateProject
+    updateProject,
+    getProject,
+    getAllProject,
+    deleteProject,
+    searchProject
 }

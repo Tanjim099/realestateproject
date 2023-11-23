@@ -157,9 +157,9 @@ export const login = async (req, res, next) => {
             expiresIn: 7 * 24 * 60 * 60 * 1000,
         });
         console.log("token->", token)
-        res.cookie("token", token,{
+        res.cookie("token", token, {
             secure: true,
-            httpOnly:true,
+            httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
         })
 
@@ -187,10 +187,36 @@ export const logout = async (req, res, next) => {
             message: "User Logout Successfully"
         })
     } catch (error) {
-        nexy(new ApiError(500, error.message));
+        next(new ApiError(500, error.message));
     }
 }
 
+
+export const forgetPassword = async (req, res, next) => {
+    try {
+        const { email, answer, nemPassword } = req.body;
+        if (!email) {
+            return next(new ApiError(500, "Email is required"));
+        }
+        if (!answer) {
+            return next(new ApiError(500, "Answer is required"));
+        }
+        if (!nemPassword) {
+            return next(new ApiError(501, "Please enter new Password"));
+        }
+        const user = await authModel.findOne({ email, answer });
+        if (!user) {
+            return next(new ApiError(404, "Please enter correct email and answer"));
+        }
+        const hashedPassword = await hashedPassword(nemPassword);
+        await authModel.findByIdAndUpdate(user._id, { password: hashedPassword });
+        res.status(201).json(
+            new ApiResponse(200, user, "Password forget Successfully")
+        )
+    } catch (error) {
+        next(new ApiError(500, error.message));
+    }
+}
 
 export const updateUser = async (req, res, next) => {
     try {
@@ -207,7 +233,7 @@ export const updateUser = async (req, res, next) => {
         // console.log(avatarLocalPath);
 
         if (!avatarLocalPath) {
-             next(new ApiError(400, "Avatar file is required"));
+            next(new ApiError(400, "Avatar file is required"));
         }
 
         const avatar = await uploadCloudinary(avatarLocalPath);
@@ -225,6 +251,21 @@ export const updateUser = async (req, res, next) => {
             new ApiResponse(200, user, "User updated Successfully")
         )
 
+    } catch (error) {
+        throw new ApiError(500, error.message);
+    }
+}
+
+export const getUserProfile = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const user = await authModel.findById(id);
+        if (!user) {
+            next(new ApiError(400, "Error in getting profile"));
+        }
+        res.status(201).json(
+            new ApiResponse(200, user, "User fateched Successfully")
+        )
     } catch (error) {
         throw new ApiError(500, error.message);
     }

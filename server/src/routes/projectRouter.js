@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { createProject } from "../controllers/projectController.js";
+import { createProject, deleteProject, getAllProject, getProject, searchProject } from "../controllers/projectController.js";
 import upload from "../middlewares/multerMiddleware.js";
+import { isAdmin } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
@@ -10,4 +11,8 @@ router.post('/create', upload.fields([
     { name: 'amenities', maxCount: 5 }   // Adjust maxCount as needed
 ]), createProject);
 
+router.get("/get/:id", getProject);
+router.get("/getall", getAllProject);
+router.delete("/delete/:id", isAdmin, deleteProject);
+router.get("/search/project", searchProject);
 export default router;
