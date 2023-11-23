@@ -1,4 +1,5 @@
 import HomeLayout from "../components/HomeLayout";
+import Project from "../components/Project";
 
 function HomePage() {
     return (
@@ -21,7 +22,9 @@ function HomePage() {
                 </div>
                 <div className="project_section sm:w-[80%] md:w-[80%] m-auto mt-5">
                     <h1 className=" text-3xl font-semibold mb-3">Top Projects</h1>
-
+                    <div className=" my-5">
+                        <Project />
+                    </div>
                 </div>
             </div>
         </HomeLayout>
