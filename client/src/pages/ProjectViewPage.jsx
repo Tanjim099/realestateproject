@@ -157,7 +157,99 @@ function ProjectViewPage() {
 
                         {/* ==================== */}
 
+                        <div className="content06 mt-5 p-2 rounded-sm">
+                            <h1 className="py-2 px-2 text-3xl font-semibold">Gallery</h1>
+                            <div className="gallery mt-4 grid grid-cols-4 gap-2">
+                                <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                                <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                                <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                                <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                                <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                                <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                                <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                                <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                            </div>
+                        </div>
+                        <div className="content07 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-md">
+                            <h1 className="py-2 px-2 text-3xl font-semibold">Amenities You Would Love to Use</h1>
+                            <div className="Amenities grid grid-cols-6 gap-2">
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                                <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
+                                    <p className=" text-center" >Basketball Court</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
                     <div className=" sm:w-[100%] md:w-[30%] flex flex-col gap-6">
                         <div className="w-full bg-[#8ed1fc] p-5 rounded-md">
                             <div className="flex items-center justify-center">
