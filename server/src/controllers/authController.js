@@ -101,7 +101,12 @@ export const register = asyncHandler(async (req, res, next) => {
         //     fs.rm(`uploads/${req.file.filename}`)
         // };
 
-        const avatarLocalPath = req.file.path;
+        let avatarLocalPath;
+
+        if(req.file && req.file.path){
+            avatarLocalPath = req.file.path;
+        }
+
         console.log("avatarLocalPath", avatarLocalPath);
 
         if (!avatarLocalPath) {
@@ -110,12 +115,13 @@ export const register = asyncHandler(async (req, res, next) => {
 
         const avatar = await uploadCloudinary(avatarLocalPath);
 
-        if (!avatar) {
-            throw new ApiError(400, "Avatar file is required");
-        }
+        // if (!avatar) {
+        //     throw new ApiError(400, "Avatar file is required");
+        // }
         console.log("avatar", avatar)
-        user.avatar.public_id = avatar.public_id;
-        user.avatar.secure_url = avatar.secure_url;
+
+        user.avatar.public_id = avatar?.public_id || "DUMMY";
+        user.avatar.secure_url = avatar?.secure_url || "https://res.cloudinary.com/du9jzqlpt/image/upload/v1674647316/avatar_drzgxv.jpg";
 
 
 

@@ -1,12 +1,18 @@
 import { TiThMenu } from "react-icons/ti"
 import { NavLink } from "react-router-dom"
+import { AiFillCloseCircle } from 'react-icons/ai';
 function Navbar() {
+
+    const hideDrawer = () => {
+        const element = document.getElementsByClassName('drawer-toggle');
+        element[0].checked = false;
+    }
     return (
         <div className="navbar bg-[#7f1657]">
             <div className="flex-1">
 
                 <div>
-                    <div className="drawer flex items-center">
+                    <div className="drawer flex items-center z-20">
                         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
                         <div className="drawer-content">
                             {/* Page content here */}
@@ -15,6 +21,14 @@ function Navbar() {
                         <div className="drawer-side">
                             <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                             <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                                <li className='w-fit absolute right-2 z-50'>
+                                    <button>
+                                        <AiFillCloseCircle
+                                            size={"24px"}
+                                            onClick={hideDrawer}
+                                        />
+                                    </button>
+                                </li>
                                 {/* Sidebar content here */}
                                 <li><a>Sidebar Item 1</a></li>
                                 <li><a>Sidebar Item 2</a></li>

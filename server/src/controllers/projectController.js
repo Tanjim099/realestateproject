@@ -8,9 +8,9 @@ import uploadCloudinary from "../utils/cloudinary.js";
 
 const createProject = asyncHandler(async (req, res, next) => {
     try {
-        const { name, location, developer, description, specifications, startingFrom, currency, status, email, phone } = req.body;
+        const { name, location, developer, description, specifications, startingFrom, currency, status, email, phone, floorName, amenitiesName } = req.body;
 
-        if (!name || !location || !developer || !description || !specifications || !startingFrom || !currency || !status || !email || !phone) {
+        if (!name || !location || !developer || !description || !specifications || !startingFrom || !currency || !status || !email || !phone || !floorName || !amenitiesName) {
             return next(new ApiError(403, 'All Fields are required'));
         }
 
@@ -37,7 +37,9 @@ const createProject = asyncHandler(async (req, res, next) => {
 
         if (req.files) {
             try {
-
+                // console.log(req.files.gallery);
+                console.log(req.files.floorPlan);
+                // console.log(req.files.amenities);
                 const galleryImage = req.files.gallery;
                 const floorPlanImage = req.files.floorPlan;
                 const amenitiesImage = req.files.amenities;
@@ -55,19 +57,20 @@ const createProject = asyncHandler(async (req, res, next) => {
                 );
 
                 project.gallery = project.gallery.concat(galleyResult.map((result) => ({
-                    
                     public_id: result.public_id,
                     secure_url: result.secure_url,
-                }))); 
+                })));
 
-                project.amenities = project.amenities.concat(amenitiesResult.map((result) => ({
+                project.amenities = project.amenities.concat(amenitiesResult.map((result, idx) => ({
+                    name: amenitiesName[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
                     },
                 })));
 
-                project.floorPlan = project.floorPlan.concat(floorPlanResult.map((result) => ({
+                project.floorPlan = project.floorPlan.concat(floorPlanResult.map((result, idx) => ({
+                    types: floorName[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
