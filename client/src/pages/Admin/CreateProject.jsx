@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
+import { useDispatch } from 'react-redux';
 
 function CreateProject() {
     const [galleryImages, setGalleryImages] = useState([]);
@@ -8,6 +9,20 @@ function CreateProject() {
     const [amenitieImages, setAmenitiesImages] = useState([]);
     const [floorchips, setFloorChips] = useState([]);
     const [amenitiechips, setAmenitieChips] = useState([]);
+
+    const dispatch = useDispatch();
+
+    const [projectCreateData, setProjectCreateData] = useState({
+        name: '',
+        location: '',
+        developer: '',
+        description: '',
+        specifications: '',
+        startingFrom: '',
+        currency: '',
+        email: '',
+        phone: '',
+    });
 
     const handleGalleryImage = (e) => {
         e.preventDefault();
@@ -128,92 +143,147 @@ function CreateProject() {
         }
     }
 
+    const userInput = (e) => {
+        const { value, name } = e.target;
+
+        setProjectCreateData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    }
+    console.log(projectCreateData);
+
+    const onSubmit = () => {
+        try {
+            const formData = new FormData();
+            formData.append('name', projectCreateData.name);
+            formData.append('location', projectCreateData.location);
+            formData.append('developer', projectCreateData.developer);
+            formData.append('description', projectCreateData.description);
+            formData.append('startingFrom', projectCreateData.startingFrom);
+            formData.append('currency', projectCreateData.currency);
+            formData.append('email', projectCreateData.email);
+            formData.append('phone', projectCreateData.phone);
+
+
+            formData.append('floorName', floorchips);
+            formData.append('amenitiesName', amenitiechips);
+
+            formData.append('gallery', galleryImages);
+            formData.append('floorPlan', floorImages);
+            formData.append('amenities', amenitieImages);
+
+
+
+        } catch (Error) {
+            console.log(Error);
+        }
+    }
+
 
     return (
         <HomeLayout>
             <div className='flex justify-center items-center min-h-screen'>
                 <div className='border w-[600px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
-                    <form className='p-4'>
+                    <form className='p-4' onSubmit={onSubmit}>
                         <h2 className='text-3xl font-mono mt-3 border-b'>Create Project</h2>
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='name'>Name<sup className='text-pink-400'>*</sup></label>
                             <input
                                 type='text'
                                 name='name'
+                                id='name'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
                                 placeholder='Enter Project Name'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>Location<sup className='text-pink-400'>*</sup></label>
+                            <label htmlFor='location'>Location<sup className='text-pink-400'>*</sup></label>
                             <input
                                 type='text'
+                                id='location'
                                 name='location'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
                                 placeholder='Enter Project Location'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>Developer<sup className='text-pink-400'>*</sup></label>
+                            <label htmlFor='developer'>Developer<sup className='text-pink-400'>*</sup></label>
                             <input
                                 type='text'
+                                id='developer'
                                 name='developer'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
                                 placeholder='Enter Project Developer'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>Developer<sup className='text-pink-400'>*</sup></label>
+                            <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
                             <textarea
                                 type='text'
-                                name='developer'
+                                name='description'
+                                id='description'
                                 className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
                                 placeholder='Enter Project Developer'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>Specifications<sup className='text-pink-400'>*</sup></label>
+                            <label htmlFor='specifications'>Specifications<sup className='text-pink-400'>*</sup></label>
                             <input
                                 type='text'
                                 name='specifications'
+                                id='specifications'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
                                 placeholder='Enter Project Specifications'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>StartingFrom<sup className='text-pink-400'>*</sup></label>
+                            <label htmlFor='startingFrom'>StartingFrom<sup className='text-pink-400'>*</sup></label>
                             <input
                                 type='text'
                                 name='startingFrom'
+                                id='startingFrom'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
                                 placeholder='Enter Project StartingFrom'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>Currency<sup className='text-pink-400'>*</sup></label>
+                            <label htmlFor='currency'>Currency<sup className='text-pink-400'>*</sup></label>
                             <input
                                 type='text'
                                 name='currency'
+                                id='currency'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
                                 placeholder='Enter Project Currency'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>Email<sup className='text-pink-400'>*</sup></label>
+                            <label htmlFor='email'>Email<sup className='text-pink-400'>*</sup></label>
                             <input
                                 type='text'
                                 name='email'
+                                id='email'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
                                 placeholder='Enter Project Email'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>Phone<sup className='text-pink-400'>*</sup></label>
+                            <label htmlFor='phone'>Phone<sup className='text-pink-400'>*</sup></label>
                             <input
                                 type='text'
                                 name='phone'
+                                id='phone'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
                                 placeholder='Enter Project Phone'
+                                onChange={userInput}
                             />
                         </div>
                         <div className='my-3 inline-block'>
