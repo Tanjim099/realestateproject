@@ -34,18 +34,15 @@ const projectSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(createNewProject.pending, (state) => {
-            // Handle pending state if needed
             console.log('Pending...');
         });
 
         builder.addCase(createNewProject.fulfilled, (state, action) => {
-            // Handle fulfilled state
             console.log('Fulfilled...');
             console.log(action.payload);  // This will contain the result of the async operation
         });
 
         builder.addCase(createNewProject.rejected, (state, action) => {
-            // Handle rejected state
             console.log('Rejected...');
             console.error(action.error);
             toast.error('Failed to create project');

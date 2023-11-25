@@ -161,10 +161,10 @@ function CreateProject() {
     async function onFormSubmit(e) {
         try {
             e.preventDefault();
-            // if(!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone){
-            //     toast.error('Filed are all mandatory...');
-            //     return;
-            // }
+            if(!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone){
+                toast.error('Filed are all mandatory...');
+                return;
+            }
 
             const formData = new FormData();
             formData.append('name', projectCreateData.name);
@@ -205,7 +205,7 @@ function CreateProject() {
     return (
         <HomeLayout>
             <div className='flex justify-center items-center min-h-screen'>
-                <div className='border w-[600px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
+                <div className='border w-[700px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
                     <form className='p-4' onSubmit={onFormSubmit}>
                         <h2 className='text-3xl font-mono mt-3 border-b'>Create Project</h2>
                         <div className='my-3 flex flex-col gap-2'>
@@ -368,7 +368,7 @@ function CreateProject() {
                                 floorImages.length != 0 ?
                                     (
                                         floorImages.map((floorImage, idx) => (
-                                            <div key={idx} className='flex-row w-[100px] h-[100px] outline-dashed p-1'>
+                                            <div key={idx} className='flex-row w-[100px] mb-4 h-[100px] outline-dashed p-1'>
                                                 <img className='w-full h-full object-cover' src={floorImage.dataURL} />
                                                 <p className='text-xl font-mono text-center mt-2'>{floorchips[idx]}</p>
                                             </div>
