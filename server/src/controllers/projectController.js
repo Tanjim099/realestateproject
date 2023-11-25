@@ -8,6 +8,7 @@ import uploadCloudinary from "../utils/cloudinary.js";
 
 const createProject = asyncHandler(async (req, res, next) => {
     try {
+        console.log('Starting...');
         const { name, location, developer, description, specifications, startingFrom, currency, status, email, phone, floorName, amenitiesName } = req.body;
 
         if (!name || !location || !developer || !description || !specifications || !startingFrom || !currency || !status || !email || !phone || !floorName || !amenitiesName) {

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
 import { useDispatch } from 'react-redux';
+import { createProject } from '../../redux/slices/projectSlice';
 
 function CreateProject() {
     const [galleryImages, setGalleryImages] = useState([]);
@@ -109,7 +110,7 @@ function CreateProject() {
 
     }
 
-    console.log(amenitiechips);
+    // console.log(amenitiechips);
 
 
     const handelAmenitiesImage = (e) => {
@@ -151,7 +152,7 @@ function CreateProject() {
             [name]: value
         }));
     }
-    console.log(projectCreateData);
+    // console.log(projectCreateData);
 
     const onSubmit = () => {
         try {
@@ -173,7 +174,8 @@ function CreateProject() {
             formData.append('floorPlan', floorImages);
             formData.append('amenities', amenitieImages);
 
-
+            const res = dispatch(createProject(formData));
+            console.log(res);
 
         } catch (Error) {
             console.log(Error);
