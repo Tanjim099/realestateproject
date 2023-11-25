@@ -1,4 +1,5 @@
-import HomeLayout from "../components/HomeLayout"
+import HomeLayout from "../components/HomeLayout";
+import "../styles/ProjectViewPage.css";
 
 function ProjectViewPage() {
     return (
@@ -84,7 +85,7 @@ function ProjectViewPage() {
                             </div>
 
                         </div>
-                        <div className="content01 bg-gradient-to-r from-cyan-100 to-blue-10 p-2 rounded-md">
+                        <div className="content01 bg-gradient-to-r from-cyan-100 to-blue-10 p-2 rounded-md w-full max-h-[500px] overflow-y-auto">
                             <h1 className="text-3xl font-semibold">Sobha Neopolis</h1>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
                                 cupiditate ab dignissimos atque doloremque praesentium maxime quam obcaecati cum impedit iure
@@ -115,8 +116,18 @@ function ProjectViewPage() {
                         </div>
 
                         {/* ================= */}
+                        <div className="content05  mt-5 p-2 rounded-md" id="virtualsitetour">
+                            <h1 className="py-2 px-2 text-3xl font-semibold">Specification of Mantri Webcity</h1>
+                            <ul className=" list-disc w-full flex flex-col gap-2 ml-7">
+                                <li>Tota Number of Units - 1407</li>
+                                <li>Total Number of Floors - G+11</li>
+                                <li>Structure - Earthquake resistance – Seismic zone II compliant RCC framed structure</li>
+                                <li>Flooring - Living, dining, family, kitchen and bedrooms- Vitrified tile flooring (2ft x 2ft)</li>
+                                <li>Kitchen - Provision for water purifier</li>
+                            </ul>
+                        </div>
 
-                        <div className="content04 mt-5 py-4 px-2 rounded">
+                        <div className="content04 mt-5 py-4 px-2 bg-gradient-to-r from-cyan-100 to-blue-10 rounded-md">
                             <h1 className="text-3xl font-semibold">Complete View of Floor Plans &amp; Pricing</h1>
                             <div className="content04_box">
                                 <div id="Flats" className="w-[35%] flex items-center justify-between my-3 mx-auto">
@@ -147,17 +158,13 @@ function ProjectViewPage() {
                         </div>
 
 
-                        <div className="content05 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-sm" id="virtualsitetour">
-                            <h1 className="py-2 px-2 text-3xl font-semibold">Virtual Site Tour</h1>
-                            <iframe className="w-full h-[400px]" src="https://www.youtube.com/embed/nlo2_mQ5nA4" title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
-                        </div>
+
+
 
 
                         {/* ==================== */}
 
-                        <div className="content06 mt-5 p-2 rounded-sm">
+                        <div className="content06 mt-5 p-2 rounded-md">
                             <h1 className="py-2 px-2 text-3xl font-semibold">Gallery</h1>
                             <div className="gallery mt-4 grid grid-cols-4 gap-2">
                                 <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
@@ -246,6 +253,18 @@ function ProjectViewPage() {
                                     <p className=" text-center" >Basketball Court</p>
                                 </div>
                             </div>
+                        </div>
+
+                        <div className="content05  mt-5 p-2 rounded-sm" id="virtualsitetour">
+                            <h1 className="py-2 px-2 text-3xl font-semibold">Virtual Site Tour</h1>
+                            <iframe className="w-full h-[400px]" src="https://www.youtube.com/embed/nlo2_mQ5nA4" title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                        </div>
+
+                        <div className="content09 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-md ">
+                            <h1 className="py-2 px-2 text-3xl font-semibold">Location Of Project Name</h1>
+                            <iframe className=" w-full h-[450px] rounded-md" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7011.287631511752!2d77.23265872911378!3d28.52036222486543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1684832604572!5m2!1sen!2sin" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
                         </div>
 
                     </div>

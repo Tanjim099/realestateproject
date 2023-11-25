@@ -161,7 +161,7 @@ function CreateProject() {
     async function onFormSubmit(e) {
         try {
             e.preventDefault();
-            if(!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone){
+            if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                 toast.error('Filed are all mandatory...');
                 return;
             }
