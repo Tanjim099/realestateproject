@@ -1,4 +1,5 @@
 import HomeLayout from "../components/HomeLayout";
+import SimilarProjectCard from "../components/SimilarProjectCard";
 import "../styles/ProjectViewPage.css";
 
 function ProjectViewPage() {
@@ -266,9 +267,15 @@ function ProjectViewPage() {
                             <h1 className="py-2 px-2 text-3xl font-semibold">Location Of Project Name</h1>
                             <iframe className=" w-full h-[450px] rounded-md" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7011.287631511752!2d77.23265872911378!3d28.52036222486543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1684832604572!5m2!1sen!2sin" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
                         </div>
-
+                        {/* similar project card section */}
+                        <div className="mt-5 rounded-md">
+                            <h1 className=" text-xl font-semibold mb-3">Simila Projects</h1>
+                            <div className=" my-2">
+                                <SimilarProjectCard />
+                            </div>
+                        </div>
                     </div>
-
+                    {/* =============================== */}
                     <div className=" sm:w-[100%] md:w-[30%] flex flex-col gap-6">
                         <div className="w-full bg-[#8ed1fc] p-5 rounded-md">
                             <div className="flex items-center justify-center">
