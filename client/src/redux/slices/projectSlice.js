@@ -6,11 +6,13 @@ const initialState = {
     projects: []
 }
 
-export const createProject = createAsyncThunk('/project/create', async (data) => {
+export const createNewProject = createAsyncThunk("/project/create", async (data) => {
     try {
+        console.log('Starting...');
         console.log(data);
-        const res = axiosInstance.post('create/', data);
+        const res = axiosInstance.post('project/create/', data);
         console.log(res);
+
         toast.promise(res, {
             loading: 'Creating New Project',
             success: 'Project Created Successfully',
@@ -21,6 +23,8 @@ export const createProject = createAsyncThunk('/project/create', async (data) =>
 
     } catch (Error) {
         console.log(Error);
+        toast.error(Error);
+        throw Error;
     }
 });
 
@@ -29,7 +33,24 @@ const projectSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-     }
+        builder.addCase(createNewProject.pending, (state) => {
+            // Handle pending state if needed
+            console.log('Pending...');
+        });
+
+        builder.addCase(createNewProject.fulfilled, (state, action) => {
+            // Handle fulfilled state
+            console.log('Fulfilled...');
+            console.log(action.payload);  // This will contain the result of the async operation
+        });
+
+        builder.addCase(createNewProject.rejected, (state, action) => {
+            // Handle rejected state
+            console.log('Rejected...');
+            console.error(action.error);
+            toast.error('Failed to create project');
+        });
+    }
 })
 
 export default projectSlice.reducer;

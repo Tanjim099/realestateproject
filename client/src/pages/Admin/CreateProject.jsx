@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
 import { useDispatch } from 'react-redux';
-import { createProject } from '../../redux/slices/projectSlice';
+import { createNewProject } from '../../redux/slices/projectSlice';
+import toast from 'react-hot-toast';
 
 function CreateProject() {
     const [galleryImages, setGalleryImages] = useState([]);
@@ -153,15 +154,25 @@ function CreateProject() {
         }));
     }
     // console.log(projectCreateData);
+    // console.log(galleryImages.file);
+    // console.log(floorImages.file);
+    // console.log(amenitieImages.file);
 
-    const onSubmit = () => {
+    async function onFormSubmit(e) {
         try {
+            e.preventDefault();
+            // if(!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone){
+            //     toast.error('Filed are all mandatory...');
+            //     return;
+            // }
+
             const formData = new FormData();
             formData.append('name', projectCreateData.name);
             formData.append('location', projectCreateData.location);
             formData.append('developer', projectCreateData.developer);
             formData.append('description', projectCreateData.description);
             formData.append('startingFrom', projectCreateData.startingFrom);
+            formData.append('specifications', projectCreateData.specifications);
             formData.append('currency', projectCreateData.currency);
             formData.append('email', projectCreateData.email);
             formData.append('phone', projectCreateData.phone);
@@ -170,15 +181,23 @@ function CreateProject() {
             formData.append('floorName', floorchips);
             formData.append('amenitiesName', amenitiechips);
 
-            formData.append('gallery', galleryImages);
-            formData.append('floorPlan', floorImages);
-            formData.append('amenities', amenitieImages);
+            for (let i = 0; i < galleryImages.length; i++) {
+                formData.append('gallery', galleryImages[i].file);
+            }
+            for (let i = 0; i < galleryImages.length; i++) {
+                formData.append('floorPlan', floorImages[i].file);
+            }
+            for (let i = 0; i < galleryImages.length; i++) {
+                formData.append('amenities', amenitieImages[i].file);
+            }
+            console.log(formData);
 
-            const res = dispatch(createProject(formData));
+            const res = await dispatch(createNewProject(formData));
             console.log(res);
 
         } catch (Error) {
             console.log(Error);
+            throw Error;
         }
     }
 
@@ -187,7 +206,7 @@ function CreateProject() {
         <HomeLayout>
             <div className='flex justify-center items-center min-h-screen'>
                 <div className='border w-[600px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
-                    <form className='p-4' onSubmit={onSubmit}>
+                    <form className='p-4' onSubmit={onFormSubmit}>
                         <h2 className='text-3xl font-mono mt-3 border-b'>Create Project</h2>
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='name'>Name<sup className='text-pink-400'>*</sup></label>

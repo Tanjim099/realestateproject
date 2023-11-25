@@ -9,9 +9,11 @@ import uploadCloudinary from "../utils/cloudinary.js";
 const createProject = asyncHandler(async (req, res, next) => {
     try {
         console.log('Starting...');
-        const { name, location, developer, description, specifications, startingFrom, currency, status, email, phone, floorName, amenitiesName } = req.body;
+        const { name, location, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
+        console.log(req.body);
+        console.log(req.files);
 
-        if (!name || !location || !developer || !description || !specifications || !startingFrom || !currency || !status || !email || !phone || !floorName || !amenitiesName) {
+        if (!name || !location || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
             return next(new ApiError(403, 'All Fields are required'));
         }
 
@@ -25,7 +27,6 @@ const createProject = asyncHandler(async (req, res, next) => {
                 startingFrom,
                 currency
             },
-            status,
             contactInformation: {
                 email,
                 phone
@@ -90,6 +91,7 @@ const createProject = asyncHandler(async (req, res, next) => {
         )
 
     } catch (Error) {
+        console.log(Error.message);
         next(new ApiError(500, Error.message));
     }
 })
