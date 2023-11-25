@@ -4,6 +4,10 @@ import { CiCirclePlus } from "react-icons/ci";
 
 function CreateProject() {
     const [galleryImages, setGalleryImages] = useState([]);
+    const [floorImages, setFloorImages] = useState([]);
+    const [amenitieImages, setAmenitiesImages] = useState([]);
+    const [floorchips, setFloorChips] = useState([]);
+    const [amenitiechips, setAmenitieChips] = useState([]);
 
     const handleGalleryImage = (e) => {
         e.preventDefault();
@@ -29,7 +33,101 @@ function CreateProject() {
             });
         }
     };
-    console.log(galleryImages.length);
+
+    const handelFloorPlanImage = (e) => {
+        try {
+            e.preventDefault();
+            let uploadImage = e.target.files;
+
+            if (uploadImage.length > 0) {
+                const fileReaderArray = Array.from(uploadImage).map((image) => {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(image);
+
+                    return new Promise((resolve) => {
+                        fileReader.onload = () => {
+                            resolve({
+                                dataURL: fileReader.result,
+                                file: image,
+                            });
+                        };
+                    });
+                });
+
+                Promise.all(fileReaderArray).then((result) => {
+                    setFloorImages((prev) => [...prev, ...result]);
+                });
+            }
+
+        } catch (Error) {
+            console.log(Error);
+        }
+    }
+
+    const handelFloorKeyDown = (event) => {
+        if (event.key === 'Enter' || event.key === ",") {
+            event.preventDefault();
+            const chipValue = event.target.value.trim();
+
+            if (chipValue && !amenitiechips.includes(chipValue)) {
+                const newChips = [...floorchips, chipValue];
+                setFloorChips(newChips);
+                event.target.value = "";
+            }
+
+        }
+
+    }
+
+    const handelAmenitieKeyDown = (event) => {
+        if (event.key === 'Enter' || event.key === ",") {
+            event.preventDefault();
+            const chipValue = event.target.value.trim();
+
+            if (chipValue && !amenitiechips.includes(chipValue)) {
+                const newChips = [...amenitiechips, chipValue];
+                setAmenitieChips(newChips);
+                event.target.value = "";
+            }
+
+        }
+
+    }
+
+    console.log(amenitiechips);
+
+
+    const handelAmenitiesImage = (e) => {
+        try {
+            e.preventDefault();
+            const uploadImage = e.target.files;
+
+            if (uploadImage.length > 0) {
+                const fileReaderArray = Array.from(uploadImage).map((image) => {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(image);
+
+                    return new Promise((resolve) => {
+                        fileReader.onload = () => {
+                            resolve({
+                                dataURL: fileReader.result,
+                                file: image,
+                            });
+                        };
+                    });
+                });
+
+                Promise.all(fileReaderArray).then((result) => {
+                    setAmenitiesImages((prev) => [...prev, ...result]);
+                });
+
+            };
+
+        } catch (Error) {
+            console.log(Error);
+        }
+    }
+
 
     return (
         <HomeLayout>
@@ -145,6 +243,96 @@ function CreateProject() {
                                         <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
                                             <CiCirclePlus className='font-bold text-2xl text-red-700' />
                                             Gallery Image Add
+                                        </div>
+                                    )
+                            }
+                        </div>
+                        <div className='flex'>
+                            <div className='my-3 inline-block w-[50%]'>
+                                <label htmlFor='floorImage' className='border px-3 py-2 cursor-pointer rounded'>
+                                    Floor Plan
+                                    <sup className='text-pink-400'>*</sup>
+                                </label>
+                                <input
+                                    type='file'
+                                    id='floorImage'
+                                    onChange={handelFloorPlanImage}
+                                    className='hidden'
+                                />
+                            </div>
+                            <div className='w-[50%]'>
+                                <label htmlFor='floorchips'>FLoor Plan Name<sup className='text-pink-400'>*</sup></label>
+                                <input
+                                    type='text'
+                                    name='floorchips'
+                                    id='floorchips'
+                                    className='w-full py-3 px-3 rounded border-none outline-0'
+                                    placeholder='Enter Project FLoor Plan Name'
+                                    onKeyDown={handelFloorKeyDown}
+                                />
+                            </div>
+                        </div>
+                        <div className='flex gap-4 my-4'>
+                            {
+                                floorImages.length != 0 ?
+                                    (
+                                        floorImages.map((floorImage, idx) => (
+                                            <div key={idx} className='flex-row w-[100px] h-[100px] outline-dashed p-1'>
+                                                <img className='w-full h-full object-cover' src={floorImage.dataURL} />
+                                                <p className='text-xl font-mono text-center mt-2'>{floorchips[idx]}</p>
+                                            </div>
+                                        ))
+                                    )
+                                    :
+                                    (
+                                        <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
+                                            <CiCirclePlus className='font-bold text-2xl text-red-700' />
+                                            FLoor Plan Image
+                                        </div>
+                                    )
+                            }
+                        </div>
+                        <div className='flex'>
+                            <div className='my-3 inline-block w-[50%]'>
+                                <label htmlFor='amenities' className='border px-3 py-2 cursor-pointer rounded'>
+                                    Amenities
+                                    <sup className='text-pink-400'>*</sup>
+                                </label>
+                                <input
+                                    type='file'
+                                    id='amenities'
+                                    onChange={handelAmenitiesImage}
+                                    className='hidden'
+                                />
+                            </div>
+                            <div className='w-[50%]'>
+                                <label htmlFor='amenitieschips'>Amenities Name<sup className='text-pink-400'>*</sup></label>
+                                <input
+                                    type='text'
+                                    name='amenitieschips'
+                                    id='amenitieschips'
+                                    className='w-full py-3 px-3 rounded border-none outline-0'
+                                    placeholder='Enter Project Amenities'
+                                    onKeyDown={handelAmenitieKeyDown}
+                                />
+                            </div>
+                        </div>
+                        <div className='flex gap-4 my-4'>
+                            {
+                                amenitieImages.length != 0 ?
+                                    (
+                                        amenitieImages.map((amenitieImage, idx) => (
+                                            <div key={idx} className='flex-row w-[100px] h-[100px] outline-dashed p-1'>
+                                                <img className='w-full h-full object-cover' src={amenitieImage.dataURL} />
+                                                <p className='text-xl font-mono text-center mt-2'>{amenitiechips[idx]}</p>
+                                            </div>
+                                        ))
+                                    )
+                                    :
+                                    (
+                                        <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
+                                            <CiCirclePlus className='font-bold text-2xl text-red-700' />
+                                            Amenities Image
                                         </div>
                                     )
                             }
