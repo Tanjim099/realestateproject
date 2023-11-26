@@ -43,6 +43,24 @@ export const sendOTP = createAsyncThunk("/auth/otp", async (data) => {
     }
 });
 
+export const register = createAsyncThunk("/auth/register", async (data) => {
+    try {
+        const res = axiosInstance.post('auth/register', data);
+        console.log(res);
+
+        toast.promise(res,{
+            loading:'Wait! Veify',
+            success:'Successfully Registered',
+            error:'Failed Register'
+        });
+
+        return (await res).data;
+
+    } catch (Error) {
+        console.log(Error);
+    }
+});
+
 
 const authSlice = createSlice({
     name: "auth",

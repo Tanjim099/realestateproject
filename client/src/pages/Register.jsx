@@ -4,10 +4,12 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BsPersonCircle } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { sendOTP, setUserData } from '../redux/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 function Register() {
     // firstName, lastName, email, phone, password, otp, answer
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [userInput, setUserInput] = useState({
         firstName: '',
         lastName: '',
@@ -30,9 +32,11 @@ function Register() {
         try {
             e.preventDefault();
 
-            // dispatch(setUserData(userInput));
             console.log(userInput.email);
-             await dispatch(sendOTP(userInput.email));
+            await dispatch(sendOTP(userInput.email));
+            dispatch(setUserData(userInput));
+            
+            navigate('/verify-email');
 
 
         } catch (Error) {
