@@ -12,6 +12,7 @@ import { camparePassword, hashPassword } from "../helpers/authHelper.js";
 export const sendOTP = asyncHandler(async (req, res, next) => {
     try {
         const { email } = req.body;
+        console.log(email);
         if (!email) {
             next(new ApiError(403, 'Email is required'));
         }

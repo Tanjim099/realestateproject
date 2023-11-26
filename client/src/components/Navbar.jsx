@@ -1,12 +1,17 @@
 import { TiThMenu } from "react-icons/ti"
 import { NavLink } from "react-router-dom"
 import { AiFillCloseCircle } from 'react-icons/ai';
+import { useSelector } from "react-redux";
 function Navbar() {
 
     const hideDrawer = () => {
         const element = document.getElementsByClassName('drawer-toggle');
         element[0].checked = false;
     }
+
+    const { data } = useSelector((state) => state.auth);
+    // console.log(data);
+
     return (
         <div className="navbar bg-[#7f1657]">
             <div className="flex-1">
@@ -34,7 +39,10 @@ function Navbar() {
                                 <li><a>Sidebar Item 2</a></li>
                                 <li><NavLink to="/project">Project</NavLink></li>
                                 <li><NavLink to="/create-project">Create-Project</NavLink></li>
-
+                                <div className="flex justify-between items-center gap-3 p-2">
+                                    <li className="bg-red-400 flex items-center justify-center w-[50%] rounded"><NavLink to="/login">Login</NavLink></li>
+                                    <li className="bg-red-400 flex items-center justify-center w-[50%] rounded"><NavLink to="/register">Register</NavLink></li>
+                                </div>
                             </ul>
                         </div>
                         <a className=" font-semibold text-white p-0 text-3xl">HOME99</a>
@@ -62,7 +70,7 @@ function Navbar() {
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img alt="Tailwind CSS Navbar component" src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            <img alt="User Image" src={data?.avatar?.secure_url} />
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

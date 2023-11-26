@@ -5,7 +5,8 @@ import toast from 'react-hot-toast';
 const initialState = {
     isLoggedIn: false,
     role: "",
-    data: []
+    data: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : null,
+    signData: null,
 }
 
 export const login = createAsyncThunk("/auth/login", async (data) => {
@@ -24,13 +25,34 @@ export const login = createAsyncThunk("/auth/login", async (data) => {
     } catch (Error) {
         console.log(Error);
     }
-})
+});
+
+export const sendOTP = createAsyncThunk("/auth/otp", async (data) => {
+    try {
+        console.log(data);
+        const res = axiosInstance.post('auth/otp', { email: data });
+        toast.promise(res, {
+            loading: 'Wait! Send OTP',
+            success: 'Successfully Send OTP',
+            error: 'Failed Send OTP',
+        });
+
+        return (await res).data;
+    } catch (Error) {
+        console.log(Error);
+    }
+});
 
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        setUserData: (state, action) => {
+            console.log(action?.payload);
+            state.signData = action?.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
             state.data = action?.payload;
@@ -39,5 +61,7 @@ const authSlice = createSlice({
         })
     }
 })
+
+export const { setUserData } = authSlice.actions;
 
 export default authSlice.reducer;

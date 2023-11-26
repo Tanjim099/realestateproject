@@ -34,7 +34,8 @@ function Login() {
 
             const res = await dispatch(login(userInput));
 
-            console.log(res?.payload?.success);
+            // console.log(res?.payload?.success);
+            
             if (res?.payload?.success) {
                 navigate('/');
             }
