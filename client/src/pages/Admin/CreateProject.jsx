@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createNewProject } from '../../redux/slices/projectSlice';
 import toast from 'react-hot-toast';
+import { useQuill } from 'react-quilljs';
+import 'quill/dist/quill.snow.css';
+import Quill from 'quill';
 
 function CreateProject() {
     const [galleryImages, setGalleryImages] = useState([]);
@@ -11,9 +14,14 @@ function CreateProject() {
     const [amenitieImages, setAmenitiesImages] = useState([]);
     const [floorchips, setFloorChips] = useState([]);
     const [amenitiechips, setAmenitieChips] = useState([]);
+    const { quill, quillRef } = useQuill();
+
+    // console.log(quill)
+    // console.log(quillRef);
 
     const dispatch = useDispatch();
-
+    const { project, editProject } = useSelector((state) => state.project);
+    // console.log(projects);
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
         location: '',
@@ -25,6 +33,8 @@ function CreateProject() {
         email: '',
         phone: '',
     });
+
+    // console.log(projectCreateData);
 
     const handleGalleryImage = (e) => {
         e.preventDefault();
@@ -161,6 +171,43 @@ function CreateProject() {
     async function onFormSubmit(e) {
         try {
             e.preventDefault();
+            if (editProject) {
+                if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
+                    toast.error('Filed are all mandatory...');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('name', projectCreateData.name);
+                formData.append('location', projectCreateData.location);
+                formData.append('developer', projectCreateData.developer);
+                formData.append('description', projectCreateData.description);
+                formData.append('startingFrom', projectCreateData.startingFrom);
+                formData.append('specifications', projectCreateData.specifications);
+                formData.append('currency', projectCreateData.currency);
+                formData.append('email', projectCreateData.email);
+                formData.append('phone', projectCreateData.phone);
+
+
+                formData.append('floorName', floorchips);
+                formData.append('amenitiesName', amenitiechips);
+
+                for (let i = 0; i < galleryImages.length; i++) {
+                    formData.append('gallery', galleryImages[i].file);
+                }
+                for (let i = 0; i < galleryImages.length; i++) {
+                    formData.append('floorPlan', floorImages[i].file);
+                }
+                for (let i = 0; i < galleryImages.length; i++) {
+                    formData.append('amenities', amenitieImages[i].file);
+                }
+                console.log(formData);
+
+                const res = await dispatch(updateNewProject([formData, project._id]));
+                console.log(res);
+
+                return;
+            }
             if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                 toast.error('Filed are all mandatory...');
                 return;
@@ -207,7 +254,11 @@ function CreateProject() {
             <div className='flex justify-center items-center min-h-screen'>
                 <div className='border w-[700px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
                     <form className='p-4' onSubmit={onFormSubmit}>
-                        <h2 className='text-3xl font-mono mt-3 border-b'>Create Project</h2>
+                        <h2 className='text-3xl font-mono mt-3 border-b'>
+                            {
+                                editProject ? 'Update Project' : 'Create Project'
+                            }
+                        </h2>
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='name'>Name<sup className='text-pink-400'>*</sup></label>
                             <input
@@ -244,17 +295,21 @@ function CreateProject() {
                                 onChange={userInput}
                             />
                         </div>
-                        <div className='my-3 flex flex-col gap-2'>
+                        <div className='my-3 flex flex-col gap-2 h-[400px]'>
                             <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
-                            <textarea
-                                type='text'
-                                name='description'
-                                id='description'
-                                className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
-                                value={userInput.description}
-                                placeholder='Enter Project Developer'
-                                onChange={userInput}
-                            />
+
+                            <div ref={quillRef}>
+                                <textarea
+                                    type='text'
+                                    name='description'
+                                    id='description'
+                                    className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
+                                    value={userInput.description}
+                                    placeholder='Enter Project Developer'
+                                    onChange={userInput}
+                                // ref={quillRef}
+                                />
+                            </div>
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='specifications'>Specifications<sup className='text-pink-400'>*</sup></label>
@@ -446,7 +501,9 @@ function CreateProject() {
                                 type='submit'
                                 className='bg-red-400 text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
                             >
-                                Create
+                                {
+                                    editProject ? 'Update Project' : 'Create Project'
+                                }
                             </button>
                         </div>
                     </form>

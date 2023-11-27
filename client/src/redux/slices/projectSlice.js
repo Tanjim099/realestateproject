@@ -3,7 +3,9 @@ import axiosInstance from '../../helper/axiosInstance';
 import toast from 'react-hot-toast';
 
 const initialState = {
-    projects: []
+    projects: [],
+    editProject: false,
+    project: null,
 }
 
 export const createNewProject = createAsyncThunk("/project/create", async (data) => {
@@ -28,10 +30,39 @@ export const createNewProject = createAsyncThunk("/project/create", async (data)
     }
 });
 
+export const updateNewProject = createAsyncThunk("/project/update", async (data) => {
+    try {
+        console.log('Starting...');
+        console.log(data);
+        const res = axiosInstance.post(`project/update/${data[1]}`, data[0]);
+        console.log(res);
+
+        toast.promise(res, {
+            loading: 'Wait! Updating Project',
+            success: 'Project Updating Successfully',
+            error: 'Failed to Updating project'
+        });
+
+        return (await res).data;
+
+    } catch (Error) {
+        console.log(Error);
+        toast.error(Error);
+        throw Error;
+    }
+});
+
 const projectSlice = createSlice({
     name: "project",
     initialState,
-    reducers: {},
+    reducers: {
+        setEditProject: (state, action) => {
+            state.editProject = action?.payload;
+        },
+        setProject: (state, action) => {
+            state.project = action?.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(createNewProject.pending, (state) => {
             console.log('Pending...');
@@ -49,5 +80,7 @@ const projectSlice = createSlice({
         });
     }
 })
+
+export const { setEditProject, setProject } = projectSlice.actions;
 
 export default projectSlice.reducer;
