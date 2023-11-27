@@ -7,6 +7,7 @@ import CreateProject from './pages/Admin/CreateProject'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import VerifyEmail from './pages/VerifyEmail'
+import EditProject from './pages/Admin/EditProject'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path='/project' element={<ProjectViewPage />} />
       <Route path='/create-project' element={<CreateProject />} />
+      <Route path='/update-project/:courseId' element={<EditProject />} />
     </Routes>
   )
 }
