@@ -172,11 +172,7 @@ function CreateProject() {
     }
 
     async function onFormSubmit(e) {
-        e.preventDefault();
         try {
-<<<<<<< HEAD
-
-=======
             e.preventDefault();
             if (editProject) {
                 if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
@@ -215,7 +211,6 @@ function CreateProject() {
 
                 return;
             }
->>>>>>> a0de5187c93e1f7ef60da7fa7e6dc18dd4ace77c
             if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                 toast.error('Filed are all mandatory...');
                 return;
@@ -280,10 +275,6 @@ function CreateProject() {
                                 // value={userInput.name}
                                 placeholder='Enter Project Name'
                                 onChange={userInput}
-<<<<<<< HEAD
-                            // value={userInput.name}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -296,10 +287,6 @@ function CreateProject() {
                                 value={userInput.location}
                                 placeholder='Enter Project Location'
                                 onChange={userInput}
-<<<<<<< HEAD
-                            // value={userInput.location}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -312,15 +299,10 @@ function CreateProject() {
                                 value={userInput.developer}
                                 placeholder='Enter Project Developer'
                                 onChange={userInput}
-<<<<<<< HEAD
-                            // value={userInput.developer}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
-<<<<<<< HEAD
                             <JoditEditor
                                 type='text'
                                 name='description'
@@ -331,21 +313,6 @@ function CreateProject() {
                                 onChange={(data) => contantField(data)}
                                 ref={editor}
                             />
-=======
-
-                            <div ref={quillRef}>
-                                <textarea
-                                    type='text'
-                                    name='description'
-                                    id='description'
-                                    className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
-                                    value={userInput.description}
-                                    placeholder='Enter Project Developer'
-                                    onChange={userInput}
-                                // ref={quillRef}
-                                />
-                            </div>
->>>>>>> d46264ac079f40eeda63a31b112503adb062b9bb
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='specifications'>Specifications<sup className='text-pink-400'>*</sup></label>
@@ -357,10 +324,6 @@ function CreateProject() {
                                 value={userInput.specifications}
                                 placeholder='Enter Project Specifications'
                                 onChange={userInput}
-<<<<<<< HEAD
-                            // value={userInput.specifications}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -373,10 +336,6 @@ function CreateProject() {
                                 value={userInput.startingFrom}
                                 placeholder='Enter Project StartingFrom'
                                 onChange={userInput}
-<<<<<<< HEAD
-                            // value={userInput.startingFrom}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -389,10 +348,6 @@ function CreateProject() {
                                 value={userInput.currency}
                                 placeholder='Enter Project Currency'
                                 onChange={userInput}
-<<<<<<< HEAD
-                            // value={userInput.currency}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -405,10 +360,6 @@ function CreateProject() {
                                 value={userInput.email}
                                 placeholder='Enter Project Email'
                                 onChange={userInput}
-<<<<<<< HEAD
-                            // value={userInput.email}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -421,10 +372,6 @@ function CreateProject() {
                                 value={userInput.phone}
                                 placeholder='Enter Project Phone'
                                 onChange={userInput}
-<<<<<<< HEAD
-                            // value={userInput.phone}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 inline-block'>
@@ -482,10 +429,6 @@ function CreateProject() {
                                     // value={floorchips}
                                     placeholder='Enter Project FLoor Plan Name'
                                     onKeyDown={handelFloorKeyDown}
-<<<<<<< HEAD
-                                // value={floorchips}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                                 />
                             </div>
                         </div>
@@ -533,10 +476,6 @@ function CreateProject() {
                                     // value={amenitiechips}
                                     placeholder='Enter Project Amenities'
                                     onKeyDown={handelAmenitieKeyDown}
-<<<<<<< HEAD
-                                // value={amenitiechips}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                                 />
                             </div>
                         </div>
