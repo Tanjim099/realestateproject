@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react'
 import Spinner from './components/Spinner'
 import RequireAuth from './components/auth/RequireAuth'
 import NotFound from './pages/NotFound'
+import Denied from './pages/Denied'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path='/project/:id' element={<ProjectViewPage />} />
+        <Route path='/denied' element={<Denied />} />
         <Route path='*' element={<NotFound />} />
 
 

@@ -12,7 +12,6 @@ function HomePage() {
     const dispatch = useDispatch();
 
     function arrowLeft() {
-        console.log("yes")
         projects.scrollLeft -= 400
     }
     function arrowRight() {
@@ -20,10 +19,8 @@ function HomePage() {
     }
 
     const { projects } = useSelector((state) => state.project);
-    console.log(projects)
     async function onLoadGetData() {
         const response = await dispatch(getAllProjects());
-        console.log(response)
     }
     useEffect(() => {
         onLoadGetData()

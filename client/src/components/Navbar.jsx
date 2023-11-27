@@ -14,13 +14,15 @@ function Navbar() {
     }
 
     const { data } = useSelector((state) => state.auth);
-    // console.log(data);
+    console.log(data);
 
+    const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
+    console.log(isLoggedIn);
     const handelLogout = async (e) => {
         // e.preventDefault();
-       const res = await dispatch(logout());
-       console.log(res);
-       if(res?.payload?.success) window.location.reload();
+        const res = await dispatch(logout());
+        console.log(res);
+        if (res?.payload?.success) window.location.reload();
     }
 
     return (
@@ -85,14 +87,34 @@ function Navbar() {
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <a className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </a>
-                        </li>
-                        <li><a>Settings</a></li>
-                        <li><Link onClick={handelLogout}>Logout</Link></li>
+                        {!isLoggedIn ? (
+                            <>
+                                <li className=" bg-transparent">
+                                    <NavLink to="/login" className=" bg-transparent">
+                                        Login
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/register" >
+                                        Register
+                                    </NavLink>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <NavLink>
+                                        Profile
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink>
+                                        Dashboard
+                                    </NavLink>
+                                </li>
+                                <li><Link onClick={handelLogout}>Logout</Link></li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>

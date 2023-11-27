@@ -4,7 +4,6 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
 function Project({ data }) {
     const navigate = useNavigate();
     let projects = document.getElementById("projects");
-    console.log(data)
     // console.log(data.gallery[0])
     // console.log(data.gallery[1].secure_url)
     return (
