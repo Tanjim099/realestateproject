@@ -48,10 +48,10 @@ export const register = createAsyncThunk("/auth/register", async (data) => {
         const res = axiosInstance.post('auth/register', data);
         console.log(res);
 
-        toast.promise(res,{
-            loading:'Wait! Veify',
-            success:'Successfully Registered',
-            error:'Failed Register'
+        toast.promise(res, {
+            loading: 'Wait! Veify',
+            success: 'Successfully Registered',
+            error: 'Failed Register'
         });
 
         return (await res).data;

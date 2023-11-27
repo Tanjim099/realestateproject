@@ -1,7 +1,21 @@
+import { useDispatch } from "react-redux";
 import HomeLayout from "../components/HomeLayout";
 import Project from "../components/Project";
+import { getAllProjects } from "../redux/slices/projectSlice";
+import { useEffect } from "react";
 
 function HomePage() {
+    const dispatch = useDispatch();
+    // async function onLoadGetData() {
+    //     const response = await dispatch(getAllProjects());
+    //     console.log(response)
+    // }
+    useEffect(() => {
+        (async () => {
+            const response = await dispatch(getAllProjects());
+            console.log(response)
+        })
+    }, [])
     return (
         <HomeLayout>
             <div className="homeContainer ">
