@@ -12,6 +12,7 @@ import { camparePassword, hashPassword } from "../helpers/authHelper.js";
 export const sendOTP = asyncHandler(async (req, res, next) => {
     try {
         const { email } = req.body;
+        console.log(email);
         if (!email) {
             next(new ApiError(403, 'Email is required'));
         }
@@ -57,6 +58,7 @@ export const register = asyncHandler(async (req, res, next) => {
 
         const { firstName, lastName, email, phone, password, otp, answer } = req.body;
         console.log(typeof otp);
+        console.log(email);
 
         if (!firstName || !lastName || !email || phone || password, !otp) {
             return next(new ApiError(400, "All Fields are required"));
@@ -102,8 +104,8 @@ export const register = asyncHandler(async (req, res, next) => {
         // };
 
         let avatarLocalPath;
-
-        if(req.file && req.file.path){
+        console.log(req.files);
+        if (req.file && req.file.path) {
             avatarLocalPath = req.file.path;
         }
 
@@ -141,7 +143,7 @@ export const login = async (req, res, next) => {
         const { email, password } = req.body;
 
         console.log(password);
-        if (!email, !password) {
+        if (!email || !password) {
             return next(new ApiError(400, "All Fields are required"));
         }
 

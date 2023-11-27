@@ -2,14 +2,72 @@ import React, { useState } from 'react'
 import HomeLayout from '../components/HomeLayout'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BsPersonCircle } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { sendOTP, setUserData } from '../redux/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 function Register() {
     // firstName, lastName, email, phone, password, otp, answer
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [userInput, setUserInput] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        answer: '',
+        password: '',
+        avatar: '',
+    });
+
+    const handelUserInput = (e) => {
+        const { value, name } = e.target;
+        setUserInput((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    }
+    // console.log(userInput.email);
+
+    const handelImage = (event) => {
+        event.preventDefault();
+        const uploadImage = event.target.files[0];
+
+        if (uploadImage) {
+            setUserData((prev) => ({
+                ...prev,
+                avatar: uploadImage
+            }));
+            // const fileReader = new FileReader();
+            // fileReader.readAsDataURL(uploadImage);
+
+            // fileReader.addEventListener('load', function () {
+
+            // })
+        }
+    }
+
+    const onFormSubmit = async (e) => {
+        try {
+            e.preventDefault();
+
+            console.log(userInput.email);
+            await dispatch(sendOTP(userInput.email));
+            dispatch(setUserData(userInput));
+
+            navigate('/verify-email');
+
+
+        } catch (Error) {
+            console.log(Error);
+        }
+    }
+
 
     return (
         <HomeLayout>
             <div className='flex items-center justify-center min-h-screen my-4'>
-                <form className='border w-[600px] min-h-[500px] p-4'>
+                <form onSubmit={onFormSubmit} className='border w-[600px] min-h-[500px] p-4'>
                     <h2 className='text-3xl font-mono mt-3 border-b'>Register Form</h2>
                     <div className='flex items-center justify-center'>
                         <label className='cursor-pointer' htmlFor='avatar'>
@@ -19,6 +77,7 @@ function Register() {
                             type='file'
                             className='hidden'
                             id='avatar'
+                            onChange={handelImage}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -29,6 +88,8 @@ function Register() {
                             name='firstName'
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter First Name'
+                            onChange={handelUserInput}
+                            value={userInput.firstName}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -39,6 +100,8 @@ function Register() {
                             name='lastName'
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Last Name'
+                            onChange={handelUserInput}
+                            value={userInput.lastName}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -49,6 +112,8 @@ function Register() {
                             name='email'
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Your Email'
+                            onChange={handelUserInput}
+                            value={userInput.email}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -59,6 +124,8 @@ function Register() {
                             name='phone'
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Your Phone Number'
+                            onChange={handelUserInput}
+                            value={userInput.phone}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -69,6 +136,8 @@ function Register() {
                             name='answer'
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Your Answer'
+                            onChange={handelUserInput}
+                            value={userInput.answer}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2 relative'>
@@ -79,6 +148,8 @@ function Register() {
                             name='password'
                             className='w-full py-3 px-3 rounded border-none outline-0 relative'
                             placeholder='Enter Your Password'
+                            onChange={handelUserInput}
+                            value={userInput.password}
                         />
                         <span onClick={() => setShowPassword((prev) => !prev)} className='absolute right-3 top-[45px] cursor-pointer'>
                             {
