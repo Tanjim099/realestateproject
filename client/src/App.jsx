@@ -11,6 +11,7 @@ import EditProject from './pages/Admin/EditProject'
 import { useEffect, useState } from 'react'
 import Spinner from './components/Spinner'
 import RequireAuth from './components/auth/RequireAuth'
+import NotFound from './pages/NotFound'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path='/project/:id' element={<ProjectViewPage />} />
+        <Route path='*' element={<NotFound />} />
 
 
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
