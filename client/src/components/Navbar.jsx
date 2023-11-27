@@ -1,9 +1,13 @@
 import { TiThMenu } from "react-icons/ti"
-import { NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/slices/authSlice";
 function Navbar() {
 
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const hideDrawer = () => {
         const element = document.getElementsByClassName('drawer-toggle');
         element[0].checked = false;
@@ -12,8 +16,15 @@ function Navbar() {
     const { data } = useSelector((state) => state.auth);
     // console.log(data);
 
+    const handelLogout = async (e) => {
+        // e.preventDefault();
+       const res = await dispatch(logout());
+       console.log(res);
+       if(res?.payload?.success) window.location.reload();
+    }
+
     return (
-        <div className="navbar bg-[#7f1657]">
+        <div className="navbar bg-[#7f1657] z-10 sticky top-0 left-0 right-0">
             <div className="flex-1">
 
                 <div>
@@ -35,8 +46,8 @@ function Navbar() {
                                     </button>
                                 </li>
                                 {/* Sidebar content here */}
-                                <li><a>Sidebar Item 1</a></li>
-                                <li><a>Sidebar Item 2</a></li>
+                                <li><a>Property</a></li>
+                                <li><a>Blog</a></li>
                                 <li><NavLink to="/project">Project</NavLink></li>
                                 <li><NavLink to="/create-project">Create-Project</NavLink></li>
                                 <div className="flex justify-between items-center gap-3 p-2">
@@ -45,7 +56,7 @@ function Navbar() {
                                 </div>
                             </ul>
                         </div>
-                        <a className=" font-semibold text-white p-0 text-3xl">HOME99</a>
+                        <Link to={'/'} className=" font-semibold text-white p-0 text-3xl">HOME99</Link>
                     </div>
                 </div>
             </div>
@@ -81,7 +92,7 @@ function Navbar() {
                             </a>
                         </li>
                         <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
+                        <li><Link onClick={handelLogout}>Logout</Link></li>
                     </ul>
                 </div>
             </div>

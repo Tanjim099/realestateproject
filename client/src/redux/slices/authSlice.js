@@ -12,7 +12,7 @@ const initialState = {
 export const login = createAsyncThunk("/auth/login", async (data) => {
     try {
         const res = axiosInstance.post('auth/login', data);
-        console.log(res);
+        // console.log(res);
 
         toast.promise(res, {
             loading: 'Wait! Login',
@@ -49,7 +49,7 @@ export const register = createAsyncThunk("/auth/register", async (data) => {
         console.log(res);
 
         toast.promise(res, {
-            loading: 'Wait! Veify',
+            loading: 'Wait! Logout in progress...',
             success: 'Successfully Registered',
             error: 'Failed Register'
         });
@@ -61,13 +61,28 @@ export const register = createAsyncThunk("/auth/register", async (data) => {
     }
 });
 
+export const logout = createAsyncThunk('/auth/logout', async () => {
+    try {
+        const res = axiosInstance.get('auth/logout');
+
+        toast.promise(res, {
+            loading: "Wait! Logout in progress...",
+            success: (data) => {
+                return data?.data?.message
+            },
+            error: "Failed to logout"
+        });
+        return (await res).data;
+    } catch (Error) {
+        console.log(Error);
+    }
+});
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
         setUserData: (state, action) => {
-            console.log(action?.payload);
             state.signData = action?.payload;
         }
     },
@@ -76,6 +91,11 @@ const authSlice = createSlice({
             state.data = action?.payload;
             localStorage.setItem('data', JSON.stringify(action?.payload?.data));
             state.isLoggedIn = true;
+        })
+        builder.addCase(logout.fulfilled, (state, action) => {
+            state.data = null;
+            localStorage.removeItem('data');
+            state.isLoggedIn = false;
         })
     }
 })

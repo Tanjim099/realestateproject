@@ -9,11 +9,11 @@ import uploadCloudinary from "../utils/cloudinary.js";
 const createProject = asyncHandler(async (req, res, next) => {
     try {
         console.log('Starting...');
-        const { name, location, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
+        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
         console.log(req.body);
         console.log(req.files);
 
-        if (!name || !location || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
+        if (!name || !location || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
             return next(new ApiError(403, 'All Fields are required'));
         }
 
@@ -23,6 +23,7 @@ const createProject = asyncHandler(async (req, res, next) => {
             developer,
             description,
             specifications,
+            city,
             pricing: {
                 startingFrom,
                 currency
@@ -99,7 +100,7 @@ const createProject = asyncHandler(async (req, res, next) => {
 const updateProject = asyncHandler(async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { name, location, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
+        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
 
         if (!id) {
             return next(new ApiError(403, 'Project id not found,Please try again later'));
@@ -116,6 +117,7 @@ const updateProject = asyncHandler(async (req, res, next) => {
             location,
             developer,
             description,
+            city,
             specifications,
             pricing: {
                 startingFrom,
@@ -217,7 +219,7 @@ const getAllProject = async (req, res, next) => {
         const allProjects = await Project.find().limit(limit * 1).skip((page - 1) * limit).sort({ createdAt: -1 }).exec();
 
         const count = await Project.countDocuments();
-        console.log(allProjects);
+        // console.log(allProjects);
         res.status(201).json(
             new ApiResponse(200, allProjects, "All Projects feched Successfully...")
         )

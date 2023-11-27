@@ -68,8 +68,8 @@ export const getProject = createAsyncThunk("/project/getProject", async (courseI
 
 export const getAllProjects = createAsyncThunk("/project/getall", async () => {
     try {
-        const res = axiosInstance.get("project//getall");
-        console.log(res);
+        const res = axiosInstance.get("project/getall");
+        
         toast.promise(res, {
             loading: "Wait Getting All Data",
             success: "All Data Fetched Successfully",

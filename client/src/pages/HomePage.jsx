@@ -31,7 +31,6 @@ function HomePage() {
                         backgroundAttachment: 'fixed',
                         backgroundColor: 'rgba(255, 255, 255, 0.8)',
                         boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-                        borderRadius: '10px',
                         opacity: 0.9,
                         transition: 'background 0.3s ease-in-out',
                         clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
@@ -63,7 +62,6 @@ function HomePage() {
                     backgroundAttachment: 'fixed',
                     backgroundColor: 'rgba(255, 255, 255, 0.8)',
                     boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-                    borderRadius: '10px',
                     opacity: 0.9,
                     transition: 'background 0.3s ease-in-out',
                 }}>
@@ -86,6 +84,31 @@ function HomePage() {
                         </div>
                     </div>
 
+                </div>
+                <div className="bg-red-300 h-[400px] my-10 flex p-10">
+                    <div className="w-[30%] text-white ml-6 p-5">
+                        <h2 className="text-5xl">Explore by Property Type</h2>
+                        <p className="font-mono text-lg my-5">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
+                        <button className="bg-[#7f1657] hover:bg-[#a7076a] transition-all duration-300 ease-in-out text-white font-semibold px-5 py-3 rounded ">View All Property</button>
+                    </div>
+                    <div className="w-[60%] text-white p-5  h-[200px] mt-24 ml-9 bg-red-400 flex justify-between items-center">
+                        <div className="flex flex-col items-center justify-center border-r-2 p-2">
+                            <span className="text-5xl"><MdOutlineHomeWork /></span>
+                            <p>Home & Appartment</p>
+                        </div>
+                        <div className="flex flex-col items-center justify-center border-r-2 p-2">
+                            <span className="text-5xl"><MdOutlineHomeWork /></span>
+                            <p>Home & Appartment</p>
+                        </div>
+                        <div className="flex flex-col items-center justify-center border-r-2 p-2">
+                            <span className="text-5xl"><MdOutlineHomeWork /></span>
+                            <p>Home & Appartment</p>
+                        </div>
+                        <div className="flex flex-col items-center justify-center p-2">
+                            <span className="text-5xl"><MdOutlineHomeWork /></span>
+                            <p>Home & Appartment</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </HomeLayout>
