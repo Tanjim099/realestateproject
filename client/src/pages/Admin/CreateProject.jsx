@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProject, updateNewProject } from '../../redux/slices/projectSlice';
 import toast from 'react-hot-toast';
-// import { useQuill } from 'react-quilljs';
-// import 'quill/dist/quill.snow.css';
-// import Quill from 'quill';
+import JoditEditor from 'jodit-react';
 
 function CreateProject() {
     const [galleryImages, setGalleryImages] = useState([]);
@@ -14,10 +12,8 @@ function CreateProject() {
     const [amenitieImages, setAmenitiesImages] = useState([]);
     const [floorchips, setFloorChips] = useState([]);
     const [amenitiechips, setAmenitieChips] = useState([]);
-    // const { quill, quillRef } = useQuill();
 
-    // console.log(quill)
-    // console.log(quillRef);
+    const editor = useRef(null);
 
     const dispatch = useDispatch();
     const { project, editProject } = useSelector((state) => state.project);
@@ -168,6 +164,13 @@ function CreateProject() {
     // console.log(floorImages.file);
     // console.log(amenitieImages.file);
 
+    const contantField = (data) => {
+        setProjectCreateData((prev) => ({
+            ...prev,
+            description: data,
+        }));
+    }
+
     async function onFormSubmit(e) {
         try {
             e.preventDefault();
@@ -251,6 +254,9 @@ function CreateProject() {
 
     return (
         <HomeLayout>
+            <div  dangerouslySetInnerHTML={{ __html: projectCreateData.description }}>
+               
+            </div>
             <div className='flex justify-center items-center min-h-screen'>
                 <div className='border w-[700px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
                     <form className='p-4' onSubmit={onFormSubmit}>
@@ -297,15 +303,15 @@ function CreateProject() {
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
-                            <textarea
+                            <JoditEditor
                                 type='text'
                                 name='description'
                                 id='description'
                                 className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
                                 value={userInput.description}
                                 placeholder='Enter Project Developer'
-                                onChange={userInput}
-                            // ref={quillRef}
+                                onChange={(data) => contantField(data)}
+                                ref={editor}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>

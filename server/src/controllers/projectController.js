@@ -153,26 +153,26 @@ const updateProject = asyncHandler(async (req, res, next) => {
                 );
 
                 // Update the project with the new images
-                updatedProject.gallery = galleryResult.map((result) => ({
+                updatedProject.gallery = updatedProject.gallery.concat(galleryResult.map((result) => ({
                     public_id: result.public_id,
                     secure_url: result.secure_url,
-                }));
+                })));
 
-                updatedProject.amenities = amenitiesResult.map((result, idx) => ({
-                    name: req.body.amenitiesName[idx],
+                updatedProject.amenities = updatedProject.amenities.concat(amenitiesResult.map((result, idx) => ({
+                    name: amenitiesName[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
                     },
-                }));
+                })));
 
-                updatedProject.floorPlan = floorPlanResult.map((result, idx) => ({
-                    types: req.body.floorName[idx],
+                updatedProject.floorPlan = updatedProject.floorPlan.concat(floorPlanResult.map((result, idx) => ({
+                    types: floorName[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
                     },
-                }));
+                })));
 
                 // Save the updated project to the database
                 await updatedProject.save();
@@ -214,14 +214,14 @@ const getAllProject = async (req, res, next) => {
     try {
         const { page = 1, limit = 10 } = req.query;
 
-        const allProjects = await Project.find().limit(limit * 1).skip((page - 1) * limit).exec().sort({ createdAt: -1 });
+        const allProjects = await Project.find().limit(limit * 1).skip((page - 1) * limit).sort({ createdAt: -1 }).exec();
         const count = await Project.countDocuments();
-
+        console.log(allProjects);
         res.status(201).json(
             new ApiResponse(200, allProjects, "All Projects feched Successfully...")
         )
     } catch (error) {
-        return next(new ApiError(500, Error.message));
+        return next(new ApiError(500, error.message));
     }
 }
 
