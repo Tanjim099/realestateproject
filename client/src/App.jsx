@@ -10,6 +10,7 @@ import VerifyEmail from './pages/VerifyEmail'
 import EditProject from './pages/Admin/EditProject'
 import { useEffect, useState } from 'react'
 import Spinner from './components/Spinner'
+import RequireAuth from './components/auth/RequireAuth'
 
 function App() {
 
@@ -32,6 +33,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path='/project/:id' element={<ProjectViewPage />} />
+
+
+        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+
+        </Route>
         <Route path='/create-project' element={<CreateProject />} />
         <Route path='/update-project/:courseId' element={<EditProject />} />
       </Routes>
