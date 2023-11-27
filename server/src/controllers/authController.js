@@ -195,7 +195,7 @@ export const logout = async (req, res, next) => {
         res.status(201).json(
             new ApiResponse(200, null, "User Logout Successfully")
         )
-        
+
     } catch (error) {
         next(new ApiError(500, error.message));
     }
