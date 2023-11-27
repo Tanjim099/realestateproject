@@ -215,9 +215,9 @@ function CreateProject() {
                                 name='name'
                                 id='name'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
+                                // value={userInput.name}
                                 placeholder='Enter Project Name'
                                 onChange={userInput}
-                                value={userInput.name}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -227,9 +227,9 @@ function CreateProject() {
                                 id='location'
                                 name='location'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
+                                value={userInput.location}
                                 placeholder='Enter Project Location'
                                 onChange={userInput}
-                                value={userInput.location}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -239,9 +239,9 @@ function CreateProject() {
                                 id='developer'
                                 name='developer'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
+                                value={userInput.developer}
                                 placeholder='Enter Project Developer'
                                 onChange={userInput}
-                                value={userInput.developer}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -251,9 +251,9 @@ function CreateProject() {
                                 name='description'
                                 id='description'
                                 className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
+                                value={userInput.description}
                                 placeholder='Enter Project Developer'
                                 onChange={userInput}
-                                value={userInput.description}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -263,9 +263,9 @@ function CreateProject() {
                                 name='specifications'
                                 id='specifications'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
+                                value={userInput.specifications}
                                 placeholder='Enter Project Specifications'
                                 onChange={userInput}
-                                value={userInput.specifications}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -275,9 +275,9 @@ function CreateProject() {
                                 name='startingFrom'
                                 id='startingFrom'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
+                                value={userInput.startingFrom}
                                 placeholder='Enter Project StartingFrom'
                                 onChange={userInput}
-                                value={userInput.startingFrom}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -287,9 +287,9 @@ function CreateProject() {
                                 name='currency'
                                 id='currency'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
+                                value={userInput.currency}
                                 placeholder='Enter Project Currency'
                                 onChange={userInput}
-                                value={userInput.currency}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -299,9 +299,9 @@ function CreateProject() {
                                 name='email'
                                 id='email'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
+                                value={userInput.email}
                                 placeholder='Enter Project Email'
                                 onChange={userInput}
-                                value={userInput.email}
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -311,9 +311,9 @@ function CreateProject() {
                                 name='phone'
                                 id='phone'
                                 className='w-full py-3 px-3 rounded border-none outline-0'
+                                value={userInput.phone}
                                 placeholder='Enter Project Phone'
                                 onChange={userInput}
-                                value={userInput.phone}
                             />
                         </div>
                         <div className='my-3 inline-block'>
@@ -367,9 +367,9 @@ function CreateProject() {
                                     name='floorchips'
                                     id='floorchips'
                                     className='w-full py-3 px-3 rounded border-none outline-0'
+                                    // value={floorchips}
                                     placeholder='Enter Project FLoor Plan Name'
                                     onKeyDown={handelFloorKeyDown}
-                                    value={floorchips}
                                 />
                             </div>
                         </div>
@@ -413,9 +413,9 @@ function CreateProject() {
                                     name='amenitieschips'
                                     id='amenitieschips'
                                     className='w-full py-3 px-3 rounded border-none outline-0'
+                                    // value={amenitiechips}
                                     placeholder='Enter Project Amenities'
                                     onKeyDown={handelAmenitieKeyDown}
-                                    value={amenitiechips}
                                 />
                             </div>
                         </div>
