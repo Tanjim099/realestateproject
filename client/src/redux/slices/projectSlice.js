@@ -32,7 +32,7 @@ export const createNewProject = createAsyncThunk("/project/create", async (data)
 
 export const getAllProjects = createAsyncThunk("/project/getall", async () => {
     try {
-        const res = axiosInstance.get("project/getall");
+        const res = axiosInstance.get("project//getall");
         console.log(res);
         toast.promise(res, {
             loading: "Wait Getting All Data",
@@ -94,7 +94,6 @@ const projectSlice = createSlice({
         builder.addCase(getAllProjects.fulfilled, (state, action) => {
             console.log('Fulfilled...');
             console.log(action.payload);
-            state.projects = action?.payload.data;
         });
         builder.addCase(getAllProjects.rejected, (state, action) => {
             console.log('Rejected...');

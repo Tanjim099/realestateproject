@@ -185,16 +185,17 @@ export const login = async (req, res, next) => {
 
 export const logout = async (req, res, next) => {
     try {
+        console.log('Starting...');
         res.cookie("token", null, {
             secure: true,
             maxAge: 0,
             httpOnly: true
         })
 
-        res.status(201).json({
-            success: true,
-            message: "User Logout Successfully"
-        })
+        res.status(201).json(
+            new ApiResponse(200, null, "User Logout Successfully")
+        )
+
     } catch (error) {
         next(new ApiError(500, error.message));
     }

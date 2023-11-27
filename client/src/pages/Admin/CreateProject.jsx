@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProject } from '../../redux/slices/projectSlice';
 import toast from 'react-hot-toast';
-// import { useQuill } from 'react-quilljs';
-// import 'quill/dist/quill.snow.css';
-// import Quill from 'quill';
+import JoditEditor from 'jodit-react';
+import Spinner from '../../components/Spinner';
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { Link, useNavigate } from 'react-router-dom';
 
 function CreateProject() {
+    const [loading, setLoading] = useState(false);
     const [galleryImages, setGalleryImages] = useState([]);
     const [floorImages, setFloorImages] = useState([]);
     const [amenitieImages, setAmenitiesImages] = useState([]);
     const [floorchips, setFloorChips] = useState([]);
     const [amenitiechips, setAmenitieChips] = useState([]);
-    // const { quill, quillRef } = useQuill();
 
-    // console.log(quill)
-    // console.log(quillRef);
-
+    const editor = useRef(null);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { project, editProject } = useSelector((state) => state.project);
-    console.log(project);
+    // console.log(project);
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
         location: '',
@@ -32,9 +32,10 @@ function CreateProject() {
         currency: '',
         email: '',
         phone: '',
+        city: '',
     });
 
-    console.log(editProject);
+    // console.log(editProject);
 
     const handleGalleryImage = (e) => {
         e.preventDefault();
@@ -163,7 +164,7 @@ function CreateProject() {
             [name]: value
         }));
     }
-    console.log(projectCreateData);
+    // console.log(projectCreateData);
     // console.log(galleryImages.file);
     // console.log(floorImages.file);
     // console.log(amenitieImages.file);
@@ -203,7 +204,20 @@ function CreateProject() {
             console.log(formData);
 
             const res = await dispatch(createNewProject(formData));
-            console.log(res);
+            // console.log(res);
+            setProjectCreateData({
+                name: '',
+                location: '',
+                developer: '',
+                description: '',
+                specifications: '',
+                startingFrom: '',
+                currency: '',
+                email: '',
+                phone: '',
+                city: '',
+            })
+            setLoading(false);
 
         } catch (Error) {
             console.log(Error);
@@ -214,6 +228,7 @@ function CreateProject() {
 
     return (
         <HomeLayout>
+            {/* <div  dangerouslySetInnerHTML={{ __html: projectCreateData.description }}></div> */}
             <div className='flex justify-center items-center min-h-screen'>
                 <div className='border w-[700px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
                     <form className='p-4' onSubmit={onFormSubmit}>
@@ -264,7 +279,7 @@ function CreateProject() {
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
 
-                            <div ref={quillRef}>
+                            <div >
                                 <textarea
                                     type='text'
                                     name='description'

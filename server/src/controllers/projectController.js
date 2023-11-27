@@ -9,11 +9,11 @@ import uploadCloudinary from "../utils/cloudinary.js";
 const createProject = asyncHandler(async (req, res, next) => {
     try {
         console.log('Starting...');
-        const { name, location, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
+        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
         console.log(req.body);
         console.log(req.files);
 
-        if (!name || !location || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
+        if (!name || !location || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
             return next(new ApiError(403, 'All Fields are required'));
         }
 
@@ -23,6 +23,7 @@ const createProject = asyncHandler(async (req, res, next) => {
             developer,
             description,
             specifications,
+            city,
             pricing: {
                 startingFrom,
                 currency
@@ -99,7 +100,7 @@ const createProject = asyncHandler(async (req, res, next) => {
 const updateProject = asyncHandler(async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { name, location, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
+        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
 
         if (!id) {
             return next(new ApiError(403, 'Project id not found,Please try again later'));
@@ -116,6 +117,7 @@ const updateProject = asyncHandler(async (req, res, next) => {
             location,
             developer,
             description,
+            city,
             specifications,
             pricing: {
                 startingFrom,
@@ -153,26 +155,26 @@ const updateProject = asyncHandler(async (req, res, next) => {
                 );
 
                 // Update the project with the new images
-                updatedProject.gallery = galleryResult.map((result) => ({
+                updatedProject.gallery = updatedProject.gallery.concat(galleryResult.map((result) => ({
                     public_id: result.public_id,
                     secure_url: result.secure_url,
-                }));
+                })));
 
-                updatedProject.amenities = amenitiesResult.map((result, idx) => ({
-                    name: req.body.amenitiesName[idx],
+                updatedProject.amenities = updatedProject.amenities.concat(amenitiesResult.map((result, idx) => ({
+                    name: amenitiesName[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
                     },
-                }));
+                })));
 
-                updatedProject.floorPlan = floorPlanResult.map((result, idx) => ({
-                    types: req.body.floorName[idx],
+                updatedProject.floorPlan = updatedProject.floorPlan.concat(floorPlanResult.map((result, idx) => ({
+                    types: floorName[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
                     },
-                }));
+                })));
 
                 // Save the updated project to the database
                 await updatedProject.save();
@@ -214,15 +216,15 @@ const getAllProject = async (req, res, next) => {
     try {
         const { page = 1, limit = 10 } = req.query;
 
-        const allProjects = await Project.find().limit(limit * 1).skip((page - 1) * limit).sort({ createdAt: -1 }).exec()
-        console.log(allProjects)
-        const count = await Project.countDocuments();
+        const allProjects = await Project.find().limit(limit * 1).skip((page - 1) * limit).sort({ createdAt: -1 }).exec();
 
+        const count = await Project.countDocuments();
+        // console.log(allProjects);
         res.status(201).json(
             new ApiResponse(200, allProjects, "All Projects feched Successfully...")
         )
     } catch (error) {
-        return next(new ApiError(500, Error.message));
+        return next(new ApiError(500, error.message));
     }
 }
 
