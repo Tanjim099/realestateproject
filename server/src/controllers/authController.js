@@ -104,8 +104,8 @@ export const register = asyncHandler(async (req, res, next) => {
         // };
 
         let avatarLocalPath;
-
-        if(req.file && req.file.path){
+        console.log(req.files);
+        if (req.file && req.file.path) {
             avatarLocalPath = req.file.path;
         }
 

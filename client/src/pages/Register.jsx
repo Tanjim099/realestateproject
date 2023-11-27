@@ -17,6 +17,7 @@ function Register() {
         phone: '',
         answer: '',
         password: '',
+        avatar: '',
     });
 
     const handelUserInput = (e) => {
@@ -26,7 +27,25 @@ function Register() {
             [name]: value
         }));
     }
-    console.log(userInput.email);
+    // console.log(userInput.email);
+
+    const handelImage = (event) => {
+        event.preventDefault();
+        const uploadImage = event.target.files[0];
+
+        if (uploadImage) {
+            setUserData((prev) => ({
+                ...prev,
+                avatar: uploadImage
+            }));
+            // const fileReader = new FileReader();
+            // fileReader.readAsDataURL(uploadImage);
+
+            // fileReader.addEventListener('load', function () {
+
+            // })
+        }
+    }
 
     const onFormSubmit = async (e) => {
         try {
@@ -35,7 +54,7 @@ function Register() {
             console.log(userInput.email);
             await dispatch(sendOTP(userInput.email));
             dispatch(setUserData(userInput));
-            
+
             navigate('/verify-email');
 
 
@@ -58,6 +77,7 @@ function Register() {
                             type='file'
                             className='hidden'
                             id='avatar'
+                            onChange={handelImage}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -69,6 +89,7 @@ function Register() {
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter First Name'
                             onChange={handelUserInput}
+                            value={userInput.firstName}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -80,6 +101,7 @@ function Register() {
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Last Name'
                             onChange={handelUserInput}
+                            value={userInput.lastName}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -91,6 +113,7 @@ function Register() {
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Your Email'
                             onChange={handelUserInput}
+                            value={userInput.email}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -102,6 +125,7 @@ function Register() {
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Your Phone Number'
                             onChange={handelUserInput}
+                            value={userInput.phone}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2'>
@@ -113,6 +137,7 @@ function Register() {
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Your Answer'
                             onChange={handelUserInput}
+                            value={userInput.answer}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2 relative'>
@@ -124,6 +149,7 @@ function Register() {
                             className='w-full py-3 px-3 rounded border-none outline-0 relative'
                             placeholder='Enter Your Password'
                             onChange={handelUserInput}
+                            value={userInput.password}
                         />
                         <span onClick={() => setShowPassword((prev) => !prev)} className='absolute right-3 top-[45px] cursor-pointer'>
                             {

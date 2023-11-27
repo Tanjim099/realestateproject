@@ -64,6 +64,7 @@ function Login() {
                             className='w-full py-3 px-3 rounded border-none outline-0'
                             placeholder='Enter Your Email'
                             onChange={handelUserInput}
+                            value={userInput.email}
                         />
                     </div>
                     <div className='my-3 flex flex-col gap-2 relative'>
@@ -75,6 +76,7 @@ function Login() {
                             className='w-full py-3 px-3 rounded border-none outline-0 relative'
                             placeholder='Enter Your Password'
                             onChange={handelUserInput}
+                            value={userInput.password}
                         />
                         <span onClick={() => setShowPassword((prev) => !prev)} className='absolute right-3 top-[45px] cursor-pointer'>
                             {

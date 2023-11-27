@@ -20,17 +20,21 @@ function VerifyEmail() {
                 phone,
                 answer,
                 password,
+                avatar,
             } = signData;
 
-            const res = await dispatch(register({
-                firstName,
-                lastName,
-                email,
-                phone,
-                answer,
-                password,
-                otp,
-            }));
+            const formData = new FormData();
+
+            formData.append('firstName', firstName);
+            formData.append('lastName', lastName);
+            formData.append('email', email);
+            formData.append('phone', phone);
+            formData.append('answer', answer);
+            formData.append('avatar', avatar);
+            formData.append('otp', otp);
+            formData.append('password', password);
+
+            const res = await dispatch(register(formData));
 
             console.log(res);
 
