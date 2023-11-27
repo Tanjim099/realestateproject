@@ -159,8 +159,9 @@ function CreateProject() {
     // console.log(amenitieImages.file);
 
     async function onFormSubmit(e) {
+        e.preventDefault();
         try {
-            e.preventDefault();
+
             if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                 toast.error('Filed are all mandatory...');
                 return;
