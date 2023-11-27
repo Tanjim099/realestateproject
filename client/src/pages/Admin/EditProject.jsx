@@ -2,18 +2,19 @@ import React, { useEffect } from 'react'
 import CreateProject from './CreateProject'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { setEditProject, setProject } from '../../redux/slices/projectSlice';
+import { getProject, setEditProject, setProject } from '../../redux/slices/projectSlice';
 
 function EditProject() {
     const dispatch = useDispatch();
     const { courseId } = useParams();
 
-    useEffect(async () => {
+    useEffect(() => {
         (async () => {
-            const res = await getProject(courseId);
-            if (res) {
+            const res = await dispatch(getProject(courseId));
+            console.log(res);
+            if (res?.payload?.success) {
                 dispatch(setEditProject(true));
-                dispatch(setProject(res));
+                dispatch(setProject(res?.payload?.data));
             }
         })()
     }, []);

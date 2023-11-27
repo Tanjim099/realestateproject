@@ -99,6 +99,7 @@ const createProject = asyncHandler(async (req, res, next) => {
 const updateProject = asyncHandler(async (req, res, next) => {
     try {
         const { id } = req.params;
+        const { name, location, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
 
         if (!id) {
             return next(new ApiError(403, 'Project id not found,Please try again later'));
@@ -111,7 +112,19 @@ const updateProject = asyncHandler(async (req, res, next) => {
         }
 
         const updatedProject = await Project.findByIdAndUpdate(id, {
-            $set: req.body
+            name,
+            location,
+            developer,
+            description,
+            specifications,
+            pricing: {
+                startingFrom,
+                currency
+            },
+            contactInformation: {
+                email,
+                phone
+            }
         }, { new: true });
 
         if (!updatedProject) {
@@ -119,14 +132,15 @@ const updateProject = asyncHandler(async (req, res, next) => {
 
         }
 
-        if (req.files) {
-            try {
 
+        if (req.files && req.files.floorPlan && req.files.gallery && req.files.amenities) {
+            try {
                 const galleryImage = req.files.gallery;
                 const floorPlanImage = req.files.floorPlan;
                 const amenitiesImage = req.files.amenities;
 
-                const galleyResult = await Promise.all(
+                // Upload images to Cloudinary
+                const galleryResult = await Promise.all(
                     galleryImage.map((file) => uploadCloudinary(file.path))
                 );
 
@@ -138,27 +152,33 @@ const updateProject = asyncHandler(async (req, res, next) => {
                     amenitiesImage.map((file) => uploadCloudinary(file.path))
                 );
 
-                updatedProject.gallery = updatedProject.gallery.concat(galleyResult.map((result) => ({
+                // Update the project with the new images
+                updatedProject.gallery = galleryResult.map((result) => ({
                     public_id: result.public_id,
                     secure_url: result.secure_url,
-                })));
+                }));
 
-                updatedProject.amenities = updatedProject.amenities.concat(amenitiesResult.map((result) => ({
+                updatedProject.amenities = amenitiesResult.map((result, idx) => ({
+                    name: req.body.amenitiesName[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
                     },
-                })));
+                }));
 
-                updatedProject.floorPlan = updatedProject.floorPlan.concat(floorPlanResult.map((result) => ({
+                updatedProject.floorPlan = floorPlanResult.map((result, idx) => ({
+                    types: req.body.floorName[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
                     },
-                })));
+                }));
 
-            } catch (Error) {
-                return next(new ApiError(500, Error.message));
+                // Save the updated project to the database
+                await updatedProject.save();
+
+            } catch (error) {
+                return next(new ApiError(500, error.message));
             }
         }
 

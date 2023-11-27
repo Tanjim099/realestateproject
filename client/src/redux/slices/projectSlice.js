@@ -52,6 +52,20 @@ export const updateNewProject = createAsyncThunk("/project/update", async (data)
     }
 });
 
+export const getProject = createAsyncThunk("/project/getProject",async (courseId) => {
+    try{
+        const res = axiosInstance.get(`project/get/${courseId}`);
+        toast.promise(res,{
+            loading:'Wating',
+            success:'Successfully',
+            error:'Failed',
+        });
+        return (await res)?.data;
+    }catch(Error){
+        console.log(Error);
+    }
+});
+
 const projectSlice = createSlice({
     name: "project",
     initialState,

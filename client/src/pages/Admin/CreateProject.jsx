@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewProject } from '../../redux/slices/projectSlice';
+import { createNewProject, updateNewProject } from '../../redux/slices/projectSlice';
 import toast from 'react-hot-toast';
-import { useQuill } from 'react-quilljs';
-import 'quill/dist/quill.snow.css';
-import Quill from 'quill';
+// import { useQuill } from 'react-quilljs';
+// import 'quill/dist/quill.snow.css';
+// import Quill from 'quill';
 
 function CreateProject() {
     const [galleryImages, setGalleryImages] = useState([]);
@@ -14,14 +14,14 @@ function CreateProject() {
     const [amenitieImages, setAmenitiesImages] = useState([]);
     const [floorchips, setFloorChips] = useState([]);
     const [amenitiechips, setAmenitieChips] = useState([]);
-    const { quill, quillRef } = useQuill();
+    // const { quill, quillRef } = useQuill();
 
     // console.log(quill)
     // console.log(quillRef);
 
     const dispatch = useDispatch();
     const { project, editProject } = useSelector((state) => state.project);
-    // console.log(projects);
+    console.log(project);
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
         location: '',
@@ -34,7 +34,7 @@ function CreateProject() {
         phone: '',
     });
 
-    // console.log(projectCreateData);
+    console.log(editProject);
 
     const handleGalleryImage = (e) => {
         e.preventDefault();
@@ -163,7 +163,7 @@ function CreateProject() {
             [name]: value
         }));
     }
-    // console.log(projectCreateData);
+    console.log(projectCreateData);
     // console.log(galleryImages.file);
     // console.log(floorImages.file);
     // console.log(amenitieImages.file);
@@ -295,21 +295,18 @@ function CreateProject() {
                                 onChange={userInput}
                             />
                         </div>
-                        <div className='my-3 flex flex-col gap-2 h-[400px]'>
+                        <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
-
-                            <div ref={quillRef}>
-                                <textarea
-                                    type='text'
-                                    name='description'
-                                    id='description'
-                                    className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
-                                    value={userInput.description}
-                                    placeholder='Enter Project Developer'
-                                    onChange={userInput}
-                                // ref={quillRef}
-                                />
-                            </div>
+                            <textarea
+                                type='text'
+                                name='description'
+                                id='description'
+                                className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
+                                value={userInput.description}
+                                placeholder='Enter Project Developer'
+                                onChange={userInput}
+                            // ref={quillRef}
+                            />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
                             <label htmlFor='specifications'>Specifications<sup className='text-pink-400'>*</sup></label>
