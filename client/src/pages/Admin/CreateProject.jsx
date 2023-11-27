@@ -358,6 +358,7 @@ function CreateProject() {
                                     id='floorImage'
                                     onChange={handelFloorPlanImage}
                                     className='hidden'
+                                    accept='.jpg, .jpeg, .png, .svg'
                                 />
                             </div>
                             <div className='w-[50%]'>
@@ -404,6 +405,7 @@ function CreateProject() {
                                     id='amenities'
                                     onChange={handelAmenitiesImage}
                                     className='hidden'
+                                    accept='.jpg, .jpeg, .png, .svg'
                                 />
                             </div>
                             <div className='w-[50%]'>
