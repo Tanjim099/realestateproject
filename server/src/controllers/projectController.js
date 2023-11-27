@@ -214,7 +214,7 @@ const getAllProject = async (req, res, next) => {
     try {
         const { page = 1, limit = 10 } = req.query;
 
-        const allProjects = await Project.find().limit(limit * 1).skip((page - 1) * limit).exec().sort({ createdAt: -1 })
+        const allProjects = await Project.find().limit(limit * 1).skip((page - 1) * limit).sort({ createdAt: -1 }).exec()
         console.log(allProjects)
         const count = await Project.countDocuments();
 
