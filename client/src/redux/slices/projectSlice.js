@@ -30,19 +30,6 @@ export const createNewProject = createAsyncThunk("/project/create", async (data)
     }
 });
 
-<<<<<<< HEAD
-export const getAllProjects = createAsyncThunk("/project/getall", async () => {
-    try {
-        const res = axiosInstance.get("project//getall");
-        console.log(res);
-        toast.promise(res, {
-            loading: "Wait Getting All Data",
-            success: "All Data Fetched Successfully",
-            error: "Failed to Fetcheing Data"
-        });
-        return (await res).data
-    } catch (error) {
-=======
 export const updateNewProject = createAsyncThunk("/project/update", async (data) => {
     try {
         console.log('Starting...');
@@ -59,27 +46,37 @@ export const updateNewProject = createAsyncThunk("/project/update", async (data)
         return (await res).data;
 
     } catch (Error) {
->>>>>>> a0de5187c93e1f7ef60da7fa7e6dc18dd4ace77c
         console.log(Error);
         toast.error(Error);
         throw Error;
     }
-<<<<<<< HEAD
-})
-=======
 });
->>>>>>> a0de5187c93e1f7ef60da7fa7e6dc18dd4ace77c
 
-export const getProject = createAsyncThunk("/project/getProject",async (courseId) => {
-    try{
+export const getProject = createAsyncThunk("/project/getProject", async (courseId) => {
+    try {
         const res = axiosInstance.get(`project/get/${courseId}`);
-        toast.promise(res,{
-            loading:'Wating',
-            success:'Successfully',
-            error:'Failed',
+        toast.promise(res, {
+            loading: 'Wating',
+            success: 'Successfully',
+            error: 'Failed',
         });
         return (await res)?.data;
-    }catch(Error){
+    } catch (Error) {
+        console.log(Error);
+    }
+});
+
+export const getAllProjects = createAsyncThunk("/project/getall", async () => {
+    try {
+        const res = axiosInstance.get("project//getall");
+        console.log(res);
+        toast.promise(res, {
+            loading: "Wait Getting All Data",
+            success: "All Data Fetched Successfully",
+            error: "Failed to Fetcheing Data"
+        });
+        return (await res).data
+    } catch (Error) {
         console.log(Error);
     }
 });
@@ -109,19 +106,6 @@ const projectSlice = createSlice({
             console.log('Rejected...');
             console.error(action.error);
             toast.error('Failed to create project');
-        });
-
-        builder.addCase(getAllProjects.pending, (state) => {
-            console.log("Pending...")
-        });
-        builder.addCase(getAllProjects.fulfilled, (state, action) => {
-            console.log('Fulfilled...');
-            console.log(action.payload);
-        });
-        builder.addCase(getAllProjects.rejected, (state, action) => {
-            console.log('Rejected...');
-            console.error(action.error);
-            toast.error('Failed to fetched project');
         });
     }
 })

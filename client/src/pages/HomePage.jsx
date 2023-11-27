@@ -6,15 +6,15 @@ import { useEffect } from "react";
 
 function HomePage() {
     const dispatch = useDispatch();
-    // async function onLoadGetData() {
-    //     const response = await dispatch(getAllProjects());
-    //     console.log(response)
-    // }
+    async function onLoadGetData() {
+        const response = await dispatch(getAllProjects());
+        console.log(response)
+    }
     useEffect(() => {
         (async () => {
             const response = await dispatch(getAllProjects());
             console.log(response)
-        })
+        })();
     }, [])
     return (
         <HomeLayout>
