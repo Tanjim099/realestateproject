@@ -30,10 +30,9 @@ export const createNewProject = createAsyncThunk("/project/create", async (data)
     }
 });
 
-<<<<<<< HEAD
 export const getAllProjects = createAsyncThunk("/project/getall", async () => {
     try {
-        const res = axiosInstance.get("project//getall");
+        const res = axiosInstance.get("project/getall");
         console.log(res);
         toast.promise(res, {
             loading: "Wait Getting All Data",
@@ -42,44 +41,22 @@ export const getAllProjects = createAsyncThunk("/project/getall", async () => {
         });
         return (await res).data
     } catch (error) {
-=======
-export const updateNewProject = createAsyncThunk("/project/update", async (data) => {
-    try {
-        console.log('Starting...');
-        console.log(data);
-        const res = axiosInstance.post(`project/update/${data[1]}`, data[0]);
-        console.log(res);
-
-        toast.promise(res, {
-            loading: 'Wait! Updating Project',
-            success: 'Project Updating Successfully',
-            error: 'Failed to Updating project'
-        });
-
-        return (await res).data;
-
-    } catch (Error) {
->>>>>>> a0de5187c93e1f7ef60da7fa7e6dc18dd4ace77c
         console.log(Error);
         toast.error(Error);
         throw Error;
     }
-<<<<<<< HEAD
 })
-=======
-});
->>>>>>> a0de5187c93e1f7ef60da7fa7e6dc18dd4ace77c
 
-export const getProject = createAsyncThunk("/project/getProject",async (courseId) => {
-    try{
+export const getProject = createAsyncThunk("/project/getProject", async (courseId) => {
+    try {
         const res = axiosInstance.get(`project/get/${courseId}`);
-        toast.promise(res,{
-            loading:'Wating',
-            success:'Successfully',
-            error:'Failed',
+        toast.promise(res, {
+            loading: 'Wating',
+            success: 'Successfully',
+            error: 'Failed',
         });
         return (await res)?.data;
-    }catch(Error){
+    } catch (Error) {
         console.log(Error);
     }
 });
@@ -117,6 +94,7 @@ const projectSlice = createSlice({
         builder.addCase(getAllProjects.fulfilled, (state, action) => {
             console.log('Fulfilled...');
             console.log(action.payload);
+            state.projects = action?.payload.data;
         });
         builder.addCase(getAllProjects.rejected, (state, action) => {
             console.log('Rejected...');

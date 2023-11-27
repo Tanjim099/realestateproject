@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewProject, updateNewProject } from '../../redux/slices/projectSlice';
+import { createNewProject } from '../../redux/slices/projectSlice';
 import toast from 'react-hot-toast';
 // import { useQuill } from 'react-quilljs';
 // import 'quill/dist/quill.snow.css';
@@ -171,48 +171,6 @@ function CreateProject() {
     async function onFormSubmit(e) {
         e.preventDefault();
         try {
-<<<<<<< HEAD
-
-=======
-            e.preventDefault();
-            if (editProject) {
-                if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
-                    toast.error('Filed are all mandatory...');
-                    return;
-                }
-
-                const formData = new FormData();
-                formData.append('name', projectCreateData.name);
-                formData.append('location', projectCreateData.location);
-                formData.append('developer', projectCreateData.developer);
-                formData.append('description', projectCreateData.description);
-                formData.append('startingFrom', projectCreateData.startingFrom);
-                formData.append('specifications', projectCreateData.specifications);
-                formData.append('currency', projectCreateData.currency);
-                formData.append('email', projectCreateData.email);
-                formData.append('phone', projectCreateData.phone);
-
-
-                formData.append('floorName', floorchips);
-                formData.append('amenitiesName', amenitiechips);
-
-                for (let i = 0; i < galleryImages.length; i++) {
-                    formData.append('gallery', galleryImages[i].file);
-                }
-                for (let i = 0; i < galleryImages.length; i++) {
-                    formData.append('floorPlan', floorImages[i].file);
-                }
-                for (let i = 0; i < galleryImages.length; i++) {
-                    formData.append('amenities', amenitieImages[i].file);
-                }
-                console.log(formData);
-
-                const res = await dispatch(updateNewProject([formData, project._id]));
-                console.log(res);
-
-                return;
-            }
->>>>>>> a0de5187c93e1f7ef60da7fa7e6dc18dd4ace77c
             if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                 toast.error('Filed are all mandatory...');
                 return;
@@ -274,10 +232,7 @@ function CreateProject() {
                                 // value={userInput.name}
                                 placeholder='Enter Project Name'
                                 onChange={userInput}
-<<<<<<< HEAD
                             // value={userInput.name}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -290,10 +245,7 @@ function CreateProject() {
                                 value={userInput.location}
                                 placeholder='Enter Project Location'
                                 onChange={userInput}
-<<<<<<< HEAD
                             // value={userInput.location}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -306,10 +258,7 @@ function CreateProject() {
                                 value={userInput.developer}
                                 placeholder='Enter Project Developer'
                                 onChange={userInput}
-<<<<<<< HEAD
                             // value={userInput.developer}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -338,10 +287,7 @@ function CreateProject() {
                                 value={userInput.specifications}
                                 placeholder='Enter Project Specifications'
                                 onChange={userInput}
-<<<<<<< HEAD
                             // value={userInput.specifications}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -354,10 +300,7 @@ function CreateProject() {
                                 value={userInput.startingFrom}
                                 placeholder='Enter Project StartingFrom'
                                 onChange={userInput}
-<<<<<<< HEAD
                             // value={userInput.startingFrom}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -370,10 +313,7 @@ function CreateProject() {
                                 value={userInput.currency}
                                 placeholder='Enter Project Currency'
                                 onChange={userInput}
-<<<<<<< HEAD
                             // value={userInput.currency}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -386,10 +326,7 @@ function CreateProject() {
                                 value={userInput.email}
                                 placeholder='Enter Project Email'
                                 onChange={userInput}
-<<<<<<< HEAD
                             // value={userInput.email}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 flex flex-col gap-2'>
@@ -402,10 +339,7 @@ function CreateProject() {
                                 value={userInput.phone}
                                 placeholder='Enter Project Phone'
                                 onChange={userInput}
-<<<<<<< HEAD
                             // value={userInput.phone}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                             />
                         </div>
                         <div className='my-3 inline-block'>
@@ -463,10 +397,7 @@ function CreateProject() {
                                     // value={floorchips}
                                     placeholder='Enter Project FLoor Plan Name'
                                     onKeyDown={handelFloorKeyDown}
-<<<<<<< HEAD
                                 // value={floorchips}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                                 />
                             </div>
                         </div>
@@ -514,10 +445,7 @@ function CreateProject() {
                                     // value={amenitiechips}
                                     placeholder='Enter Project Amenities'
                                     onKeyDown={handelAmenitieKeyDown}
-<<<<<<< HEAD
                                 // value={amenitiechips}
-=======
->>>>>>> 3032e1d86e9f49a317479d2047e53938b386bc92
                                 />
                             </div>
                         </div>

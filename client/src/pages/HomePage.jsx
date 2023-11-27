@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HomeLayout from "../components/HomeLayout";
 import Project from "../components/Project";
 import { getAllProjects } from "../redux/slices/projectSlice";
@@ -6,15 +6,14 @@ import { useEffect } from "react";
 
 function HomePage() {
     const dispatch = useDispatch();
-    // async function onLoadGetData() {
-    //     const response = await dispatch(getAllProjects());
-    //     console.log(response)
-    // }
+    const { projects } = useSelector((state) => state.project);
+    console.log(projects)
+    async function onLoadGetData() {
+        const response = await dispatch(getAllProjects());
+        console.log(response)
+    }
     useEffect(() => {
-        (async () => {
-            const response = await dispatch(getAllProjects());
-            console.log(response)
-        })
+        onLoadGetData()
     }, [])
     return (
         <HomeLayout>
@@ -37,7 +36,12 @@ function HomePage() {
                 <div className="project_section sm:w-[80%] md:w-[80%] m-auto mt-5">
                     <h1 className=" text-3xl font-semibold mb-3">Top Projects</h1>
                     <div className=" my-5">
-                        <Project />
+                        {projects?.map((p, i) => {
+                            console.log(p?.gallery)
+                            return (
+                                <Project key={i} data={p} />
+                            )
+                        })}
                     </div>
                 </div>
             </div>
