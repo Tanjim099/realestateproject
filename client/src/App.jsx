@@ -19,7 +19,7 @@ function App() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 8000);
+    }, 4000);
   }, []);
 
   return (
@@ -31,7 +31,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
-        <Route path='/project' element={<ProjectViewPage />} />
+        <Route path='/project/:id' element={<ProjectViewPage />} />
         <Route path='/create-project' element={<CreateProject />} />
         <Route path='/update-project/:courseId' element={<EditProject />} />
       </Routes>

@@ -6,9 +6,19 @@ import { useEffect } from "react";
 import backroundImage from '../assets/items1.jpg';
 import image from '../assets/section-bg1.jpg';
 import { MdOutlineHomeWork } from "react-icons/md";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 function HomePage() {
     const dispatch = useDispatch();
+
+    function arrowLeft() {
+        console.log("yes")
+        projects.scrollLeft -= 400
+    }
+    function arrowRight() {
+        projects.scrollLeft += 400
+    }
+
     const { projects } = useSelector((state) => state.project);
     console.log(projects)
     async function onLoadGetData() {
@@ -50,12 +60,20 @@ function HomePage() {
                 <div className="project_section sm:w-[80%] md:w-[80%] m-auto mt-5">
                     <h1 className=" text-3xl font-semibold mb-3 border-b-4 pb-4 border-[#7f1657]">Top Projects</h1>
                     <div className=" my-5">
-                        {projects?.map((p, i) => {
-                            console.log(p?.gallery)
-                            return (
-                                <Project key={i} data={p} />
-                            )
-                        })}
+                        <div className="project_container w-100  relative">
+                            <div className="sliderBtn top-1/2">
+
+                                <button onClick={arrowRight} className=" absolute left-[-1%] md:left-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowBack /></button>
+                                <button onClick={arrowLeft} className=" absolute right-[-1%] md:right-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowForward /></button>
+                            </div>
+                            <div className="projects flex overflow-x-auto gap-5" id="projects">
+                                {projects?.map((p, i) => {
+                                    return (
+                                        <Project key={i} data={p} />
+                                    )
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="h-[500px] my-10 flex flex-wrap items-center flex-col justify-center" style={{

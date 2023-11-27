@@ -169,9 +169,73 @@ function CreateProject() {
     // console.log(floorImages.file);
     // console.log(amenitieImages.file);
 
+    const contantField_1 = (data) => {
+        setProjectCreateData((prev) => ({
+            ...prev,
+            description: data,
+        }));
+    }
+
+    const contantField_2 = (data) => {
+        setProjectCreateData((prev) => ({
+            ...prev,
+            specifications: data,
+        }));
+    }
+
+
     async function onFormSubmit(e) {
-        e.preventDefault();
         try {
+            e.preventDefault();
+            if (editProject) {
+                if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
+                    toast.error('Filed are all mandatory...');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('name', projectCreateData.name);
+                formData.append('location', projectCreateData.location);
+                formData.append('developer', projectCreateData.developer);
+                formData.append('description', projectCreateData.description);
+                formData.append('startingFrom', projectCreateData.startingFrom);
+                formData.append('specifications', projectCreateData.specifications);
+                formData.append('currency', projectCreateData.currency);
+                formData.append('email', projectCreateData.email);
+                formData.append('phone', projectCreateData.phone);
+
+
+                formData.append('floorName', floorchips);
+                formData.append('amenitiesName', amenitiechips);
+
+                for (let i = 0; i < galleryImages.length; i++) {
+                    formData.append('gallery', galleryImages[i].file);
+                }
+                for (let i = 0; i < galleryImages.length; i++) {
+                    formData.append('floorPlan', floorImages[i].file);
+                }
+                for (let i = 0; i < galleryImages.length; i++) {
+                    formData.append('amenities', amenitieImages[i].file);
+                }
+                console.log(formData);
+
+                const res = await dispatch(updateNewProject([formData, project._id]));
+                // console.log(res);
+                setProjectCreateData({
+                    name: '',
+                    location: '',
+                    developer: '',
+                    description: '',
+                    specifications: '',
+                    startingFrom: '',
+                    currency: '',
+                    email: '',
+                    phone: '',
+                    city: '',
+                })
+                return;
+            }
+            setLoading(true);
             if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                 toast.error('Filed are all mandatory...');
                 return;
@@ -230,272 +294,277 @@ function CreateProject() {
         <HomeLayout>
             {/* <div  dangerouslySetInnerHTML={{ __html: projectCreateData.description }}></div> */}
             <div className='flex justify-center items-center min-h-screen'>
-                <div className='border w-[700px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
-                    <form className='p-4' onSubmit={onFormSubmit}>
-                        <h2 className='text-3xl font-mono mt-3 border-b'>
-                            {
-                                editProject ? 'Update Project' : 'Create Project'
-                            }
-                        </h2>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='name'>Name<sup className='text-pink-400'>*</sup></label>
-                            <input
-                                type='text'
-                                name='name'
-                                id='name'
-                                className='w-full py-3 px-3 rounded border-none outline-0'
-                                // value={userInput.name}
-                                placeholder='Enter Project Name'
-                                onChange={userInput}
-                            // value={userInput.name}
-                            />
-                        </div>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='location'>Location<sup className='text-pink-400'>*</sup></label>
-                            <input
-                                type='text'
-                                id='location'
-                                name='location'
-                                className='w-full py-3 px-3 rounded border-none outline-0'
-                                value={userInput.location}
-                                placeholder='Enter Project Location'
-                                onChange={userInput}
-                            // value={userInput.location}
-                            />
-                        </div>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='developer'>Developer<sup className='text-pink-400'>*</sup></label>
-                            <input
-                                type='text'
-                                id='developer'
-                                name='developer'
-                                className='w-full py-3 px-3 rounded border-none outline-0'
-                                value={userInput.developer}
-                                placeholder='Enter Project Developer'
-                                onChange={userInput}
-                            // value={userInput.developer}
-                            />
-                        </div>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
-
-                            <div >
-                                <textarea
-                                    type='text'
-                                    name='description'
-                                    id='description'
-                                    className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
-                                    value={userInput.description}
-                                    placeholder='Enter Project Developer'
-                                    onChange={userInput}
-                                // ref={quillRef}
-                                />
-                            </div>
-                        </div>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='specifications'>Specifications<sup className='text-pink-400'>*</sup></label>
-                            <input
-                                type='text'
-                                name='specifications'
-                                id='specifications'
-                                className='w-full py-3 px-3 rounded border-none outline-0'
-                                value={userInput.specifications}
-                                placeholder='Enter Project Specifications'
-                                onChange={userInput}
-                            // value={userInput.specifications}
-                            />
-                        </div>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='startingFrom'>StartingFrom<sup className='text-pink-400'>*</sup></label>
-                            <input
-                                type='text'
-                                name='startingFrom'
-                                id='startingFrom'
-                                className='w-full py-3 px-3 rounded border-none outline-0'
-                                value={userInput.startingFrom}
-                                placeholder='Enter Project StartingFrom'
-                                onChange={userInput}
-                            // value={userInput.startingFrom}
-                            />
-                        </div>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='currency'>Currency<sup className='text-pink-400'>*</sup></label>
-                            <input
-                                type='text'
-                                name='currency'
-                                id='currency'
-                                className='w-full py-3 px-3 rounded border-none outline-0'
-                                value={userInput.currency}
-                                placeholder='Enter Project Currency'
-                                onChange={userInput}
-                            // value={userInput.currency}
-                            />
-                        </div>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='email'>Email<sup className='text-pink-400'>*</sup></label>
-                            <input
-                                type='text'
-                                name='email'
-                                id='email'
-                                className='w-full py-3 px-3 rounded border-none outline-0'
-                                value={userInput.email}
-                                placeholder='Enter Project Email'
-                                onChange={userInput}
-                            // value={userInput.email}
-                            />
-                        </div>
-                        <div className='my-3 flex flex-col gap-2'>
-                            <label htmlFor='phone'>Phone<sup className='text-pink-400'>*</sup></label>
-                            <input
-                                type='text'
-                                name='phone'
-                                id='phone'
-                                className='w-full py-3 px-3 rounded border-none outline-0'
-                                value={userInput.phone}
-                                placeholder='Enter Project Phone'
-                                onChange={userInput}
-                            // value={userInput.phone}
-                            />
-                        </div>
-                        <div className='my-3 inline-block'>
-                            <label htmlFor='gallery' className='border px-3 py-2 cursor-pointer rounded'>
-                                Gallery
-                                <sup className='text-pink-400'>*</sup>
-                            </label>
-                            <input
-                                type='file'
-                                id='gallery'
-                                onChange={handleGalleryImage}
-                                className='hidden'
-                            />
-                        </div>
-                        <div className='flex gap-4 my-4'>
-                            {
-                                galleryImages.length != 0 ?
-                                    (
-                                        galleryImages.map((galleryImage, idx) => (
-                                            <div key={idx} className='flex-row w-[100px] h-[100px] outline-dashed p-1'>
-                                                <img className='w-full h-full object-cover' src={galleryImage.dataURL} />
-                                            </div>
-                                        ))
-                                    )
-                                    :
-                                    (
-                                        <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
-                                            <CiCirclePlus className='font-bold text-2xl text-red-700' />
-                                            Gallery Image Add
-                                        </div>
-                                    )
-                            }
-                        </div>
-                        <div className='flex'>
-                            <div className='my-3 inline-block w-[50%]'>
-                                <label htmlFor='floorImage' className='border px-3 py-2 cursor-pointer rounded'>
-                                    Floor Plan
-                                    <sup className='text-pink-400'>*</sup>
-                                </label>
-                                <input
-                                    type='file'
-                                    id='floorImage'
-                                    onChange={handelFloorPlanImage}
-                                    className='hidden'
-                                    accept='.jpg, .jpeg, .png, .svg'
-                                />
-                            </div>
-                            <div className='w-[50%]'>
-                                <label htmlFor='floorchips'>FLoor Plan Name<sup className='text-pink-400'>*</sup></label>
-                                <input
-                                    type='text'
-                                    name='floorchips'
-                                    id='floorchips'
-                                    className='w-full py-3 px-3 rounded border-none outline-0'
-                                    // value={floorchips}
-                                    placeholder='Enter Project FLoor Plan Name'
-                                    onKeyDown={handelFloorKeyDown}
-                                // value={floorchips}
-                                />
-                            </div>
-                        </div>
-                        <div className='flex gap-4 my-4'>
-                            {
-                                floorImages.length != 0 ?
-                                    (
-                                        floorImages.map((floorImage, idx) => (
-                                            <div key={idx} className='flex-row w-[100px] mb-4 h-[100px] outline-dashed p-1'>
-                                                <img className='w-full h-full object-cover' src={floorImage.dataURL} />
-                                                <p className='text-xl font-mono text-center mt-2'>{floorchips[idx]}</p>
-                                            </div>
-                                        ))
-                                    )
-                                    :
-                                    (
-                                        <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
-                                            <CiCirclePlus className='font-bold text-2xl text-red-700' />
-                                            FLoor Plan Image
-                                        </div>
-                                    )
-                            }
-                        </div>
-                        <div className='flex'>
-                            <div className='my-3 inline-block w-[50%]'>
-                                <label htmlFor='amenities' className='border px-3 py-2 cursor-pointer rounded'>
-                                    Amenities
-                                    <sup className='text-pink-400'>*</sup>
-                                </label>
-                                <input
-                                    type='file'
-                                    id='amenities'
-                                    onChange={handelAmenitiesImage}
-                                    className='hidden'
-                                    accept='.jpg, .jpeg, .png, .svg'
-                                />
-                            </div>
-                            <div className='w-[50%]'>
-                                <label htmlFor='amenitieschips'>Amenities Name<sup className='text-pink-400'>*</sup></label>
-                                <input
-                                    type='text'
-                                    name='amenitieschips'
-                                    id='amenitieschips'
-                                    className='w-full py-3 px-3 rounded border-none outline-0'
-                                    // value={amenitiechips}
-                                    placeholder='Enter Project Amenities'
-                                    onKeyDown={handelAmenitieKeyDown}
-                                // value={amenitiechips}
-                                />
-                            </div>
-                        </div>
-                        <div className='flex gap-4 my-4'>
-                            {
-                                amenitieImages.length != 0 ?
-                                    (
-                                        amenitieImages.map((amenitieImage, idx) => (
-                                            <div key={idx} className='flex-row w-[100px] h-[100px] outline-dashed p-1'>
-                                                <img className='w-full h-full object-cover' src={amenitieImage.dataURL} />
-                                                <p className='text-xl font-mono text-center mt-2'>{amenitiechips[idx]}</p>
-                                            </div>
-                                        ))
-                                    )
-                                    :
-                                    (
-                                        <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
-                                            <CiCirclePlus className='font-bold text-2xl text-red-700' />
-                                            Amenities Image
-                                        </div>
-                                    )
-                            }
-                        </div>
-                        <div className='flex justify-end'>
-                            <button
-                                type='submit'
-                                className='bg-red-400 text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
-                            >
-                                {
-                                    editProject ? 'Update Project' : 'Create Project'
-                                }
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                {
+                    loading
+                        ? (<Spinner />)
+                        : (<div className='border w-[700px] min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
+                            <form className='p-4' onSubmit={onFormSubmit}>
+                                <Link onClick={() => navigate(-1)}><FaArrowLeftLong /></Link>
+                                <h2 className='text-3xl font-mono mt-3 border-b'>
+                                    {
+                                        editProject ? 'Update Project' : 'Create Project'
+                                    }
+                                </h2>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='name'>Name<sup className='text-pink-400'>*</sup></label>
+                                    <input
+                                        type='text'
+                                        name='name'
+                                        id='name'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        // value={userInput.name}
+                                        placeholder='Enter Project Name'
+                                        onChange={userInput}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='location'>Location<sup className='text-pink-400'>*</sup></label>
+                                    <input
+                                        type='text'
+                                        id='location'
+                                        name='location'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        value={userInput.location}
+                                        placeholder='Enter Project Location'
+                                        onChange={userInput}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='developer'>Developer<sup className='text-pink-400'>*</sup></label>
+                                    <input
+                                        type='text'
+                                        id='developer'
+                                        name='developer'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        value={userInput.developer}
+                                        placeholder='Enter Project Developer'
+                                        onChange={userInput}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
+                                    <JoditEditor
+                                        type='text'
+                                        name='description'
+                                        id='description'
+                                        className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
+                                        value={userInput.description}
+                                        placeholder='Enter Project Developer'
+                                        onChange={(data) => contantField_1(data)}
+                                        ref={editor}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='specifications'>Specifications<sup className='text-pink-400'>*</sup></label>
+                                    <JoditEditor
+                                        type='text'
+                                        name='specifications'
+                                        id='specifications'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        value={userInput.specifications}
+                                        placeholder='Enter Project Specifications'
+                                        onChange={(data) => contantField_2(data)}
+                                        ref={editor}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='city'>City<sup className='text-pink-400'>*</sup></label>
+                                    <input
+                                        type='text'
+                                        name='city'
+                                        id='city'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        value={userInput.city}
+                                        placeholder='Enter Project City'
+                                        onChange={userInput}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='startingFrom'>StartingFrom<sup className='text-pink-400'>*</sup></label>
+                                    <input
+                                        type='text'
+                                        name='startingFrom'
+                                        id='startingFrom'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        value={userInput.startingFrom}
+                                        placeholder='Enter Project StartingFrom'
+                                        onChange={userInput}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='currency'>Currency<sup className='text-pink-400'>*</sup></label>
+                                    <input
+                                        type='text'
+                                        name='currency'
+                                        id='currency'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        value={userInput.currency}
+                                        placeholder='Enter Project Currency'
+                                        onChange={userInput}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='email'>Email<sup className='text-pink-400'>*</sup></label>
+                                    <input
+                                        type='text'
+                                        name='email'
+                                        id='email'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        value={userInput.email}
+                                        placeholder='Enter Project Email'
+                                        onChange={userInput}
+                                    />
+                                </div>
+                                <div className='my-3 flex flex-col gap-2'>
+                                    <label htmlFor='phone'>Phone<sup className='text-pink-400'>*</sup></label>
+                                    <input
+                                        type='text'
+                                        name='phone'
+                                        id='phone'
+                                        className='w-full py-3 px-3 rounded border-none outline-0'
+                                        value={userInput.phone}
+                                        placeholder='Enter Project Phone'
+                                        onChange={userInput}
+                                    />
+                                </div>
+                                <div className='my-3 inline-block'>
+                                    <label htmlFor='gallery' className='border px-3 py-2 cursor-pointer rounded'>
+                                        Gallery
+                                        <sup className='text-pink-400'>*</sup>
+                                    </label>
+                                    <input
+                                        type='file'
+                                        id='gallery'
+                                        onChange={handleGalleryImage}
+                                        className='hidden'
+                                    />
+                                </div>
+                                <div className='flex gap-4 my-4'>
+                                    {
+                                        galleryImages.length != 0 ?
+                                            (
+                                                galleryImages.map((galleryImage, idx) => (
+                                                    <div key={idx} className='flex-row w-[100px] h-[100px] outline-dashed p-1'>
+                                                        <img className='w-full h-full object-cover' src={galleryImage.dataURL} />
+                                                    </div>
+                                                ))
+                                            )
+                                            :
+                                            (
+                                                <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
+                                                    <CiCirclePlus className='font-bold text-2xl text-red-700' />
+                                                    Gallery Image Add
+                                                </div>
+                                            )
+                                    }
+                                </div>
+                                <div className='flex'>
+                                    <div className='my-3 inline-block w-[50%]'>
+                                        <label htmlFor='floorImage' className='border px-3 py-2 cursor-pointer rounded'>
+                                            Floor Plan
+                                            <sup className='text-pink-400'>*</sup>
+                                        </label>
+                                        <input
+                                            type='file'
+                                            id='floorImage'
+                                            onChange={handelFloorPlanImage}
+                                            className='hidden'
+                                            accept='.jpg, .jpeg, .png, .svg'
+                                        />
+                                    </div>
+                                    <div className='w-[50%]'>
+                                        <label htmlFor='floorchips'>FLoor Plan Name<sup className='text-pink-400'>*</sup></label>
+                                        <input
+                                            type='text'
+                                            name='floorchips'
+                                            id='floorchips'
+                                            className='w-full py-3 px-3 rounded border-none outline-0'
+                                            // value={floorchips}
+                                            placeholder='Enter Project FLoor Plan Name'
+                                            onKeyDown={handelFloorKeyDown}
+                                        />
+                                    </div>
+                                </div>
+                                <div className='flex gap-4 my-4'>
+                                    {
+                                        floorImages.length != 0 ?
+                                            (
+                                                floorImages.map((floorImage, idx) => (
+                                                    <div key={idx} className='flex-row w-[100px] mb-4 h-[100px] outline-dashed p-1'>
+                                                        <img className='w-full h-full object-cover' src={floorImage.dataURL} />
+                                                        <p className='text-xl font-mono text-center mt-2'>{floorchips[idx]}</p>
+                                                    </div>
+                                                ))
+                                            )
+                                            :
+                                            (
+                                                <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
+                                                    <CiCirclePlus className='font-bold text-2xl text-red-700' />
+                                                    FLoor Plan Image
+                                                </div>
+                                            )
+                                    }
+                                </div>
+                                <div className='flex'>
+                                    <div className='my-3 inline-block w-[50%]'>
+                                        <label htmlFor='amenities' className='border px-3 py-2 cursor-pointer rounded'>
+                                            Amenities
+                                            <sup className='text-pink-400'>*</sup>
+                                        </label>
+                                        <input
+                                            type='file'
+                                            id='amenities'
+                                            onChange={handelAmenitiesImage}
+                                            className='hidden'
+                                            accept='.jpg, .jpeg, .png, .svg'
+                                        />
+                                    </div>
+                                    <div className='w-[50%]'>
+                                        <label htmlFor='amenitieschips'>Amenities Name<sup className='text-pink-400'>*</sup></label>
+                                        <input
+                                            type='text'
+                                            name='amenitieschips'
+                                            id='amenitieschips'
+                                            className='w-full py-3 px-3 rounded border-none outline-0'
+                                            // value={amenitiechips}
+                                            placeholder='Enter Project Amenities'
+                                            onKeyDown={handelAmenitieKeyDown}
+                                        />
+                                    </div>
+                                </div>
+                                <div className='flex gap-4 my-4'>
+                                    {
+                                        amenitieImages.length != 0 ?
+                                            (
+                                                amenitieImages.map((amenitieImage, idx) => (
+                                                    <div key={idx} className='flex-row w-[100px] h-[100px] outline-dashed p-1'>
+                                                        <img className='w-full h-full object-cover' src={amenitieImage.dataURL} />
+                                                        <p className='text-xl font-mono text-center mt-2'>{amenitiechips[idx]}</p>
+                                                    </div>
+                                                ))
+                                            )
+                                            :
+                                            (
+                                                <div className='flex capitalize flex-col items-center font-bold text-center justify-center w-[100px] h-[100px] outline-dashed p-1'>
+                                                    <CiCirclePlus className='font-bold text-2xl text-red-700' />
+                                                    Amenities Image
+                                                </div>
+                                            )
+                                    }
+                                </div>
+                                <div className='flex justify-end'>
+                                    <button
+                                        type='submit'
+                                        className='bg-red-400 text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
+                                    >
+                                        {
+                                            editProject ? 'Update Project' : 'Create Project'
+                                        }
+                                    </button>
+                                </div>
+                            </form>
+                        </div>)
+                }
             </div>
         </HomeLayout>
     )

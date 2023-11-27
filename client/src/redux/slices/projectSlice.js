@@ -94,6 +94,7 @@ const projectSlice = createSlice({
         builder.addCase(getAllProjects.fulfilled, (state, action) => {
             console.log('Fulfilled...');
             console.log(action.payload);
+            state.projects = action?.payload.data
         });
         builder.addCase(getAllProjects.rejected, (state, action) => {
             console.log('Rejected...');
