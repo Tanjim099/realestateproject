@@ -203,6 +203,7 @@ function CreateProject() {
                 formData.append('currency', projectCreateData.currency);
                 formData.append('email', projectCreateData.email);
                 formData.append('phone', projectCreateData.phone);
+                formData.append('city', projectCreateData.city);
 
 
                 formData.append('floorName', floorchips);
@@ -251,6 +252,7 @@ function CreateProject() {
             formData.append('currency', projectCreateData.currency);
             formData.append('email', projectCreateData.email);
             formData.append('phone', projectCreateData.phone);
+            formData.append('city', projectCreateData.city);
 
 
             formData.append('floorName', floorchips);

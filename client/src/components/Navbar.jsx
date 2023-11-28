@@ -3,6 +3,11 @@ import { Link, NavLink, useNavigate } from "react-router-dom"
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
+import { FaRegUser } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
+import { MdDashboard } from "react-icons/md";
+import { FiLogIn } from "react-icons/fi";
+import { FaUserPlus } from "react-icons/fa6";
 function Navbar() {
 
 
@@ -13,11 +18,11 @@ function Navbar() {
         element[0].checked = false;
     }
 
-    const { data } = useSelector((state) => state.auth);
-    console.log(data);
+    const { data, role } = useSelector((state) => state.auth);
+    // console.log(data);
 
     const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
     const handelLogout = async (e) => {
         // e.preventDefault();
         const res = await dispatch(logout());
@@ -48,14 +53,19 @@ function Navbar() {
                                     </button>
                                 </li>
                                 {/* Sidebar content here */}
+                                <li><Link to={'/'}>Home</Link></li>
                                 <li><a>Property</a></li>
                                 <li><a>Blog</a></li>
                                 <li><NavLink to="/project">Project</NavLink></li>
-                                <li><NavLink to="/create-project">Create-Project</NavLink></li>
-                                <div className="flex justify-between items-center gap-3 p-2">
-                                    <li className="bg-red-400 flex items-center justify-center w-[50%] rounded"><NavLink to="/login">Login</NavLink></li>
-                                    <li className="bg-red-400 flex items-center justify-center w-[50%] rounded"><NavLink to="/register">Register</NavLink></li>
-                                </div>
+                                {
+                                    isLoggedIn && role === 'ADMIN' &&
+                                    (
+                                        <>
+                                            <li><NavLink to="/create-project">Create-Project</NavLink></li>
+                                        </>
+                                    )
+                                }
+
                             </ul>
                         </div>
                         <Link to={'/'} className=" font-semibold text-white p-0 text-3xl">HOME99</Link>
@@ -66,7 +76,7 @@ function Navbar() {
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle">
                         <div className="indicator">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                             <span className="badge badge-sm indicator-item">8</span>
                         </div>
                     </label>
@@ -75,44 +85,63 @@ function Navbar() {
                             <span className="font-bold text-lg">8 Items</span>
                             <span className="text-info">Subtotal: $999</span>
                             <div className="card-actions">
-                                <button className="btn btn-primary btn-block">View cart</button>
+                                <Link to={'/cart'} className="btn btn-primary btn-block">View cart</Link>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img alt="User Image" src={data?.avatar?.secure_url} />
+                        <div className="w-10 h-10 object-cover rounded-full">
+                            {
+                                isLoggedIn ? (<img alt="User Image" src={data?.avatar?.secure_url} />) : (<FaRegUser className="text-3xl mt-1" />)
+                            }
                         </div>
                     </label>
-                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0} className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 w-52">
                         {!isLoggedIn ? (
                             <>
-                                <li className=" bg-transparent">
-                                    <NavLink to="/login" className=" bg-transparent">
+                                <li className="bg-transparent flex flex-row items-center border-b-2">
+                                    <p className="">
+                                        <FiLogIn className="text-lg" />
+                                    </p>
+                                    <NavLink to="/login" className="bg-transparent text-lg">
                                         Login
                                     </NavLink>
                                 </li>
-                                <li>
-                                    <NavLink to="/register" >
+                                <li className="flex flex-row items-center">
+                                    <p className="">
+                                        <FaUserPlus className="text-lg" />
+                                    </p>
+                                    <NavLink className={'text-lg'} to="/register" >
                                         Register
                                     </NavLink>
                                 </li>
                             </>
                         ) : (
                             <>
-                                <li>
-                                    <NavLink>
-                                        Profile
-                                    </NavLink>
+                                <li className="border-b-2 border-[#7f1657]">
+                                    <p className="text-[#7f1657] italic text-md">Hey</p>
+                                    <span className="font-bold text-lg capitalize">{data?.firstName}</span>
                                 </li>
-                                <li>
-                                    <NavLink>
-                                        Dashboard
-                                    </NavLink>
+                                <li className="flex flex-row items-center">
+                                    <p className="">
+                                        <FaRegUser className="text-lg" />
+                                    </p>
+                                    <NavLink className={'text-lg'} to={'/user-profile'}>My Profile</NavLink>
                                 </li>
-                                <li><Link onClick={handelLogout}>Logout</Link></li>
+                                <li className="flex flex-row items-center">
+                                    <p>
+                                        <MdDashboard className="text-lg" />
+                                    </p>
+                                    <NavLink className="text-lg" to={'/dashboard'}>Dashboard </NavLink>
+                                </li>
+                                <li className="flex flex-row items-center">
+                                    <p>
+                                        <IoIosLogOut className="text-lg" />
+                                    </p>
+                                    <Link className="text-lg" onClick={handelLogout}>Logout</Link>
+                                </li>
                             </>
                         )}
                     </ul>

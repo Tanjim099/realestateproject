@@ -13,7 +13,12 @@ import Spinner from './components/Spinner'
 import RequireAuth from './components/auth/RequireAuth'
 import NotFound from './pages/NotFound'
 import Denied from './pages/Denied'
+<<<<<<< HEAD
 import AdminLayout from './components/AdminLayout'
+=======
+import ForgotPassword from './pages/ForgotPassword'
+import Profile from './pages/Profile'
+>>>>>>> 73ac7654136c02df91c6bc74eceae93c679254f3
 
 function App() {
 
@@ -35,17 +40,17 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/user-profile" element={<Profile />} />
         <Route path='/project/:id' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/admin' element={<AdminLayout />} />
 
-
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
-
+          <Route path='/create-project' element={<CreateProject />} />
+          <Route path='/update-project/:courseId' element={<EditProject />} />
         </Route>
-        <Route path='/create-project' element={<CreateProject />} />
-        <Route path='/update-project/:courseId' element={<EditProject />} />
       </Routes>
     )
   );
