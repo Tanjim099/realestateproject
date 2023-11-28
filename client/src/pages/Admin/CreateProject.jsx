@@ -8,6 +8,7 @@ import JoditEditor from 'jodit-react';
 import Spinner from '../../components/Spinner';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Link, useNavigate } from 'react-router-dom';
+import AdminLayout from '../../components/AdminLayout';
 
 function CreateProject() {
     const [loading, setLoading] = useState(false);
@@ -293,7 +294,7 @@ function CreateProject() {
 
 
     return (
-        <HomeLayout>
+        <AdminLayout>
             {/* <div  dangerouslySetInnerHTML={{ __html: projectCreateData.description }}></div> */}
             <div className='flex justify-center items-center min-h-screen'>
                 {
@@ -568,7 +569,7 @@ function CreateProject() {
                         </div>)
                 }
             </div>
-        </HomeLayout>
+        </AdminLayout>
     )
 }
 

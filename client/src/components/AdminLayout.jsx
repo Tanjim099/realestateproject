@@ -9,6 +9,7 @@ import {
 import { GrProjects, GrUserAdmin } from "react-icons/gr";
 import { AiFillProject } from "react-icons/ai";
 import { FaStackOverflow } from "react-icons/fa";
+import { MdOutlineMoveToInbox } from "react-icons/md";
 import { Layout, Menu, Button, theme } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import "../styles/AdminLayout.css"
@@ -28,31 +29,37 @@ function AdminLayout({ children }) {
             key: '1',
             icon: <FaStackOverflow />,
             label: 'Overflow',
-            link: '/Overflow',
+            link: 'Overflow',
         },
         {
             key: '2',
-            icon: <UserOutlined />,
-            label: 'All Users',
-            link: '/users',
+            icon: <MdOutlineMoveToInbox />,
+            label: 'Inbox',
+            link: 'inbox',
         },
         {
             key: '3',
-            icon: <GrProjects />,
-            label: 'All Project',
-            link: '/all-projects',
+            icon: <UserOutlined />,
+            label: 'All Users',
+            link: 'users',
         },
         {
             key: '4',
-            icon: <AiFillProject />,
-            label: 'Add Project',
-            link: '/add-project',
+            icon: <GrProjects />,
+            label: 'All Project',
+            link: 'all-projects',
         },
         {
             key: '5',
+            icon: <AiFillProject />,
+            label: 'Add Project',
+            link: 'add-project',
+        },
+        {
+            key: '6',
             icon: <GrUserAdmin />,
             label: 'Author',
-            link: '/author',
+            link: 'author',
         },
     ];
     return (
@@ -120,6 +127,7 @@ function AdminLayout({ children }) {
                         minHeight: 280,
                         background: colorBgContainer,
                     }}
+                    className=' overflow-y-scroll content'
                 >
                     {children}
                 </Content>
