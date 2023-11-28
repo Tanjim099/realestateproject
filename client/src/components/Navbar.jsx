@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom"
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
+import { FaRegUser } from "react-icons/fa";
 function Navbar() {
 
 
@@ -14,10 +15,10 @@ function Navbar() {
     }
 
     const { data } = useSelector((state) => state.auth);
-    console.log(data);
+    // console.log(data);
 
     const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
     const handelLogout = async (e) => {
         // e.preventDefault();
         const res = await dispatch(logout());
@@ -52,10 +53,7 @@ function Navbar() {
                                 <li><a>Blog</a></li>
                                 <li><NavLink to="/project">Project</NavLink></li>
                                 <li><NavLink to="/create-project">Create-Project</NavLink></li>
-                                <div className="flex justify-between items-center gap-3 p-2">
-                                    <li className="bg-red-400 flex items-center justify-center w-[50%] rounded"><NavLink to="/login">Login</NavLink></li>
-                                    <li className="bg-red-400 flex items-center justify-center w-[50%] rounded"><NavLink to="/register">Register</NavLink></li>
-                                </div>
+
                             </ul>
                         </div>
                         <Link to={'/'} className=" font-semibold text-white p-0 text-3xl">HOME99</Link>
@@ -82,8 +80,10 @@ function Navbar() {
                 </div>
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img alt="User Image" src={data?.avatar?.secure_url} />
+                        <div className="w-10 h-10 object-cover rounded-full">
+                            {
+                                isLoggedIn ? (<img alt="User Image" src={data?.avatar?.secure_url} />) : (<FaRegUser className="text-3xl" />)
+                            }
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

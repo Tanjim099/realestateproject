@@ -3,7 +3,7 @@ import axiosInstance from '../../helper/axiosInstance';
 import toast from 'react-hot-toast';
 
 const initialState = {
-    isLoggedIn: false,
+    isLoggedIn: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : false,
     role: "",
     data: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : null,
     signData: null,
@@ -49,7 +49,7 @@ export const register = createAsyncThunk("/auth/register", async (data) => {
         console.log(res);
 
         toast.promise(res, {
-            loading: 'Wait! Logout in progress...',
+            loading: 'Wait! Register in progress...',
             success: 'Successfully Registered',
             error: 'Failed Register'
         });
@@ -88,13 +88,16 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
-            state.data = action?.payload;
+            console.log(action?.payload?.data)
+            state.data = action?.payload?.data;
+            state.role = action?.payload?.data?.role;
             localStorage.setItem('data', JSON.stringify(action?.payload?.data));
+            localStorage.setItem('isLoggedIn', JSON.stringify(true));
             state.isLoggedIn = true;
         })
         builder.addCase(logout.fulfilled, (state, action) => {
             state.data = null;
-            localStorage.removeItem('data');
+            localStorage.clear();
             state.isLoggedIn = false;
         })
     }
