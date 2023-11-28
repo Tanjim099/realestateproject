@@ -13,6 +13,7 @@ import Spinner from './components/Spinner'
 import RequireAuth from './components/auth/RequireAuth'
 import NotFound from './pages/NotFound'
 import Denied from './pages/Denied'
+import AdminLayout from './components/AdminLayout'
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path='/project/:id' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='*' element={<NotFound />} />
+        <Route path='/admin' element={<AdminLayout />} />
 
 
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
