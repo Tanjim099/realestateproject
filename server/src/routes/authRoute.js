@@ -9,7 +9,7 @@ authRoutes.post("/otp", sendOTP);
 authRoutes.post("/register", upload.single("avatar"), register);
 authRoutes.post("/login", login);
 authRoutes.get("/logout", logout);
-authRoutes.get("/forget-password", forgetPassword);
+authRoutes.post("/forget-password", forgetPassword);
 authRoutes.put("/user/update/:id", requiredSignIn, upload.single("avatar"), updateUser);
 authRoutes.get("/get-profile/:id", requiredSignIn, getUserProfile);
 

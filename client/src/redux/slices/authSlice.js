@@ -78,6 +78,23 @@ export const logout = createAsyncThunk('/auth/logout', async () => {
     }
 });
 
+export const forgotPassword = createAsyncThunk('/auth/forgot-password', async (data) => {
+    try {
+        const res = axiosInstance.post('auth/forget-password', data);
+
+        toast.promise(res, {
+            loading: 'Wait!Forgot Password',
+            success: 'Forgot Password Successfully',
+            error: 'Failed to Forgot Password',
+        });
+
+        return (await res)?.data;
+
+    } catch (Error) {
+        console.log(Error);
+    }
+});
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -100,6 +117,10 @@ const authSlice = createSlice({
             localStorage.clear();
             state.isLoggedIn = false;
         })
+        // builder.addCase(forgotPassword.fulfilled, (state, action) => {
+        //     state.data = action?.payload?.data
+        //     localStorage.setItem('data', JSON.stringify(action?.payload?.data));
+        // })
     }
 })
 

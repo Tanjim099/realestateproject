@@ -204,22 +204,28 @@ export const logout = async (req, res, next) => {
 
 export const forgetPassword = async (req, res, next) => {
     try {
-        const { email, answer, nemPassword } = req.body;
+        const { email, answer, newPassword } = req.body;
+        console.log(email);
+        console.log(answer);
+        console.log(newPassword);
         if (!email) {
             return next(new ApiError(500, "Email is required"));
         }
         if (!answer) {
             return next(new ApiError(500, "Answer is required"));
         }
-        if (!nemPassword) {
+        if (!newPassword) {
             return next(new ApiError(501, "Please enter new Password"));
         }
         const user = await authModel.findOne({ email, answer });
+        console.log(user);
         if (!user) {
             return next(new ApiError(404, "Please enter correct email and answer"));
         }
-        const hashedPassword = await hashedPassword(nemPassword);
-        await authModel.findByIdAndUpdate(user._id, { password: hashedPassword });
+        const hashedPassword = await hashPassword(newPassword);
+        user.password = hashedPassword;
+        await user.save();
+        
         res.status(201).json(
             new ApiResponse(200, user, "Password forget Successfully")
         )

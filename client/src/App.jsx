@@ -13,6 +13,7 @@ import Spinner from './components/Spinner'
 import RequireAuth from './components/auth/RequireAuth'
 import NotFound from './pages/NotFound'
 import Denied from './pages/Denied'
+import ForgotPassword from './pages/Admin/ForgotPassword'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path='/project/:id' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='*' element={<NotFound />} />
