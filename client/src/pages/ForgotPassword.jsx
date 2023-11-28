@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import HomeLayout from '../../components/HomeLayout'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
-import { forgotPassword } from '../../redux/slices/authSlice';
+import { forgotPassword } from '../redux/slices/authSlice';
+import HomeLayout from '../components/HomeLayout';
 // email, answer, newPassword
 function ForgotPassword() {
     const navigate = useNavigate();

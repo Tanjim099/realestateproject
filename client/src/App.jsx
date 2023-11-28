@@ -13,7 +13,8 @@ import Spinner from './components/Spinner'
 import RequireAuth from './components/auth/RequireAuth'
 import NotFound from './pages/NotFound'
 import Denied from './pages/Denied'
-import ForgotPassword from './pages/Admin/ForgotPassword'
+import ForgotPassword from './pages/ForgotPassword'
+import Profile from './pages/Profile'
 
 function App() {
 
@@ -36,16 +37,15 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/user-profile" element={<Profile />} />
         <Route path='/project/:id' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='*' element={<NotFound />} />
 
-
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
-
+          <Route path='/create-project' element={<CreateProject />} />
+          <Route path='/update-project/:courseId' element={<EditProject />} />
         </Route>
-        <Route path='/create-project' element={<CreateProject />} />
-        <Route path='/update-project/:courseId' element={<EditProject />} />
       </Routes>
     )
   );

@@ -73,7 +73,7 @@ function HomePage() {
                         </div>
                     </div>
                 </div>
-                <div className="h-[500px] my-10 flex flex-wrap items-center flex-col justify-center" style={{
+                <div className="md:h-[500px] p-4 min-h-screen my-10 flex items-center flex-col justify-center" style={{
                     backgroundImage: `url(${image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -85,18 +85,18 @@ function HomePage() {
                     transition: 'background 0.3s ease-in-out',
                 }}>
                     <h2 className="text-white text-4xl text-center">How we help people?</h2>
-                    <div className="bg-[#7f1657] mt-10 px-4 flex justify-between flex-wrap text-white h-[300px] w-[70%]">
-                        <div className="text-center w-[30%] flex flex-col items-center justify-center p-2">
+                    <div className="bg-[#7f1657] grid col-span-1 md:flex md:justify-between mt-10 px-4 text-white min-h-[300px] w-[70%]">
+                        <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
                             <p className="text-[60px]"><MdOutlineHomeWork /></p>
                             <h3 className="text-xl my-3 font-bold">Sell home or office</h3>
                             <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
                         </div>
-                        <div className="text-center w-[30%] flex flex-col items-center justify-center p-2">
+                        <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
                             <p className="text-[60px]"><MdOutlineHomeWork /></p>
                             <h3 className="text-xl my-3 font-bold">Rent home or office</h3>
                             <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
                         </div>
-                        <div className="text-center w-[30%] flex flex-col items-center justify-center p-2">
+                        <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
                             <p className="text-[60px]"><MdOutlineHomeWork /></p>
                             <h3 className="text-xl my-3 font-bold">Find next</h3>
                             <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
