@@ -11,7 +11,6 @@ const createProject = asyncHandler(async (req, res, next) => {
         console.log('Starting...');
         const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
         console.log(req.body);
-        console.log(req.files);
 
         if (!name || !location || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
             return next(new ApiError(403, 'All Fields are required'));
