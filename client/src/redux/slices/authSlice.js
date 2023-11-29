@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 const initialState = {
     isLoggedIn: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : false,
-    role: "",
+    role: localStorage.getItem('role') ? JSON.parse(localStorage.getItem('role')) : "",
     data: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : null,
     signData: null,
 }
@@ -110,6 +110,7 @@ const authSlice = createSlice({
             state.role = action?.payload?.data?.role;
             localStorage.setItem('data', JSON.stringify(action?.payload?.data));
             localStorage.setItem('isLoggedIn', JSON.stringify(true));
+            localStorage.setItem('role', JSON.stringify(action?.payload?.data?.role));
             state.isLoggedIn = true;
         })
         builder.addCase(logout.fulfilled, (state, action) => {

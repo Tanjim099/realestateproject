@@ -19,6 +19,7 @@ function Navbar() {
     }
 
     const { data, role } = useSelector((state) => state.auth);
+    console.log(role);
     // console.log(data);
 
     const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
@@ -27,7 +28,10 @@ function Navbar() {
         // e.preventDefault();
         const res = await dispatch(logout());
         console.log(res);
-        if (res?.payload?.success) window.location.reload();
+        if (res?.payload?.success) {
+            window.location.reload();
+            navigate('/');
+        };
     }
 
     return (
@@ -130,12 +134,16 @@ function Navbar() {
                                     </p>
                                     <NavLink className={'text-lg'} to={'/user-profile'}>My Profile</NavLink>
                                 </li>
-                                <li className="flex flex-row items-center">
-                                    <p>
-                                        <MdDashboard className="text-lg" />
-                                    </p>
-                                    <NavLink className="text-lg" to={'/dashboard'}>Dashboard </NavLink>
-                                </li>
+                                {
+                                    isLoggedIn && role === 'ADMIN' && (
+                                        <li className="flex flex-row items-center">
+                                            <p>
+                                                <MdDashboard className="text-lg" />
+                                            </p>
+                                            <NavLink className="text-lg" to={'/admin/dashboard'}>Dashboard </NavLink>
+                                        </li>
+                                    )
+                                }
                                 <li className="flex flex-row items-center">
                                     <p>
                                         <IoIosLogOut className="text-lg" />
