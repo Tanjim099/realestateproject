@@ -35,7 +35,7 @@ function Navbar() {
     }
 
     return (
-        <div className="navbar bg-[#7f1657] z-10 sticky top-0 left-0 right-0">
+        <div className="navbar bg-[#7f1657] z-20 sticky top-0 left-0 right-0">
             <div className="flex-1">
 
                 <div>
