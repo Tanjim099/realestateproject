@@ -7,6 +7,7 @@ import backroundImage from '../assets/items1.jpg';
 import image from '../assets/section-bg1.jpg';
 import { MdOutlineHomeWork } from "react-icons/md";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import CityCard from "../components/CityCard";
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -50,6 +51,7 @@ function HomePage() {
                                     <input type="text" placeholder="Enter Location builder, project" name="" id="" className="w-[100%] outline-none p-1 sm:p-3 text-black sm:text-sm" />
                                     <button className="btn border-0 rounded-none bg-[#7f1657] text-white hover:text-black">Search</button>
                                 </div>
+                                <CityCard />
                             </div>
                         </div>
                     </div>
