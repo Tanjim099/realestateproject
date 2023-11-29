@@ -133,3 +133,21 @@ export const getBlog = async (req, res, next) => {
         next(new ApiError(500, error.message));
     }
 }
+
+//delete blog
+export const deleteBlog = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            return next(new ApiError(403, 'Blog id not found, Please try again later'));
+        }
+        await blogModel.findByIdAndDelete(id);
+        res.status(200).json({
+            success: true,
+            message: "Blog Delete Successfully"
+        })
+    } catch (error) {
+        console.log(error)
+        next(new ApiError(500, error.message));
+    }
+}
