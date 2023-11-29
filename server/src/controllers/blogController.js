@@ -4,6 +4,8 @@ import slugify from "slugify";
 import uploadCloudinary from "../utils/cloudinary.js";
 import ApiResponse from "../utils/ApiResponse.js";
 
+
+//create blog
 export const createBlog = async (req, res, next) => {
     try {
         const { title, category, description, content } = req.body;
@@ -41,6 +43,56 @@ export const createBlog = async (req, res, next) => {
         res.status(201).json(
             new ApiResponse(200, blog, "Blog Create Successfully")
         )
+    } catch (error) {
+        console.log(error)
+        next(new ApiError(500, error.message));
+    }
+}
+
+//update blog
+export const updateBlog = async (req, res, next) => {
+
+    try {
+        const { id } = req.params;
+        const { title, category, description, content } = req.body;
+        if (!id) {
+            return next(new ApiError(403, 'Blog id not found,Please try again later'));
+        }
+        const blog = await blogModel.findById({ _id: id });
+        if (!blog) {
+            return next(new ApiError(402, 'Blog is not found...'));
+        }
+        const updateBlog = await blogModel.findByIdAndUpdate(id, {
+            title,
+            category,
+            description,
+            content,
+            image: {
+                public_id: "DUMMY",
+                secure_url: "https://res.cloudinary.com/du9jzqlpt/image/upload/v1674647316/avatar_drzgxv.jpg"
+            }
+        }, { new: true })
+
+        if (!updateBlog) {
+            return next(new ApiError(403, 'Failed to update Blog...'));
+
+        }
+        let imageLocalPath;
+        if (req.file && req.file.path) {
+            imageLocalPath = req.file.path
+        }
+
+        const image = await uploadCloudinary(imageLocalPath);
+
+        updateBlog.image.public_id = image?.public_id || "DUMMY";
+        updateBlog.image.secure_url = image?.secure_url || "https://res.cloudinary.com/du9jzqlpt/image/upload/v1674647316/avatar_drzgxv.jpg";
+
+        await updateBlog.save();
+
+        res.status(201).json(
+            new ApiResponse(200, updateBlog, "Blog updated Successfully")
+        )
+
     } catch (error) {
         console.log(error)
         next(new ApiError(500, error.message));
