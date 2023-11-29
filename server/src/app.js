@@ -5,6 +5,7 @@ import projectRoutes from "./routes/projectRouter.js";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import morgan from "morgan"
+import blogRoutes from "./routes/blogRoute.js";
 const app = express();
 
 
@@ -31,6 +32,7 @@ app.get('/', (req, res) => {
 //routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/project", projectRoutes);
+app.use("/api/v1/blog", blogRoutes);
 
 app.all('*', (req, res) => {
     return res.status(404).json({
