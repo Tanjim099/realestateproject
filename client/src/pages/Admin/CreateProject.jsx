@@ -329,7 +329,7 @@ function CreateProject() {
                                                     type='text'
                                                     name='description'
                                                     id='description'
-                                                    className='w-full py-3 px-3 rounded border-none outline-0 resize-none min-h-[100px] overflow-y-hidden'
+                                                    className=''
                                                     value={userInput.description}
                                                     placeholder='Enter Project Developer'
                                                     onChange={(data) => contantField_1(data)}
@@ -342,7 +342,7 @@ function CreateProject() {
                                                     type='text'
                                                     name='specifications'
                                                     id='specifications'
-                                                    className='w-full py-3 px-3 rounded border outline-0'
+                                                    className=''
                                                     value={userInput.specifications}
                                                     placeholder='Enter Project Specifications'
                                                     onChange={(data) => contantField_2(data)}
