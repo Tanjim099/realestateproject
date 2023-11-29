@@ -30,8 +30,8 @@ function Profile() {
   console.log(userInput);
   return (
     <HomeLayout>
-      <div className='flex mt-10 justify-center h-screen w-[1200px] mx-auto gap-3'>
-        <div className='h-[400px] w-[40%] border p-4'>
+      <div className='grid grid-cols-1 lg:grid-cols-5 mt-10 min-h-screen p-5 mx-auto gap-3'>
+        <div className='lg:col-span-2 h-[400px] border p-4'>
           <div className='flex flex-col items-center my-4'>
             <div className='w-[100px] h-[100px]'>
               <img src={data?.avatar?.secure_url} alt={data?.firstName} className='w-full h-full object-cover border-4 border-[#7f1657] rounded-full' />
@@ -57,7 +57,7 @@ function Profile() {
             <button className='bg-[#7f1657] w-[50%] py-3 text-white font-bold rounded'>Delete Account</button>
           </div>
         </div>
-        <div className='h-screen w-[60%]'>
+        <div className='h-screen lg:col-span-3'>
           <div className='w-full h-[200px] mb-4 border p-5'>
             <div className='flex items-center gap-4 mb-5'>
               <img src={data?.avatar?.secure_url} className='w-[100px] h-[100px] object-cover border-2 border-[#7f1657] rounded-full' />

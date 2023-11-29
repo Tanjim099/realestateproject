@@ -309,8 +309,8 @@ function CreateProject() {
                                             editProject ? 'Update Project' : 'Create Project'
                                         }
                                     </h2>
-                                    <div className='grid grid-cols-2 gap-10'>
-                                        <div>
+                                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
+                                        <div className='col-span-1'>
                                             <div className='my-3 flex flex-col gap-2'>
                                                 <label htmlFor='name'>Name<sup className='text-pink-400'>*</sup></label>
                                                 <input
@@ -350,7 +350,7 @@ function CreateProject() {
                                                 />
                                             </div>
                                         </div>
-                                        <div>
+                                        <div className='col-span-1'>
                                             <div className='my-3 flex flex-col gap-2'>
                                                 <label htmlFor='location'>Location<sup className='text-pink-400'>*</sup></label>
                                                 <input
