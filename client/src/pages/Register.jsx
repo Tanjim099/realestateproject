@@ -7,6 +7,8 @@ import { sendOTP, setUserData } from '../redux/slices/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { FaArrowLeftLong } from "react-icons/fa6";
+import itemsImage from '../assets/items1.jpg';
+
 function Register() {
     // firstName, lastName, email, phone, password, otp, answer
     const [loading, setLoading] = useState(false);
@@ -74,116 +76,129 @@ function Register() {
 
     return (
         <HomeLayout>
-            <div className='flex items-center justify-center min-h-screen my-4'>
+            <div className='flex items-center justify-center min-h-screen my-4 p-5'>
                 {
                     loading
                         ? (<Spinner />)
-                        : (<form onSubmit={onFormSubmit} className='border w-[600px] min-h-[500px] p-4'>
-                            <Link onClick={() => navigate(-1)}><FaArrowLeftLong /></Link>
-                            <h2 className='text-3xl font-mono mt-3 border-b'>Register Form</h2>
-                            <div className='flex items-center justify-center'>
-                                <label className='cursor-pointer' htmlFor='avatar'>
-                                    {
-                                        previewImage
-                                            ? (<img src={previewImage} alt={firstName} className='w-24 h-24 mt-3 rounded-full m-auto' />)
-                                            : (<BsPersonCircle className='w-24 h-24 mt-3 rounded-full m-auto' />)
-                                    }
-                                </label>
-                                <input
-                                    type='file'
-                                    name='avatar'
-                                    className='hidden'
-                                    id='avatar'
-                                    onChange={handleImage}
-                                    accept='.jpg, .jpeg, .png, .svg'
-                                />
+                        : (
+                            <div className='grid grid-cols-1 lg:grid-cols-7'>
+                                <div className='col-span-3 h-[600px]'>
+                                    <img src={itemsImage} alt='RegisterImage' className='h-full object-cover' />
+                                </div>
+                                <form onSubmit={onFormSubmit} className='border col-span-4 min-h-[600px] lg:h-[600px] p-4'>
+                                    <Link onClick={() => navigate(-1)}><FaArrowLeftLong /></Link>
+                                    <h2 className='text-3xl font-mono mt-3 border-b'>Register Form</h2>
+                                    <div className='flex items-center justify-center'>
+                                        <label className='cursor-pointer' htmlFor='avatar'>
+                                            {
+                                                previewImage
+                                                    ? (<img src={previewImage} alt={firstName} className='w-24 h-24 mt-3 rounded-full m-auto' />)
+                                                    : (<BsPersonCircle className='w-24 h-24 mt-3 rounded-full m-auto' />)
+                                            }
+                                        </label>
+                                        <input
+                                            type='file'
+                                            name='avatar'
+                                            className='hidden'
+                                            id='avatar'
+                                            onChange={handleImage}
+                                            accept='.jpg, .jpeg, .png, .svg'
+                                        />
+                                    </div>
+                                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                                        <div className='my-3 flex flex-col gap-2'>
+                                            <label htmlFor='firstName' className=''>First Name <sup className='text-pink-400'>*</sup></label>
+                                            <input
+                                                type='text'
+                                                id='firstName'
+                                                name='firstName'
+                                                value={userInput.firstName}
+                                                className='w-full py-3 px-3 rounded border outline-0'
+                                                placeholder='Enter First Name'
+                                                onChange={handelUserInput}
+                                            />
+                                        </div>
+                                        <div className='my-3 flex flex-col gap-2'>
+                                            <label htmlFor='lastName' className=''>Last Name <sup className='text-pink-400'>*</sup></label>
+                                            <input
+                                                type='text'
+                                                id='lastName'
+                                                name='lastName'
+                                                className='w-full py-3 px-3 rounded border outline-0'
+                                                value={userInput.lastName}
+                                                placeholder='Enter Last Name'
+                                                onChange={handelUserInput}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                                        <div className='my-3 flex flex-col gap-2'>
+                                            <label htmlFor='email' className=''>Email <sup className='text-pink-400'>*</sup></label>
+                                            <input
+                                                type='text'
+                                                id='email'
+                                                name='email'
+                                                className='w-full py-3 px-3 rounded border outline-0'
+                                                value={userInput.email}
+                                                placeholder='Enter Your Email'
+                                                onChange={handelUserInput}
+                                            />
+                                        </div>
+                                        <div className='my-3 flex flex-col gap-2'>
+                                            <label htmlFor='phone' className=''>Phone Number <sup className='text-pink-400'>*</sup></label>
+                                            <input
+                                                type='text'
+                                                id='phone'
+                                                name='phone'
+                                                className='w-full py-3 px-3 rounded border outline-0'
+                                                value={userInput.phone}
+                                                placeholder='Enter Your Phone Number'
+                                                onChange={handelUserInput}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                                        <div className='my-3 flex flex-col gap-2'>
+                                            <label htmlFor='answer' className=''>Answer <sup className='text-pink-400'>*</sup></label>
+                                            <input
+                                                type='text'
+                                                id='answer'
+                                                name='answer'
+                                                className='w-full py-3 px-3 rounded border outline-0'
+                                                value={userInput.answer}
+                                                placeholder='Enter Your Answer'
+                                                onChange={handelUserInput}
+                                            />
+                                        </div>
+                                        <div className='my-3 flex flex-col gap-2 relative'>
+                                            <label htmlFor='password' className=''>Password <sup className='text-pink-400'>*</sup></label>
+                                            <input
+                                                type={`${!showPassword ? 'password' : 'text'}`}
+                                                id='password'
+                                                name='password'
+                                                className='w-full py-3 px-3 rounded border outline-0 relative'
+                                                value={userInput.password}
+                                                placeholder='Enter Your Password'
+                                                onChange={handelUserInput}
+                                            />
+                                            <span onClick={() => setShowPassword((prev) => !prev)} className='absolute right-3 top-[45px] cursor-pointer'>
+                                                {
+                                                    !showPassword ? (<FaEye className='text-2xl' />) : (<FaEyeSlash className='text-2xl' />)
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className='flex justify-end'>
+                                        <button
+                                            type='submit'
+                                            className='bg-[#7f1657] text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:scale-110 duration-300 ease-in-out transition-all'
+                                        >
+                                            Register
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                            <div className='my-3 flex flex-col gap-2'>
-                                <label htmlFor='firstName' className=''>First Name <sup className='text-pink-400'>*</sup></label>
-                                <input
-                                    type='text'
-                                    id='firstName'
-                                    name='firstName'
-                                    value={userInput.firstName}
-                                    className='w-full py-3 px-3 rounded border-none outline-0'
-                                    placeholder='Enter First Name'
-                                    onChange={handelUserInput}
-                                />
-                            </div>
-                            <div className='my-3 flex flex-col gap-2'>
-                                <label htmlFor='lastName' className=''>Last Name <sup className='text-pink-400'>*</sup></label>
-                                <input
-                                    type='text'
-                                    id='lastName'
-                                    name='lastName'
-                                    className='w-full py-3 px-3 rounded border-none outline-0'
-                                    value={userInput.lastName}
-                                    placeholder='Enter Last Name'
-                                    onChange={handelUserInput}
-                                />
-                            </div>
-                            <div className='my-3 flex flex-col gap-2'>
-                                <label htmlFor='email' className=''>Email <sup className='text-pink-400'>*</sup></label>
-                                <input
-                                    type='text'
-                                    id='email'
-                                    name='email'
-                                    className='w-full py-3 px-3 rounded border-none outline-0'
-                                    value={userInput.email}
-                                    placeholder='Enter Your Email'
-                                    onChange={handelUserInput}
-                                />
-                            </div>
-                            <div className='my-3 flex flex-col gap-2'>
-                                <label htmlFor='phone' className=''>Phone Number <sup className='text-pink-400'>*</sup></label>
-                                <input
-                                    type='text'
-                                    id='phone'
-                                    name='phone'
-                                    className='w-full py-3 px-3 rounded border-none outline-0'
-                                    value={userInput.phone}
-                                    placeholder='Enter Your Phone Number'
-                                    onChange={handelUserInput}
-                                />
-                            </div>
-                            <div className='my-3 flex flex-col gap-2'>
-                                <label htmlFor='answer' className=''>Answer <sup className='text-pink-400'>*</sup></label>
-                                <input
-                                    type='text'
-                                    id='answer'
-                                    name='answer'
-                                    className='w-full py-3 px-3 rounded border-none outline-0'
-                                    value={userInput.answer}
-                                    placeholder='Enter Your Answer'
-                                    onChange={handelUserInput}
-                                />
-                            </div>
-                            <div className='my-3 flex flex-col gap-2 relative'>
-                                <label htmlFor='password' className=''>Password <sup className='text-pink-400'>*</sup></label>
-                                <input
-                                    type={`${!showPassword ? 'password' : 'text'}`}
-                                    id='password'
-                                    name='password'
-                                    className='w-full py-3 px-3 rounded border-none outline-0 relative'
-                                    value={userInput.password}
-                                    placeholder='Enter Your Password'
-                                    onChange={handelUserInput}
-                                />
-                                <span onClick={() => setShowPassword((prev) => !prev)} className='absolute right-3 top-[45px] cursor-pointer'>
-                                    {
-                                        !showPassword ? (<FaEye className='text-2xl' />) : (<FaEyeSlash className='text-2xl' />)
-                                    }
-                                </span>
-                            </div>
-                            <div className='flex justify-end'>
-                                <button
-                                    type='submit'
-                                    className='bg-red-400 text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
-                                >
-                                    Register
-                                </button>
-                            </div>
-                        </form>)
+                        )
                 }
             </div>
         </HomeLayout>
