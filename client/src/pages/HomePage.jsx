@@ -9,6 +9,10 @@ import { MdOutlineHomeWork, MdOutlineSecurity } from "react-icons/md";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import CityCard from "../components/CityCard";
 import { FaHome, FaUser } from "react-icons/fa";
+import about from "../assets/about.jpg"
+import about_1 from "../assets/about-1.jpg";
+import img from "../assets/img_2.jpg"
+import dot from "../assets/dots.png"
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -53,7 +57,19 @@ function HomePage() {
                                     <input type="text" placeholder="Enter Location builder, project" name="" id="" className="w-[100%] outline-none p-1 sm:p-3 text-black sm:text-sm" />
                                     <button className="btn border-0 rounded-none bg-[#7f1657] text-white hover:text-black">Search</button>
                                 </div>
-                                <CityCard />
+                                <div className=" my-5">
+                                    <h1 className=" text-left mb-2 text-xl">Top City</h1>
+                                    <div className="project_container w-100  relative">
+                                        <div className="sliderBtn top-1/2">
+                                            <button onClick={arrowRight} className=" absolute left-[-1%] md:left-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowBack /></button>
+                                            <button onClick={arrowLeft} className=" absolute right-[-1%] md:right-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowForward /></button>
+                                        </div>
+                                        <div className="projects flex overflow-x-auto gap-5" id="projects">
+                                            <CityCard />
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* ====================== */}
                             </div>
                         </div>
                     </div>
@@ -62,7 +78,7 @@ function HomePage() {
                 {/* About Section */}
                 <div className="grid grid-cols-10 mt-20 mb-10 p-10 gap-10">
                     <div className="border col-span-3 h-[700px]">
-                        <img src="" className="h-full object-cover" />
+                        <img src={about} className="h-full object-cover" />
                     </div>
                     <div className="col-span-7 h-[700px]">
                         <h5 className="font-bold text-[#7f1657] uppercase">About Us</h5>
@@ -87,7 +103,7 @@ function HomePage() {
                             </div>
                         </div>
                         <div className="border h-[410px]">
-                            {/* <img src={about_1} className="h-full object-cover w-full" /> */}
+                            <img src={about_1} className="h-full object-cover w-full" />
                         </div>
                     </div>
                 </div>
@@ -178,8 +194,8 @@ function HomePage() {
                     </div>
                     <div className="flex justify-center flex-col items-center lg:items-start lg:flex-row gap-12 mt-20 mb-20">
                         <div className="relative flex justify-center w-[60%]">
-                            {/* <img className="relative z-10" src={img} />
-                            <img className="absolute bottom-[-50px] right-[100px]" src={dot} /> */}
+                            <img className="relative z-10" src={img} />
+                            <img className="absolute bottom-[-50px] right-[100px]" src={dot} />
                         </div>
                         <div className="w-[50%] flex flex-col gap-10">
                             <div className="flex items-center gap-4">

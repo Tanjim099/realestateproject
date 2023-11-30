@@ -32,7 +32,7 @@ function CityCard() {
     // }, [])
 
     return (
-        <div className="flex gap-2 overflow-x-scroll">
+        <div className="flex gap-2">
             <div className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
                 <h4 className=" text-center text-black">Delhi</h4>
             </div>
