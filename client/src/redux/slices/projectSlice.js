@@ -47,9 +47,9 @@ export const getAllProjects = createAsyncThunk("/project/getall", async () => {
     }
 })
 
-export const getProject = createAsyncThunk("/project/getProject", async (courseId) => {
+export const getProject = createAsyncThunk("/project/getProject", async (pId) => {
     try {
-        const res = axiosInstance.get(`project/get/${courseId}`);
+        const res = axiosInstance.get(`project/get/${pId}`);
         toast.promise(res, {
             loading: 'Wating',
             success: 'Successfully',
@@ -60,6 +60,22 @@ export const getProject = createAsyncThunk("/project/getProject", async (courseI
         console.log(Error);
     }
 });
+
+
+export const deleteProject = createAsyncThunk("/project/deleteProject", async (pId) => {
+    try {
+        const res = axiosInstance.delete(`project/delete/${pId}`);
+        toast.promise(res, {
+            loading: "Waiting",
+            success: "Successfully",
+            error: "Failed"
+        });
+        return (await res).data
+    } catch (error) {
+        toast.error(Error);
+        throw Error;
+    }
+})
 
 const projectSlice = createSlice({
     name: "project",

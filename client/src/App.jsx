@@ -17,6 +17,7 @@ import AdminLayout from './components/AdminLayout'
 import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import CreateBlog from './pages/Admin/CreateBlog'
+import AdminGetAllProject from './pages/Admin/AdminGetProject'
 
 function App() {
 
@@ -49,7 +50,8 @@ function App() {
 
           <Route path='/update-project/:courseId' element={<EditProject />} />
         </Route>
-        <Route path='/admin/dashboard/add-project' element={<CreateProject />} />
+        <Route path='admin/dashboard/add-project' element={<CreateProject />} />
+        <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
         <Route path='/create-blog' element={<CreateBlog />} />
 
       </Routes>
