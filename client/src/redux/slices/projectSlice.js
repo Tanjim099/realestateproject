@@ -32,7 +32,7 @@ export const createNewProject = createAsyncThunk("/project/create", async (data)
 
 export const getAllProjects = createAsyncThunk("/project/getall", async () => {
     try {
-        const res = axiosInstance.get("project//getall");
+        const res = axiosInstance.get("project/getall");
         console.log(res);
         toast.promise(res, {
             loading: "Wait Getting All Data",

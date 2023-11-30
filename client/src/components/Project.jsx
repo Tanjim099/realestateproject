@@ -7,7 +7,7 @@ function Project({ data }) {
 
     return (
         <div
-            className='border border-border bg-dry overflow-hidden'
+            className='border border-border bg-dry'
         >
             <div className="h-[250px]">
                 <img className="w-full h-full object-contain border-b-2" src={data?.gallery[0]?.secure_url || "https://www.homznspace.com/wp-content/uploads/2023/11/Main-Elevation-Brigade-Sanctuary-324x235.jpg"} alt="" />

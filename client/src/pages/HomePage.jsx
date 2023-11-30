@@ -7,8 +7,14 @@ import backroundImage from '../assets/items1.jpg';
 import image from '../assets/section-bg1.jpg';
 import { MdOutlineHomeWork, MdOutlineSecurity } from "react-icons/md";
 import { BsBookmarkStarFill, BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
-import CityCard from "../components/CityCard";
 import { FaHome, FaUser } from "react-icons/fa";
+import CityCard from "../components/CityCard";
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
+import about from '../assets/about.jpg';
+import about_1 from '../assets/about-1.jpg';
+import img from '../assets/img_2.jpg';
+import dot from '../assets/dots.png';
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -51,10 +57,10 @@ function HomePage() {
                                 <div className=" my-5">
                                     <h1 className=" text-left mb-2 text-xl">Top City</h1>
                                     <div className="project_container w-100  relative">
-                                        <div className="sliderBtn top-1/2">
+                                        {/* <div className="sliderBtn top-1/2">
                                             <button onClick={arrowRight} className=" absolute left-[-1%] md:left-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowBack /></button>
                                             <button onClick={arrowLeft} className=" absolute right-[-1%] md:right-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowForward /></button>
-                                        </div>
+                                        </div> */}
                                         <div className="projects flex overflow-x-auto gap-5" id="projects">
                                             <CityCard />
                                         </div>
