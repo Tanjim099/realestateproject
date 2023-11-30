@@ -225,7 +225,7 @@ export const forgetPassword = async (req, res, next) => {
         const hashedPassword = await hashPassword(newPassword);
         user.password = hashedPassword;
         await user.save();
-        
+
         res.status(201).json(
             new ApiResponse(200, user, "Password forget Successfully")
         )

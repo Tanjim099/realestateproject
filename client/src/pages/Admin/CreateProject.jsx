@@ -9,6 +9,8 @@ import Spinner from '../../components/Spinner';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Link, useNavigate } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
+// import 'jodit/build/jodit.min.css';
+// import 'tailwindcss/dist/tailwind.min.css';
 
 function CreateProject() {
     const [loading, setLoading] = useState(false);
@@ -165,7 +167,7 @@ function CreateProject() {
             [name]: value
         }));
     }
-    // console.log(projectCreateData);
+    console.log(projectCreateData);
     // console.log(galleryImages.file);
     // console.log(floorImages.file);
     // console.log(amenitieImages.file);
@@ -173,7 +175,7 @@ function CreateProject() {
     const contantField_1 = (data) => {
         setProjectCreateData((prev) => ({
             ...prev,
-            description: data,
+            content: data,
         }));
     }
 
@@ -205,7 +207,7 @@ function CreateProject() {
                 formData.append('email', projectCreateData.email);
                 formData.append('phone', projectCreateData.phone);
                 formData.append('city', projectCreateData.city);
-
+                formData.append('content', projectCreateData.content);
 
                 formData.append('floorName', floorchips);
                 formData.append('amenitiesName', amenitiechips);
@@ -234,6 +236,7 @@ function CreateProject() {
                     email: '',
                     phone: '',
                     city: '',
+                    content:'',
                 })
                 return;
             }
@@ -254,6 +257,7 @@ function CreateProject() {
             formData.append('email', projectCreateData.email);
             formData.append('phone', projectCreateData.phone);
             formData.append('city', projectCreateData.city);
+            formData.append('content', projectCreateData.content);
 
 
             formData.append('floorName', floorchips);
@@ -301,16 +305,16 @@ function CreateProject() {
                     loading
                         ? (<Spinner />)
                         : (
-                            <div className='border w-full min-h-[500px] my-[50px] mx-[20px] rounded shadow-sm'>
-                                <form className='p-4' onSubmit={onFormSubmit}>
+                            <div className='w-full min-h-[500px] rounded shadow-sm'>
+                                <form className='' onSubmit={onFormSubmit}>
                                     <Link onClick={() => navigate(-1)}><FaArrowLeftLong /></Link>
                                     <h2 className='text-3xl font-mono mt-3 border-b'>
                                         {
                                             editProject ? 'Update Project' : 'Create Project'
                                         }
                                     </h2>
-                                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
-                                        <div className='col-span-1'>
+                                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-5'>
+                                        <div className='col-span-2'>
                                             <div className='my-3 flex flex-col gap-2'>
                                                 <label htmlFor='name'>Name<sup className='text-pink-400'>*</sup></label>
                                                 <input
@@ -323,14 +327,14 @@ function CreateProject() {
                                                     onChange={userInput}
                                                 />
                                             </div>
-                                            <div className='my-3 flex flex-col gap-2'>
-                                                <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
+                                            <div className='my-3 min-h-[400px] flex flex-col gap-2'>
+                                                <label htmlFor='content'>Content<sup className='text-pink-400'>*</sup></label>
                                                 <JoditEditor
                                                     type='text'
-                                                    name='description'
-                                                    id='description'
-                                                    className=''
-                                                    value={userInput.description}
+                                                    name='content'
+                                                    id='content'
+                                                    className='min-h-[400px]'
+                                                    value={userInput.content}
                                                     placeholder='Enter Project Developer'
                                                     onChange={(data) => contantField_1(data)}
                                                     ref={editor}
@@ -347,6 +351,18 @@ function CreateProject() {
                                                     placeholder='Enter Project Specifications'
                                                     onChange={(data) => contantField_2(data)}
                                                     ref={editor}
+                                                />
+                                            </div>
+                                            <div className='my-3 flex flex-col gap-2'>
+                                                <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
+                                                <textarea
+                                                    type='text'
+                                                    name='description'
+                                                    id='description'
+                                                    className='border resize-none h-[200px] p-4 placeholder:text-2xl'
+                                                    value={userInput.description}
+                                                    onChange={userInput}
+                                                    placeholder='Enter Project Description'
                                                 />
                                             </div>
                                         </div>

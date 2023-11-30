@@ -2,24 +2,27 @@ import { useDispatch, useSelector } from "react-redux";
 import HomeLayout from "../components/HomeLayout";
 import Project from "../components/Project";
 import { getAllProjects } from "../redux/slices/projectSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import backroundImage from '../assets/items1.jpg';
 import image from '../assets/section-bg1.jpg';
 import { MdOutlineHomeWork, MdOutlineSecurity } from "react-icons/md";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { BsBookmarkStarFill, BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import CityCard from "../components/CityCard";
 import { FaHome, FaUser } from "react-icons/fa";
+import img from '../assets/img_2.jpg';
+import about_1 from '../assets/about-1.jpg';
+import about from '../assets/about.jpg';
+import dot from '../assets/dots.png';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+
 
 function HomePage() {
     const dispatch = useDispatch();
-
-    function arrowLeft() {
-        projects.scrollLeft -= 400
-    }
-    function arrowRight() {
-        projects.scrollLeft += 400
-    }
-
+    const [nextEl, setNextEl] = useState(null);
+    const [prevEl, setPrevEl] = useState(null);
+    const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     const { projects } = useSelector((state) => state.project);
     async function onLoadGetData() {
         const response = await dispatch(getAllProjects());
@@ -59,10 +62,56 @@ function HomePage() {
                     </div>
                 </div>
 
+                {/* Section 1 */}
+                <div className='mt-24 w-[80%] relative mx-auto'>
+                    <h2 className="border-b-4 border-[#7f1657] pb-4 my-10 text-4xl text-[#7f1657] font-bold">
+                        Top Projects
+                    </h2>
+                    <Swiper
+                        navigation={{ nextEl, prevEl }}
+                        slidesPerView={1}
+                        spaceBetween={20}
+                        loop={true}
+                        autoplay={{ delay: 2000, disableOnInteraction: false }}
+                        modules={[FreeMode, Pagination, Navigation, Autoplay]}
+                        breakpoints={{
+                            700: {
+                                slidesPerView: 2,
+                            },
+                            1024: {
+                                slidesPerView: 3,
+                            },
+                        }}
+                        className="max-h-[30rem]"
+                    >
+                        {
+                            projects.map((data, idx) => (
+                                <SwiperSlide key={idx}>
+                                    <Project data={data} />
+                                </SwiperSlide>
+                            ))
+                        }
+                    </Swiper>
+                    <div className='flex justify-between gap-10'>
+                        <button
+                            className={`${classNames} top-[50%] left-[-3%]`}
+                            ref={(node) => setPrevEl(node)}
+                        >
+                            <BsCaretLeftFill />
+                        </button>
+                        <button
+                            className={`${classNames} right-[-3%] top-[50%]`}
+                            ref={(node) => setNextEl(node)}
+                        >
+                            <BsCaretRightFill />
+                        </button>
+                    </div>
+                </div>
+
                 {/* About Section */}
                 <div className="grid grid-cols-10 mt-20 mb-10 p-10 gap-10">
                     <div className="border col-span-3 h-[700px]">
-                        <img src="" className="h-full object-cover" />
+                        <img src={about} className="h-full object-cover" />
                     </div>
                     <div className="col-span-7 h-[700px]">
                         <h5 className="font-bold text-[#7f1657] uppercase">About Us</h5>
@@ -87,32 +136,12 @@ function HomePage() {
                             </div>
                         </div>
                         <div className="border h-[410px]">
-                            {/* <img src={about_1} className="h-full object-cover w-full" /> */}
+                            <img src={about_1} className="h-full object-cover w-full" />
                         </div>
                     </div>
                 </div>
 
 
-                {/* Section 1 */}
-                <div className="project_section sm:w-[80%] md:w-[80%] m-auto my-20">
-                    <h1 className=" text-3xl font-semibold mb-3 border-b-4 pb-4 border-[#7f1657]">Top Projects</h1>
-                    <div className=" my-5">
-                        <div className="project_container w-100  relative">
-                            <div className="sliderBtn top-1/2">
-
-                                <button onClick={arrowRight} className=" absolute left-[-1%] md:left-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowBack /></button>
-                                <button onClick={arrowLeft} className=" absolute right-[-1%] md:right-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowForward /></button>
-                            </div>
-                            <div className="projects flex overflow-x-auto gap-5" id="projects">
-                                {projects?.map((p, i) => {
-                                    return (
-                                        <Project key={i} data={p} />
-                                    )
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 {/* Section 2 */}
                 <div className="md:h-[500px] p-4 min-h-screen my-10 flex items-center flex-col justify-center" style={{
                     backgroundImage: `url(${image})`,
@@ -178,8 +207,8 @@ function HomePage() {
                     </div>
                     <div className="flex justify-center flex-col items-center lg:items-start lg:flex-row gap-12 mt-20 mb-20">
                         <div className="relative flex justify-center w-[60%]">
-                            {/* <img className="relative z-10" src={img} />
-                            <img className="absolute bottom-[-50px] right-[100px]" src={dot} /> */}
+                            <img className="relative z-10" src={img} />
+                            <img className="absolute bottom-[-50px] right-[100px]" src={dot} />
                         </div>
                         <div className="w-[50%] flex flex-col gap-10">
                             <div className="flex items-center gap-4">
