@@ -44,31 +44,51 @@ function HomePage() {
                         boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
                         opacity: 0.9,
                         transition: 'background 0.3s ease-in-out',
-                        clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
+                        // clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
                     }}>
-                        <div className="hero-overlay bg-opacity-60"></div>
-                        <div className="hero-content text-center text-neutral-content w-[100%]">
+                        <div className="bg-opacity-60"></div>
+                        <div className="hero-content text-neutral-content w-[100%]">
 
-                            <div className="w-[100%] sm:w-[50%] md:w-[90%] flex flex-col gap-3">
-                                <h1 className=" sm:text-3xl font-semibold">India's Favourite Property Portal</h1>
-                                <div className="flex">
+                            <div className="absolute w-[50%] text-white p-5 bg-[#7f1657]">
+                                <h1 className=" sm:text-4xl font-semibold">Find Your Dream Home</h1>
+                                <p className="text-xl my-5">We Have Over Million Properties For You</p>
+                                {/* <div className="flex">
                                     <input type="text" placeholder="Enter Location builder, project" name="" id="" className="w-[100%] outline-none p-1 sm:p-3 text-black sm:text-sm" />
                                     <button className="btn border-0 rounded-none bg-[#7f1657] text-white hover:text-black">Search</button>
-                                </div>
-                                <div className=" my-5">
+                                </div> */}
+                                {/* <div className=" my-5">
                                     <h1 className=" text-left mb-2 text-xl">Top City</h1>
                                     <div className="project_container w-100  relative">
-                                        {/* <div className="sliderBtn top-1/2">
+                                        <div className="sliderBtn top-1/2">
                                             <button onClick={arrowRight} className=" absolute left-[-1%] md:left-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowBack /></button>
                                             <button onClick={arrowLeft} className=" absolute right-[-1%] md:right-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowForward /></button>
-                                        </div> */}
+                                        </div>
                                         <div className="projects flex overflow-x-auto gap-5" id="projects">
                                             <CityCard />
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 {/* ====================== */}
+                                <div className="bg-white absolute bottom-[-80px] right-0 w-[80%] p-5">
+                                    <div className="flex gap-5">
+                                        <input type="text" placeholder="Enter Location builder, project" name="" id="" className="border w-[75%] p-3" />
+                                        <button className="bg-[#7f1657] w-[130px] py-2 rounded text-white hover:text-black">Search</button>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className=" my-5 mx-auto w-[1200px]">
+                    <h2 className="border-b-4 border-[#7f1657] pb-4 my-10 text-4xl text-[#7f1657] font-bold">Top City</h2>
+                    <div className="w-full  relative">
+                        {/* <div className="sliderBtn top-1/2">
+                            <button onClick={arrowRight} className=" absolute left-[-1%] md:left-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowBack /></button>
+                            <button onClick={arrowLeft} className=" absolute right-[-1%] md:right-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowForward /></button>
+                        </div> */}
+                        <div className="projects flex overflow-x-auto gap-5" id="projects">
+                            <CityCard />
                         </div>
                     </div>
                 </div>
@@ -282,7 +302,7 @@ function HomePage() {
                                     <div key={idx} className="group col-span-1 relative">
                                         <img src={project?.gallery[0]?.secure_url} className="h-[200px] object-cover border" alt="Gallery" />
                                         <div className="bg-gray-50 opacity-0 hover:opacity-[.6] transition-all duration-300 ease-in-out h-full w-full absolute top-0 flex items-center justify-center">
-                                            <h2 className="text-3xl text-black">Hello</h2>
+                                            <h2 className="text-3xl text-black">{project?.name}</h2>
                                         </div>
                                     </div>
                                 ))
