@@ -22,6 +22,7 @@ function HomePage() {
     const [prevEl, setPrevEl] = useState(null);
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     const { projects } = useSelector((state) => state.project);
+    console.log(projects);
     async function onLoadGetData() {
         const response = await dispatch(getAllProjects());
     }
@@ -184,13 +185,13 @@ function HomePage() {
                     </div>
                 </div>
                 {/* Section 3 */}
-                <div className="bg-red-300 min-h-screen lg:min-h-[400px] my-10 grid grid-cols-1 lg:grid-cols-3 gap-3 p-10">
-                    <div className="col-span-1 text-white ml-6 p-5">
+                <div className="bg-gray-50 min-h-screen lg:min-h-[400px] my-10 grid grid-cols-1 lg:grid-cols-3 gap-3 p-10">
+                    <div className="col-span-1 text-black ml-6 p-5">
                         <h2 className="text-5xl">Explore by Property Type</h2>
                         <p className="font-mono text-lg my-5">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
                         <button className="bg-[#7f1657] hover:bg-[#a7076a] transition-all duration-300 ease-in-out text-white font-semibold px-5 py-3 rounded ">View All Property</button>
                     </div>
-                    <div className="col-span-2 grid grid-cols-1 lg:grid-cols-4 text-white p-5 h-screen lg:h-[200px] mt-24 bg-red-400">
+                    <div className="col-span-2 grid grid-cols-1 lg:grid-cols-4 text-black p-5 h-screen lg:h-[200px] mt-24 bg-white">
                         <div className="flex flex-col col-span-1 items-center justify-center lg:border-r-2 p-2">
                             <span className="text-5xl"><MdOutlineHomeWork /></span>
                             <p>Home & Appartment</p>
@@ -267,6 +268,133 @@ function HomePage() {
                             <span className="text-4xl font-bold text-[#7f1657]">1,291</span>
                             <p># of Agents</p>
                         </div>
+                    </div>
+                </div>
+
+                {/* Gallery section */}
+
+                <div className="w-[1200px] mx-auto my-20">
+                    <h2 className="text-4xl font-bold text-[#7f1657] border-b-4 border-[#7f1657] pb-4 my-10">Gallery</h2>
+                    <div className="grid grid-cols-4 gap-5">
+                        {
+                            projects && (
+                                projects.slice(0, 20).map((project, idx) => (
+                                    <div key={idx} className="group col-span-1 relative">
+                                        <img src={project?.gallery[0]?.secure_url} className="h-[200px] object-cover border" alt="Gallery" />
+                                        <div className="bg-gray-50 opacity-0 hover:opacity-[.6] transition-all duration-300 ease-in-out h-full w-full absolute top-0 flex items-center justify-center">
+                                            <h2 className="text-3xl text-black">Hello</h2>
+                                        </div>
+                                    </div>
+                                ))
+                            )
+                        }
+                    </div>
+                </div>
+
+                {/* Blog Section */}
+
+                <div className="my-20">
+                    <div className="w-[1200px] mx-auto">
+                        <h2 className="text-4xl font-bold text-[#7f1657] border-b-4 border-[#7f1657] pb-4 my-10">Recent Blog</h2>
+                        <Swiper
+                            //   navigation={{ nextEl, prevEl }}
+                            slidesPerView={1}
+                            spaceBetween={20}
+                            loop={true}
+                            autoplay={{ delay: 2000, disableOnInteraction: false }}
+                            modules={[FreeMode, Pagination, Navigation, Autoplay]}
+                            breakpoints={{
+                                700: {
+                                    slidesPerView: 2,
+                                },
+                                1024: {
+                                    slidesPerView: 3,
+                                },
+                            }}
+                            className="max-h-[30rem]"
+                        >
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide className="border w-[300px]">
+                                <div className="w-full">
+                                    <img src={about_1} className="h-full w-full object-cover" />
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
+                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                </div>
+                            </SwiperSlide>
+                        </Swiper>
                     </div>
                 </div>
 

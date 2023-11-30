@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import HomeLayout from '../components/HomeLayout'
 import OtpInput from "react-otp-input";
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../redux/slices/authSlice';
+import { register, sendOTP } from '../redux/slices/authSlice';
 import Spinner from '../components/Spinner';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function VerifyEmail() {
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [otp, setOtp] = useState(null);
     const { signData } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
@@ -41,7 +41,7 @@ function VerifyEmail() {
             // console.log(res);
             navigate('/login');
             setLoading(false);
-            
+
 
         } catch (Error) {
             console.log(Error);
@@ -51,24 +51,31 @@ function VerifyEmail() {
     return (
         <HomeLayout>
             <div className='flex items-center  justify-center min-h-screen'>
-               {
-                loading 
-                ? (<Spinner />) 
-                : ( <form onSubmit={onFormSubmit}>
-                    <OtpInput
-                        value={otp}
-                        onChange={setOtp}
-                        numInputs={6}
-                        renderInput={(props) => (
-                            <input
-                                {...props}
-                                placeholder='-'
+                {
+                    loading
+                        ? (<Spinner />)
+                        : (<form className='border-4 p-5' onSubmit={onFormSubmit}>
+                            <h2 className='font-semibold border-b-4 pb-4 border-[#7f1657] text-[#7f1657] text-4xl'>Veify Email</h2>
+                            <OtpInput
+                                value={otp}
+                                onChange={setOtp}
+                                numInputs={6}
+                                containerStyle="otp-container"
+                                renderInput={(props) => <input {...props} placeholder='-' style={{
+                                    boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
+                                }} className="w-[60px] border-0 m-1 mb-3 bg-gray-100 mt-10 rounded-[0.5rem] text-black aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50" />}
                             />
-                        )}
-                    />
-                    <button type='submit'>Vefiry</button>
-                </form>)
-               }
+                            <div className='flex justify-between'>
+                                <button className='mt-5' onClick={() => dispatch(sendOTP(signData.email))}>Resend Otp</button>
+                                <button
+                                    type='submit'
+                                    className='bg-[#7f1657] text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-[#7f1639] hover:scale-110 duration-300 ease-in-out transition-all'
+                                >
+                                    Verify
+                                </button>
+                            </div>
+                        </form>)
+                }
             </div>
         </HomeLayout>
     )
