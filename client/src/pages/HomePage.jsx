@@ -9,14 +9,6 @@ import { MdOutlineHomeWork, MdOutlineSecurity } from "react-icons/md";
 import { BsBookmarkStarFill, BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import CityCard from "../components/CityCard";
 import { FaHome, FaUser } from "react-icons/fa";
-import img from '../assets/img_2.jpg';
-import about_1 from '../assets/about-1.jpg';
-import about from '../assets/about.jpg';
-import dot from '../assets/dots.png';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -56,7 +48,19 @@ function HomePage() {
                                     <input type="text" placeholder="Enter Location builder, project" name="" id="" className="w-[100%] outline-none p-1 sm:p-3 text-black sm:text-sm" />
                                     <button className="btn border-0 rounded-none bg-[#7f1657] text-white hover:text-black">Search</button>
                                 </div>
-                                <CityCard />
+                                <div className=" my-5">
+                                    <h1 className=" text-left mb-2 text-xl">Top City</h1>
+                                    <div className="project_container w-100  relative">
+                                        <div className="sliderBtn top-1/2">
+                                            <button onClick={arrowRight} className=" absolute left-[-1%] md:left-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowBack /></button>
+                                            <button onClick={arrowLeft} className=" absolute right-[-1%] md:right-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowForward /></button>
+                                        </div>
+                                        <div className="projects flex overflow-x-auto gap-5" id="projects">
+                                            <CityCard />
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* ====================== */}
                             </div>
                         </div>
                     </div>

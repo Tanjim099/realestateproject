@@ -6,14 +6,15 @@ import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import morgan from "morgan"
 import blogRoutes from "./routes/blogRoute.js";
+import { config } from "dotenv";
 const app = express();
 
-
+config();
 
 app.use(cookieParser());
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: process.env.FRONTEND_URL,
     credentials: true,
 }));
 

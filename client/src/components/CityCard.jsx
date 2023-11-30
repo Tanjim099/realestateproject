@@ -36,33 +36,25 @@ function CityCard() {
     // }, [])
 
     return (
-        <Swiper
-            slidesPerView={5}
-            spaceBetween={40}
-            loop={true}
-            autoplay={{ delay: 2000, disableOnInteraction: false }}
-            modules={[Autoplay]}
-            className="max-h-[30rem] w-full"
-        >
-            <div className="flex justify-center gap-4">
-                <SwiperSlide className=" bg-white min-w-[50px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
+        <div className="flex gap-2 overflow-x-scroll">
+            <div className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
+                <h4 className=" text-center text-black">Delhi</h4>
+            </div>
+            <div className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
+                <h4 className=" text-center text-black">Delhi</h4>
+            </div>
+            <div className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
+                <h4 className=" text-center text-black">Delhi</h4>
+            </div>
+            <div className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
+                <h4 className=" text-center text-black">Delhi</h4>
+            </div>
+            <div className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
+                <h4 className=" text-center text-black">Delhi</h4>
+            </div>
+            <div className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
+                <h4 className=" text-center text-black">Delhi</h4>
+            </div>
 
                 <SwiperSlide className=" bg-white min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
                     <h4 className=" text-center text-black">Delhi</h4>
