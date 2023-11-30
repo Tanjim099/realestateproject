@@ -65,7 +65,7 @@ function Navbar() {
                                     isLoggedIn && role === 'ADMIN' &&
                                     (
                                         <>
-                                            <li><NavLink to="/create-project">Create-Project</NavLink></li>
+                                            <li><NavLink to="/create-blog">Create-Blog</NavLink></li>
                                         </>
                                     )
                                 }
