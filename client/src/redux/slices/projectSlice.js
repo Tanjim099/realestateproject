@@ -77,6 +77,22 @@ export const deleteProject = createAsyncThunk("/project/deleteProject", async (p
     }
 })
 
+export const searchProject = createAsyncThunk("/project/search", async (data) => {
+    try {
+        const res = axiosInstance.get(`project/search?name=${data}`);
+
+        toast.promise(res,{
+            loading:'Wait! Searching',
+            success:'Successfully',
+            error:'Failed Searching'
+        });
+
+        return (await res)?.data;
+    } catch (Error) {
+        console.log(Error);
+    }
+});
+
 const projectSlice = createSlice({
     name: "project",
     initialState,
@@ -95,7 +111,7 @@ const projectSlice = createSlice({
 
         builder.addCase(createNewProject.fulfilled, (state, action) => {
             console.log('Fulfilled...');
-            console.log(action.payload);  // This will contain the result of the async operation
+            // console.log(action.payload);  // This will contain the result of the async operation
         });
 
         builder.addCase(createNewProject.rejected, (state, action) => {

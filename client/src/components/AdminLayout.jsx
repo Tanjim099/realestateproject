@@ -76,9 +76,16 @@ function AdminLayout({ children }) {
         {
             key: '9',
             icon: <GrUserAdmin />,
+            label: 'Add Blog',
+            link: 'add-blog',
+        },
+        {
+            key: '7',
+            icon: <GrUserAdmin />,
             label: 'Author',
             link: 'author',
         },
+
     ];
     return (
         <Layout className='h-100' style={{ height: '100vh' }}>

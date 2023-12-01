@@ -4,7 +4,12 @@ import { getAllProjects } from "../redux/slices/projectSlice";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
-
+import Bangalore from '../assets/bangalore.png';
+import chennai from '../assets/chennai.png';
+import hyderabad from '../assets/hyderabad.png';
+import mumbai from '../assets/mumbai.png';
+import kolkata from '../assets/kolkata.png';
+import delhi from '../assets/delhi.png';
 
 function CityCard() {
     const dispatch = useDispatch();
@@ -36,44 +41,33 @@ function CityCard() {
     // }, [])
 
     return (
-            <Swiper
-                slidesPerView={5}
-                spaceBetween={20}
-                loop={true}
-                autoplay={{ delay: 2000, disableOnInteraction: false }}
-                modules={[Autoplay]}
-            >
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-                <SwiperSlide className=" bg-white border min-w-[130px] h-[80px] rounded-md flex items-center justify-center text-center">
-                    <h4 className=" text-center text-black">Delhi</h4>
-                </SwiperSlide>
-            </Swiper>
+        <div className="flex justify-between gap-3 min-w-full">
+            <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                <img src={Bangalore} className="w-[50px] h-[50px]" alt="CityImage" />
+                <h4 className=" text-center text-[#7f1657]">Bangalore</h4>
+            </div>
+            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                <img src={chennai} className="w-[50px] h-[50px]" alt="CityImage" />
+                <h4 className=" text-center text-black">Chennai</h4>
+            </div>
+            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                <img src={hyderabad} className="w-[50px] h-[50px]" alt="CityImage" />
+                <h4 className=" text-center text-black">Hyderabad</h4>
+            </div>
+            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                <img src={mumbai} className="w-[50px] h-[50px]" alt="CityImage" />
+                <h4 className=" text-center text-black">Mumbai</h4>
+            </div>
+            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                <img src={kolkata} className="w-[50px] h-[50px]" alt="CityImage" />
+                <h4 className=" text-center text-black">Kolkata</h4>
+            </div>
+            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                <img src={delhi} className="w-[50px] h-[50px]" alt="CityImage" />
+                <h4 className=" text-center text-black">Delhi</h4>
+            </div>
+    
+        </div>
     )
 }
 

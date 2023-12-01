@@ -248,6 +248,8 @@ const searchProject = async (req, res, next) => {
     try {
         const { page = 1, limit = 10, name, location, developer, floorPlan, } = req.query;
 
+        console.log(req.query);
+
         const query = {};
         if (name) {
             query.name = { $regex: new RegExp(name, "i") };
@@ -262,7 +264,11 @@ const searchProject = async (req, res, next) => {
             query.floorPlan = { $regex: new RegExp(floorPlan, "i") };
         }
 
+        console.log(query);
+        
         const projects = await Project.find(query).limit(limit * 1).skip((page - 1) * limit).exec();
+
+        console.log(projects);
 
         const count = await Project.countDocuments(query);
         res.status(200).json({
