@@ -15,3 +15,21 @@ export const allUsers = async (req, res, next) => {
         next(new ApiError(500, error.message));
     }
 }
+
+
+export const deleteUser = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            return next(new ApiError(403, 'User id not found, Please try again later'));
+        }
+        await authModel.findByIdAndDelete(id);
+        res.status(200).json({
+            success: true,
+            message: "User Delete Successfully"
+        })
+    } catch (error) {
+        console.log(error);
+        next(new ApiError(500, error.message));
+    }
+}
