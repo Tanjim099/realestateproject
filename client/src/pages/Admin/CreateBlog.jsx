@@ -3,7 +3,8 @@ import HomeLayout from '../../components/HomeLayout'
 import { useDispatch, useSelector } from 'react-redux';
 import { createBlog } from '../../redux/slices/blogSlice';
 import Spinner from '../../components/Spinner';
-
+import JoditEditor from 'jodit-react';
+import AdminLayout from '../../components/AdminLayout';
 function CreateBlog() {
   // title, category, description, content, author
   const [loading, setLoading] = useState(false);
@@ -48,6 +49,13 @@ function CreateBlog() {
     }
   }
 
+  const descriptionContent = (data) => {
+    setUserInput((prev) => ({
+      ...prev,
+      description: data
+    }));
+  }
+
   const onFormSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -84,8 +92,8 @@ function CreateBlog() {
   }
 
   return (
-    <HomeLayout>
-      <div className='flex items-center justify-center min-h-screen'>
+    <AdminLayout>
+      <div className=''>
         {
           loading
             ?
@@ -94,57 +102,63 @@ function CreateBlog() {
             )
             :
             (
-              <form onSubmit={onFormSubmit} className='border w-[600px] p-4 my-10'>
+              <form onSubmit={onFormSubmit} className=''>
                 <h2 className='text-3xl border-b-2 border-[#7f1657] text-[#7f1657] pb-2'>Create Blog</h2>
-                <div className='my-3 flex flex-col gap-2'>
-                  <label htmlFor='title'>Title<sup className='text-pink-400'>*</sup></label>
-                  <input
-                    type='text'
-                    name='title'
-                    id='title'
-                    className='w-full py-3 px-3 rounded border outline-0'
-                    value={userInput.title}
-                    placeholder='Enter Blog Title'
-                    onChange={inputUser}
-                  />
-                </div>
-                <div className='my-3 flex flex-col gap-2'>
-                  <label htmlFor='category'>Category<sup className='text-pink-400'>*</sup></label>
-                  <input
-                    type='text'
-                    name='category'
-                    id='category'
-                    className='w-full py-3 px-3 rounded border outline-0'
-                    value={userInput.category}
-                    placeholder='Enter Blog Category'
-                    onChange={inputUser}
-                  />
-                </div>
-                <div className='my-3 flex flex-col gap-2'>
-                  <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
-                  <textarea
-                    type='text'
-                    name='description'
-                    id='description'
-                    className='w-full py-3 px-3 rounded border outline-0 h-[200px] resize-none'
-                    value={userInput.description}
-                    placeholder='Enter Blog Description'
-                    onChange={inputUser}
-                  />
-                </div>
-                <div className='my-3 flex flex-col gap-2'>
-                  <label htmlFor='content'>Content<sup className='text-pink-400'>*</sup></label>
-                  <input
-                    type='text'
-                    name='content'
-                    id='content'
-                    className='w-full py-3 px-3 rounded border outline-0'
-                    value={userInput.content}
-                    placeholder='Enter Blog Content'
-                    onChange={inputUser}
-                  />
-                </div>
-                {/* <div className='my-3 flex flex-col gap-2'>
+                <div className='grid lg:grid-cols-2 gap-3'>
+                  <div className='col-span-1'>
+                    <div className='my-3 flex flex-col gap-2'>
+                      <label htmlFor='title'>Title<sup className='text-pink-400'>*</sup></label>
+                      <input
+                        type='text'
+                        name='title'
+                        id='title'
+                        className='w-full py-3 px-3 rounded border outline-0'
+                        value={userInput.title}
+                        placeholder='Enter Blog Title'
+                        onChange={inputUser}
+                      />
+                    </div>
+                    <div className='my-3 flex flex-col gap-2'>
+                      <label htmlFor='category'>Category<sup className='text-pink-400'>*</sup></label>
+                      <input
+                        type='text'
+                        name='category'
+                        id='category'
+                        className='w-full py-3 px-3 rounded border outline-0'
+                        value={userInput.category}
+                        placeholder='Enter Blog Category'
+                        onChange={inputUser}
+                      />
+                    </div>
+
+                    <div className='my-3 flex flex-col gap-2'>
+                      <label htmlFor='content'>Content<sup className='text-pink-400'>*</sup></label>
+                      <input
+                        type='text'
+                        name='content'
+                        id='content'
+                        className='w-full py-3 px-3 rounded border outline-0'
+                        value={userInput.content}
+                        placeholder='Enter Blog Content'
+                        onChange={inputUser}
+                      />
+                    </div>
+                  </div>
+                  <div className=''>
+                    <div className='my-3 flex flex-col gap-2'>
+                      <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
+                      <JoditEditor
+                        type='text'
+                        name='description'
+                        id='description'
+                        className='w-full py-3 px-3 rounded border outline-0 h-[200px] resize-none'
+                        value={userInput.description}
+                        placeholder='Enter Blog Description'
+                        onChange={(data) => descriptionContent(data)}
+                      />
+                    </div>
+                  </div>
+                  {/* <div className='my-3 flex flex-col gap-2'>
             <label htmlFor='author'>Author<sup className='text-pink-400'>*</sup></label>
             <input
               type='text'
@@ -156,30 +170,31 @@ function CreateBlog() {
               onChange={inputUser}
             />
           </div> */}
-                <div className='w-full'>
-                  {
-                    previwImage ? (
-                      <div className='w-full h-[200px] border-4 border-dotted'>
-                        <img src={previwImage} className='w-full h-full object-contain' alt='Blog-Imgae' />
-                      </div>
-                    )
-                      :
-                      (
-                        <>
-                          <label htmlFor='image' className='inline-block border-dotted border-2 w-full h-[200px] cursor-pointer' >
-                            <p className='flex items-center justify-center text-5xl w-full h-full'>
-                              Image
-                            </p>
-                          </label>
-
-                          <input
-                            type="file"
-                            id='image'
-                            onChange={imageUpload}
-                            className='hidden'
-                          /></>
+                  <div className='w-full'>
+                    {
+                      previwImage ? (
+                        <div className='w-full h-[200px] border-4 border-dotted'>
+                          <img src={previwImage} className='w-full h-full object-contain' alt='Blog-Imgae' />
+                        </div>
                       )
-                  }
+                        :
+                        (
+                          <>
+                            <label htmlFor='image' className='inline-block border-dotted border-2 w-full h-[200px] cursor-pointer' >
+                              <p className='flex items-center justify-center text-5xl w-full h-full'>
+                                Image
+                              </p>
+                            </label>
+
+                            <input
+                              type="file"
+                              id='image'
+                              onChange={imageUpload}
+                              className='hidden'
+                            /></>
+                        )
+                    }
+                  </div>
                 </div>
                 <div className='flex justify-end'>
                   <button
@@ -193,7 +208,7 @@ function CreateBlog() {
             )
         }
       </div >
-    </HomeLayout >
+    </AdminLayout >
   )
 }
 

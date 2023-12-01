@@ -52,7 +52,7 @@ function App() {
         </Route>
         <Route path='admin/dashboard/add-project' element={<CreateProject />} />
         <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
-        <Route path='/create-blog' element={<CreateBlog />} />
+        <Route path='admin/dashboard/add-blog' element={<CreateBlog />} />
 
       </Routes>
 

@@ -20,5 +20,5 @@ router.post('/update/:id', upload.fields([
 router.get("/get/:id", getProject);
 router.get("/getall", getAllProject);
 router.delete("/delete/:id", isAdmin, deleteProject);
-router.get("/search/project", searchProject);
+router.get("/search", searchProject);
 export default router;

@@ -14,7 +14,7 @@ dotenv.config();
 app.use(cookieParser());
 
 const corsOptions = {
-    origin: 'http://127.0.0.1:5173/',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow cookies and HTTP authentication to be sent cross-origin
     optionsSuccessStatus: 204, // Some legacy browsers (IE11) choke on 204

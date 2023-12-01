@@ -19,7 +19,7 @@ function Navbar() {
     }
 
     const { data, role } = useSelector((state) => state.auth);
-    console.log(role);
+    // console.log(role);
     // console.log(data);
 
     const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
@@ -27,7 +27,7 @@ function Navbar() {
     const handelLogout = async (e) => {
         // e.preventDefault();
         const res = await dispatch(logout());
-        console.log(res);
+        // console.log(res);
         if (res?.payload?.success) {
             window.location.reload();
             navigate('/');
@@ -61,15 +61,6 @@ function Navbar() {
                                 <li><a>Property</a></li>
                                 <li><a>Blog</a></li>
                                 <li><NavLink to="/project">Project</NavLink></li>
-                                {
-                                    isLoggedIn && role === 'ADMIN' &&
-                                    (
-                                        <>
-                                            <li><NavLink to="/create-blog">Create-Blog</NavLink></li>
-                                        </>
-                                    )
-                                }
-
                             </ul>
                         </div>
                         <Link to={'/'} className=" font-semibold text-white p-0 text-3xl">HOME99</Link>
