@@ -232,11 +232,13 @@ const getAllProject = async (req, res, next) => {
 const deleteProject = async (req, res, next) => {
     try {
         const { id } = req.params;
+        console.log(id)
         const project = await Project.findByIdAndDelete(id);
         res.status(201).json(
             new ApiResponse(200, project, "Project deleted Successfully...")
         )
     } catch (error) {
+        console.log(error)
         return next(new ApiError(500, Error.message));
     }
 }

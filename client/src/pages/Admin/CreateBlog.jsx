@@ -3,12 +3,13 @@ import HomeLayout from '../../components/HomeLayout'
 import { useDispatch, useSelector } from 'react-redux';
 import { createBlog } from '../../redux/slices/blogSlice';
 import Spinner from '../../components/Spinner';
+import AdminLayout from '../../components/AdminLayout';
 
 function CreateBlog() {
   // title, category, description, content, author
   const [loading, setLoading] = useState(false);
   const { data } = useSelector((state) => state.auth);
-  console.log(data._id);
+  // console.log(data._id);
   const dispatch = useDispatch();
   const [previwImage, setPreviewImage] = useState('');
   const [userInput, setUserInput] = useState({
@@ -16,7 +17,7 @@ function CreateBlog() {
     category: '',
     description: '',
     content: '',
-    author: data._id,
+    // author: data._id,
     image: '',
   });
 
@@ -84,7 +85,7 @@ function CreateBlog() {
   }
 
   return (
-    <HomeLayout>
+    <AdminLayout>
       <div className='flex items-center justify-center min-h-screen'>
         {
           loading
@@ -193,7 +194,7 @@ function CreateBlog() {
             )
         }
       </div >
-    </HomeLayout >
+    </AdminLayout >
   )
 }
 

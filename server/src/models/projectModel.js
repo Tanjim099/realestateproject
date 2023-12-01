@@ -5,7 +5,7 @@ const projectSchema = new Schema({
         type: String,
         required: true,
     },
-    city:{
+    city: {
         type: String,
         required: true,
     },
@@ -13,10 +13,10 @@ const projectSchema = new Schema({
         type: String,
         required: true,
     },
-    city: {
-        type: String,
-        required: true
-    },
+    // city: {
+    //     type: String,
+    //     required: true
+    // },
     developer: {
         type: String,
         required: true,

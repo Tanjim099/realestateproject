@@ -18,6 +18,8 @@ import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import CreateBlog from './pages/Admin/CreateBlog'
 import AdminGetAllProject from './pages/Admin/AdminGetProject'
+import Overflow from './pages/Admin/Overflow'
+import AllUsers from './pages/Admin/AllUsers'
 
 function App() {
 
@@ -44,15 +46,17 @@ function App() {
         <Route path='/project/:id' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='*' element={<NotFound />} />
-        <Route path='/admin/dashboard' element={<AdminLayout />} />
+        {/* <Route path='/admin/dashboard' element={<AdminLayout />} /> */}
 
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
 
           <Route path='/update-project/:courseId' element={<EditProject />} />
         </Route>
+        <Route path='admin/dashboard/overflow' element={<Overflow />} />
+        <Route path='admin/dashboard/users' element={<AllUsers />} />
         <Route path='admin/dashboard/add-project' element={<CreateProject />} />
         <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
-        <Route path='/create-blog' element={<CreateBlog />} />
+        <Route path='/admin/dashboard/create-blog' element={<CreateBlog />} />
 
       </Routes>
 
