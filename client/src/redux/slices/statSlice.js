@@ -21,6 +21,21 @@ export const getUsers = createAsyncThunk("/stat/get", async (data) => {
         toast.error(error.message)
     }
 })
+
+export const deleteUser = createAsyncThunk("/stat/delete", async (id) => {
+    try {
+        const res = axiosInstance.delete(`/admin/stat/user/${id}`);
+        toast.promise(res, {
+            loading: "Waiting",
+            success: "Successfully",
+            error: "Failed"
+        })
+        return (await res).data
+    } catch (error) {
+        console.log(error);
+        toast.error(error.message)
+    }
+})
 const statSlice = createSlice({
     name: "stat",
     initialState,

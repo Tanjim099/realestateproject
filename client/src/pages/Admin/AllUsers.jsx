@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "../../components/AdminLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../redux/slices/statSlice";
+import { deleteUser, getUsers } from "../../redux/slices/statSlice";
 import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, BsTrash }
     from 'react-icons/bs'
 import { FiEdit } from "react-icons/fi"
@@ -46,6 +46,14 @@ function AllUsers() {
     //     setPage(page - 1);
     // };
 
+
+    async function onDeleteUser(id) {
+        const response = await dispatch(deleteUser(id));
+        if (response?.payload?.success === true) {
+            fetchData();
+        }
+        console.log(response)
+    }
     useEffect(() => {
         fetchData();
     }, [page, limit])
@@ -78,7 +86,7 @@ function AllUsers() {
                                         <td>{user.role}</td>
                                         <td>{user.posts || 0}</td>
                                         <td>{user.createdAt}</td>
-                                        <td><button className="p-2 no-border bg-red-500 text-white rounded"><BsTrash /></button></td>
+                                        <td><button onClick={() => onDeleteUser(user._id)} className="p-2 no-border bg-red-500 text-white rounded"><BsTrash /></button></td>
 
                                     </tr>
                                 ))}
