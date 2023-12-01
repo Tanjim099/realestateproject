@@ -53,7 +53,7 @@ function App() {
           <Route path='/update-project/:courseId' element={<EditProject />} />
         </Route>
         <Route path='admin/dashboard/overflow' element={<Overflow />} />
-        <Route path='admin/dashboard/users' element={<AllUsers />} />
+        <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
         <Route path='admin/dashboard/add-project' element={<CreateProject />} />
         <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
         <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
