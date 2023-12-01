@@ -61,7 +61,7 @@ const projectSchema = new Schema({
     },
     pricing: {
         startingFrom: {
-            type: Number,
+            type: String,
             required: true,
         },
         currency: {

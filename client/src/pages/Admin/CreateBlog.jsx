@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createBlog } from '../../redux/slices/blogSlice';
 import Spinner from '../../components/Spinner';
 import AdminLayout from '../../components/AdminLayout';
+import JoditEditor from 'jodit-react';
 
 function CreateBlog() {
   // title, category, description, content, author

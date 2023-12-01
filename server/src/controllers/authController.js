@@ -68,14 +68,14 @@ export const register = asyncHandler(async (req, res, next) => {
             return next(new ApiError(400, "Email Already Exists"));
         }
 
-        const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
-        console.log(response);
+        // const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
+        // console.log(response);
 
-        if (response.otp.length === 0) {
-            return next(new ApiError(400, 'The OTP is not valid'));
-        } else if (otp !== response.otp) {
-            return next(new ApiError(400, 'The OTP is not valid'));
-        }
+        // if (response.otp.length === 0) {
+        //     return next(new ApiError(400, 'The OTP is not valid'));
+        // } else if (otp !== response.otp) {
+        //     return next(new ApiError(400, 'The OTP is not valid'));
+        // }
 
         const hashedPassword = await hashPassword(password);
         const user = await authModel.create({
