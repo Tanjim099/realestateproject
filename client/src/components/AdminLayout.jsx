@@ -47,7 +47,7 @@ function AdminLayout({ children }) {
             key: '4',
             icon: <UserOutlined />,
             label: 'All Users',
-            link: 'users',
+            link: 'users/page/1',
         },
         {
             key: '5',
@@ -65,7 +65,7 @@ function AdminLayout({ children }) {
             key: '7',
             icon: <AiFillProject />,
             label: 'All Blog',
-            link: 'all-blog',
+            link: 'blogs/page/1',
         },
         {
             key: '8',
