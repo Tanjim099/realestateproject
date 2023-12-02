@@ -21,6 +21,7 @@ import AdminGetAllProject from './pages/Admin/AdminGetProject'
 import Overflow from './pages/Admin/Overflow'
 import AllUsers from './pages/Admin/AllUsers'
 import AdminAllBlogs from './pages/Admin/AdminAllBlogs'
+import UpdateBlog from './pages/Admin/UpdateBlog'
 
 function App() {
 
@@ -59,6 +60,7 @@ function App() {
         <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
         <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
         <Route path='admin/dashboard/blogs/page/:page' element={<AdminAllBlogs />} />
+        <Route path='admin/dashboard/blogs/update/:id' element={<UpdateBlog />} />
 
       </Routes>
 

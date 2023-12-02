@@ -33,6 +33,7 @@ function AdminAllBlogs() {
         navigate(`/page/${prevPage}`);
     }
 
+    // admin/dashboard/blogs/update/:id
 
     async function onDeleteBlog(id) {
         const response = await dispatch(deleteBlog(id));
@@ -70,7 +71,7 @@ function AdminAllBlogs() {
                                         <td><img className="w-[50px] h-[50px] rounded-full" src={blog.image.secure_url} alt="" /></td>
                                         <td>{blog.author?.firstName || "Known"}</td>
                                         <td>{blog.createdAt}</td>
-                                        <td><button onClick={() => onDeleteUser(blog._id)} className="p-2 no-border bg-green-500 text-white rounded"><FiEdit /></button></td>
+                                        <td><button onClick={() => navigate(`/admin/dashboard/blogs/update/${blog._id}`, { state: blog })} className="p-2 no-border bg-green-500 text-white rounded"><FiEdit /></button></td>
                                         <td><button onClick={() => onDeleteBlog(blog._id)} className="p-2 no-border bg-red-500 text-white rounded"><BsTrash /></button></td>
                                     </tr>
                                 ))}
