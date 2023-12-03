@@ -38,6 +38,15 @@ export const deleteBlog = createAsyncThunk("/blog/delete", async (id) => {
         console.log(error);
         toast.error(error.message);
     }
+});
+
+export const updateBlog = createAsyncThunk("/blog/update", async (id) => {
+    try {
+
+    } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+    }
 })
 
 const blogSlice = createSlice({
