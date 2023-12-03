@@ -22,7 +22,7 @@ import Overflow from './pages/Admin/Overflow'
 import AllUsers from './pages/Admin/AllUsers'
 import AdminAllBlogs from './pages/Admin/AdminAllBlogs'
 import UpdateBlog from './pages/Admin/UpdateBlog'
-import ProjectCard from './components/ProjectCard'
+import City from './pages/City'
 
 function App() {
 
@@ -48,7 +48,7 @@ function App() {
         <Route path="/user-profile" element={<Profile />} />
         <Route path='/project/:id' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
-        <Route path='/city' element={<ProjectCard />} />
+        <Route path='/city/:cityname' element={<City />} />
         <Route path='*' element={<NotFound />} />
 
         {/* <Route path='/admin/dashboard' element={<AdminLayout />} /> */}

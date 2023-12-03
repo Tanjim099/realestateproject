@@ -10,6 +10,7 @@ import hyderabad from '../assets/hyderabad.png';
 import mumbai from '../assets/mumbai.png';
 import kolkata from '../assets/kolkata.png';
 import delhi from '../assets/delhi.png';
+import { NavLink } from "react-router-dom";
 
 function CityCard() {
     const dispatch = useDispatch();
@@ -42,31 +43,42 @@ function CityCard() {
 
     return (
         <div className="flex justify-between gap-3 min-w-full">
-            <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
-                <img src={Bangalore} className="w-[50px] h-[50px]" alt="CityImage" />
-                <h4 className=" text-center text-[#7f1657]">Bangalore</h4>
-            </div>
-            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
-                <img src={chennai} className="w-[50px] h-[50px]" alt="CityImage" />
-                <h4 className=" text-center text-black">Chennai</h4>
-            </div>
-            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
-                <img src={hyderabad} className="w-[50px] h-[50px]" alt="CityImage" />
-                <h4 className=" text-center text-black">Hyderabad</h4>
-            </div>
-            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
-                <img src={mumbai} className="w-[50px] h-[50px]" alt="CityImage" />
-                <h4 className=" text-center text-black">Mumbai</h4>
-            </div>
-            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
-                <img src={kolkata} className="w-[50px] h-[50px]" alt="CityImage" />
-                <h4 className=" text-center text-black">Kolkata</h4>
-            </div>
-            <div  className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
-                <img src={delhi} className="w-[50px] h-[50px]" alt="CityImage" />
-                <h4 className=" text-center text-black">Delhi</h4>
-            </div>
-    
+            <NavLink to="/city/bangalore">
+                <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                    <img src={Bangalore} className="w-[50px] h-[50px]" alt="CityImage" />
+                    <h4 className=" text-center text-[#7f1657]">Bangalore</h4>
+                </div>
+            </NavLink>
+            <NavLink to="/city/chennai">
+                <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                    <img src={chennai} className="w-[50px] h-[50px]" alt="CityImage" />
+                    <h4 className=" text-center text-black">Chennai</h4>
+                </div>
+            </NavLink>
+            <NavLink to="/city/hyderabad">
+                <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                    <img src={hyderabad} className="w-[50px] h-[50px]" alt="CityImage" />
+                    <h4 className=" text-center text-black">Hyderabad</h4>
+                </div>
+            </NavLink>
+            <NavLink to="/city/mumbai">
+                <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                    <img src={mumbai} className="w-[50px] h-[50px]" alt="CityImage" />
+                    <h4 className=" text-center text-black">Mumbai</h4>
+                </div>
+            </NavLink>
+            <NavLink to="/city/kolkata">
+                <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                    <img src={kolkata} className="w-[50px] h-[50px]" alt="CityImage" />
+                    <h4 className=" text-center text-black">Kolkata</h4>
+                </div>
+            </NavLink>
+            <NavLink to="/city/delhi">
+                <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
+                    <img src={delhi} className="w-[50px] h-[50px]" alt="CityImage" />
+                    <h4 className=" text-center text-black">Delhi</h4>
+                </div>
+            </NavLink>
         </div>
     )
 }
