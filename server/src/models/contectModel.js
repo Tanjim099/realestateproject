@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import sendEmail from '../utils/sendEmail.js';
+import { contactTemplate } from '../mail/template/contactTemplate.js';
 
 const contectSchema = new Schema({
     name: {
@@ -20,11 +21,11 @@ const contectSchema = new Schema({
     }
 }, { timestamps: true });
 
-async function sendEmailContact(email) {
-    try{
-        const mailResponse = await sendEmail(email,'Contact Form Send');
+async function sendEmailContact(email, name, phone, interested) {
+    try {
+        const mailResponse = await sendEmail(email, 'Contact Form Send', contactTemplate(name, phone, email, interested));
         console.log(mailResponse);
-    }catch(Error){
+    } catch (Error) {
         console.log(Error);
         throw new Error;
     }
@@ -32,7 +33,7 @@ async function sendEmailContact(email) {
 
 contectSchema.pre('save', async function (next) {
     if (this.isNew) {
-        await sendEmailContact(this.email);
+        await sendEmailContact(this.email, this.name, this.phone, this.interested);
     }
     next();
 })

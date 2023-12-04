@@ -1,8 +1,37 @@
+import { useState } from "react";
 import HomeLayout from "../components/HomeLayout";
 import SimilarProjectCard from "../components/SimilarProjectCard";
 import "../styles/ProjectViewPage.css";
+import { useDispatch } from "react-redux";
+import { createContact } from "../redux/store";
 
 function ProjectViewPage() {
+
+    const dispatch = useDispatch();
+    const [userInput, setUserInput] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        interested: '',
+    });
+
+    console.log(userInput);
+
+    const handelInput = (e) => {
+        const { value, name } = e.target;
+        setUserInput((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    }
+
+    const onFormSubmit = async (e) => {
+        e.preventDefault();
+
+        const res = await dispatch(createContact(userInput));
+
+    }
+
     return (
         <HomeLayout>
             {/* =================== */}
@@ -371,12 +400,12 @@ function ProjectViewPage() {
                                             <p className="text-sm">24/7 Support</p>
                                         </div>
                                     </div>
-                                    <form action className="contactform contactformbox_box2 flex mt-5 flex-col items-center justify-between gap-3">
+                                    <form onSubmit={onFormSubmit} action className="contactform contactformbox_box2 flex mt-5 flex-col items-center justify-between gap-3">
                                         <h3 className=" text-lg font-medium">Mantri Webcity</h3>
-                                        <input type="text" placeholder="Name" className="w-full px-2 py-1 rounded-sm outline-none" id="second" />
-                                        <input type="text" placeholder="+91 - " className="w-full px-2 py-1 rounded-sm outline-none" />
-                                        <input type="email" placeholder="Email" className="w-full px-2 py-1 rounded-sm outline-none" />
-                                        <select className="w-full p-1 rounded-sm outline-none">
+                                        <input name="name" value={userInput.name} onChange={handelInput} type="text" placeholder="Name" className="w-full px-2 py-1 rounded-sm outline-none" id="second" />
+                                        <input name="phone" value={userInput.phone} onChange={handelInput} type="text" placeholder="+91 - " className="w-full px-2 py-1 rounded-sm outline-none" />
+                                        <input name="email" value={userInput.email} onChange={handelInput} type="email" placeholder="Email" className="w-full px-2 py-1 rounded-sm outline-none" />
+                                        <select name="interested" value={userInput.interested} onChange={handelInput} className="w-full p-1 rounded-sm outline-none">
                                             <option value>Interested for Site Visit?</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
