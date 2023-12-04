@@ -17,6 +17,8 @@ import img from '../assets/img_2.jpg';
 import dot from '../assets/dots.png';
 import { FaSearch } from "react-icons/fa";
 import '../styles/HomePage.css';
+import CountUp from 'react-countup';
+
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -96,22 +98,30 @@ function HomePage() {
                                 </div>
                                 <div className="w-[70%] mx-auto text-white flex justify-between my-10 text-center absolute bottom-0">
                                     <div className="">
-                                        <span className="text-4xl font-semibold text-[#7f1657]">50</span>
+                                        <span className="text-4xl font-semibold text-[rgb(127,22,87)]">
+                                            <CountUp start={0} end={50} duration={2} delay={0} />
+                                        </span>
                                         <p>YEARS OF EXPERIENCED</p>
                                     </div>
                                     <div className="text-3xl flex items-center">|</div>
                                     <div>
-                                        <span className="text-4xl font-semibold text-[#7f1657]">210K+</span>
+                                        <span className="text-4xl font-semibold text-[#7f1657]">
+                                            <CountUp start={0} end={210} duration={2} delay={0} />K+
+                                        </span>
                                         <p>TOTAL PROPERTIES</p>
                                     </div>
                                     <div className="text-3xl flex items-center">|</div>
                                     <div>
-                                        <span className="text-4xl font-semibold text-[#7f1657]">450</span>
+                                        <span className="text-4xl font-semibold text-[#7f1657]">
+                                            <CountUp start={0} end={450} duration={2} delay={0} />
+                                        </span>
                                         <p>QUALIFIED REALTORS</p>
                                     </div>
                                     <div className="text-3xl flex items-center">|</div>
                                     <div>
-                                        <span className="text-4xl font-semibold text-[#7f1657]">100</span>
+                                        <span className="text-4xl font-semibold text-[#7f1657]">
+                                            <CountUp start={0} end={100} duration={2} delay={0} />
+                                        </span>
                                         <p>TOTAL BRANCHES</p>
                                     </div>
                                 </div>
