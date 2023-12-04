@@ -23,20 +23,20 @@ function HomePage() {
     const [prevEl, setPrevEl] = useState(null);
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     const { projects } = useSelector((state) => state.project);
-    const [search,setSearch] = useState("");
+    const [search, setSearch] = useState("");
     console.log(search);
 
 
     useEffect(() => {
-        try{
-            (async () =>{
+        try {
+            (async () => {
                 const res = await dispatch(searchProject(search));
                 console.log(res);
             })()
-        }catch(Error){
+        } catch (Error) {
             console.log(Error);
         }
-    },[search]);
+    }, [search]);
 
     async function onLoadGetData() {
         const response = await dispatch(getAllProjects());
@@ -63,15 +63,15 @@ function HomePage() {
                     }}>
                         <div className="bg-opacity-60"></div>
                         <div className="hero-content text-neutral-content w-[100%]">
-
-                            <div className="absolute w-[50%] text-white p-5 bg-[#7f1657]">
-                                <h1 className=" sm:text-4xl font-semibold">Find Your Dream Home</h1>
-                                <p className="text-xl my-5">We Have Over Million Properties For You</p>
-                                {/* <div className="flex">
+                            <div className="flex flex-col gap-28 w-full items-center">
+                                <div className="text-black text-center w-[60%]">
+                                    <h1 className=" sm:text-4xl font-semibold">Discover Properties in India</h1>
+                                    <p className="text-xl my-5">We help you find your new home</p>
+                                    {/* <div className="flex">
                                     <input type="text" placeholder="Enter Location builder, project" name="" id="" className="w-[100%] outline-none p-1 sm:p-3 text-black sm:text-sm" />
                                     <button className="btn border-0 rounded-none bg-[#7f1657] text-white hover:text-black">Search</button>
-                                </div> */}
-                                {/* <div className=" my-5">
+                                    </div> */}
+                                    {/* <div className=" my-5">
                                     <h1 className=" text-left mb-2 text-xl">Top City</h1>
                                     <div className="project_container w-100  relative">
                                         <div className="sliderBtn top-1/2">
@@ -82,14 +82,34 @@ function HomePage() {
                                             <CityCard />
                                         </div>
                                     </div>
-                                </div> */}
-                                {/* ====================== */}
-                                <div className="bg-white absolute bottom-[-80px] right-0 w-[80%] p-5">
-                                    <div className="flex gap-5">
-                                        <input type="text" placeholder="Enter Location builder, project" name="" id="" className="border relative outline-0 text-black w-full rounded p-3" onChange={(e) => setSearch(e.target.value)} />
-                                        <button className="bg-[#7f1657] w-[40px] h-[40px] flex items-center justify-center rounded text-white hover:text-black absolute right-7 top-6"><FaSearch /></button>
+                                 </div> */}
+                                    {/* ====================== */}
+                                    <div className="">
+                                        <div className="flex items-center gap-4 w-full h-[50px]">
+                                            <input type="text" placeholder="Enter Location builder, project" name="" id="" className="border border-gray-200 shadow-sm outline-0 text-black h-full w-full rounded p-3" onChange={(e) => setSearch(e.target.value)} />
+                                            <button className="bg-[#7f1657] w-[50px] h-full flex items-center justify-center rounded text-white hover:text-black right-7 top-6"><FaSearch /></button>
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="w-full text-black flex justify-between my-10 text-center">
+                                    <div>
+                                        <span className="text-4xl font-semibold text-[#7f1657]">50</span>
+                                        <p>YEARS OF EXPERIENCED</p>
+                                    </div>
+                                    <div>
+                                        <span className="text-4xl font-semibold text-[#7f1657]">210K+</span>
+                                        <p>TOTAL PROPERTIES</p>
+                                    </div>
+                                    <div>
+                                        <span className="text-4xl font-semibold text-[#7f1657]">450</span>
+                                        <p>QUALIFIED REALTORS</p>
+                                    </div>
+                                    <div>
+                                        <span className="text-4xl font-semibold text-[#7f1657]">100</span>
+                                        <p>TOTAL BRANCHES</p>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -154,7 +174,7 @@ function HomePage() {
                 </div>
 
                 {/* About Section */}
-                <div className="grid grid-cols-10 mt-20 mb-10 mx-auto w-[1200px] gap-10">
+                {/* <div className="grid grid-cols-10 mt-20 mb-10 mx-auto w-[1200px] gap-10">
                     <div className="col-span-3 rounded-tr-2xl rounded-bl-2xl  h-[700px]">
                         <img src={about} className="h-full rounded-tr-2xl rounded-bl-2xl  object-cover" />
                     </div>
@@ -184,7 +204,7 @@ function HomePage() {
                             <img src={about_1} className="h-full object-cover rounded-tr-2xl rounded-bl-2xl w-full" />
                         </div>
                     </div>
-                </div>
+                </div> */}
 
 
                 {/* Section 2 */}

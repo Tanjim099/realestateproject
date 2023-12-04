@@ -17,8 +17,9 @@ function Navbar() {
     const navigate = useNavigate();
     const [cityValue, setCityValue] = useState('');
 
-    if(cityValue){
-        navigate(`/city/${cityValue}`);
+    const handelSubmitValue = (e) => {
+        setCityValue(e.target.value);
+        navigate(`/city/${e.target.value.split(" ").join("-")}`);
     }
 
     const hideDrawer = () => {
@@ -76,12 +77,12 @@ function Navbar() {
                         <div className="flex gap-5 items-center">
                             <Link to={'/'} className=" font-semibold text-white p-0 text-3xl">HOME99</Link>
                             <div className="mt-1">
-                                <select value={cityValue ? cityValue : "India"} onChange={(e) => setCityValue(e.target.value)} className="bg-transparent outline-0 text-white">
+                                <select defaultValue={'India'} value={cityValue} onChange={handelSubmitValue} className="bg-transparent outline-0 text-white">
                                     {
                                         topCities && (
                                             topCities.sort((city1, city2) => city1.name.localeCompare(city2.name)).map((topCitie, idx) => (
                                                 <option key={idx} value={topCitie.name} className="text-black">
-                                                        {topCitie.name}
+                                                    {topCitie.name}
                                                 </option>
                                             ))
                                         )
