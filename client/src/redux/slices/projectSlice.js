@@ -79,7 +79,7 @@ export const deleteProject = createAsyncThunk("/project/deleteProject", async (p
 
 export const searchProject = createAsyncThunk("/project/search", async (data) => {
     try {
-        const res = axiosInstance.get(`project/search?name=${data}`);
+        const res = axiosInstance.get(`project/search/project?name=${data}`);
 
         toast.promise(res,{
             loading:'Wait! Searching',

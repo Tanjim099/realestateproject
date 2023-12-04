@@ -51,19 +51,20 @@ function App() {
         <Route path='/city/:cityname' element={<City />} />
         <Route path='*' element={<NotFound />} />
 
-        {/* <Route path='/admin/dashboard' element={<AdminLayout />} /> */}
+        <Route path='/admin/dashboard' element={<AdminLayout />} />
 
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
 
           <Route path='/update-project/:courseId' element={<EditProject />} />
         </Route>
-        <Route path='admin/dashboard/overflow' element={<Overflow />} />
-        <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
-        <Route path='admin/dashboard/add-project' element={<CreateProject />} />
-        <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
-        <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
-        <Route path='admin/dashboard/blogs/page/:page' element={<AdminAllBlogs />} />
-        <Route path='admin/dashboard/blogs/update/:id' element={<UpdateBlog />} />
+
+          <Route path='admin/dashboard/overflow' element={<Overflow />} />
+          <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
+          <Route path='admin/dashboard/add-project' element={<CreateProject />} />
+          <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
+          <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
+          <Route path='admin/dashboard/blogs/page/:page' element={<AdminAllBlogs />} />
+          <Route path='admin/dashboard/blogs/update/:id' element={<UpdateBlog />} />
 
       </Routes>
 

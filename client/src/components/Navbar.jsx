@@ -8,11 +8,19 @@ import { IoIosLogOut } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
 import { FiLogIn } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa6";
+import { topCities } from "../Constants/cityName";
+import { useState } from "react";
 function Navbar() {
 
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [cityValue, setCityValue] = useState('');
+
+    if(cityValue){
+        navigate(`/city/${cityValue}`);
+    }
+
     const hideDrawer = () => {
         const element = document.getElementsByClassName('drawer-toggle');
         element[0].checked = false;
@@ -33,6 +41,8 @@ function Navbar() {
             navigate('/');
         };
     }
+
+    console.log(cityValue);
 
     return (
         <div className="navbar bg-[#7f1657] z-20 sticky top-0 left-0 right-0">
@@ -63,7 +73,22 @@ function Navbar() {
                                 <li><NavLink to="/project">Project</NavLink></li>
                             </ul>
                         </div>
-                        <Link to={'/'} className=" font-semibold text-white p-0 text-3xl">HOME99</Link>
+                        <div className="flex gap-5 items-center">
+                            <Link to={'/'} className=" font-semibold text-white p-0 text-3xl">HOME99</Link>
+                            <div className="mt-1">
+                                <select value={cityValue ? cityValue : "India"} onChange={(e) => setCityValue(e.target.value)} className="bg-transparent outline-0 text-white">
+                                    {
+                                        topCities && (
+                                            topCities.sort((city1, city2) => city1.name.localeCompare(city2.name)).map((topCitie, idx) => (
+                                                <option key={idx} value={topCitie.name} className="text-black">
+                                                        {topCitie.name}
+                                                </option>
+                                            ))
+                                        )
+                                    }
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,4 +175,4 @@ function Navbar() {
     )
 }
 
-export default Navbar
+export default Navbar;
