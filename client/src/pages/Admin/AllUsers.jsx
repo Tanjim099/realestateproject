@@ -25,7 +25,7 @@ function AllUsers() {
         // Dispatch action with updated page value
         const nextPage = parseInt(page) + 1;
         dispatch(getUsers({ page: nextPage, limit }));
-        navigate(`/page/${nextPage}`);
+        navigate(`/admin/dashboard/users/page/${nextPage}`);
     };
 
 
@@ -33,7 +33,7 @@ function AllUsers() {
         // Dispatch action with updated page value
         const prevPage = parseInt(page) - 1;
         dispatch(getUsers({ page: prevPage, limit }));
-        navigate(`/page/${prevPage}`);
+        navigate(`/admin/dashboard/users/page/${prevPage}`);
     }
 
     // const handleNextPage = (e) => {

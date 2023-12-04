@@ -31,8 +31,8 @@ function AdminLayout({ children }) {
         {
             key: '1',
             icon: <FaStackOverflow />,
-            label: 'Overflow',
-            link: 'overflow',
+            label: 'Dashboard',
+            link: '',
         },
         {
             key: '2',

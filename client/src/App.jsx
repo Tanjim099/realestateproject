@@ -18,11 +18,11 @@ import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import CreateBlog from './pages/Admin/CreateBlog'
 import AdminGetAllProject from './pages/Admin/AdminGetProject'
-import Overflow from './pages/Admin/Overflow'
 import AllUsers from './pages/Admin/AllUsers'
 import AdminAllBlogs from './pages/Admin/AdminAllBlogs'
 import UpdateBlog from './pages/Admin/UpdateBlog'
 import City from './pages/City'
+import Dashboard from './pages/Admin/Dashboard'
 
 function App() {
 
@@ -51,20 +51,19 @@ function App() {
         <Route path='/city/:cityname' element={<City />} />
         <Route path='*' element={<NotFound />} />
 
-        <Route path='/admin/dashboard' element={<AdminLayout />} />
+        <Route path='/admin/dashboard' element={<Dashboard />} />
 
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
 
         </Route>
 
-          <Route path='admin/dashboard/update-project/:projectId' element={<EditProject />} />
-          <Route path='admin/dashboard/overflow' element={<Overflow />} />
-          <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
-          <Route path='admin/dashboard/add-project' element={<CreateProject />} />
-          <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
-          <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
-          <Route path='admin/dashboard/blogs/page/:page' element={<AdminAllBlogs />} />
-          <Route path='admin/dashboard/blogs/update/:id' element={<UpdateBlog />} />
+        <Route path='admin/dashboard/update-project/:projectId' element={<EditProject />} />
+        <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
+        <Route path='admin/dashboard/add-project' element={<CreateProject />} />
+        <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
+        <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
+        <Route path='admin/dashboard/blogs/page/:page' element={<AdminAllBlogs />} />
+        <Route path='admin/dashboard/blogs/update/:id' element={<UpdateBlog />} />
 
       </Routes>
 
