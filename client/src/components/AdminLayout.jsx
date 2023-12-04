@@ -13,12 +13,15 @@ import { MdOutlineMoveToInbox } from "react-icons/md";
 import { Layout, Menu, Button, theme } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import "../styles/AdminLayout.css"
+import { useSelector } from 'react-redux';
 
 const { Header, Sider, Content } = Layout;
 
 function AdminLayout({ children }) {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
+    const { editProject } = useSelector((state) => state.project);
+    console.log(editProject);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -58,7 +61,7 @@ function AdminLayout({ children }) {
         {
             key: '6',
             icon: <AiFillProject />,
-            label: 'Add Project',
+            label: `${editProject ? 'Edit Project' : 'Add Project'}`,
             link: 'add-project',
         },
         {
@@ -69,18 +72,12 @@ function AdminLayout({ children }) {
         },
         {
             key: '8',
-            icon: <AiFillProject />,
-            label: 'Add Blog',
-            link: 'create-blog',
-        },
-        {
-            key: '9',
             icon: <GrUserAdmin />,
             label: 'Add Blog',
             link: 'add-blog',
         },
         {
-            key: '7',
+            key: '9',
             icon: <GrUserAdmin />,
             label: 'Author',
             link: 'author',
@@ -92,7 +89,7 @@ function AdminLayout({ children }) {
             <Sider trigger={null} collapsible collapsed={collapsed} className='overflow-y-scroll sideBar'>
 
                 <div className='demo-logo-vertical' />
-                <h1 mode='inline' className=' text-center text-xl text-white my-2'>Dashboard</h1>
+                <h2 mode='inline' className=' text-center text-sm text-white my-2'>Dashboard</h2>
                 <Menu
                     theme='dark'
                     mode='inline'
@@ -101,8 +98,7 @@ function AdminLayout({ children }) {
 
                     {menuItems.map(item => (
                         <Menu.Item key={item.key} icon={item.icon}>
-
-                            <Link to={item.link}>{item.label}</Link>
+                            <Link to={`/admin/dashboard/${item.link}`}>{item.label}</Link>
                         </Menu.Item>
                     ))}
                 </Menu>

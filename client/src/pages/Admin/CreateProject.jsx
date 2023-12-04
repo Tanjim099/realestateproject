@@ -20,11 +20,16 @@ function CreateProject() {
     const [floorchips, setFloorChips] = useState([]);
     const [amenitiechips, setAmenitieChips] = useState([]);
 
+    const editorConfig = {
+        minHeight: '300px', // Set your desired height here
+    };
+
+
     const editor = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { project, editProject } = useSelector((state) => state.project);
-    // console.log(project);
+    const { editProject, project } = useSelector((state) => state.project);
+    console.log(editProject);
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
         location: '',
@@ -37,6 +42,21 @@ function CreateProject() {
         phone: '',
         city: '',
     });
+
+        useEffect(() => {
+           if(editProject){
+            projectCreateData.name = project.name;
+            projectCreateData.location = project.location;
+            projectCreateData.developer = project.developer;
+            projectCreateData.description = project.description;
+            projectCreateData.specifications = project.specifications;
+            projectCreateData.startingFrom = project.startingFrom;
+            projectCreateData.currency = project.currency;
+            projectCreateData.email = project.email;
+            projectCreateData.phone = project.phone;
+            projectCreateData.city = project.city;
+           }
+        }, [project]);
 
     // console.log(editProject);
 
@@ -185,8 +205,6 @@ function CreateProject() {
             specifications: data,
         }));
     }
-
-
     async function onFormSubmit(e) {
         try {
             e.preventDefault();
@@ -236,7 +254,7 @@ function CreateProject() {
                     email: '',
                     phone: '',
                     city: '',
-                    content:'',
+                    content: '',
                 })
                 return;
             }
@@ -322,19 +340,20 @@ function CreateProject() {
                                                     name='name'
                                                     id='name'
                                                     className='w-full py-3 px-3 rounded border outline-0'
-                                                    // value={userInput.name}
+                                                    value={projectCreateData.name}
                                                     placeholder='Enter Project Name'
                                                     onChange={userInput}
                                                 />
                                             </div>
-                                            <div className='my-3 min-h-[400px] flex flex-col gap-2'>
+                                            <div className='my-3 flex flex-col gap-2'>
                                                 <label htmlFor='content'>Content<sup className='text-pink-400'>*</sup></label>
                                                 <JoditEditor
                                                     type='text'
                                                     name='content'
                                                     id='content'
+                                                    config={editorConfig}
                                                     className='min-h-[400px]'
-                                                    value={userInput.content}
+                                                    value={projectCreateData.content}
                                                     placeholder='Enter Project Developer'
                                                     onChange={(data) => contantField_1(data)}
                                                     ref={editor}
@@ -347,7 +366,8 @@ function CreateProject() {
                                                     name='specifications'
                                                     id='specifications'
                                                     className=''
-                                                    value={userInput.specifications}
+                                                    config={editorConfig}
+                                                    value={projectCreateData.specifications}
                                                     placeholder='Enter Project Specifications'
                                                     onChange={(data) => contantField_2(data)}
                                                     ref={editor}
@@ -360,7 +380,7 @@ function CreateProject() {
                                                     name='description'
                                                     id='description'
                                                     className='border resize-none h-[200px] p-4 placeholder:text-2xl'
-                                                    value={userInput.description}
+                                                    value={projectCreateData.description}
                                                     onChange={userInput}
                                                     placeholder='Enter Project Description'
                                                 />
@@ -374,7 +394,7 @@ function CreateProject() {
                                                     id='location'
                                                     name='location'
                                                     className='w-full py-3 px-3 rounded border outline-0'
-                                                    value={userInput.location}
+                                                    value={projectCreateData.location}
                                                     placeholder='Enter Project Location'
                                                     onChange={userInput}
                                                 />
@@ -387,7 +407,7 @@ function CreateProject() {
                                                         id='developer'
                                                         name='developer'
                                                         className='w-full py-3 px-3 rounded border outline-0'
-                                                        value={userInput.developer}
+                                                        value={projectCreateData.developer}
                                                         placeholder='Enter Project Developer'
                                                         onChange={userInput}
                                                     />
@@ -399,7 +419,7 @@ function CreateProject() {
                                                         name='city'
                                                         id='city'
                                                         className='w-full py-3 px-3 rounded border outline-0'
-                                                        value={userInput.city}
+                                                        value={projectCreateData.city}
                                                         placeholder='Enter Project City'
                                                         onChange={userInput}
                                                     />
@@ -413,7 +433,7 @@ function CreateProject() {
                                                         name='startingFrom'
                                                         id='startingFrom'
                                                         className='w-full py-3 px-3 rounded border outline-0'
-                                                        value={userInput.startingFrom}
+                                                        value={projectCreateData.startingFrom}
                                                         placeholder='Enter Project StartingFrom'
                                                         onChange={userInput}
                                                     />
@@ -425,7 +445,7 @@ function CreateProject() {
                                                         name='currency'
                                                         id='currency'
                                                         className='w-full py-3 px-3 rounded border outline-0'
-                                                        value={userInput.currency}
+                                                        value={projectCreateData.currency}
                                                         placeholder='Enter Project Currency'
                                                         onChange={userInput}
                                                     />
@@ -439,7 +459,7 @@ function CreateProject() {
                                                         name='email'
                                                         id='email'
                                                         className='w-full py-3 px-3 rounded border outline-0'
-                                                        value={userInput.email}
+                                                        value={projectCreateData.email}
                                                         placeholder='Enter Project Email'
                                                         onChange={userInput}
                                                     />
@@ -451,7 +471,7 @@ function CreateProject() {
                                                         name='phone'
                                                         id='phone'
                                                         className='w-full py-3 px-3 rounded border outline-0'
-                                                        value={userInput.phone}
+                                                        value={projectCreateData.phone}
                                                         placeholder='Enter Project Phone'
                                                         onChange={userInput}
                                                     />

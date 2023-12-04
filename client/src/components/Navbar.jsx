@@ -15,7 +15,7 @@ function Navbar() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [cityValue, setCityValue] = useState('');
+    const [cityValue, setCityValue] = useState('India');
 
     const handelSubmitValue = (e) => {
         setCityValue(e.target.value);

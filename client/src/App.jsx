@@ -55,9 +55,9 @@ function App() {
 
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
 
-          <Route path='/update-project/:courseId' element={<EditProject />} />
         </Route>
 
+          <Route path='admin/dashboard/update-project/:projectId' element={<EditProject />} />
           <Route path='admin/dashboard/overflow' element={<Overflow />} />
           <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
           <Route path='admin/dashboard/add-project' element={<CreateProject />} />

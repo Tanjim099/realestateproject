@@ -22,6 +22,11 @@ function CreateBlog() {
     image: '',
   });
 
+  const editorConfig = {
+    minHeight: '430px', // Set your desired height here
+  };
+
+
   const inputUser = (e) => {
     const { value, name } = e.target;
 
@@ -99,7 +104,7 @@ function CreateBlog() {
           loading
             ?
             (
-              <Spinner />
+                <Spinner />
             )
             :
             (
@@ -144,6 +149,31 @@ function CreateBlog() {
                         onChange={inputUser}
                       />
                     </div>
+                    <div className='w-full'>
+                      {
+                        previwImage ? (
+                          <div className='w-full h-[200px] border-4 border-dotted'>
+                            <img src={previwImage} className='w-full h-full object-contain' alt='Blog-Imgae' />
+                          </div>
+                        )
+                          :
+                          (
+                            <>
+                              <label htmlFor='image' className='inline-block border-dotted border-2 w-full h-[200px] cursor-pointer' >
+                                <p className='flex items-center justify-center text-5xl w-full h-full'>
+                                  Image
+                                </p>
+                              </label>
+
+                              <input
+                                type="file"
+                                id='image'
+                                onChange={imageUpload}
+                                className='hidden'
+                              /></>
+                          )
+                      }
+                    </div>
                   </div>
                   <div className=''>
                     <div className='my-3 flex flex-col gap-2'>
@@ -152,7 +182,8 @@ function CreateBlog() {
                         type='text'
                         name='description'
                         id='description'
-                        className='w-full py-3 px-3 rounded border outline-0 h-[200px] resize-none'
+                        config={editorConfig}
+                        // className='w-full py-3 px-3 rounded border outline-0 h-[200px] resize-none'
                         value={userInput.description}
                         placeholder='Enter Blog Description'
                         onChange={(data) => descriptionContent(data)}
@@ -171,31 +202,6 @@ function CreateBlog() {
               onChange={inputUser}
             />
           </div> */}
-                  <div className='w-full'>
-                    {
-                      previwImage ? (
-                        <div className='w-full h-[200px] border-4 border-dotted'>
-                          <img src={previwImage} className='w-full h-full object-contain' alt='Blog-Imgae' />
-                        </div>
-                      )
-                        :
-                        (
-                          <>
-                            <label htmlFor='image' className='inline-block border-dotted border-2 w-full h-[200px] cursor-pointer' >
-                              <p className='flex items-center justify-center text-5xl w-full h-full'>
-                                Image
-                              </p>
-                            </label>
-
-                            <input
-                              type="file"
-                              id='image'
-                              onChange={imageUpload}
-                              className='hidden'
-                            /></>
-                        )
-                    }
-                  </div>
                 </div>
                 <div className='flex justify-end'>
                   <button
@@ -213,4 +219,4 @@ function CreateBlog() {
   )
 }
 
-export default CreateBlog
+export default CreateBlog;

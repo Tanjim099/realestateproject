@@ -6,11 +6,11 @@ import { getProject, setEditProject, setProject } from '../../redux/slices/proje
 
 function EditProject() {
     const dispatch = useDispatch();
-    const { courseId } = useParams();
+    const { projectId } = useParams();
 
     useEffect(() => {
         (async () => {
-            const res = await dispatch(getProject(courseId));
+            const res = await dispatch(getProject(projectId));
             console.log(res);
             if (res?.payload?.success) {
                 dispatch(setEditProject(true));

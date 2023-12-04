@@ -16,6 +16,7 @@ import about_1 from '../assets/about-1.jpg';
 import img from '../assets/img_2.jpg';
 import dot from '../assets/dots.png';
 import { FaSearch } from "react-icons/fa";
+import '../styles/HomePage.css';
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -49,22 +50,24 @@ function HomePage() {
             <div className="homeContainer ">
                 {/* Hero Section */}
                 <div className="hero_section">
-                    <div className="hero min-h-[600px] sm:h-[200px] md:h-[300px]" style={{
-                        backgroundImage: `url(${backroundImage})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundAttachment: 'fixed',
-                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                        boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-                        opacity: 0.9,
-                        transition: 'background 0.3s ease-in-out',
-                        // clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
-                    }}>
+                    <div className="hero gradiantColor min-h-[600px] sm:h-[200px] md:h-[300px]"
+                    //  style={{
+                    //     backgroundImage: `url(${backroundImage})`,
+                    //     backgroundSize: 'cover',
+                    //     backgroundPosition: 'center',
+                    //     backgroundRepeat: 'no-repeat',
+                    //     backgroundAttachment: 'fixed',
+                    //     backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                    //     boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+                    //     opacity: 0.9,
+                    //     transition: 'background 0.3s ease-in-out',
+                    //     clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
+                    // }}
+                    >
                         <div className="bg-opacity-60"></div>
                         <div className="hero-content text-neutral-content w-[100%]">
-                            <div className="flex flex-col gap-28 w-full items-center">
-                                <div className="text-black text-center w-[60%]">
+                            <div className="flex flex-col w-full items-center">
+                                <div className="text-white text-center w-[60%]">
                                     <h1 className=" sm:text-4xl font-semibold">Discover Properties in India</h1>
                                     <p className="text-xl my-5">We help you find your new home</p>
                                     {/* <div className="flex">
@@ -85,25 +88,28 @@ function HomePage() {
                                  </div> */}
                                     {/* ====================== */}
                                     <div className="">
-                                        <div className="flex items-center gap-4 w-full h-[50px]">
+                                        <div className="flex items-center gap-2 w-full h-[50px]">
                                             <input type="text" placeholder="Enter Location builder, project" name="" id="" className="border border-gray-200 shadow-sm outline-0 text-black h-full w-full rounded p-3" onChange={(e) => setSearch(e.target.value)} />
                                             <button className="bg-[#7f1657] w-[50px] h-full flex items-center justify-center rounded text-white hover:text-black right-7 top-6"><FaSearch /></button>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full text-black flex justify-between my-10 text-center">
-                                    <div>
+                                <div className="w-[70%] mx-auto text-white flex justify-between my-10 text-center absolute bottom-0">
+                                    <div className="">
                                         <span className="text-4xl font-semibold text-[#7f1657]">50</span>
                                         <p>YEARS OF EXPERIENCED</p>
                                     </div>
+                                    <div className="text-3xl flex items-center">|</div>
                                     <div>
                                         <span className="text-4xl font-semibold text-[#7f1657]">210K+</span>
                                         <p>TOTAL PROPERTIES</p>
                                     </div>
+                                    <div className="text-3xl flex items-center">|</div>
                                     <div>
                                         <span className="text-4xl font-semibold text-[#7f1657]">450</span>
                                         <p>QUALIFIED REALTORS</p>
                                     </div>
+                                    <div className="text-3xl flex items-center">|</div>
                                     <div>
                                         <span className="text-4xl font-semibold text-[#7f1657]">100</span>
                                         <p>TOTAL BRANCHES</p>
