@@ -4,6 +4,8 @@ import SimilarProjectCard from "../components/SimilarProjectCard";
 import "../styles/ProjectViewPage.css";
 import { useDispatch } from "react-redux";
 import { createContact } from "../redux/store";
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
 
 function ProjectViewPage() {
 
@@ -91,30 +93,37 @@ function ProjectViewPage() {
             <div className="projectviewpage_container sm:w-[100%] md:w-[80%] m-auto mt-4 sm:flex">
                 <div className="w-full flex sm:flex-col md:flex-row gap-6">
                     <div className=" sm:w-[100%] md:w-[70%]">
-                        <div className="carousel w-full">
-                            <div id="slide1" className="carousel-item relative w-full">
+                        <Swiper
+                            slidesPerView={1}
+                            spaceBetween={20}
+                            loop={true}
+                            autoplay={{ delay: 2000, disableOnInteraction: false }}
+                            modules={[FreeMode, Pagination, Navigation, Autoplay]}
+                            className="carousel w-full"
+                        >
+                            <SwiperSlide id="slide1" className="carousel-item relative w-full">
                                 <img src="https://superadmin.homes247.in/images/uploadPropertyImgs/1675313155-Cover%20image%20_1.png" className="w-full" />
-                                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                {/* <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                                     <a href="#slide4" className="btn btn-circle">❮</a>
                                     <a href="#slide2" className="btn btn-circle">❯</a>
-                                </div>
-                            </div>
-                            <div id="slide2" className="carousel-item relative w-full">
+                                </div> */}
+                            </SwiperSlide>
+                            <SwiperSlide id="slide2" className="carousel-item relative w-full">
                                 <img src="https://superadmin.homes247.in/images/uploadPropertyImgs/1671260347-COVER%20IMAGS.jpg" className="w-full" />
-                                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                {/* <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                                     <a href="#slide1" className="btn btn-circle">❮</a>
                                     <a href="#slide3" className="btn btn-circle">❯</a>
-                                </div>
-                            </div>
-                            <div id="slide3" className="carousel-item relative w-full">
+                                </div> */}
+                            </SwiperSlide>
+                            <SwiperSlide id="slide3" className="carousel-item relative w-full">
                                 <img src="https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg" className="w-full" />
-                                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                {/* <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                                     <a href="#slide2" className="btn btn-circle">❮</a>
                                     <a href="#slide4" className="btn btn-circle">❯</a>
-                                </div>
-                            </div>
+                                </div> */}
+                            </SwiperSlide>
 
-                        </div>
+                        </Swiper>
                         <div className="content01 bg-gradient-to-r from-cyan-100 to-blue-10 p-2 rounded-md w-full max-h-[500px] overflow-y-auto">
                             <h1 className="text-3xl font-semibold">Sobha Neopolis</h1>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
