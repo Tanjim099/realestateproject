@@ -44,7 +44,7 @@ function AdminLayout({ children }) {
             key: '3',
             icon: <FaStackOverflow />,
             label: 'Lead',
-            link: 'lead',
+            link: 'leads/page/1',
         },
         {
             key: '4',

@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 const initialState = {
     users: [],
     blogs: [],
+    leads: [],
+    checkedItems: {},
 }
 
 export const getUsers = createAsyncThunk("/stat/get", async (data) => {
@@ -53,20 +55,47 @@ export const getBlogs = createAsyncThunk("/stat/getblogs", async (data) => {
         toast.error(error.message)
     }
 })
+
+export const getAllContact = createAsyncThunk("/stat/getallcontact", async (data) => {
+    try {
+        const res = axiosInstance.get(`/admin/stat/contacts?page=${data.page}&limit=${data.limit}`);
+        toast.promise(res, {
+            loading: "Waiting",
+            success: "Successfully",
+            error: "Failed"
+        })
+        return (await res).data
+    } catch (error) {
+        console.log(error);
+        toast.error(error.message)
+    }
+})
 const statSlice = createSlice({
     name: "stat",
     initialState,
-    reducers: {},
+    reducers: {
+        updateCheckedItems: (state, action) => {
+            const { leadId } = action.payload;
+            state.checkedItems = {
+                ...state.checkedItems,
+                [leadId]: !state.checkedItems[leadId],
+            };
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getUsers.fulfilled, (state, action) => {
                 state.users = action?.payload?.data;
-                console.log(action)
             })
             .addCase(getBlogs.fulfilled, (state, action) => {
                 state.blogs = action?.payload?.data
             })
+            .addCase(getAllContact.fulfilled, (state, action) => {
+                state.leads = action?.payload?.data
+            })
     }
 });
+
+export const { updateCheckedItems } = statSlice.actions
 
 export default statSlice.reducer;

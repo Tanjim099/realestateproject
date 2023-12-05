@@ -23,6 +23,7 @@ import AdminAllBlogs from './pages/Admin/AdminAllBlogs'
 import UpdateBlog from './pages/Admin/UpdateBlog'
 import City from './pages/City'
 import Dashboard from './pages/Admin/Dashboard'
+import Lead from './pages/Admin/Lead'
 
 function App() {
 
@@ -56,7 +57,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
 
         </Route>
-
+        <Route path='admin/dashboard/leads/page/:page' element={<Lead />} />
         <Route path='admin/dashboard/update-project/:projectId' element={<EditProject />} />
         <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
         <Route path='admin/dashboard/add-project' element={<CreateProject />} />
