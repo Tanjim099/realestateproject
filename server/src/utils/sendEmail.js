@@ -11,18 +11,18 @@ const sendEmail = async function (email, subject, message) {
         });
 
         const info = await transporter.sendMail({
-            from: process.env.SMTP_FROM_EMAIL,
-            to: email,
+            from: email,
+            to: "samrush0099@gmail.com",
             subject: subject,
-            html: `${message}`, 
+            html: `${message}`,
         });
-
+        console.log("User", email)
         console.log('EMAIL SENT SUCCESSFULLY -> ', info);
         return info;
 
     } catch (error) {
         console.error('EMAIL SEND FAILED -> ', error);
-        throw error; 
+        throw error;
     }
 }
 

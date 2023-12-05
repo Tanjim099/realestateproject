@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import Project from "../models/projectModel.js";
 import ApiError from "../utils/ApiError.js"
 import ApiResponse from "../utils/ApiResponse.js";
@@ -18,6 +19,7 @@ const createProject = asyncHandler(async (req, res, next) => {
 
         const project = await Project.create({
             name,
+            slug: slugify(name),
             location,
             developer,
             description,
@@ -265,7 +267,7 @@ const searchProject = async (req, res, next) => {
         }
 
         console.log(query);
-        
+
         const projects = await Project.find(query).limit(limit * 1).skip((page - 1) * limit).exec();
 
         console.log(projects);

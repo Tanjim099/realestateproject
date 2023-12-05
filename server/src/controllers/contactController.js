@@ -33,6 +33,21 @@ const createContact = asyncHandler(async (req, res, next) => {
     }
 })
 
+const getAllContacts = asyncHandler(async (req, res, next) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const contacts = await Content.find().skip((page - 1) * limit).limit(limit).sort({ createdAt: -1 });
+        return res.status(201).json(
+            new ApiResponse(200, contacts, 'Contacts fetched Successfully...')
+        )
+    } catch (error) {
+        console.log(error.message);
+        return next(new ApiError(500, error.message));
+    }
+})
+
 export {
-    createContact
+    createContact,
+    getAllContacts
 }
