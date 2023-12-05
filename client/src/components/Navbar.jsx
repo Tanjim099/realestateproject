@@ -75,7 +75,7 @@ function Navbar() {
                             </ul>
                         </div>
                         <div className="flex gap-5 items-center">
-                            <Link to={'/'} className=" font-semibold text-white p-0 text-3xl">HOME99</Link>
+                            <Link to={'/'} className=" font-medium text-white p-0 text-3xl">HOME99</Link>
                             <div className="mt-1">
                                 <select defaultValue={'India'} value={cityValue} onChange={handelSubmitValue} className="bg-transparent outline-0 text-white">
                                     {
