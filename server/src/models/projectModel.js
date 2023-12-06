@@ -5,6 +5,10 @@ const projectSchema = new Schema({
         type: String,
         required: true,
     },
+    slug: {
+        type: String,
+        require: true
+    },
     city: {
         type: String,
         required: true,

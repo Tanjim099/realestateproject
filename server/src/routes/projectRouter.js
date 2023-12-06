@@ -17,7 +17,7 @@ router.post('/update/:id', upload.fields([
     { name: 'amenities', maxCount: 5 }   // Adjust maxCount as needed
 ]), updateProject);
 
-router.get("/get/:id", getProject);
+router.get("/get/:slug", getProject);
 router.get("/getall", getAllProject);
 router.delete("/delete/:id", deleteProject);
 router.get("/search/project", searchProject);

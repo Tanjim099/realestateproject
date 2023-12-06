@@ -39,52 +39,52 @@ const createProject = asyncHandler(async (req, res, next) => {
             return next(new ApiError(402, 'Product created failed'));
         }
 
-        if (req.files) {
-            try {
-                // console.log(req.files.gallery);
-                console.log(req.files.floorPlan);
-                // console.log(req.files.amenities);
-                const galleryImage = req.files.gallery;
-                const floorPlanImage = req.files.floorPlan;
-                const amenitiesImage = req.files.amenities;
+        // if (req.files) {
+        //     try {
+        //         // console.log(req.files.gallery);
+        //         console.log(req.files.floorPlan);
+        //         // console.log(req.files.amenities);
+        //         const galleryImage = req.files.gallery;
+        //         const floorPlanImage = req.files.floorPlan;
+        //         const amenitiesImage = req.files.amenities;
 
-                const galleyResult = await Promise.all(
-                    galleryImage.map((file) => uploadCloudinary(file.path))
-                );
+        //         const galleyResult = await Promise.all(
+        //             galleryImage.map((file) => uploadCloudinary(file.path))
+        //         );
 
-                const floorPlanResult = await Promise.all(
-                    floorPlanImage.map((file) => uploadCloudinary(file.path))
-                );
+        //         const floorPlanResult = await Promise.all(
+        //             floorPlanImage.map((file) => uploadCloudinary(file.path))
+        //         );
 
-                const amenitiesResult = await Promise.all(
-                    amenitiesImage.map((file) => uploadCloudinary(file.path))
-                );
+        //         const amenitiesResult = await Promise.all(
+        //             amenitiesImage.map((file) => uploadCloudinary(file.path))
+        //         );
 
-                project.gallery = project.gallery.concat(galleyResult.map((result) => ({
-                    public_id: result.public_id,
-                    secure_url: result.secure_url,
-                })));
+        //         project.gallery = project.gallery.concat(galleyResult.map((result) => ({
+        //             public_id: result.public_id,
+        //             secure_url: result.secure_url,
+        //         })));
 
-                project.amenities = project.amenities.concat(amenitiesResult.map((result, idx) => ({
-                    name: amenitiesName[idx],
-                    image: {
-                        public_id: result.public_id,
-                        secure_url: result.secure_url,
-                    },
-                })));
+        //         project.amenities = project.amenities.concat(amenitiesResult.map((result, idx) => ({
+        //             name: amenitiesName[idx],
+        //             image: {
+        //                 public_id: result.public_id,
+        //                 secure_url: result.secure_url,
+        //             },
+        //         })));
 
-                project.floorPlan = project.floorPlan.concat(floorPlanResult.map((result, idx) => ({
-                    types: floorName[idx],
-                    image: {
-                        public_id: result.public_id,
-                        secure_url: result.secure_url,
-                    },
-                })));
+        //         project.floorPlan = project.floorPlan.concat(floorPlanResult.map((result, idx) => ({
+        //             types: floorName[idx],
+        //             image: {
+        //                 public_id: result.public_id,
+        //                 secure_url: result.secure_url,
+        //             },
+        //         })));
 
-            } catch (Error) {
-                return next(new ApiError(500, Error.message));
-            }
-        }
+        //     } catch (Error) {
+        //         return next(new ApiError(500, Error.message));
+        //     }
+        // }
 
         const saveProject = await project.save();
 
@@ -115,6 +115,7 @@ const updateProject = asyncHandler(async (req, res, next) => {
 
         const updatedProject = await Project.findByIdAndUpdate(id, {
             name,
+            slug: slugify(name),
             location,
             developer,
             description,
@@ -199,8 +200,8 @@ const updateProject = asyncHandler(async (req, res, next) => {
 //get single project
 const getProject = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const project = await Project.findById(id);
+        const { slug } = req.params;
+        const project = await Project.findOne({ slug: slug });
         if (!project) {
             return next(new ApiError(403, 'Invalid Project id'));
         }
