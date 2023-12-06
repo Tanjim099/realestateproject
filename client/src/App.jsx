@@ -24,6 +24,7 @@ import UpdateBlog from './pages/Admin/UpdateBlog'
 import City from './pages/City'
 import Dashboard from './pages/Admin/Dashboard'
 import Lead from './pages/Admin/Lead'
+import ReadBlog from './pages/ReadBlog'
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
         <Route path='/project/:slug' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='/city/:cityname' element={<City />} />
+        <Route path='/blog' element={<ReadBlog />} />
         <Route path='*' element={<NotFound />} />
 
         <Route path='/admin/dashboard' element={<Dashboard />} />

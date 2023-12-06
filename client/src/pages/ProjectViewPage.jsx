@@ -8,6 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
 import { useParams } from "react-router-dom";
 import { getProject } from "../redux/slices/projectSlice";
+import { IoLocationSharp } from "react-icons/io5";
+import { MdOutlineLocationCity } from "react-icons/md"
 
 function ProjectViewPage() {
 
@@ -139,11 +141,35 @@ function ProjectViewPage() {
                                 </SwiperSlide>
 
                             </Swiper>
+                            <div className="bg-gradient-to-r from-indigo-200 p-2 rounded-md w-full mt-3">
+                                <h2 className="text-3xl  font-semibold">{data?.name}</h2>
+                                <div className="flex items-center justify-between mt-3">
+                                    <div className="flex flex-col gap-1">
+                                        <div className="flex items-center gap-1">
+                                            <MdOutlineLocationCity />
+                                            <p>By {data?.developer}</p>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <IoLocationSharp />
+                                            <p>{data?.location}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col gap-1">
+                                        <div className="flex items-center gap-1">
+                                            <MdOutlineLocationCity />
+                                            <p>By {data?.pricing?.startingFrom}</p>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <IoLocationSharp />
+                                            <p>4787 - 10985 SQ. FT.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="">
-
-                                <h1 className="content01 text-3xl my-2 font-semibold">Sobha Neopolis</h1>
-                                <div className="bg-gradient-to-r from-cyan-100 to-blue-10 p-2 rounded-md w-full max-h-[500px] overflow-y-auto">
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
+                                <h1 className=" text-3xl my-2 font-semibold">Sobha Neopolis</h1>
+                                <div className=" content01 p-2 rounded-md w-full max-h-[500px] overflow-y-auto" dangerouslySetInnerHTML={{ __html: data?.description }}>
+                                    {/* <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
                                         cupiditate ab dignissimos atque doloremque praesentium maxime quam obcaecati cum impedit iure
                                         quidem quia illo adipisci blanditiis nesciunt voluptatibus omnis. Voluptatem at, fugit maxime
                                         magnam vitae ducimus voluptatibus sint deleniti cum rem sequi, id quibusdam.
@@ -168,20 +194,23 @@ function ProjectViewPage() {
                                         cupiditate ab dignissimos atque doloremque praesentium maxime quam obcaecati cum impedit iure
                                         quidem quia illo adipisci blanditiis nesciunt voluptatibus omnis. Voluptatem at, fugit maxime
                                         magnam vitae ducimus voluptatibus sint deleniti cum rem sequi, id quibusdam.
-                                    </p>
+                                    </p> */}
                                 </div>
                             </div>
 
                             {/* ================= */}
-                            <div className="content05  mt-5 p-2 rounded-md" id="virtualsitetour">
-                                <h1 className="py-2 px-2 text-3xl font-semibold">Specification of Mantri Webcity</h1>
-                                <ul className=" list-disc w-full flex flex-col gap-2 ml-7">
+                            <div className="content05   mt-5 p-2 rounded-md" id="virtualsitetour">
+                                <h1 className="py-2 px-2 text-3xl font-semibold">Specification of {data?.name}</h1>
+                                <div dangerouslySetInnerHTML={{ __html: data?.specifications }}>
+
+                                </div>
+                                {/* <ul className=" list-disc w-full flex flex-col gap-2 ml-7">
                                     <li>Tota Number of Units - 1407</li>
                                     <li>Total Number of Floors - G+11</li>
                                     <li>Structure - Earthquake resistance – Seismic zone II compliant RCC framed structure</li>
                                     <li>Flooring - Living, dining, family, kitchen and bedrooms- Vitrified tile flooring (2ft x 2ft)</li>
                                     <li>Kitchen - Provision for water purifier</li>
-                                </ul>
+                                </ul> */}
                             </div>
 
                             <div className="content04 mt-5 py-4 px-2 bg-gradient-to-r from-cyan-100 to-blue-10 rounded-md">
@@ -195,11 +224,14 @@ function ProjectViewPage() {
                                         <div id="pricesandbuttonbox" className=" flex flex-col items-center">
                                             <h2>Select Floor Plan Type</h2>
                                             <div className="planbtn mt-5 grid grid-cols-3 gap-3" style={{ width: "fit-content" }}>
-                                                <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">1 BHK</button>
+                                                {data?.floorPlan?.map((item) => {
+                                                    return <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">{item.types}</button>
+                                                })}
+                                                {/* <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">1 BHK</button>
                                                 <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">2 BHK</button>
                                                 <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">3 BHK</button>
                                                 <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">4 BHK</button>
-                                                <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">5 BHK</button>
+                                                <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">5 BHK</button> */}
                                             </div>
                                             <div className="sqftbox mt-5 flex items-center justify-between gap-2"><img className="w-[30px]" src="https://sobhaneopolis.co/wp-content/uploads/2023/03/ruler.webp" alt />
                                                 <p id="sqft" className=" text-center">643 - 643 Sqft</p>
@@ -237,7 +269,15 @@ function ProjectViewPage() {
                             <div className="content07 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-md">
                                 <h1 className="py-2 px-2 text-3xl font-semibold">Amenities You Would Love to Use</h1>
                                 <div className="Amenities grid grid-cols-6 gap-2">
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                    {data?.amenities?.map((item) => {
+                                        return (
+                                            <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                                <img className="w-[30px] " src={item?.image?.secure_url} width="30px" alt />
+                                                <p className=" text-center" >{item?.name}</p>
+                                            </div>
+                                        )
+                                    })}
+                                    {/* <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
                                         <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
                                         <p className=" text-center" >Basketball Court</p>
                                     </div>
@@ -304,11 +344,7 @@ function ProjectViewPage() {
                                     <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
                                         <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
                                         <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
 
