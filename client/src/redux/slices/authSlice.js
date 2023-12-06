@@ -106,16 +106,19 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
             console.log(action?.payload?.data)
-            state.data = action?.payload?.data;
-            state.role = action?.payload?.data?.role;
-            localStorage.setItem('data', JSON.stringify(action?.payload?.data));
-            localStorage.setItem('isLoggedIn', JSON.stringify(true));
-            localStorage.setItem('role', JSON.stringify(action?.payload?.data?.role));
-            state.isLoggedIn = true;
+            if (action?.payload?.success) {
+                state.data = action?.payload?.data;
+                state.role = action?.payload?.data?.role;
+                state.isLoggedIn = true;
+                localStorage.setItem('data', JSON.stringify(action?.payload?.data));
+                localStorage.setItem('isLoggedIn', JSON.stringify(true));
+                localStorage.setItem('role', JSON.stringify(action?.payload?.data?.role));
+            }
         })
         builder.addCase(logout.fulfilled, (state, action) => {
-            state.data = null;
             localStorage.clear();
+            state.data = null;
+            state.role = ""
             state.isLoggedIn = false;
         })
         // builder.addCase(forgotPassword.fulfilled, (state, action) => {

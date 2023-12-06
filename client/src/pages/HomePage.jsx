@@ -18,7 +18,13 @@ import dot from '../assets/dots.png';
 import { FaSearch } from "react-icons/fa";
 import '../styles/HomePage.css';
 import CountUp from 'react-countup';
-
+import { Link } from "react-router-dom";
+import buy1 from '../assets/buy_icon.svg'
+import buy2 from '../assets/buy_icon_1.svg'
+import buy3 from '../assets/buy_icon_3.svg'
+import buy4 from '../assets/imgpsh_fullsize_anim.png'
+import buy5 from '../assets/vastu.svg'
+import buy6 from '../assets/legal-assistant2.png'
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -227,8 +233,94 @@ function HomePage() {
                     </div>
                 </div> */}
 
-
                 {/* Section 2 */}
+
+                <div className="mx-auto w-[1200px] my-24">
+                    <div className="text-center">
+                        <h2 className="font-semibold text-2xl">Why buy with us ?</h2>
+                        <p className="text-xl text-gray-500 mt-5">Aspects that make 360 Realtors India's leading Real Estate Advisory</p>
+                    </div>
+                    <Swiper
+                        spaceBetween={20}
+                        slidesPerView={3}
+                        className="text-center my-20"
+                    >
+                        <SwiperSlide className="flex items-center justify-center flex-col">
+                            <div className="w-[100px] h-[100px]">
+                                <img src={buy1} alt="buy_1" className="w-full h-full" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold my-3 text-lg">Real Estate Consulting</h3>
+                                <p className="text-sm">Those days are now passé when purchasing a home used to be a very arduous task and buyers had to run from pillar to post to get everything in place...</p>
+                                <p className="text-[#7f1657] my-3">
+                                    <Link>Read More</Link>
+                                </p>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide className="flex items-center justify-center flex-col">
+                            <div className="w-[100px] h-[100px]">
+                                <img src={buy2} alt="buy_2" className="w-full h-full" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold my-3 text-lg">Home Loan Consultation</h3>
+                                <p className="text-sm">Attractive home loans have made purchasing property very convenient as buyers do not have to pay everything upfront. Our expertise in impartial loan advisory services...</p>
+                                <p className="text-[#7f1657] my-3">
+                                    <Link>Read More</Link>
+                                </p>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide className="flex items-center justify-center flex-col">
+                            <div className="w-[100px] h-[100px]">
+                                <img src={buy3} alt="buy_3" className="w-full h-full" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold my-3 text-lg">NRI Services</h3>
+                                <p className="text-sm">TInvestment inflows from the Indian diaspora have been rising at astounding rates. However, the ascent has slowed down as many NRIs are still dissuaded due to the lack of geographical ...</p>
+                                <p className="text-[#7f1657] my-3">
+                                    <Link>Read More</Link>
+                                </p>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide className="flex items-center justify-center flex-col">
+                            <div className="w-[100px] h-[100px]">
+                                <img src={buy4} alt="buy_4" className="w-full h-full" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold my-3 text-lg">After sales assistance</h3>
+                                <p className="text-sm">Our services do not stop once the deal is closed. We are committed to assisting our customers in every possible way. We have been pushing the realms of client servicing in Indian realty ... </p>
+                                <p className="text-[#7f1657] my-3">
+                                    <Link>Read More</Link>
+                                </p>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide className="flex items-center justify-center flex-col">
+                            <div className="w-[100px] h-[100px]">
+                                <img src={buy5} alt="buy_5" className="w-full h-full" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold my-3 text-lg">Vastu Consultation</h3>
+                                <p className="text-sm">Vaastu is a subtle way of bringing in harmony and channelizing energy in and around the home. We provide Vaastu consulting to make a home Vaastu -compliant</p>
+                                <p className="text-[#7f1657] my-3">
+                                    <Link>Read More</Link>
+                                </p>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide className="flex items-center justify-center flex-col">
+                            <div className="w-[100px] h-[100px]">
+                                <img src={buy6} alt="buy_6" className="w-full h-full" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold my-3 text-lg">Legal Consultation</h3>
+                                <p className="text-sm">360 Realtors are not limited to supporting purchase/selling transactions in the real-estate domain. We walk with our clients all the way, assisting them with all the aspects ...</p>
+                                <p className="text-[#7f1657] my-3">
+                                    <Link>Read More</Link>
+                                </p>
+                            </div>
+                        </SwiperSlide>
+                    </Swiper>
+                </div>
+
+                {/* Section 3 */}
                 <div className="md:h-[500px] p-4 min-h-screen my-10 flex items-center flex-col justify-center" style={{
                     backgroundImage: `url(${image})`,
                     backgroundSize: 'cover',
@@ -259,7 +351,7 @@ function HomePage() {
                         </div>
                     </div>
                 </div>
-                {/* Section 3 */}
+                {/* Section 4 */}
                 <div className="bg-white min-h-screen lg:min-h-[400px] w-[1200px] items-center mx-auto my-10 grid grid-cols-1 lg:grid-cols-3">
                     <div className="col-span-1 text-black">
                         <h2 className="text-3xl">Explore by Property Type</h2>
@@ -286,7 +378,7 @@ function HomePage() {
                     </div>
                 </div>
                 {/* Section 4 */}
-                <div className="my-24 border-t-2">
+                {/* <div className="my-24 border-t-2">
                     <div className="text-center max-w-[700px] mx-auto p-3">
                         <h2 className="text-4xl text-[#7f1657] font-semibold my-5">WE BRING DREAM HOMES TO REALITY</h2>
                         <p className="text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam enim pariatur similique debitis vel nisi qui reprehenderit totam? Quod maiores.</p>
@@ -344,7 +436,7 @@ function HomePage() {
                             <p># of Agents</p>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Gallery section */}
 
