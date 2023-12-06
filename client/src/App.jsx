@@ -47,7 +47,7 @@ function App() {
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/user-profile" element={<Profile />} />
-        <Route path='/project/:id' element={<ProjectViewPage />} />
+        <Route path='/project/:slug' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='/city/:cityname' element={<City />} />
         <Route path='*' element={<NotFound />} />

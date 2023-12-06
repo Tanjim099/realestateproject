@@ -67,15 +67,9 @@ function HomePage() {
                     // }}
                     >
                         <div className="bg-opacity-60"></div>
-<<<<<<< HEAD
                         <div className="hero-content text-neutral-content w-[100%] h-full">
                             <div className="flex flex-col w-full items-center h-full">
                                 <div className="text-white text-center w-[60%]">
-=======
-                        <div className="hero-content h-full text-neutral-content w-[100%]">
-                            <div className="flex flex-col h-full w-full justify-around items-center">
-                                <div className="text-white flex flex-col justify-end h-full text-center w-[60%]">
->>>>>>> 6478a3b41cbfbf147007f5f973f0423f9b22e170
                                     <h1 className=" sm:text-4xl font-semibold">Discover Properties in India</h1>
                                     <p className="text-xl my-5">We help you find your new home</p>
                                     {/* <div className="flex">
@@ -105,7 +99,6 @@ function HomePage() {
                                         </div>
                                     </div>
                                 </div>
-<<<<<<< HEAD
                                 <div className="w-[70%] mx-auto text-white flex justify-between items-end  my-10 text-center absolute bottom-0 ">
                                     <div className="">
                                         <span className="text-4xl font-semibold text-[rgb(127,22,87)]">
@@ -133,37 +126,6 @@ function HomePage() {
                                             <CountUp start={0} end={100} duration={2} delay={0} />
                                         </span>
                                         <p>TOTAL BRANCHES</p>
-=======
-                                <div className="w-full flex justify-end items-end h-full">
-                                    <div className="w-[90%] mx-auto text-white flex justify-between my-10 text-center">
-                                        <div className="">
-                                            <span className="text-4xl font-semibold text-[rgb(127,22,87)]">
-                                                <CountUp start={0} end={50} duration={2} delay={0} />
-                                            </span>
-                                            <p>YEARS OF EXPERIENCED</p>
-                                        </div>
-                                        <div className="text-3xl flex items-center">|</div>
-                                        <div>
-                                            <span className="text-4xl font-semibold text-[#7f1657]">
-                                                <CountUp start={0} end={210} duration={2} delay={0} />K+
-                                            </span>
-                                            <p>TOTAL PROPERTIES</p>
-                                        </div>
-                                        <div className="text-3xl flex items-center">|</div>
-                                        <div>
-                                            <span className="text-4xl font-semibold text-[#7f1657]">
-                                                <CountUp start={0} end={450} duration={2} delay={0} />
-                                            </span>
-                                            <p>QUALIFIED REALTORS</p>
-                                        </div>
-                                        <div className="text-3xl flex items-center">|</div>
-                                        <div>
-                                            <span className="text-4xl font-semibold text-[#7f1657]">
-                                                <CountUp start={0} end={100} duration={2} delay={0} />
-                                            </span>
-                                            <p>TOTAL BRANCHES</p>
-                                        </div>
->>>>>>> 6478a3b41cbfbf147007f5f973f0423f9b22e170
                                     </div>
                                 </div>
 

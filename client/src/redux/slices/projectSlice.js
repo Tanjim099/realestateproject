@@ -81,10 +81,10 @@ export const searchProject = createAsyncThunk("/project/search", async (data) =>
     try {
         const res = axiosInstance.get(`project/search/project?name=${data}`);
 
-        toast.promise(res,{
-            loading:'Wait! Searching',
-            success:'Successfully',
-            error:'Failed Searching'
+        toast.promise(res, {
+            loading: 'Wait! Searching',
+            success: 'Successfully',
+            error: 'Failed Searching'
         });
 
         return (await res)?.data;
@@ -132,6 +132,9 @@ const projectSlice = createSlice({
             console.error(action.error);
             toast.error('Failed to fetched project');
         });
+        builder.addCase(getProject.fulfilled, (state, action) => {
+            console.log(action);
+        })
     }
 })
 
