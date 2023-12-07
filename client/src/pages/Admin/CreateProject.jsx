@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProject, updateProject } from '../../redux/slices/projectSlice';
@@ -9,8 +8,7 @@ import Spinner from '../../components/Spinner';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Link, useNavigate } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
-// import 'jodit/build/jodit.min.css';
-// import 'tailwindcss/dist/tailwind.min.css';
+import { IoMdClose } from "react-icons/io";
 
 function CreateProject() {
     const [loading, setLoading] = useState(false);
@@ -101,6 +99,32 @@ function CreateProject() {
             });
         }
     };
+
+    const removeGalleryImage = (idx) => {
+        const updatedImages = [...galleryImages.slice(0, idx), ...galleryImages.slice(idx + 1)];
+        setGalleryImages(updatedImages);
+    }
+
+    const removeFloorImage = (idx) => {
+        console.log(idx);
+        const updateImages = [...floorImages.slice(0, idx), ...floorImages.slice(idx + 1)];
+        const updateChips = [...floorchips.slice(0, idx), ...floorchips.slice(idx + 1)];
+        const updatePrice = [...floorPriceChips.slice(0,idx),...floorPriceChips.slice(idx + 1)];
+        const updateDimensionschips= [...dimensionschips.slice(0,idx),...dimensionschips.slice(idx + 1)];
+
+        setFloorImages(updateImages);
+        setFloorChips(updateChips);
+        setFloorPriceChips(updatePrice);
+        setDimensionsChips(updateDimensionschips);
+    }
+
+    const removeAmenitieImage = (idx) => {
+        const updateImages = [...amenitieImages.slice(0, idx), ...amenitieImages.slice(idx + 1)];
+        const updateChips = [...amenitiechips.slice(0, idx), ...amenitiechips.slice(idx + 1)];
+
+        setAmenitiesImages(updateImages);
+        setAmenitieChips(updateChips);
+    }
 
     const handelFloorPlanImage = (e) => {
         try {
@@ -274,19 +298,19 @@ function CreateProject() {
                 formData.append('phone', projectCreateData.phone);
                 formData.append('city', projectCreateData.city);
                 formData.append('content', projectCreateData.content);
-    
+
                 formData.append('map', projectCreateData.map);
                 formData.append('projectArea', projectCreateData.projectArea);
                 formData.append('possessionOn', projectCreateData.possessionOn);
                 formData.append('projectType', projectCreateData.projectType);
                 formData.append('reraNo', projectCreateData.reraNo);
-    
-    
+
+
                 formData.append('floorName', JSON.stringify(floorchips));
                 formData.append('amenitiesName', JSON.stringify(amenitiechips));
                 formData.append('dimensions', JSON.stringify(dimensionschips));
                 formData.append('floorPrice', JSON.stringify(floorPriceChips));
-    
+
                 for (let i = 0; i < galleryImages.length; i++) {
                     formData.append('gallery', galleryImages[i].file);
                 }
@@ -378,7 +402,6 @@ function CreateProject() {
             throw Error;
         }
     }
-
 
     return (
         <AdminLayout>
@@ -627,8 +650,9 @@ function CreateProject() {
                                                     galleryImages.length != 0 ?
                                                         (
                                                             galleryImages.map((galleryImage, idx) => (
-                                                                <div key={idx} className='flex-row w-full h-[100px] outline-dashed p-1'>
+                                                                <div key={idx} className='flex-row relative w-full h-[100px] outline-dashed p-1'>
                                                                     <img className='w-full h-full object-cover' src={galleryImage.dataURL} />
+                                                                    <span className='absolute top-0 right-0 cursor-pointer' onClick={() => removeGalleryImage(idx)}> <IoMdClose /></span>
                                                                 </div>
                                                             ))
                                                         )
@@ -700,11 +724,12 @@ function CreateProject() {
                                                     floorImages.length != 0 ?
                                                         (
                                                             floorImages.map((floorImage, idx) => (
-                                                                <div key={idx} className='flex-row w-[100px] mb-14 h-[100px] outline-dashed p-1'>
+                                                                <div key={idx} className='flex-row relative w-[100px] mb-24 h-[100px] outline-dashed p-1'>
                                                                     <img className='w-full h-full object-cover' src={floorImage.dataURL} />
-                                                                    <p className='text-xl font-mono text-center my-2'>{floorchips[idx]}</p>
-                                                                    <p className='text-xl font-mono text-center my-2'>{dimensionschips[idx]}</p>
-                                                                    <p className='text-xl font-mono text-center my-2'>{floorPriceChips[idx]}</p>
+                                                                    <p className='text-xl font-mono text-center mt-2'>{floorchips[idx]}</p>
+                                                                    <p className='text-xl font-mono text-center mt-2'>{dimensionschips[idx]}</p>
+                                                                    <p className='text-xl font-mono text-center mt-2'>{floorPriceChips[idx]}</p>
+                                                                    <span className='absolute top-0 right-0 cursor-pointer' onClick={() => removeFloorImage(idx)}> <IoMdClose /></span>
                                                                 </div>
                                                             ))
                                                         )
@@ -749,9 +774,10 @@ function CreateProject() {
                                                     amenitieImages.length != 0 ?
                                                         (
                                                             amenitieImages.map((amenitieImage, idx) => (
-                                                                <div key={idx} className='flex-row w-[100px] mb-10 h-[100px] outline-dashed p-1'>
+                                                                <div key={idx} className='flex-row relative w-[100px] mb-10 h-[100px] outline-dashed p-1'>
                                                                     <img className='w-full h-full object-cover' src={amenitieImage.dataURL} />
                                                                     <p className='text-xl font-mono text-center mt-2'>{amenitiechips[idx]}</p>
+                                                                    <span className='absolute top-0 right-0 cursor-pointer' onClick={() => removeAmenitieImage(idx)}> <IoMdClose /></span>
                                                                 </div>
                                                             ))
                                                         )

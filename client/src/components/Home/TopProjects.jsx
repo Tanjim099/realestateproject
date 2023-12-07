@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
 import Project from '../Project';
 import { useSelector } from 'react-redux';
-import {BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
+import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 
 function TopProjects() {
 
@@ -45,20 +45,24 @@ function TopProjects() {
                         )
                     }
                 </Swiper>
-                <div className='flex justify-between gap-10'>
-                    <button
-                        className={`${classNames} top-[50%] left-[-3%]`}
-                        ref={(node) => setPrevEl(node)}
-                    >
-                        <BsCaretLeftFill />
-                    </button>
-                    <button
-                        className={`${classNames} right-[-3%] top-[50%]`}
-                        ref={(node) => setNextEl(node)}
-                    >
-                        <BsCaretRightFill />
-                    </button>
-                </div>
+                {
+                    projects && projects.length > 4 && (
+                        <div className='flex justify-between gap-10'>
+                            <button
+                                className={`${classNames} top-[50%] left-[-3%]`}
+                                ref={(node) => setPrevEl(node)}
+                            >
+                                <BsCaretLeftFill />
+                            </button>
+                            <button
+                                className={`${classNames} right-[-3%] top-[50%]`}
+                                ref={(node) => setNextEl(node)}
+                            >
+                                <BsCaretRightFill />
+                            </button>
+                        </div>
+                    )
+                }
             </div>
 
         </div>
