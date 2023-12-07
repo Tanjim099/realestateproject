@@ -10,7 +10,7 @@ export const createBlog = async (req, res, next) => {
     try {
         const { title, category, description, content, author } = req.body;
         if (!title || !category || !description || !content) {
-            return next(ApiError(400, "All Fields are required"));
+            return next(new ApiError(400, "All Fields are required"));
         }
         const blog = await blogModel.create({
             title,

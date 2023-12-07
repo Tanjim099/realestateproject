@@ -51,7 +51,7 @@ function App() {
         <Route path='/project/:slug' element={<ProjectViewPage />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='/city/:cityname' element={<City />} />
-        <Route path='/blog' element={<ReadBlog />} />
+        <Route path='/blog/:slug' element={<ReadBlog />} />
         <Route path='*' element={<NotFound />} />
 
         <Route path='/admin/dashboard' element={<Dashboard />} />

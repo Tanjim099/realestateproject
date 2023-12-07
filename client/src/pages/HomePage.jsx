@@ -18,20 +18,27 @@ import dot from '../assets/dots.png';
 import { FaSearch } from "react-icons/fa";
 import '../styles/HomePage.css';
 import CountUp from 'react-countup';
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import buy1 from '../assets/buy_icon.svg'
 import buy2 from '../assets/buy_icon_1.svg'
 import buy3 from '../assets/buy_icon_3.svg'
 import buy4 from '../assets/imgpsh_fullsize_anim.png'
 import buy5 from '../assets/vastu.svg'
 import buy6 from '../assets/legal-assistant2.png'
+import { getAllBlogs } from "../redux/slices/blogSlice";
+import { CgProfile } from "react-icons/cg";
+import { FaCalendarAlt } from "react-icons/fa";
+import { LuNewspaper } from "react-icons/lu";
 
 function HomePage() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     const { projects } = useSelector((state) => state.project);
+    const { blogData } = useSelector((state) => state?.blog);
+    console.log(blogData)
     const [search, setSearch] = useState("");
     console.log(search);
 
@@ -50,8 +57,13 @@ function HomePage() {
     async function onLoadGetData() {
         const response = await dispatch(getAllProjects());
     }
+
+    async function onLoadGetBlogData() {
+        const response = await dispatch(getAllBlogs());
+    }
     useEffect(() => {
-        onLoadGetData()
+        onLoadGetData();
+        onLoadGetBlogData();
     }, [])
     return (
         <HomeLayout>
@@ -480,7 +492,37 @@ function HomePage() {
                             }}
                             className="max-h-[30rem]"
                         >
-                            <SwiperSlide className="border w-[300px]">
+                            {
+                                blogData?.map((blog, i) => {
+                                    return (
+
+                                        <SwiperSlide key={i} className="border w-[300px]">
+                                            <NavLink to={`/blog/${blog.slug}`} onClick={() => navigate({ state: blog })}>
+                                                <div className="w-full h-[200px]">
+                                                    <img src={blog?.image?.secure_url} className="h-full w-full object-cover" />
+                                                </div>
+                                                <div className="p-3">
+                                                    <h3 className="font-medium text-lg mt-1">{blog?.title}</h3>
+                                                    <p className="text-sm text-gray-500">{(blog?.description).substring(0, 160)} <span className=" text-red-400 underline">more</span></p>
+                                                </div>
+                                                <hr />
+                                                <div className='flex items-center justify-between p-2'>
+                                                    <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                                        <CgProfile />By
+                                                        <p>Username</p>
+                                                    </div>
+                                                    <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                                        <FaCalendarAlt />
+                                                        <p>25 November, 2023</p>
+                                                    </div>
+                                                </div>
+                                            </NavLink>
+                                        </SwiperSlide>
+
+                                    )
+                                })
+                            }
+                            {/* <SwiperSlide className="border w-[300px]">
                                 <div className="w-full">
                                     <img src={about_1} className="h-full w-full object-cover" />
                                 </div>
@@ -551,16 +593,7 @@ function HomePage() {
                                     <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
                                     <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
                                 </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide>
+                            </SwiperSlide> */}
                         </Swiper>
                     </div>
                 </div>
