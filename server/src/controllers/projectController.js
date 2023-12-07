@@ -10,12 +10,18 @@ import uploadCloudinary from "../utils/cloudinary.js";
 const createProject = asyncHandler(async (req, res, next) => {
     try {
         console.log('Starting...');
-        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
-        console.log(req.body);
+        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone } = req.body;
+        let {floorName, amenitiesName} = req.body;
+        // console.log(req.body);
 
         if (!name || !location || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
             return next(new ApiError(403, 'All Fields are required'));
         }
+
+        floorName = JSON.parse(floorName);
+        amenitiesName = JSON.parse(amenitiesName);
+
+        console.log(floorName[0]);
 
         const project = await Project.create({
             name,
@@ -24,6 +30,7 @@ const createProject = asyncHandler(async (req, res, next) => {
             developer,
             description,
             specifications,
+            content,
             city,
             pricing: {
                 startingFrom,
@@ -42,7 +49,7 @@ const createProject = asyncHandler(async (req, res, next) => {
         if (req.files) {
             try {
                 // console.log(req.files.gallery);
-                console.log(req.files.floorPlan);
+                // console.log(req.files.floorPlan);
                 // console.log(req.files.amenities);
                 const galleryImage = req.files.gallery;
                 const floorPlanImage = req.files.floorPlan;
@@ -55,6 +62,8 @@ const createProject = asyncHandler(async (req, res, next) => {
                 const floorPlanResult = await Promise.all(
                     floorPlanImage.map((file) => uploadCloudinary(file.path))
                 );
+
+                console.log(floorPlanResult)
 
                 const amenitiesResult = await Promise.all(
                     amenitiesImage.map((file) => uploadCloudinary(file.path))

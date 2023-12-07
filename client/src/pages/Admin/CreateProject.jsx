@@ -24,12 +24,14 @@ function CreateProject() {
         minHeight: '300px', // Set your desired height here
     };
 
+    console.log(JSON.stringify(floorchips));
+
 
     const editor = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { editProject, project } = useSelector((state) => state.project);
-    console.log(editProject);
+    // console.log(editProject);
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
         location: '',
@@ -43,8 +45,8 @@ function CreateProject() {
         city: '',
     });
 
-        useEffect(() => {
-           if(editProject){
+    useEffect(() => {
+        if (editProject) {
             projectCreateData.name = project.name;
             projectCreateData.location = project.location;
             projectCreateData.developer = project.developer;
@@ -55,8 +57,8 @@ function CreateProject() {
             projectCreateData.email = project.email;
             projectCreateData.phone = project.phone;
             projectCreateData.city = project.city;
-           }
-        }, [project]);
+        }
+    }, [project]);
 
     // console.log(editProject);
 
@@ -278,16 +280,16 @@ function CreateProject() {
             formData.append('content', projectCreateData.content);
 
 
-            formData.append('floorName', floorchips);
-            formData.append('amenitiesName', amenitiechips);
+            formData.append('floorName', JSON.stringify(floorchips));
+            formData.append('amenitiesName', JSON.stringify(amenitiechips));
 
             for (let i = 0; i < galleryImages.length; i++) {
                 formData.append('gallery', galleryImages[i].file);
             }
-            for (let i = 0; i < galleryImages.length; i++) {
+            for (let i = 0; i < floorImages.length; i++) {
                 formData.append('floorPlan', floorImages[i].file);
             }
-            for (let i = 0; i < galleryImages.length; i++) {
+            for (let i = 0; i < amenitieImages.length; i++) {
                 formData.append('amenities', amenitieImages[i].file);
             }
             console.log(formData);
