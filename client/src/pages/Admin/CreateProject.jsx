@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { CiCirclePlus } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewProject } from '../../redux/slices/projectSlice';
+import { createNewProject, updateProject } from '../../redux/slices/projectSlice';
 import toast from 'react-hot-toast';
 import JoditEditor from 'jodit-react';
 import Spinner from '../../components/Spinner';
@@ -34,7 +34,7 @@ function CreateProject() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { editProject, project } = useSelector((state) => state.project);
-    // console.log(editProject);
+    console.log(project);
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
         location: '',
@@ -51,20 +51,27 @@ function CreateProject() {
         possessionOn: '',
         projectType: '',
         reraNo: '',
+        content: '',
     });
 
     useEffect(() => {
         if (editProject) {
-            projectCreateData.name = project.name;
-            projectCreateData.location = project.location;
-            projectCreateData.developer = project.developer;
-            projectCreateData.description = project.description;
-            projectCreateData.specifications = project.specifications;
-            projectCreateData.startingFrom = project.startingFrom;
-            projectCreateData.currency = project.currency;
-            projectCreateData.email = project.email;
-            projectCreateData.phone = project.phone;
-            projectCreateData.city = project.city;
+            projectCreateData.name = project?.name;
+            projectCreateData.location = project?.location;
+            projectCreateData.developer = project?.developer;
+            projectCreateData.description = project?.description;
+            projectCreateData.specifications = project?.specifications;
+            projectCreateData.startingFrom = project?.pricing?.startingFrom;
+            projectCreateData.currency = project?.pricing?.currency;
+            projectCreateData.email = project?.contactInformation?.email;
+            projectCreateData.phone = project?.contactInformation?.phone;
+            projectCreateData.city = project?.city;
+            projectCreateData.content = project?.content;
+            projectCreateData.map = project?.map;
+            projectCreateData.projectArea = project?.projectArea;
+            projectCreateData.possessionOn = project?.possessionOn;
+            projectCreateData.projectType = project?.projectType;
+            projectCreateData.reraNo = project?.reraNo;
         }
     }, [project]);
 
@@ -267,28 +274,31 @@ function CreateProject() {
                 formData.append('phone', projectCreateData.phone);
                 formData.append('city', projectCreateData.city);
                 formData.append('content', projectCreateData.content);
-
+    
                 formData.append('map', projectCreateData.map);
                 formData.append('projectArea', projectCreateData.projectArea);
                 formData.append('possessionOn', projectCreateData.possessionOn);
                 formData.append('projectType', projectCreateData.projectType);
                 formData.append('reraNo', projectCreateData.reraNo);
-
-                formData.append('floorName', floorchips);
-                formData.append('amenitiesName', amenitiechips);
-
+    
+    
+                formData.append('floorName', JSON.stringify(floorchips));
+                formData.append('amenitiesName', JSON.stringify(amenitiechips));
+                formData.append('dimensions', JSON.stringify(dimensionschips));
+                formData.append('floorPrice', JSON.stringify(floorPriceChips));
+    
                 for (let i = 0; i < galleryImages.length; i++) {
                     formData.append('gallery', galleryImages[i].file);
                 }
-                for (let i = 0; i < galleryImages.length; i++) {
+                for (let i = 0; i < floorImages.length; i++) {
                     formData.append('floorPlan', floorImages[i].file);
                 }
-                for (let i = 0; i < galleryImages.length; i++) {
+                for (let i = 0; i < amenitieImages.length; i++) {
                     formData.append('amenities', amenitieImages[i].file);
                 }
                 console.log(formData);
 
-                const res = await dispatch(updateNewProject([formData, project._id]));
+                const res = await dispatch(updateProject([formData, project._id]));
                 // console.log(res);
                 setProjectCreateData({
                     name: '',

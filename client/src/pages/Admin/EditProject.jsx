@@ -7,12 +7,12 @@ import { getProject, setEditProject, setProject } from '../../redux/slices/proje
 function EditProject() {
     const dispatch = useDispatch();
     const { projectId } = useParams();
-
+    console.log("PROJECT -> ",projectId);
     useEffect(() => {
         (async () => {
             const res = await dispatch(getProject(projectId));
             console.log(res);
-            if (res?.payload?.success) {
+            if (res?.payload) {
                 dispatch(setEditProject(true));
                 dispatch(setProject(res?.payload?.data));
             }

@@ -119,8 +119,12 @@ const createProject = asyncHandler(async (req, res, next) => {
 const updateProject = asyncHandler(async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
-
+        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo, content } = req.body;
+        let { floorName, amenitiesName, dimensions, floorPrice } = req.body;
+        floorName = JSON.parse(floorName);
+        amenitiesName = JSON.parse(amenitiesName);
+        dimensions = JSON.parse(dimensions);
+        floorPrice = JSON.parse(floorPrice);
         if (!id) {
             return next(new ApiError(403, 'Project id not found,Please try again later'));
         }
@@ -132,21 +136,27 @@ const updateProject = asyncHandler(async (req, res, next) => {
         }
 
         const updatedProject = await Project.findByIdAndUpdate(id, {
-            name,
+            name: name || project.name,
             slug: slugify(name),
-            location,
-            developer,
-            description,
-            city,
-            specifications,
+            location: location || project.location,
+            developer: developer || project.developer,
+            description: description || project.description,
+            city: city || project.city,
+            specifications: specifications || project.specifications,
             pricing: {
-                startingFrom,
-                currency
+                startingFrom: startingFrom || project.pricing.startingFrom,
+                currency: currency || project.pricing.currency
             },
             contactInformation: {
-                email,
-                phone
-            }
+                email: email || project.contactInformation.email,
+                phone: phone || project.contactInformation.phone
+            },
+            content: content || project.content,
+            map: map || project.map,
+            projectArea: projectArea || project.projectArea,
+            possessionOn: possessionOn || project.possessionOn,
+            projectType: projectType || project.projectType,
+            reraNo: reraNo || project.reraNo,
         }, { new: true });
 
         if (!updatedProject) {
@@ -190,6 +200,8 @@ const updateProject = asyncHandler(async (req, res, next) => {
 
                 updatedProject.floorPlan = updatedProject.floorPlan.concat(floorPlanResult.map((result, idx) => ({
                     types: floorName[idx],
+                    dimensions: dimensions[idx],
+                    floorPrice: floorPrice[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
@@ -218,8 +230,8 @@ const updateProject = asyncHandler(async (req, res, next) => {
 //get single project
 const getProject = async (req, res, next) => {
     try {
-        const { slug } = req.params;
-        const project = await Project.findOne({ slug: slug });
+        const { id } = req.params;
+        const project = await Project.findOne({ _id: id });
         if (!project) {
             return next(new ApiError(403, 'Invalid Project id'));
         }
