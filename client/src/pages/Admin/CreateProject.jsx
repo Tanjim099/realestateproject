@@ -22,6 +22,7 @@ function CreateProject() {
     const [floorPriceChips, setFloorPriceChips] = useState([]);
     const [dimensionschips, setDimensionsChips] = useState([]);
 
+
     const editorConfig = {
         minHeight: '500px', // Set your desired height here
     };
@@ -45,11 +46,11 @@ function CreateProject() {
         email: '',
         phone: '',
         city: '',
-        map:'', 
-        projectArea:'', 
-        possessionOn:'', 
-        projectType:'', 
-        reraNo:'',
+        map: '',
+        projectArea: '',
+        possessionOn: '',
+        projectType: '',
+        reraNo: '',
     });
 
     useEffect(() => {
@@ -176,7 +177,7 @@ function CreateProject() {
 
             if (chipValue && !amenitiechips.includes(chipValue)) {
                 const newChips = [...floorPriceChips, chipValue];
-                setFloorChips(newChips);
+                setFloorPriceChips(newChips);
                 event.target.value = "";
             }
 
@@ -271,7 +272,6 @@ function CreateProject() {
                 formData.append('projectArea', projectCreateData.projectArea);
                 formData.append('possessionOn', projectCreateData.possessionOn);
                 formData.append('projectType', projectCreateData.projectType);
-                formData.append('projectType', projectCreateData.projectType);
                 formData.append('reraNo', projectCreateData.reraNo);
 
                 formData.append('floorName', floorchips);
@@ -327,7 +327,6 @@ function CreateProject() {
             formData.append('map', projectCreateData.map);
             formData.append('projectArea', projectCreateData.projectArea);
             formData.append('possessionOn', projectCreateData.possessionOn);
-            formData.append('projectType', projectCreateData.projectType);
             formData.append('projectType', projectCreateData.projectType);
             formData.append('reraNo', projectCreateData.reraNo);
 
@@ -562,17 +561,17 @@ function CreateProject() {
                                                 </div>
                                             </div>
                                             <div className='my-3 flex flex-col gap-2'>
-                                                    <label htmlFor='map'>Map Url<sup className='text-pink-400'>*</sup></label>
-                                                    <input
-                                                        type='text'
-                                                        name='map'
-                                                        id='map'
-                                                        className='w-full py-3 px-3 rounded border outline-0'
-                                                        value={projectCreateData.map}
-                                                        placeholder='Enter Project Map Url'
-                                                        onChange={userInput}
-                                                    />
-                                                </div>
+                                                <label htmlFor='map'>Map Url<sup className='text-pink-400'>*</sup></label>
+                                                <input
+                                                    type='text'
+                                                    name='map'
+                                                    id='map'
+                                                    className='w-full py-3 px-3 rounded border outline-0'
+                                                    value={projectCreateData.map}
+                                                    placeholder='Enter Project Map Url'
+                                                    onChange={userInput}
+                                                />
+                                            </div>
 
                                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
                                                 <div className='my-3 flex flex-col gap-2'>
