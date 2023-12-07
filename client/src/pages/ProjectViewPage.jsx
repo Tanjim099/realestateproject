@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { createContact } from "../redux/store";
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getProject } from "../redux/slices/projectSlice";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdOutlineLocationCity } from "react-icons/md"
@@ -116,33 +116,21 @@ function ProjectViewPage() {
                                 loop={true}
                                 autoplay={{ delay: 2000, disableOnInteraction: false }}
                                 modules={[FreeMode, Pagination, Navigation, Autoplay]}
-                                className="carousel w-full"
+                                className="carousel w-full rounded-md"
                             >
-                                <SwiperSlide id="slide1" className="carousel-item relative w-full">
-                                    <img src={data?.gallery[0]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px]" />
-                                    {/* <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                                    <a href="#slide4" className="btn btn-circle">❮</a>
-                                    <a href="#slide2" className="btn btn-circle">❯</a>
-                                </div> */}
+                                <SwiperSlide id="slide1" className="carousel-item relative w-full rounded-md">
+                                    <img src={data?.gallery[0]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px] rounded-md" />
                                 </SwiperSlide>
-                                <SwiperSlide id="slide2" className="carousel-item relative w-full">
-                                    <img src={data?.gallery[1]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px]" />
-                                    {/* <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                                    <a href="#slide1" className="btn btn-circle">❮</a>
-                                    <a href="#slide3" className="btn btn-circle">❯</a>
-                                </div> */}
+                                <SwiperSlide id="slide2" className="carousel-item relative w-full rounded-md">
+                                    <img src={data?.gallery[1]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px] rounded-md" />
                                 </SwiperSlide>
-                                <SwiperSlide id="slide3" className="carousel-item relative w-full">
-                                    <img src={data?.gallery[2]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px]" />
-                                    {/* <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                                    <a href="#slide2" className="btn btn-circle">❮</a>
-                                    <a href="#slide4" className="btn btn-circle">❯</a>
-                                </div> */}
+                                <SwiperSlide id="slide3" className="carousel-item relative w-full rounded-md">
+                                    <img src={data?.gallery[2]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px] rounded-md" />
                                 </SwiperSlide>
 
                             </Swiper>
                             <div className="bg-gradient-to-r from-indigo-200 p-2 rounded-md w-full mt-3">
-                                <h2 className="text-3xl  font-semibold">{data?.name}</h2>
+                                <h2 className="text-2xl  font-semibold">{data?.name}</h2>
                                 <div className="flex items-center justify-between mt-3">
                                     <div className="flex flex-col gap-1">
                                         <div className="flex items-center gap-1">
@@ -166,56 +154,64 @@ function ProjectViewPage() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="">
-                                <h1 className=" text-3xl my-2 font-semibold">Sobha Neopolis</h1>
-                                <div className=" content01 p-2 rounded-md w-full max-h-[500px] overflow-y-auto" dangerouslySetInnerHTML={{ __html: data?.description }}>
-                                    {/* <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
-                                        cupiditate ab dignissimos atque doloremque praesentium maxime quam obcaecati cum impedit iure
-                                        quidem quia illo adipisci blanditiis nesciunt voluptatibus omnis. Voluptatem at, fugit maxime
-                                        magnam vitae ducimus voluptatibus sint deleniti cum rem sequi, id quibusdam.
-                                    </p>
-                                    <button id="brochuredownloadbtn" onclick="popUp()">Download Brochure</button>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
-                                        cupiditate ab dignissimos atque doloremque praesentium maxime quam obcaecati cum impedit iure
-                                        quidem quia illo adipisci blanditiis nesciunt voluptatibus omnis. Voluptatem at, fugit maxime
-                                        magnam vitae ducimus voluptatibus sint deleniti cum rem sequi, id quibusdam.
-                                    </p>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
-                                        cupiditate ab dignissimos atque doloremque praesentium maxime quam obcaecati cum impedit iure
-                                        quidem quia illo adipisci blanditiis nesciunt voluptatibus omnis. Voluptatem at, fugit maxime
-                                        magnam vitae ducimus voluptatibus sint deleniti cum rem sequi, id quibusdam.
-                                    </p>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
-                                        cupiditate ab dignissimos atque doloremque praesentium maxime quam obcaecati cum impedit iure
-                                        quidem quia illo adipisci blanditiis nesciunt voluptatibus omnis. Voluptatem at, fugit maxime
-                                        magnam vitae ducimus voluptatibus sint deleniti cum rem sequi, id quibusdam.
-                                    </p>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, hic nulla provident in et, eos
-                                        cupiditate ab dignissimos atque doloremque praesentium maxime quam obcaecati cum impedit iure
-                                        quidem quia illo adipisci blanditiis nesciunt voluptatibus omnis. Voluptatem at, fugit maxime
-                                        magnam vitae ducimus voluptatibus sint deleniti cum rem sequi, id quibusdam.
-                                    </p> */}
+                            {/* === */}
+                            <div className="my-8 shadow-[0_0_3px_gray] p-3 rounded-md">
+                                <ul className="flex items-center justify-between">
+                                    <li><NavLink to="/#overflow">Overview</NavLink></li>
+                                    <li><NavLink to="/#about">About</NavLink></li>
+                                    <li><NavLink to="/#specification">Specification</NavLink></li>
+                                    <li><NavLink to="/#floor-plan">Floor Plan</NavLink></li>
+                                    <li><NavLink to="/#gallery">Gallery</NavLink></li>
+                                    <li><NavLink to="/#amenities">Amenities</NavLink></li>
+                                    <li><NavLink to="/#location">Location</NavLink></li>
+                                </ul>
+                            </div>
+                            <div className="bg-gradient-to-l from-indigo-200 p-2 rounded-md w-full mt-3" id="overflow">
+                                <h2 className="text-2xl  font-semibold">Overview of {data?.name}</h2>
+                                <div className="grid grid-cols-3 gap-4 mt-3">
+                                    <div className="border-2 border-white py-2 px-3">
+                                        <p className="text-sm">Project Area</p>
+                                        <p className="font-medium">{data?.projectArea}</p>
+                                    </div>
+                                    <div className="border-2 border-white py-2 px-3">
+                                        <p className="text-sm">Project Type</p>
+                                        <p className="font-medium">{data?.projectType}</p>
+                                    </div>
+                                    <div className="border-2 border-white py-2 px-3">
+                                        <p className="text-sm">Project Status</p>
+                                        <p className="font-medium">{data?.status}</p>
+                                    </div>
+                                    <div className="border-2 border-white py-2 px-3">
+                                        <p className="text-sm">Possession On</p>
+                                        <p className="font-medium">{data?.possessionOn}</p>
+                                    </div>
+                                    <div className="border-2 border-white py-2 px-3">
+                                        <p className="text-sm">Configurations</p>
+                                        <p className="font-medium">{data?.projectArea}</p>
+                                    </div>
+                                    <div className="border-2 border-white py-2 px-3">
+                                        <p className="text-sm">RERA No</p>
+                                        <p className="font-medium">{data?.reraNo}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mt-8" id="about">
+                                <h1 className=" text-2xl my-2 font-semibold">{data?.name}</h1>
+                                <div className=" content01 p-2 rounded-md w-full max-h-[500px] overflow-y-auto" dangerouslySetInnerHTML={{ __html: data?.content }}>
                                 </div>
                             </div>
 
                             {/* ================= */}
-                            <div className="content05   mt-5 p-2 rounded-md" id="virtualsitetour">
-                                <h1 className="py-2 px-2 text-3xl font-semibold">Specification of {data?.name}</h1>
+                            <div className="content05   mt-5 p-2 rounded-md" id="specification">
+                                <h2 className="py-2 text-2xl font-semibold">Specification of {data?.name}</h2>
                                 <div dangerouslySetInnerHTML={{ __html: data?.specifications }}>
 
                                 </div>
-                                {/* <ul className=" list-disc w-full flex flex-col gap-2 ml-7">
-                                    <li>Tota Number of Units - 1407</li>
-                                    <li>Total Number of Floors - G+11</li>
-                                    <li>Structure - Earthquake resistance – Seismic zone II compliant RCC framed structure</li>
-                                    <li>Flooring - Living, dining, family, kitchen and bedrooms- Vitrified tile flooring (2ft x 2ft)</li>
-                                    <li>Kitchen - Provision for water purifier</li>
-                                </ul> */}
                             </div>
 
-                            <div className="content04 mt-5 py-4 px-2 bg-gradient-to-r from-cyan-100 to-blue-10 rounded-md">
+                            <div className="content04 mt-5 py-4 px-2  rounded-md" id="floor-plan">
                                 <h1 className="text-3xl font-semibold">Complete View of Floor Plans &amp; Pricing</h1>
-                                <div className="content04_box">
+                                {/* <div className="content04_box">
                                     <div id="Flats" className="w-[35%] flex items-center justify-between my-3 mx-auto">
                                         <h2 className=" ">3000+ Flats</h2>
                                         <h2>80+ Villa</h2>
@@ -227,11 +223,6 @@ function ProjectViewPage() {
                                                 {data?.floorPlan?.map((item) => {
                                                     return <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">{item.types}</button>
                                                 })}
-                                                {/* <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">1 BHK</button>
-                                                <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">2 BHK</button>
-                                                <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">3 BHK</button>
-                                                <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">4 BHK</button>
-                                                <button className=" text-xl text-white bg-black border-0 rounded py-1 px-1 cursor-pointer" onclick="changer(this)">5 BHK</button> */}
                                             </div>
                                             <div className="sqftbox mt-5 flex items-center justify-between gap-2"><img className="w-[30px]" src="https://sobhaneopolis.co/wp-content/uploads/2023/03/ruler.webp" alt />
                                                 <p id="sqft" className=" text-center">643 - 643 Sqft</p>
@@ -243,7 +234,53 @@ function ProjectViewPage() {
                                             <img className="w-full shadow rounded" id="floorimage" src="https://www.sobhaneopolis.net.in/images/plans/2bhk-320w.webp" alt />
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
+                                <Swiper
+                                    slidesPerView={1}
+                                    spaceBetween={20}
+                                    loop={true}
+                                    autoplay={{ delay: 2000, disableOnInteraction: false }}
+                                    modules={[FreeMode, Pagination, Navigation, Autoplay]}
+                                    className="carousel w-full rounded-md shadow-[0_0_1px_gray] mt-6"
+                                >
+                                    {
+                                        data?.floorPlan?.map((item) => {
+                                            return (
+                                                <SwiperSlide id="slide3" className=" bg-white carousel-item relative w-[100%] rounded-md">
+                                                    <div className="flex w-[100%]">
+                                                        <div className="w-[40%]">
+                                                            <div className="p-4">
+                                                                <p className="text-sm">Types</p>
+                                                                <p className="mt-2 font-medium">{item?.types}</p>
+                                                            </div>
+                                                            <hr />
+                                                            <div className="p-4">
+                                                                <p className="text-sm">Build up Aread</p>
+                                                                <p className="mt-2 font-medium">{item?.dimensions}</p>
+                                                            </div>
+                                                            <hr />
+                                                            <div className="p-4">
+                                                                <p className="text-sm">Base Selling Price</p>
+                                                                <p className="mt-2 font-medium">{item?.floorPrice}</p>
+                                                            </div>
+                                                            <hr />
+                                                            <div className="p-4 flex items-center justify-center">
+                                                                <button className=" bg-[#7f1657] text-white px-4 py-2 rounded-md">Price Sheet</button>
+                                                            </div>
+                                                        </div>
+                                                        <div className="w-[60%]">
+                                                            <div className="w-full flex items-center justify-center">
+                                                                <img className="w-[100%]" src={item?.image?.secure_url} alt="" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </SwiperSlide>
+                                            )
+                                        })
+                                    }
+
+                                </Swiper>
+
                             </div>
 
 
@@ -253,20 +290,17 @@ function ProjectViewPage() {
 
                             {/* ==================== */}
 
-                            <div className="content06 mt-5 p-2 rounded-md">
+                            <div className="content06 mt-5 p-2 rounded-md" id="gallery">
                                 <h1 className="py-2 px-2 text-3xl font-semibold">Gallery</h1>
                                 <div className="gallery mt-4 grid grid-cols-4 gap-2">
-                                    <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
-                                    <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
-                                    <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
-                                    <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
-                                    <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
-                                    <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
-                                    <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
-                                    <img className="w-[200px] rounded-sm" src="https://sumadhurafolium.co/assets/media/gallery/g10.webp" alt />
+                                    {
+                                        data?.gallery?.map((img) => {
+                                            return <img className="w-[200px] h-full rounded-sm" src={img?.secure_url} alt />
+                                        })
+                                    }
                                 </div>
                             </div>
-                            <div className="content07 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-md">
+                            <div className="content07 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-md" id="amenities">
                                 <h1 className="py-2 px-2 text-3xl font-semibold">Amenities You Would Love to Use</h1>
                                 <div className="Amenities grid grid-cols-6 gap-2">
                                     {data?.amenities?.map((item) => {
@@ -277,74 +311,6 @@ function ProjectViewPage() {
                                             </div>
                                         )
                                     })}
-                                    {/* <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div>
-                                    <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
-                                        <img className="w-[30px] " src="https://sumadhurafolium.co/assets/media/Amenities/football.svg" width="30px" alt />
-                                        <p className=" text-center" >Basketball Court</p>
-                                    </div> */}
                                 </div>
                             </div>
 
@@ -355,9 +321,9 @@ function ProjectViewPage() {
                                     allowfullscreen></iframe>
                             </div>
 
-                            <div className="content09 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-md ">
+                            <div className="content09 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-md " id="location">
                                 <h1 className="py-2 px-2 text-3xl font-semibold">Location Of Project Name</h1>
-                                <iframe className=" w-full h-[450px] rounded-md" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7011.287631511752!2d77.23265872911378!3d28.52036222486543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1684832604572!5m2!1sen!2sin" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                                <iframe className=" w-full h-[450px] rounded-md" src={data?.map || "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7011.287631511752!2d77.23265872911378!3d28.52036222486543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1684832604572!5m2!1sen!2sin"} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
                             </div>
                             {/* similar project card section */}
                             <div className="mt-5 rounded-md">

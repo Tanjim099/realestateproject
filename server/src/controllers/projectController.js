@@ -9,10 +9,9 @@ import uploadCloudinary from "../utils/cloudinary.js";
 
 const createProject = asyncHandler(async (req, res, next) => {
     try {
-        console.log('Starting...');
+        // console.log('Starting...');
         const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo } = req.body;
         let { floorName, amenitiesName, dimensions, floorPrice } = req.body;
-        console.log(req.body);
 
         if (!name || !location || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName || !map || !projectArea || !possessionOn || !projectType || !reraNo || !dimensions || !floorPrice) {
             return next(new ApiError(403, 'All Fields are required'));
@@ -23,7 +22,7 @@ const createProject = asyncHandler(async (req, res, next) => {
         dimensions = JSON.parse(dimensions);
         floorPrice = JSON.parse(floorPrice);
 
-        console.log(floorName[0]);
+        // console.log(floorName[0]);
 
         const project = await Project.create({
             name,
@@ -69,8 +68,6 @@ const createProject = asyncHandler(async (req, res, next) => {
                 const floorPlanResult = await Promise.all(
                     floorPlanImage.map((file) => uploadCloudinary(file.path))
                 );
-
-                console.log(floorPlanResult)
 
                 const amenitiesResult = await Promise.all(
                     amenitiesImage.map((file) => uploadCloudinary(file.path))
@@ -231,7 +228,7 @@ const updateProject = asyncHandler(async (req, res, next) => {
 const getProject = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const project = await Project.findOne({ _id: id });
+        const project = await Project.findOne({ slug: id });
         if (!project) {
             return next(new ApiError(403, 'Invalid Project id'));
         }
@@ -265,7 +262,7 @@ const getAllProject = async (req, res, next) => {
 const deleteProject = async (req, res, next) => {
     try {
         const { id } = req.params;
-        console.log(id)
+        // console.log(id)
         const project = await Project.findByIdAndDelete(id);
         res.status(201).json(
             new ApiResponse(200, project, "Project deleted Successfully...")
@@ -281,7 +278,7 @@ const searchProject = async (req, res, next) => {
     try {
         const { page = 1, limit = 10, name, location, developer, floorPlan, } = req.query;
 
-        console.log(req.query);
+        // console.log(req.query);
 
         const query = {};
         if (name) {
@@ -297,11 +294,11 @@ const searchProject = async (req, res, next) => {
             query.floorPlan = { $regex: new RegExp(floorPlan, "i") };
         }
 
-        console.log(query);
+        // console.log(query);
 
         const projects = await Project.find(query).limit(limit * 1).skip((page - 1) * limit).exec();
 
-        console.log(projects);
+        // console.log(projects);
 
         const count = await Project.countDocuments(query);
         res.status(200).json({

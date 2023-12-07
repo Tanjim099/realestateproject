@@ -30,9 +30,9 @@ export const createNewProject = createAsyncThunk("/project/create", async (data)
     }
 });
 
-export const updateProject = createAsyncThunk('',async (data) => {
-    try{
-        const res = axiosInstance.put(`/project/update/${data[1]}`,data[0]);
+export const updateProject = createAsyncThunk('', async (data) => {
+    try {
+        const res = axiosInstance.put(`/project/update/${data[1]}`, data[0]);
 
         toast.promise(res, {
             loading: 'Updating Project',
@@ -41,7 +41,7 @@ export const updateProject = createAsyncThunk('',async (data) => {
         });
 
         return (await res).data;
-    }catch(Error){
+    } catch (Error) {
         console.log(Error);
         toast.error(Error);
         throw Error;
@@ -67,7 +67,9 @@ export const getAllProjects = createAsyncThunk("/project/getall", async () => {
 
 export const getProject = createAsyncThunk("/project/getProject", async (pId) => {
     try {
+        console.log(pId);
         const res = axiosInstance.get(`project/get/${pId}`);
+        console.log(res);
         toast.promise(res, {
             loading: 'Wating',
             success: 'Successfully',
