@@ -10,12 +10,18 @@ import uploadCloudinary from "../utils/cloudinary.js";
 const createProject = asyncHandler(async (req, res, next) => {
     try {
         console.log('Starting...');
-        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, floorName, amenitiesName } = req.body;
-        console.log(req.body);
+        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone } = req.body;
+        let {floorName, amenitiesName} = req.body;
+        // console.log(req.body);
 
         if (!name || !location || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
             return next(new ApiError(403, 'All Fields are required'));
         }
+
+        floorName = JSON.parse(floorName);
+        amenitiesName = JSON.parse(amenitiesName);
+
+        console.log(floorName[0]);
 
         const project = await Project.create({
             name,
@@ -24,6 +30,7 @@ const createProject = asyncHandler(async (req, res, next) => {
             developer,
             description,
             specifications,
+            content,
             city,
             pricing: {
                 startingFrom,
@@ -39,52 +46,54 @@ const createProject = asyncHandler(async (req, res, next) => {
             return next(new ApiError(402, 'Product created failed'));
         }
 
-        // if (req.files) {
-        //     try {
-        //         // console.log(req.files.gallery);
-        //         console.log(req.files.floorPlan);
-        //         // console.log(req.files.amenities);
-        //         const galleryImage = req.files.gallery;
-        //         const floorPlanImage = req.files.floorPlan;
-        //         const amenitiesImage = req.files.amenities;
+        if (req.files) {
+            try {
+                // console.log(req.files.gallery);
+                // console.log(req.files.floorPlan);
+                // console.log(req.files.amenities);
+                const galleryImage = req.files.gallery;
+                const floorPlanImage = req.files.floorPlan;
+                const amenitiesImage = req.files.amenities;
 
-        //         const galleyResult = await Promise.all(
-        //             galleryImage.map((file) => uploadCloudinary(file.path))
-        //         );
+                const galleyResult = await Promise.all(
+                    galleryImage.map((file) => uploadCloudinary(file.path))
+                );
 
-        //         const floorPlanResult = await Promise.all(
-        //             floorPlanImage.map((file) => uploadCloudinary(file.path))
-        //         );
+                const floorPlanResult = await Promise.all(
+                    floorPlanImage.map((file) => uploadCloudinary(file.path))
+                );
 
-        //         const amenitiesResult = await Promise.all(
-        //             amenitiesImage.map((file) => uploadCloudinary(file.path))
-        //         );
+                console.log(floorPlanResult)
 
-        //         project.gallery = project.gallery.concat(galleyResult.map((result) => ({
-        //             public_id: result.public_id,
-        //             secure_url: result.secure_url,
-        //         })));
+                const amenitiesResult = await Promise.all(
+                    amenitiesImage.map((file) => uploadCloudinary(file.path))
+                );
 
-        //         project.amenities = project.amenities.concat(amenitiesResult.map((result, idx) => ({
-        //             name: amenitiesName[idx],
-        //             image: {
-        //                 public_id: result.public_id,
-        //                 secure_url: result.secure_url,
-        //             },
-        //         })));
+                project.gallery = project.gallery.concat(galleyResult.map((result) => ({
+                    public_id: result.public_id,
+                    secure_url: result.secure_url,
+                })));
 
-        //         project.floorPlan = project.floorPlan.concat(floorPlanResult.map((result, idx) => ({
-        //             types: floorName[idx],
-        //             image: {
-        //                 public_id: result.public_id,
-        //                 secure_url: result.secure_url,
-        //             },
-        //         })));
+                project.amenities = project.amenities.concat(amenitiesResult.map((result, idx) => ({
+                    name: amenitiesName[idx],
+                    image: {
+                        public_id: result.public_id,
+                        secure_url: result.secure_url,
+                    },
+                })));
 
-        //     } catch (Error) {
-        //         return next(new ApiError(500, Error.message));
-        //     }
-        // }
+                project.floorPlan = project.floorPlan.concat(floorPlanResult.map((result, idx) => ({
+                    types: floorName[idx],
+                    image: {
+                        public_id: result.public_id,
+                        secure_url: result.secure_url,
+                    },
+                })));
+
+            } catch (Error) {
+                return next(new ApiError(500, Error.message));
+            }
+        }
 
         const saveProject = await project.save();
 
