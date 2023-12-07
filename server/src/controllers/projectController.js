@@ -10,16 +10,18 @@ import uploadCloudinary from "../utils/cloudinary.js";
 const createProject = asyncHandler(async (req, res, next) => {
     try {
         console.log('Starting...');
-        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone } = req.body;
-        let {floorName, amenitiesName} = req.body;
+        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo } = req.body;
+        let { floorName, amenitiesName, dimensions, floorPrice } = req.body;
         // console.log(req.body);
 
-        if (!name || !location || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName) {
+        if (!name || !location || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName || !map || !projectArea || !possessionOn || !projectType || !reraNo || !dimensions || !floorPrice) {
             return next(new ApiError(403, 'All Fields are required'));
         }
 
         floorName = JSON.parse(floorName);
         amenitiesName = JSON.parse(amenitiesName);
+        dimensions = JSON.parse(dimensions);
+        floorPrice = JSON.parse(floorPrice);
 
         console.log(floorName[0]);
 
@@ -32,6 +34,11 @@ const createProject = asyncHandler(async (req, res, next) => {
             specifications,
             content,
             city,
+            map,
+            projectArea,
+            possessionOn,
+            projectType,
+            reraNo,
             pricing: {
                 startingFrom,
                 currency
@@ -84,6 +91,8 @@ const createProject = asyncHandler(async (req, res, next) => {
 
                 project.floorPlan = project.floorPlan.concat(floorPlanResult.map((result, idx) => ({
                     types: floorName[idx],
+                    dimensions: dimensions[idx],
+                    floorPrice: floorPrice[idx],
                     image: {
                         public_id: result.public_id,
                         secure_url: result.secure_url,
