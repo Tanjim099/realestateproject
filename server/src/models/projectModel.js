@@ -17,10 +17,10 @@ const projectSchema = new Schema({
         type: String,
         required: true,
     },
-    // city: {
-    //     type: String,
-    //     required: true
-    // },
+    city: {
+        type: String,
+        required: true
+    },
     developer: {
         type: String,
         required: true,
@@ -38,6 +38,14 @@ const projectSchema = new Schema({
             image: {
                 public_id: String,
                 secure_url: String,
+            },
+            dimensions: {
+                type: String,
+                required: true,
+            },
+            price: {
+                type: String,
+                required: true,
             }
         },
     ],
@@ -88,6 +96,26 @@ const projectSchema = new Schema({
             required: true,
         },
     },
+    map: {
+        type: String,
+        required: true
+    },
+    projectArea: {
+        type: String,
+        required: true
+    },
+    possessionOn: {
+        type: String,
+        required: true
+    },
+    projectType: {
+        type: String,
+        required: true
+    },
+    reraNo: {
+        type: String,
+        required: true
+    }
 }, {
     timestamps: true,
 });
