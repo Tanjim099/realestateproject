@@ -19,9 +19,11 @@ function CreateProject() {
     const [amenitieImages, setAmenitiesImages] = useState([]);
     const [floorchips, setFloorChips] = useState([]);
     const [amenitiechips, setAmenitieChips] = useState([]);
+    const [floorPriceChips, setFloorPriceChips] = useState([]);
+    const [dimensionschips, setDimensionsChips] = useState([]);
 
     const editorConfig = {
-        minHeight: '300px', // Set your desired height here
+        minHeight: '500px', // Set your desired height here
     };
 
     console.log(JSON.stringify(floorchips));
@@ -43,6 +45,11 @@ function CreateProject() {
         email: '',
         phone: '',
         city: '',
+        map:'', 
+        projectArea:'', 
+        possessionOn:'', 
+        projectType:'', 
+        reraNo:'',
     });
 
     useEffect(() => {
@@ -147,6 +154,37 @@ function CreateProject() {
 
     }
 
+    const handelDimensionsDown = (event) => {
+        if (event.key === 'Enter' || event.key === ",") {
+            event.preventDefault();
+            const chipValue = event.target.value.trim();
+
+            if (chipValue && !amenitiechips.includes(chipValue)) {
+                const newChips = [...dimensionschips, chipValue];
+                setDimensionsChips(newChips);
+                event.target.value = "";
+            }
+
+        }
+
+    }
+
+    const handelFloorPriceDown = (event) => {
+        if (event.key === 'Enter' || event.key === ",") {
+            event.preventDefault();
+            const chipValue = event.target.value.trim();
+
+            if (chipValue && !amenitiechips.includes(chipValue)) {
+                const newChips = [...floorPriceChips, chipValue];
+                setFloorChips(newChips);
+                event.target.value = "";
+            }
+
+        }
+
+    }
+
+
     // console.log(amenitiechips);
 
 
@@ -229,6 +267,13 @@ function CreateProject() {
                 formData.append('city', projectCreateData.city);
                 formData.append('content', projectCreateData.content);
 
+                formData.append('map', projectCreateData.map);
+                formData.append('projectArea', projectCreateData.projectArea);
+                formData.append('possessionOn', projectCreateData.possessionOn);
+                formData.append('projectType', projectCreateData.projectType);
+                formData.append('projectType', projectCreateData.projectType);
+                formData.append('reraNo', projectCreateData.reraNo);
+
                 formData.append('floorName', floorchips);
                 formData.append('amenitiesName', amenitiechips);
 
@@ -279,9 +324,18 @@ function CreateProject() {
             formData.append('city', projectCreateData.city);
             formData.append('content', projectCreateData.content);
 
+            formData.append('map', projectCreateData.map);
+            formData.append('projectArea', projectCreateData.projectArea);
+            formData.append('possessionOn', projectCreateData.possessionOn);
+            formData.append('projectType', projectCreateData.projectType);
+            formData.append('projectType', projectCreateData.projectType);
+            formData.append('reraNo', projectCreateData.reraNo);
+
 
             formData.append('floorName', JSON.stringify(floorchips));
             formData.append('amenitiesName', JSON.stringify(amenitiechips));
+            formData.append('dimensions', JSON.stringify(dimensionschips));
+            formData.append('floorPrice', JSON.stringify(floorPriceChips));
 
             for (let i = 0; i < galleryImages.length; i++) {
                 formData.append('gallery', galleryImages[i].file);
@@ -453,6 +507,73 @@ function CreateProject() {
                                                     />
                                                 </div>
                                             </div>
+
+                                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                                                <div className='my-3 flex flex-col gap-2'>
+                                                    <label htmlFor='reraNo'>Rera No<sup className='text-pink-400'>*</sup></label>
+                                                    <input
+                                                        type='text'
+                                                        name='reraNo'
+                                                        id='reraNo'
+                                                        className='w-full py-3 px-3 rounded border outline-0'
+                                                        value={projectCreateData.reraNo}
+                                                        placeholder='Enter Project Rera No'
+                                                        onChange={userInput}
+                                                    />
+                                                </div>
+                                                <div className='my-3 flex flex-col gap-2'>
+                                                    <label htmlFor='projectArea'>Project Area<sup className='text-pink-400'>*</sup></label>
+                                                    <input
+                                                        type='text'
+                                                        name='projectArea'
+                                                        id='projectArea'
+                                                        className='w-full py-3 px-3 rounded border outline-0'
+                                                        value={projectCreateData.projectArea}
+                                                        placeholder='Enter Project Area'
+                                                        onChange={userInput}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                                                <div className='my-3 flex flex-col gap-2'>
+                                                    <label htmlFor='projectType'>Project Type<sup className='text-pink-400'>*</sup></label>
+                                                    <input
+                                                        type='text'
+                                                        name='projectType'
+                                                        id='projectType'
+                                                        className='w-full py-3 px-3 rounded border outline-0'
+                                                        value={projectCreateData.projectType}
+                                                        placeholder='Enter Project Type'
+                                                        onChange={userInput}
+                                                    />
+                                                </div>
+                                                <div className='my-3 flex flex-col gap-2'>
+                                                    <label htmlFor='possessionOn'>Possession On<sup className='text-pink-400'>*</sup></label>
+                                                    <input
+                                                        type='text'
+                                                        name='possessionOn'
+                                                        id='possessionOn'
+                                                        className='w-full py-3 px-3 rounded border outline-0'
+                                                        value={projectCreateData.possessionOn}
+                                                        placeholder='Enter Project Possession On'
+                                                        onChange={userInput}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className='my-3 flex flex-col gap-2'>
+                                                    <label htmlFor='map'>Map Url<sup className='text-pink-400'>*</sup></label>
+                                                    <input
+                                                        type='text'
+                                                        name='map'
+                                                        id='map'
+                                                        className='w-full py-3 px-3 rounded border outline-0'
+                                                        value={projectCreateData.map}
+                                                        placeholder='Enter Project Map Url'
+                                                        onChange={userInput}
+                                                    />
+                                                </div>
+
                                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
                                                 <div className='my-3 flex flex-col gap-2'>
                                                     <label htmlFor='email'>Email<sup className='text-pink-400'>*</sup></label>
@@ -479,6 +600,7 @@ function CreateProject() {
                                                     />
                                                 </div>
                                             </div>
+
                                             <div className='my-3 inline-block'>
                                                 <label htmlFor='gallery' className='border px-3 py-2 cursor-pointer rounded'>
                                                     Gallery
@@ -537,14 +659,43 @@ function CreateProject() {
                                                     />
                                                 </div>
                                             </div>
+                                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                                                <div className='my-3 flex flex-col gap-2'>
+                                                    <label htmlFor='floorPrice'>Floor Price<sup className='text-pink-400'>*</sup></label>
+                                                    <input
+                                                        type='text'
+                                                        name='floorPrice'
+                                                        id='floorPrice'
+                                                        className='w-full py-3 px-3 rounded border outline-0'
+                                                        // value={projectCreateData.email}
+                                                        placeholder='Enter Project Floor Price'
+                                                        onKeyDown={handelFloorPriceDown}
+                                                    />
+                                                </div>
+                                                <div className='my-3 flex flex-col gap-2'>
+                                                    <label htmlFor='dimensions'>Dimensions<sup className='text-pink-400'>*</sup></label>
+                                                    <input
+                                                        type='text'
+                                                        name='dimensions'
+                                                        id='dimensions'
+                                                        className='w-full py-3 px-3 rounded border outline-0'
+                                                        // value={projectCreateData.phone}
+                                                        placeholder='Enter Project Dimensions'
+                                                        onKeyDown={handelDimensionsDown}
+                                                    />
+                                                </div>
+                                            </div>
+
                                             <div className='flex gap-4 my-4'>
                                                 {
                                                     floorImages.length != 0 ?
                                                         (
                                                             floorImages.map((floorImage, idx) => (
-                                                                <div key={idx} className='flex-row w-[100px] mb-4 h-[100px] outline-dashed p-1'>
+                                                                <div key={idx} className='flex-row w-[100px] mb-14 h-[100px] outline-dashed p-1'>
                                                                     <img className='w-full h-full object-cover' src={floorImage.dataURL} />
-                                                                    <p className='text-xl font-mono text-center mt-2'>{floorchips[idx]}</p>
+                                                                    <p className='text-xl font-mono text-center my-2'>{floorchips[idx]}</p>
+                                                                    <p className='text-xl font-mono text-center my-2'>{dimensionschips[idx]}</p>
+                                                                    <p className='text-xl font-mono text-center my-2'>{floorPriceChips[idx]}</p>
                                                                 </div>
                                                             ))
                                                         )
@@ -584,12 +735,12 @@ function CreateProject() {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className='flex gap-4 my-4'>
+                                            <div className='flex flex-wrap gap-4 my-4'>
                                                 {
                                                     amenitieImages.length != 0 ?
                                                         (
                                                             amenitieImages.map((amenitieImage, idx) => (
-                                                                <div key={idx} className='flex-row w-[100px] h-[100px] outline-dashed p-1'>
+                                                                <div key={idx} className='flex-row w-[100px] mb-10 h-[100px] outline-dashed p-1'>
                                                                     <img className='w-full h-full object-cover' src={amenitieImage.dataURL} />
                                                                     <p className='text-xl font-mono text-center mt-2'>{amenitiechips[idx]}</p>
                                                                 </div>
@@ -610,7 +761,7 @@ function CreateProject() {
                                     <div className='flex justify-end'>
                                         <button
                                             type='submit'
-                                            className='bg-red-400 text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
+                                            className='bg-[#1677ff] text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
                                         >
                                             {
                                                 editProject ? 'Update Project' : 'Create Project'

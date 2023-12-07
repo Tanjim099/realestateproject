@@ -1,58 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import HomeLayout from "../components/HomeLayout";
-import Project from "../components/Project";
-import { getAllProjects, searchProject } from "../redux/slices/projectSlice";
-import { useEffect, useState } from "react";
-import backroundImage from '../assets/items1.jpg';
-import image from '../assets/section-bg1.jpg';
-import { MdOutlineHomeWork, MdOutlineSecurity } from "react-icons/md";
-import { BsBookmarkStarFill, BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
-import { FaHome, FaUser } from "react-icons/fa";
-import CityCard from "../components/CityCard";
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
-import about from '../assets/about.jpg';
-import about_1 from '../assets/about-1.jpg';
-import img from '../assets/img_2.jpg';
-import dot from '../assets/dots.png';
-import { FaSearch } from "react-icons/fa";
+import { getAllProjects } from "../redux/slices/projectSlice";
+import { useEffect } from "react";
 import '../styles/HomePage.css';
-import CountUp from 'react-countup';
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import buy1 from '../assets/buy_icon.svg'
-import buy2 from '../assets/buy_icon_1.svg'
-import buy3 from '../assets/buy_icon_3.svg'
-import buy4 from '../assets/imgpsh_fullsize_anim.png'
-import buy5 from '../assets/vastu.svg'
-import buy6 from '../assets/legal-assistant2.png'
 import { getAllBlogs } from "../redux/slices/blogSlice";
-import { CgProfile } from "react-icons/cg";
-import { FaCalendarAlt } from "react-icons/fa";
-import { LuNewspaper } from "react-icons/lu";
+
+import HeroSection from "../components/Home/HeroSection";
+import CitySection from "../components/Home/CitySection";
+import TopProjects from "../components/Home/TopProjects";
+import Section_1 from "../components/Home/Section_1";
+import Section_2 from "../components/Home/Section_2";
+import GallerySection from "../components/Home/GallerySection";
+import Section_3 from "../components/Home/Section_3";
+import BlogSection from "../components/Home/BlogSection";
 
 function HomePage() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [nextEl, setNextEl] = useState(null);
-    const [prevEl, setPrevEl] = useState(null);
-    const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
-    const { projects } = useSelector((state) => state.project);
+    
     const { blogData } = useSelector((state) => state?.blog);
     console.log(blogData)
-    const [search, setSearch] = useState("");
-    console.log(search);
-
-
-    useEffect(() => {
-        try {
-            (async () => {
-                const res = await dispatch(searchProject(search));
-                console.log(res);
-            })()
-        } catch (Error) {
-            console.log(Error);
-        }
-    }, [search]);
 
     async function onLoadGetData() {
         const response = await dispatch(getAllProjects());
@@ -68,150 +34,16 @@ function HomePage() {
     return (
         <HomeLayout>
             <div className="homeContainer">
-                {/* Hero Section */}
-                <div className="hero_section">
-                    <div className="hero gradiantColor min-h-[600px] sm:h-[200px] md:h-[300px]"
-                    //  style={{
-                    //     backgroundImage: `url(${backroundImage})`,
-                    //     backgroundSize: 'cover',
-                    //     backgroundPosition: 'center',
-                    //     backgroundRepeat: 'no-repeat',
-                    //     backgroundAttachment: 'fixed',
-                    //     backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                    //     boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-                    //     opacity: 0.9,
-                    //     transition: 'background 0.3s ease-in-out',
-                    //     clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
-                    // }}
-                    >
-                        <div className="bg-opacity-60"></div>
-                        <div className="hero-content h-full text-neutral-content w-[100%]">
-                            <div className="flex flex-col h-full w-full justify-around items-center">
-                                <div className="text-white flex flex-col justify-end h-full text-center w-[60%]">
-                                    <h1 className=" sm:text-4xl font-semibold">Discover Properties in India</h1>
-                                    <p className="text-xl my-5">We help you find your new home</p>
-                                    {/* <div className="flex">
-                                    <input type="text" placeholder="Enter Location builder, project" name="" id="" className="w-[100%] outline-none p-1 sm:p-3 text-black sm:text-sm" />
-                                    <button className="btn border-0 rounded-none bg-[#7f1657] text-white hover:text-black">Search</button>
-                                    </div> */}
-                                    {/* <div className=" my-5">
-                                    <h1 className=" text-left mb-2 text-xl">Top City</h1>
-                                    <div className="project_container w-100  relative">
-                                        <div className="sliderBtn top-1/2">
-                                            <button onClick={arrowRight} className=" absolute left-[-1%] md:left-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowBack /></button>
-                                            <button onClick={arrowLeft} className=" absolute right-[-1%] md:right-[0%] top-1/2 w-[40px] h-[40px] bg-[#cff4ff] rounded-full text-center flex items-center justify-center"><IoIosArrowForward /></button>
-                                        </div>
-                                        <div className="projects flex overflow-x-auto gap-5" id="projects">
-                                            <CityCard />
-                                        </div>
-                                    </div>
-                                 </div> */}
-                                    {/* ====================== */}
-                                    <div className="">
-                                        <div className="flex items-center gap-2 w-full h-[50px]">
-                                            <div className="relative flex items-center gap-2 w-full h-[50px]">
-                                                <input type="text" placeholder="Enter Location builder, project" name="" id="" className="border border-gray-200 shadow-sm outline-0 text-black h-full w-full rounded p-3 pl-10" onChange={(e) => setSearch(e.target.value)} />
-                                                <span className="absolute z-10 top-4 left-4 text-gray-400"><FaSearch /></span>
-                                            </div>
-                                            <button className="bg-[#7f1657] w-[100px] h-full flex items-center justify-center rounded text-white hover:text-black right-7 top-6">Search</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-full flex justify-end items-end h-full">
-                                    <div className="w-[90%] mx-auto text-white flex justify-between my-10 text-center">
-                                        <div className="">
-                                            <span className="text-4xl font-semibold text-[rgb(127,22,87)]">
-                                                <CountUp start={0} end={50} duration={2} delay={0} />
-                                            </span>
-                                            <p>YEARS OF EXPERIENCED</p>
-                                        </div>
-                                        <div className="text-3xl flex items-center">|</div>
-                                        <div>
-                                            <span className="text-4xl font-semibold text-[#7f1657]">
-                                                <CountUp start={0} end={210} duration={2} delay={0} />K+
-                                            </span>
-                                            <p>TOTAL PROPERTIES</p>
-                                        </div>
-                                        <div className="text-3xl flex items-center">|</div>
-                                        <div>
-                                            <span className="text-4xl font-semibold text-[#7f1657]">
-                                                <CountUp start={0} end={450} duration={2} delay={0} />
-                                            </span>
-                                            <p>QUALIFIED REALTORS</p>
-                                        </div>
-                                        <div className="text-3xl flex items-center">|</div>
-                                        <div>
-                                            <span className="text-4xl font-semibold text-[#7f1657]">
-                                                <CountUp start={0} end={100} duration={2} delay={0} />
-                                            </span>
-                                            <p>TOTAL BRANCHES</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className=" my-5 mx-auto w-[1200px]">
-                    <h2 className="border-b-2 border-[#7f1657] pb-4 my-10 text-3xl text-[#7f1657] font-semibold">
-                        Top Cities In India
-                        <p className="text-sm">Best places to live in India</p>
-                    </h2>
-                    <div className="w-full relative">
-                        <CityCard />
-                    </div>
-                </div>
-
+                <HeroSection />
+                <CitySection />
+                <TopProjects />
+                <Section_1 />
+                <Section_2 />
+                <GallerySection />
+                <Section_3 />
+                <BlogSection />
                 {/* Section 1 */}
-                <div className='mt-14 w-[80%] relative mx-auto'>
-                    <h2 className="border-b-2 border-[#7f1657] pb-4 my-10 text-3xl text-[#7f1657] font-semibold">
-                        Top Projects
-                    </h2>
-                    <Swiper
-                        navigation={{ nextEl, prevEl }}
-                        slidesPerView={1}
-                        spaceBetween={20}
-                        loop={true}
-                        autoplay={{ delay: 2000, disableOnInteraction: false }}
-                        modules={[FreeMode, Pagination, Navigation, Autoplay]}
-                        breakpoints={{
-                            700: {
-                                slidesPerView: 2,
-                            },
-                            1024: {
-                                slidesPerView: 4,
-                            },
-                        }}
-                        className="max-h-[30rem]"
-                    >
-                        {
-                            projects && (
-                                projects.map((data, idx) => (
-                                    <SwiperSlide key={idx}>
-                                        <Project data={data} />
-                                    </SwiperSlide>
-                                ))
-                            )
-                        }
-                    </Swiper>
-                    <div className='flex justify-between gap-10'>
-                        <button
-                            className={`${classNames} top-[50%] left-[-3%]`}
-                            ref={(node) => setPrevEl(node)}
-                        >
-                            <BsCaretLeftFill />
-                        </button>
-                        <button
-                            className={`${classNames} right-[-3%] top-[50%]`}
-                            ref={(node) => setNextEl(node)}
-                        >
-                            <BsCaretRightFill />
-                        </button>
-                    </div>
-                </div>
-
+              
                 {/* About Section */}
                 {/* <div className="grid grid-cols-10 mt-20 mb-10 mx-auto w-[1200px] gap-10">
                     <div className="col-span-3 rounded-tr-2xl rounded-bl-2xl  h-[700px]">
@@ -245,150 +77,10 @@ function HomePage() {
                     </div>
                 </div> */}
 
-                {/* Section 2 */}
-
-                <div className="mx-auto w-[1200px] my-24">
-                    <div className="text-center">
-                        <h2 className="font-semibold text-2xl">Why buy with us ?</h2>
-                        <p className="text-xl text-gray-500 mt-5">Aspects that make 360 Realtors India's leading Real Estate Advisory</p>
-                    </div>
-                    <Swiper
-                        spaceBetween={20}
-                        slidesPerView={3}
-                        className="text-center my-20"
-                    >
-                        <SwiperSlide className="flex items-center justify-center flex-col">
-                            <div className="w-[100px] h-[100px]">
-                                <img src={buy1} alt="buy_1" className="w-full h-full" />
-                            </div>
-                            <div>
-                                <h3 className="font-semibold my-3 text-lg">Real Estate Consulting</h3>
-                                <p className="text-sm">Those days are now passé when purchasing a home used to be a very arduous task and buyers had to run from pillar to post to get everything in place...</p>
-                                <p className="text-[#7f1657] my-3">
-                                    <Link>Read More</Link>
-                                </p>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="flex items-center justify-center flex-col">
-                            <div className="w-[100px] h-[100px]">
-                                <img src={buy2} alt="buy_2" className="w-full h-full" />
-                            </div>
-                            <div>
-                                <h3 className="font-semibold my-3 text-lg">Home Loan Consultation</h3>
-                                <p className="text-sm">Attractive home loans have made purchasing property very convenient as buyers do not have to pay everything upfront. Our expertise in impartial loan advisory services...</p>
-                                <p className="text-[#7f1657] my-3">
-                                    <Link>Read More</Link>
-                                </p>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="flex items-center justify-center flex-col">
-                            <div className="w-[100px] h-[100px]">
-                                <img src={buy3} alt="buy_3" className="w-full h-full" />
-                            </div>
-                            <div>
-                                <h3 className="font-semibold my-3 text-lg">NRI Services</h3>
-                                <p className="text-sm">TInvestment inflows from the Indian diaspora have been rising at astounding rates. However, the ascent has slowed down as many NRIs are still dissuaded due to the lack of geographical ...</p>
-                                <p className="text-[#7f1657] my-3">
-                                    <Link>Read More</Link>
-                                </p>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="flex items-center justify-center flex-col">
-                            <div className="w-[100px] h-[100px]">
-                                <img src={buy4} alt="buy_4" className="w-full h-full" />
-                            </div>
-                            <div>
-                                <h3 className="font-semibold my-3 text-lg">After sales assistance</h3>
-                                <p className="text-sm">Our services do not stop once the deal is closed. We are committed to assisting our customers in every possible way. We have been pushing the realms of client servicing in Indian realty ... </p>
-                                <p className="text-[#7f1657] my-3">
-                                    <Link>Read More</Link>
-                                </p>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="flex items-center justify-center flex-col">
-                            <div className="w-[100px] h-[100px]">
-                                <img src={buy5} alt="buy_5" className="w-full h-full" />
-                            </div>
-                            <div>
-                                <h3 className="font-semibold my-3 text-lg">Vastu Consultation</h3>
-                                <p className="text-sm">Vaastu is a subtle way of bringing in harmony and channelizing energy in and around the home. We provide Vaastu consulting to make a home Vaastu -compliant</p>
-                                <p className="text-[#7f1657] my-3">
-                                    <Link>Read More</Link>
-                                </p>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className="flex items-center justify-center flex-col">
-                            <div className="w-[100px] h-[100px]">
-                                <img src={buy6} alt="buy_6" className="w-full h-full" />
-                            </div>
-                            <div>
-                                <h3 className="font-semibold my-3 text-lg">Legal Consultation</h3>
-                                <p className="text-sm">360 Realtors are not limited to supporting purchase/selling transactions in the real-estate domain. We walk with our clients all the way, assisting them with all the aspects ...</p>
-                                <p className="text-[#7f1657] my-3">
-                                    <Link>Read More</Link>
-                                </p>
-                            </div>
-                        </SwiperSlide>
-                    </Swiper>
-                </div>
-
                 {/* Section 3 */}
-                <div className="md:h-[500px] p-4 min-h-screen my-10 flex items-center flex-col justify-center" style={{
-                    backgroundImage: `url(${image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundAttachment: 'fixed',
-                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-                    opacity: 0.9,
-                    transition: 'background 0.3s ease-in-out',
-                }}>
-                    <h2 className="text-white text-4xl text-center">How we help people?</h2>
-                    <div className="bg-[#7f1657] rounded grid col-span-1 md:flex md:justify-between mt-10 px-4 text-white min-h-[300px] w-[70%]">
-                        <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
-                            <p className="text-[60px]"><MdOutlineHomeWork /></p>
-                            <h3 className="text-xl my-3 font-bold">Sell home or office</h3>
-                            <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
-                        </div>
-                        <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
-                            <p className="text-[60px]"><MdOutlineHomeWork /></p>
-                            <h3 className="text-xl my-3 font-bold">Rent home or office</h3>
-                            <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
-                        </div>
-                        <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
-                            <p className="text-[60px]"><MdOutlineHomeWork /></p>
-                            <h3 className="text-xl my-3 font-bold">Find next</h3>
-                            <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
-                        </div>
-                    </div>
-                </div>
+               
                 {/* Section 4 */}
-                <div className="bg-white min-h-screen lg:min-h-[400px] w-[1200px] items-center mx-auto my-10 grid grid-cols-1 lg:grid-cols-3">
-                    <div className="col-span-1 text-black">
-                        <h2 className="text-3xl">Explore by Property Type</h2>
-                        <p className="text-md my-5">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
-                        <button className="bg-[#7f1657] hover:bg-[#a7076a] transition-all duration-300 ease-in-out text-white font-semibold px-5 py-3 rounded ">View All Property</button>
-                    </div>
-                    <div className="col-span-2 rounded grid grid-cols-1 lg:grid-cols-4 text-white p-5 h-screen lg:h-[200px] bg-[#7f1657]">
-                        <div className="flex flex-col col-span-1 items-center justify-center lg:border-r-2 p-2">
-                            <span className="text-5xl"><MdOutlineHomeWork /></span>
-                            <p>Home & Appartment</p>
-                        </div>
-                        <div className="flex flex-col col-span-1 items-center justify-center lg:border-r-2 p-2">
-                            <span className="text-5xl"><MdOutlineHomeWork /></span>
-                            <p>Home & Appartment</p>
-                        </div>
-                        <div className="flex flex-col col-span-1 items-center justify-center lg:border-r-2 p-2">
-                            <span className="text-5xl"><MdOutlineHomeWork /></span>
-                            <p>Home & Appartment</p>
-                        </div>
-                        <div className="flex flex-col col-span-1 items-center justify-center p-2">
-                            <span className="text-5xl"><MdOutlineHomeWork /></span>
-                            <p>Home & Appartment</p>
-                        </div>
-                    </div>
-                </div>
+            
                 {/* Section 4 */}
                 {/* <div className="my-24 border-t-2">
                     <div className="text-center max-w-[700px] mx-auto p-3">
@@ -452,152 +144,14 @@ function HomePage() {
 
                 {/* Gallery section */}
 
-                <div className="w-[1200px] mx-auto my-20">
-                    <h2 className="text-4xl font-semibold text-[#7f1657] border-b-2 border-[#7f1657] pb-4 my-10">Gallery</h2>
-                    <div className="grid grid-cols-4 gap-5">
-                        {
-                            projects && (
-                                projects.slice(0, 20).map((project, idx) => (
-                                    <div key={idx} className="group col-span-1 relative">
-                                        <img src={project?.gallery[0]?.secure_url} className="h-[200px] object-cover border" alt="Gallery" />
-                                        <div className="bg-gray-50 opacity-0 hover:opacity-[.6] transition-all duration-300 ease-in-out h-full w-full absolute top-0 flex items-center justify-center">
-                                            <h2 className="text-3xl text-black">{project?.name}</h2>
-                                        </div>
-                                    </div>
-                                ))
-                            )
-                        }
-                    </div>
-                </div>
+
+                {/* Section 2 */}
+
+              
 
                 {/* Blog Section */}
 
-                <div className="my-20">
-                    <div className="w-[1200px] mx-auto">
-                        <h2 className="text-3xl font-semibold text-[#7f1657] border-b-2 border-[#7f1657] pb-4 my-10">Recent Blog</h2>
-                        <Swiper
-                            //   navigation={{ nextEl, prevEl }}
-                            slidesPerView={1}
-                            spaceBetween={20}
-                            loop={true}
-                            autoplay={{ delay: 2000, disableOnInteraction: false }}
-                            modules={[FreeMode, Pagination, Navigation, Autoplay]}
-                            breakpoints={{
-                                700: {
-                                    slidesPerView: 2,
-                                },
-                                1024: {
-                                    slidesPerView: 4,
-                                },
-                            }}
-                            className="max-h-[30rem]"
-                        >
-                            {
-                                blogData?.map((blog, i) => {
-                                    return (
-
-                                        <SwiperSlide key={i} className="border w-[300px]">
-                                            <NavLink to={`/blog/${blog.slug}`} onClick={() => navigate({ state: blog })}>
-                                                <div className="w-full h-[200px]">
-                                                    <img src={blog?.image?.secure_url} className="h-full w-full object-cover" />
-                                                </div>
-                                                <div className="p-3">
-                                                    <h3 className="font-medium text-lg mt-1">{blog?.title}</h3>
-                                                    <p className="text-sm text-gray-500">{(blog?.description).substring(0, 160)} <span className=" text-red-400 underline">more</span></p>
-                                                </div>
-                                                <hr />
-                                                <div className='flex items-center justify-between p-2'>
-                                                    <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
-                                                        <CgProfile />By
-                                                        <p>Username</p>
-                                                    </div>
-                                                    <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
-                                                        <FaCalendarAlt />
-                                                        <p>25 November, 2023</p>
-                                                    </div>
-                                                </div>
-                                            </NavLink>
-                                        </SwiperSlide>
-
-                                    )
-                                })
-                            }
-                            {/* <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="border w-[300px]">
-                                <div className="w-full">
-                                    <img src={about_1} className="h-full w-full object-cover" />
-                                </div>
-                                <div className="p-5">
-                                    <h3 className="font-bold text-xl my-3">New Home Sales Picked Up in December</h3>
-                                    <p className="text-lg text-gray-500">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                </div>
-                            </SwiperSlide> */}
-                        </Swiper>
-                    </div>
-                </div>
-
+        
             </div>
         </HomeLayout>
     )
