@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProject, updateProject, deleteProject, getAllProject, getProject, searchProject } from "../controllers/projectController.js";
+import { createProject, updateProject, deleteProject, getAllProject, getProject, searchProject, getAllProjectsByPage } from "../controllers/projectController.js";
 import upload from "../middlewares/multerMiddleware.js";
 import { isAdmin } from "../middlewares/authMiddleware.js";
 
@@ -19,6 +19,7 @@ router.put('/update/:id', upload.fields([
 
 router.get("/get/:id", getProject);
 router.get("/getall", getAllProject);
+router.get("/get-all/projets", getAllProjectsByPage);
 router.delete("/delete/:id", deleteProject);
 router.get("/search/project", searchProject);
 export default router;

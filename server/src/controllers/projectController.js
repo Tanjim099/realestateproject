@@ -257,6 +257,20 @@ const getAllProject = async (req, res, next) => {
     }
 }
 
+export const getAllProjectsByPage = async (req, res, next) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const projects = await Project.find().skip((page - 1) * limit).limit(limit).sort({ createdAt: -1 });
+        res.status(201).json(
+            new ApiResponse(200, projects, "Project Fetched Successfully")
+        );
+    } catch (error) {
+        console.log(error);
+        next(new ApiError(500, error.message));
+    }
+}
+
 
 //delete project
 const deleteProject = async (req, res, next) => {
