@@ -15,7 +15,7 @@ function Navbar() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [cityValue, setCityValue] = useState('India');
+    const [cityValue, setCityValue] = useState('');
 
     const handelSubmitValue = (e) => {
         setCityValue(e.target.value);
@@ -77,16 +77,14 @@ function Navbar() {
                         <div className="flex gap-5 items-center">
                             <Link to={'/'} className=" font-medium text-white p-0 text-3xl">HOME99</Link>
                             <div className="mt-1">
-                                <select defaultValue={'India'} value={cityValue} onChange={handelSubmitValue} className=" bg-transparent outline-0 text-white">
-                                    {
-                                        topCities && (
-                                            topCities.sort((city1, city2) => city1.name.localeCompare(city2.name)).map((topCitie, idx) => (
-                                                <option key={idx} value={topCitie.name} className="text-black">
-                                                    {topCitie.name}
-                                                </option>
-                                            ))
-                                        )
-                                    }
+                                <select value={cityValue} onChange={handelSubmitValue} className="bg-transparent outline-0 text-white">
+                                    {topCities && (
+                                        topCities.sort((city1, city2) => city1.name.localeCompare(city2.name)).map((topCitie, idx) => (
+                                            <option key={idx} value={topCitie.name} className="text-black">
+                                                {topCitie.name}
+                                            </option>
+                                        ))
+                                    )}
                                 </select>
                             </div>
                         </div>
