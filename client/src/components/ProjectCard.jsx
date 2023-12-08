@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import HomeLayout from "./HomeLayout";
 
-function ProjectCard({ name, developer, price, description, status, city, image, data }) {
+function ProjectCard({ name, developer, price, description, status, city, image, area, data }) {
     const navigate = useNavigate();
     return (
         <div className="w-[100%]flex items-center justify-center">
@@ -13,7 +13,7 @@ function ProjectCard({ name, developer, price, description, status, city, image,
                     <h3 className=" text-lg">{(name).substring(0, 70)} ...</h3>
                     <h4 className=" font-medium text-gray-500">{developer}</h4>
                     <h4 className=" font-medium my-1"> Starting at ₹ {price}</h4>
-                    <p className=" text-sm">{(description).substring(0, 250)} <span onClick={() => navigate(`/project/${data._id}`, { state: data })} className="underline underline-offset-1 cursor-pointer">View more</span></p>
+                    <p className=" text-sm">{(description).substring(0, 250)} <span onClick={() => navigate(`/project/${data.slug}`, { state: data })} className="underline underline-offset-1 cursor-pointer">View more</span></p>
                     <div className="flex justify-between mt-1">
                         <div>
                             <p className="font-medium text-sm">Appartments</p>
@@ -21,7 +21,7 @@ function ProjectCard({ name, developer, price, description, status, city, image,
                         </div>
                         <div>
                             <p className="font-medium text-sm">Area</p>
-                            <p className="font-medium text-gray-500 text-xs">1950 Sqft</p>
+                            <p className="font-medium text-gray-500 text-xs">{area}</p>
                         </div>
                         <div>
                             <p className="font-medium text-sm">Status</p>
@@ -34,7 +34,7 @@ function ProjectCard({ name, developer, price, description, status, city, image,
                         <div className=" flex items-center">
                             <button
                                 className=" bg-[#7f1657] px-2 py-1 border-2 text-white rounded-md hover:bg-transparent hover:text-black"
-                                onClick={() => navigate(`/project/${data._id}`, { state: data })}
+                                onClick={() => navigate(`/project/${data.slug}`, { state: data })}
                             >
                                 View Details
                             </button>

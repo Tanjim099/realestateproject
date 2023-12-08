@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 
 const initialState = {
     projects: [],
+    projectByPage: [],
     editProject: false,
     project: null,
 }
@@ -51,6 +52,23 @@ export const updateProject = createAsyncThunk('', async (data) => {
 export const getAllProjects = createAsyncThunk("/project/getall", async () => {
     try {
         const res = axiosInstance.get("project/getall");
+        console.log(res);
+        toast.promise(res, {
+            loading: "Wait Getting All Data",
+            success: "All Data Fetched Successfully",
+            error: "Failed to Fetcheing Data"
+        });
+        return (await res).data
+    } catch (error) {
+        console.log(Error);
+        toast.error(Error);
+        throw Error;
+    }
+})
+
+export const getAllProjectsByPage = createAsyncThunk("/project/get-all", async (data) => {
+    try {
+        const res = axiosInstance.get(`project/get-all/projets?page=${data.page}&limit=${data.limit}`);
         console.log(res);
         toast.promise(res, {
             loading: "Wait Getting All Data",
@@ -153,6 +171,10 @@ const projectSlice = createSlice({
             toast.error('Failed to fetched project');
         });
         builder.addCase(getProject.fulfilled, (state, action) => {
+            console.log(action);
+        });
+        builder.addCase(getAllProjectsByPage.fulfilled, (state, action) => {
+            state.projectByPage = action?.payload?.data
             console.log(action);
         })
     }

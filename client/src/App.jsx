@@ -26,6 +26,7 @@ import Dashboard from './pages/Admin/Dashboard'
 import Lead from './pages/Admin/Lead'
 import ReadBlog from './pages/ReadBlog'
 import Author from './pages/Author'
+import AllProjects from './pages/AllProjects'
 
 function App() {
 
@@ -50,10 +51,11 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/user-profile" element={<Profile />} />
         <Route path='/project/:slug' element={<ProjectViewPage />} />
+        <Route path='/projects/page/:page' element={<AllProjects />} />
         <Route path='/denied' element={<Denied />} />
         <Route path='/city/:cityname' element={<City />} />
         <Route path='/blog/:slug' element={<ReadBlog />} />
-        <Route path='/author/:id' element={<Author />} />
+        <Route path='/author' element={<Author />} />
 
         <Route path='/admin/dashboard' element={<Dashboard />} />
 
