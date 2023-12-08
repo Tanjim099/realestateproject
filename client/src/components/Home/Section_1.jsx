@@ -21,17 +21,17 @@ function Section_1() {
                     <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
                         <p className="text-[60px]"><MdOutlineHomeWork /></p>
                         <h3 className="text-xl my-3 font-bold">Sell home or office</h3>
-                        <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
+                        <p className=" leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
                     </div>
                     <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
                         <p className="text-[60px]"><MdOutlineHomeWork /></p>
                         <h3 className="text-xl my-3 font-bold">Rent home or office</h3>
-                        <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
+                        <p className=" leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
                     </div>
                     <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
                         <p className="text-[60px]"><MdOutlineHomeWork /></p>
                         <h3 className="text-xl my-3 font-bold">Find next</h3>
-                        <p className="font-mono leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
+                        <p className=" leading-6">Get started by choosing from one of our pre-built page templates to showcase your properties</p>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import authModel from "../models/authModel.js";
 import blogModel from "../models/blogModel.js";
+import Project from "../models/projectModel.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 
@@ -37,6 +38,20 @@ export const deleteUser = async (req, res, next) => {
     }
 }
 
+//get all project
+export const getAllProjects = async (req, res, next) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const projects = await Project.find().skip((page - 1) * limit).limit(limit).sort({ createdAt: -1 });
+        res.status(201).json(
+            new ApiResponse(200, projects, "Project Fetched Successfully")
+        );
+    } catch (error) {
+        console.log(error);
+        next(new ApiError(500, error.message));
+    }
+}
 //get all blogs
 export const getAllBlogs = async (req, res, next) => {
     try {

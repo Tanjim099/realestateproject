@@ -11,6 +11,6 @@ authRoutes.post("/login", login);
 authRoutes.get("/logout", logout);
 authRoutes.post("/forget-password", forgetPassword);
 authRoutes.put("/user/update/:id", requiredSignIn, upload.single("avatar"), updateUser);
-authRoutes.get("/get-profile/:id", requiredSignIn, getUserProfile);
+authRoutes.get("/get-profile/:id", getUserProfile);
 
 export default authRoutes
