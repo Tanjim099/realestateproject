@@ -12,8 +12,8 @@ function BlogSection() {
     const { blogData } = useSelector((state) => state?.blog);
     return (
         <div>
-            <div className="mb-10">
-                <div className="w-[1200px] mx-auto">
+            <div className="mb-10 px-10 lg:p-0">
+                <div className="max-w-[1200px] mx-auto">
                     <h2 className="text-3xl font-semibold text-[#7f1657] border-b-2 border-[#7f1657] pb-4 my-10">Recent Blog</h2>
                     <Swiper
                         //   navigation={{ nextEl, prevEl }}
