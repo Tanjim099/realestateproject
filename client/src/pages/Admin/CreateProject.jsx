@@ -33,6 +33,9 @@ function CreateProject() {
     const dispatch = useDispatch();
     const { editProject, project } = useSelector((state) => state.project);
 
+    console.log(project);
+    console.log(amenitiechips);
+
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
         location: '',
@@ -73,6 +76,17 @@ function CreateProject() {
                 projectType: project.projectType,
                 reraNo: project.reraNo,
             }));
+
+            setGalleryImages(project.gallery.map((item) => item.secure_url));
+
+            setFloorImages(project.floorPlan.map((item) => item.image.secure_url));
+            setFloorChips(project.floorPlan.map((item) => item.types));
+            setDimensionsChips(project.floorPlan.map((item) => item.dimensions));
+            setFloorPriceChips(project.floorPlan.map((item) => item.floorPrice));
+
+            setAmenitiesImages(project.amenities.map((item) => item.image.secure_url));
+            setAmenitieChips(project.amenities.map((item) => item.name));
+
         }
     }, [editProject, project]);
 
@@ -652,7 +666,7 @@ function CreateProject() {
                                                         (
                                                             galleryImages.map((galleryImage, idx) => (
                                                                 <div key={idx} className='flex-row relative w-full h-[100px] outline-dashed p-1'>
-                                                                    <img className='w-full h-full object-cover' src={galleryImage.dataURL} />
+                                                                    <img className='w-full h-full object-cover' src={galleryImage.dataURL || galleryImage} />
                                                                     <span className='absolute top-0 right-0 cursor-pointer' onClick={() => removeGalleryImage(idx)}> <IoMdClose /></span>
                                                                 </div>
                                                             ))
@@ -726,7 +740,7 @@ function CreateProject() {
                                                         (
                                                             floorImages.map((floorImage, idx) => (
                                                                 <div key={idx} className='flex-row relative w-[100px] mb-24 h-[100px] outline-dashed p-1'>
-                                                                    <img className='w-full h-full object-cover' src={floorImage.dataURL} />
+                                                                    <img className='w-full h-full object-cover' src={floorImage.dataURL || floorImage} />
                                                                     <p className='text-xl font-mono text-center mt-2'>{floorchips[idx]}</p>
                                                                     <p className='text-xl font-mono text-center mt-2'>{dimensionschips[idx]}</p>
                                                                     <p className='text-xl font-mono text-center mt-2'>{floorPriceChips[idx]}</p>
@@ -776,7 +790,7 @@ function CreateProject() {
                                                         (
                                                             amenitieImages.map((amenitieImage, idx) => (
                                                                 <div key={idx} className='flex-row relative w-[100px] mb-10 h-[100px] outline-dashed p-1'>
-                                                                    <img className='w-full h-full object-cover' src={amenitieImage.dataURL} />
+                                                                    <img className='w-full h-full object-cover' src={amenitieImage.dataURL || amenitieImage} />
                                                                     <p className='text-xl font-mono text-center mt-2'>{amenitiechips[idx]}</p>
                                                                     <span className='absolute top-0 right-0 cursor-pointer' onClick={() => removeAmenitieImage(idx)}> <IoMdClose /></span>
                                                                 </div>
@@ -797,7 +811,7 @@ function CreateProject() {
                                     <div className='flex justify-end'>
                                         <button
                                             type='submit'
-                                            className='bg-[#1677ff] text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
+                                            className='bg-[#1677ff] text-md w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-blue-600 hover:scale-110 duration-300 ease-in-out transition-all'
                                         >
                                             {
                                                 editProject ? 'Update Project' : 'Create Project'
