@@ -20,7 +20,6 @@ function CreateProject() {
     const [floorPriceChips, setFloorPriceChips] = useState([]);
     const [dimensionschips, setDimensionsChips] = useState([]);
 
-
     const editorConfig = {
         minHeight: '500px', // Set your desired height here
     };
@@ -296,6 +295,7 @@ function CreateProject() {
         try {
             e.preventDefault();
             if (editProject) {
+                setLoading(true);
                 if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                     toast.error('Filed are all mandatory...');
                     return;
@@ -350,8 +350,22 @@ function CreateProject() {
                     email: '',
                     phone: '',
                     city: '',
+                    map: '',
+                    projectArea: '',
+                    possessionOn: '',
+                    projectType: '',
+                    reraNo: '',
                     content: '',
                 })
+                setGalleryImages([]);
+                setFloorImages([]);
+                setAmenitiesImages([]);
+                setFloorChips([]);
+                setAmenitieChips([]);
+                setFloorPriceChips([]);
+                setDimensionsChips([]);
+                setLoading(false);
+                navigate('/admin/dashboard/all-projects');
                 return;
             }
             setLoading(true);
@@ -409,8 +423,22 @@ function CreateProject() {
                 email: '',
                 phone: '',
                 city: '',
+                map: '',
+                projectArea: '',
+                possessionOn: '',
+                projectType: '',
+                reraNo: '',
+                content: '',
             })
+            setGalleryImages([]);
+            setFloorImages([]);
+            setAmenitiesImages([]);
+            setFloorChips([]);
+            setAmenitieChips([]);
+            setFloorPriceChips([]);
+            setDimensionsChips([]);
             setLoading(false);
+            navigate('/admin/dashboard/all-projects');
 
         } catch (Error) {
             console.log(Error);
