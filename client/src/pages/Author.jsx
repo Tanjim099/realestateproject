@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { ImBlog } from "react-icons/im";
 import { FaLinkedin, FaInstagramSquare, FaFacebookSquare } from "react-icons/fa";
 import { MdEditLocationAlt } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { FaCalendarAlt } from "react-icons/fa";
 
 
 function Author() {
@@ -23,9 +25,12 @@ function Author() {
     // }, []);
     return (
         <HomeLayout>
-            <div className="w-[75%] m-auto">
+            <div className=" h-16">
+                <img className=" h-[280px] w-full" src="https://www.marthastewart.com/thmb/E_wOXQrYuq2-lUcQe_GK5vESNlw=/1500x375/filters:no_upscale():max_bytes(200000):strip_icc()/design--decor-banner-0323-9991afc2f0c34f57aef1d7e7a728eca7.jpg" alt="" />
+            </div>
+            <div className="w-[70%] m-auto">
                 <div className="w-[100%] flex gap-4 my-4">
-                    <div className="w-[30%] flex items-center flex-col bg-white shadow-[0_0_2px_gray] rounded-md py-10">
+                    <div className="w-[30%] h-fit sticky top-10 flex items-center flex-col bg-white shadow-[0_0_2px_gray] rounded-md py-10">
                         <div>
                             <img className="w-[100px] h-[100px] rounded-full" src="https://superadmin.homes247.in/images/bloggerprofile/1699344848-WhatsApp%20Image%202023-11-07%20at%201.43.03%20PM.jpeg" alt="" />
                         </div>
@@ -55,8 +60,75 @@ function Author() {
                             </NavLink>
                         </div>
                     </div>
-                    <div className="w-[70%] bg-red-600">
-                        <h1>hello</h1>
+                    <div className="w-[70%] mt-60">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="border-2">
+                                <NavLink >
+                                    <div className="w-full h-[200px]">
+                                        <img src="https://res.cloudinary.com/dmz316wxm/image/upload/v1701973109/Real_Estate/nuynw7p9csk7x8grvwcm.jpg" className="h-full w-full object-cover" />
+                                    </div>
+                                    <div className="p-3">
+                                        <h3 className="font-medium text-lg mt-1">Immediate ban on non-essential</h3>
+                                        <p className="text-sm text-gray-500">As Delhi's air quality continues to degrade, the national capital has entered GRAP-III. A prohibition on all non-essential <span className=" text-red-400 underline">more</span></p>
+                                    </div>
+                                    <hr />
+                                    <div className='flex items-center justify-between p-2'>
+                                        <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                            <CgProfile />Cate:
+                                            <p>Real Estate News</p>
+                                        </div>
+                                        <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                            <FaCalendarAlt />
+                                            <p>25 November, 2023</p>
+                                        </div>
+                                    </div>
+                                </NavLink>
+                            </div>
+                            <div className="border-2">
+                                <NavLink >
+                                    <div className="w-full h-[200px]">
+                                        <img src="https://res.cloudinary.com/dmz316wxm/image/upload/v1701973109/Real_Estate/nuynw7p9csk7x8grvwcm.jpg" className="h-full w-full object-cover" />
+                                    </div>
+                                    <div className="p-3">
+                                        <h3 className="font-medium text-lg mt-1">Immediate ban on non-essential</h3>
+                                        <p className="text-sm text-gray-500">As Delhi's air quality continues to degrade, the national capital has entered GRAP-III. A prohibition on all non-essential <span className=" text-red-400 underline">more</span></p>
+                                    </div>
+                                    <hr />
+                                    <div className='flex items-center justify-between p-2'>
+                                        <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                            <CgProfile />Cate:
+                                            <p>Real Estate News</p>
+                                        </div>
+                                        <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                            <FaCalendarAlt />
+                                            <p>25 November, 2023</p>
+                                        </div>
+                                    </div>
+                                </NavLink>
+                            </div>
+                            <div className="border-2">
+                                <NavLink >
+                                    <div className="w-full h-[200px]">
+                                        <img src="https://res.cloudinary.com/dmz316wxm/image/upload/v1701973109/Real_Estate/nuynw7p9csk7x8grvwcm.jpg" className="h-full w-full object-cover" />
+                                    </div>
+                                    <div className="p-3">
+                                        <h3 className="font-medium text-lg mt-1">Immediate ban on non-essential</h3>
+                                        <p className="text-sm text-gray-500">As Delhi's air quality continues to degrade, the national capital has entered GRAP-III. A prohibition on all non-essential <span className=" text-red-400 underline">more</span></p>
+                                    </div>
+                                    <hr />
+                                    <div className='flex items-center justify-between p-2'>
+                                        <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                            <CgProfile />cate:
+                                            <p>Real Estate News</p>
+                                        </div>
+                                        <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                            <FaCalendarAlt />
+                                            <p>25 November, 2023</p>
+                                        </div>
+                                    </div>
+                                </NavLink>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
