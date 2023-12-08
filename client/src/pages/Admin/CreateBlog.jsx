@@ -18,9 +18,11 @@ function CreateBlog() {
     category: '',
     description: '',
     content: '',
-    author: "6560edecf720289e7f081d64",
+    author: data._id,
     image: '',
   });
+
+  // console.log(userInput);
 
   const editorConfig = {
     minHeight: '430px', // Set your desired height here
@@ -58,7 +60,7 @@ function CreateBlog() {
   const descriptionContent = (data) => {
     setUserInput((prev) => ({
       ...prev,
-      description: data
+      content: data
     }));
   }
 
@@ -108,59 +110,60 @@ function CreateBlog() {
             )
             :
             (
-              <form onSubmit={onFormSubmit} className=''>
-                <h2 className='text-3xl border-b-2 border-[#7f1657] text-[#7f1657] pb-2'>Create Blog</h2>
-                <div className='grid lg:grid-cols-2 gap-3'>
-                  <div className='col-span-1'>
-                    <div className='my-3 flex flex-col gap-2'>
-                      <label htmlFor='title'>Title<sup className='text-pink-400'>*</sup></label>
-                      <input
-                        type='text'
-                        name='title'
-                        id='title'
-                        className='w-full py-3 px-3 rounded border outline-0'
-                        value={userInput.title}
-                        placeholder='Enter Blog Title'
-                        onChange={inputUser}
-                      />
+              <form onSubmit={onFormSubmit} className='w-full'>
+                <h2 className='text-3xl border-b text-black pb-2 mb-5'>Create Blog</h2>
+                <div className="w-full flex justify-between gap-5">
+                  <div className='w-[70%]'>
+                    <div className='w-full '>
+                      <label htmlFor="title">Title</label>
+                      <input className='w-full p-2 rounded-sm outline-none text-xl mt-1' name='title' style={{ border: "1px solid gray" }} onChange={inputUser} type="text" placeholder='title' />
                     </div>
-                    <div className='my-3 flex flex-col gap-2'>
-                      <label htmlFor='category'>Category<sup className='text-pink-400'>*</sup></label>
-                      <input
-                        type='text'
-                        name='category'
-                        id='category'
-                        className='w-full py-3 px-3 rounded border outline-0'
-                        value={userInput.category}
-                        placeholder='Enter Blog Category'
-                        onChange={inputUser}
-                      />
-                    </div>
-
-                    <div className='my-3 flex flex-col gap-2'>
+                    <div className='mt-4'>
                       <label htmlFor='content'>Content<sup className='text-pink-400'>*</sup></label>
-                      <input
+                      <JoditEditor
                         type='text'
                         name='content'
                         id='content'
-                        className='w-full py-3 px-3 rounded border outline-0'
+                        config={editorConfig}
+                        className='w-full py-3 px-3 rounded border outline-0 min-h-[200px] resize-none mt-1'
                         value={userInput.content}
-                        placeholder='Enter Blog Content'
-                        onChange={inputUser}
+                        placeholder='Enter Blog Description'
+                        onChange={(data) => descriptionContent(data)}
                       />
                     </div>
-                    <div className='w-full'>
+                    <div className='flex flex-col mt-4'>
+                      <label htmlFor="description">Description</label>
+                      <textarea
+                        className='outline-none rounded-sm p-2 mt-1'
+                        name='description'
+                        style={{ border: "1px solid gray" }}
+                        id=""
+                        cols="30"
+                        value={inputUser.description}
+                        rows="10"
+                        placeholder='description...'
+                        onChange={inputUser}
+                      >
+                      </textarea>
+                    </div>
+                  </div>
+                  <div className='w-[30%]'>
+                    <div className='flex flex-col w-full'>
+                      <label htmlFor="category">Category</label>
+                      <input onChange={inputUser} name='category' className='w-full p-2 rounded-sm outline-none text-xl mt-1 ' style={{ border: "1px solid gray" }} type="text" id='category' placeholder='category...' />
+                    </div>
+                    <div className='w-full mt-4'>
                       {
                         previwImage ? (
-                          <div className='w-full h-[200px] border-4 border-dotted'>
+                          <div className='w-full h-[150px] border-4 border-dotted'>
                             <img src={previwImage} className='w-full h-full object-contain' alt='Blog-Imgae' />
                           </div>
                         )
                           :
                           (
                             <>
-                              <label htmlFor='image' className='inline-block border-dotted border-2 w-full h-[200px] cursor-pointer' >
-                                <p className='flex items-center justify-center text-5xl w-full h-full'>
+                              <label htmlFor='image' className='inline-block border-dotted border-2 w-full h-[150px] cursor-pointer' >
+                                <p className='flex items-center justify-center text-3xl w-full h-full'>
                                   Image
                                 </p>
                               </label>
@@ -174,42 +177,10 @@ function CreateBlog() {
                           )
                       }
                     </div>
-                  </div>
-                  <div className=''>
-                    <div className='my-3 flex flex-col gap-2'>
-                      <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
-                      <JoditEditor
-                        type='text'
-                        name='description'
-                        id='description'
-                        config={editorConfig}
-                        // className='w-full py-3 px-3 rounded border outline-0 h-[200px] resize-none'
-                        value={userInput.description}
-                        placeholder='Enter Blog Description'
-                        onChange={(data) => descriptionContent(data)}
-                      />
+                    <div>
+                      <button className=' bg-[#007aff] w-full rounded-md  text-white p-2 mt-5'>Create Blog</button>
                     </div>
                   </div>
-                  {/* <div className='my-3 flex flex-col gap-2'>
-            <label htmlFor='author'>Author<sup className='text-pink-400'>*</sup></label>
-            <input
-              type='text'
-              name='author'
-              id='author'
-              className='w-full py-3 px-3 rounded border outline-0'
-              value={userInput.author}
-              placeholder='Enter Blog Author'
-              onChange={inputUser}
-            />
-          </div> */}
-                </div>
-                <div className='flex justify-end'>
-                  <button
-                    type='submit'
-                    className='bg-red-400 text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
-                  >
-                    Create Blog
-                  </button>
                 </div>
               </form>
             )

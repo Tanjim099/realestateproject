@@ -18,7 +18,7 @@ function Section_3() {
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     return (
         <div>
-            <div className="mx-auto relative w-[1200px] my-24">
+            <div className="mx-auto relative w-[1200px] my-10">
                 <div className="text-center">
                     <h2 className="font-semibold text-2xl">Why buy with us ?</h2>
                     <p className="text-xl text-gray-500 mt-5">Aspects that make 360 Realtors India's leading Real Estate Advisory</p>
@@ -28,7 +28,7 @@ function Section_3() {
                     spaceBetween={20}
                     slidesPerView={3}
                     loop={true}
-                    className="text-center my-20"
+                    className="text-center my-10"
                     autoplay={{ delay: 2000, disableOnInteraction: false }}
                     modules={[FreeMode, Pagination, Navigation, Autoplay]}
                 >

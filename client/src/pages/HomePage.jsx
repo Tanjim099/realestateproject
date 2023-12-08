@@ -42,6 +42,7 @@ function HomePage() {
                 <GallerySection />
                 <Section_3 />
                 <BlogSection />
+
                 {/* Section 1 */}
               
                 {/* About Section */}

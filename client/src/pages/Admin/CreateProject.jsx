@@ -20,19 +20,21 @@ function CreateProject() {
     const [floorPriceChips, setFloorPriceChips] = useState([]);
     const [dimensionschips, setDimensionsChips] = useState([]);
 
-
     const editorConfig = {
         minHeight: '500px', // Set your desired height here
     };
 
-    console.log(JSON.stringify(floorchips));
+    // console.log(JSON.stringify(floorchips));
 
 
     const editor = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { editProject, project } = useSelector((state) => state.project);
+
     console.log(project);
+    console.log(amenitiechips);
+
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
         location: '',
@@ -53,27 +55,39 @@ function CreateProject() {
     });
 
     useEffect(() => {
-        if (editProject) {
-            projectCreateData.name = project?.name;
-            projectCreateData.location = project?.location;
-            projectCreateData.developer = project?.developer;
-            projectCreateData.description = project?.description;
-            projectCreateData.specifications = project?.specifications;
-            projectCreateData.startingFrom = project?.pricing?.startingFrom;
-            projectCreateData.currency = project?.pricing?.currency;
-            projectCreateData.email = project?.contactInformation?.email;
-            projectCreateData.phone = project?.contactInformation?.phone;
-            projectCreateData.city = project?.city;
-            projectCreateData.content = project?.content;
-            projectCreateData.map = project?.map;
-            projectCreateData.projectArea = project?.projectArea;
-            projectCreateData.possessionOn = project?.possessionOn;
-            projectCreateData.projectType = project?.projectType;
-            projectCreateData.reraNo = project?.reraNo;
-        }
-    }, [project]);
+        if (editProject && project) {
+            setProjectCreateData(prevData => ({
+                ...prevData,
+                name: project.name,
+                location: project.location,
+                developer: project.developer,
+                description: project.description,
+                specifications: project.specifications,
+                startingFrom: project.pricing?.startingFrom,
+                currency: project.pricing?.currency,
+                email: project.contactInformation?.email,
+                phone: project.contactInformation?.phone,
+                city: project.city,
+                content: project.content,
+                map: project.map,
+                projectArea: project.projectArea,
+                possessionOn: project.possessionOn,
+                projectType: project.projectType,
+                reraNo: project.reraNo,
+            }));
 
-    // console.log(editProject);
+            setGalleryImages(project.gallery.map((item) => item.secure_url));
+
+            setFloorImages(project.floorPlan.map((item) => item.image.secure_url));
+            setFloorChips(project.floorPlan.map((item) => item.types));
+            setDimensionsChips(project.floorPlan.map((item) => item.dimensions));
+            setFloorPriceChips(project.floorPlan.map((item) => item.floorPrice));
+
+            setAmenitiesImages(project.amenities.map((item) => item.image.secure_url));
+            setAmenitieChips(project.amenities.map((item) => item.name));
+
+        }
+    }, [editProject, project]);
 
     const handleGalleryImage = (e) => {
         e.preventDefault();
@@ -106,11 +120,11 @@ function CreateProject() {
     }
 
     const removeFloorImage = (idx) => {
-        console.log(idx);
+        // console.log(idx);
         const updateImages = [...floorImages.slice(0, idx), ...floorImages.slice(idx + 1)];
         const updateChips = [...floorchips.slice(0, idx), ...floorchips.slice(idx + 1)];
-        const updatePrice = [...floorPriceChips.slice(0,idx),...floorPriceChips.slice(idx + 1)];
-        const updateDimensionschips= [...dimensionschips.slice(0,idx),...dimensionschips.slice(idx + 1)];
+        const updatePrice = [...floorPriceChips.slice(0, idx), ...floorPriceChips.slice(idx + 1)];
+        const updateDimensionschips = [...dimensionschips.slice(0, idx), ...dimensionschips.slice(idx + 1)];
 
         setFloorImages(updateImages);
         setFloorChips(updateChips);
@@ -259,7 +273,7 @@ function CreateProject() {
             [name]: value
         }));
     }
-    console.log(projectCreateData);
+    // console.log(projectCreateData);
     // console.log(galleryImages.file);
     // console.log(floorImages.file);
     // console.log(amenitieImages.file);
@@ -281,6 +295,7 @@ function CreateProject() {
         try {
             e.preventDefault();
             if (editProject) {
+                setLoading(true);
                 if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                     toast.error('Filed are all mandatory...');
                     return;
@@ -320,7 +335,7 @@ function CreateProject() {
                 for (let i = 0; i < amenitieImages.length; i++) {
                     formData.append('amenities', amenitieImages[i].file);
                 }
-                console.log(formData);
+                // console.log(formData);
 
                 const res = await dispatch(updateProject([formData, project._id]));
                 // console.log(res);
@@ -335,8 +350,22 @@ function CreateProject() {
                     email: '',
                     phone: '',
                     city: '',
+                    map: '',
+                    projectArea: '',
+                    possessionOn: '',
+                    projectType: '',
+                    reraNo: '',
                     content: '',
                 })
+                setGalleryImages([]);
+                setFloorImages([]);
+                setAmenitiesImages([]);
+                setFloorChips([]);
+                setAmenitieChips([]);
+                setFloorPriceChips([]);
+                setDimensionsChips([]);
+                setLoading(false);
+                navigate('/admin/dashboard/all-projects');
                 return;
             }
             setLoading(true);
@@ -379,7 +408,7 @@ function CreateProject() {
             for (let i = 0; i < amenitieImages.length; i++) {
                 formData.append('amenities', amenitieImages[i].file);
             }
-            console.log(formData);
+            // console.log(formData);
 
             const res = await dispatch(createNewProject(formData));
             // console.log(res);
@@ -394,8 +423,22 @@ function CreateProject() {
                 email: '',
                 phone: '',
                 city: '',
+                map: '',
+                projectArea: '',
+                possessionOn: '',
+                projectType: '',
+                reraNo: '',
+                content: '',
             })
+            setGalleryImages([]);
+            setFloorImages([]);
+            setAmenitiesImages([]);
+            setFloorChips([]);
+            setAmenitieChips([]);
+            setFloorPriceChips([]);
+            setDimensionsChips([]);
             setLoading(false);
+            navigate('/admin/dashboard/all-projects');
 
         } catch (Error) {
             console.log(Error);
@@ -651,7 +694,7 @@ function CreateProject() {
                                                         (
                                                             galleryImages.map((galleryImage, idx) => (
                                                                 <div key={idx} className='flex-row relative w-full h-[100px] outline-dashed p-1'>
-                                                                    <img className='w-full h-full object-cover' src={galleryImage.dataURL} />
+                                                                    <img className='w-full h-full object-cover' src={galleryImage.dataURL || galleryImage} />
                                                                     <span className='absolute top-0 right-0 cursor-pointer' onClick={() => removeGalleryImage(idx)}> <IoMdClose /></span>
                                                                 </div>
                                                             ))
@@ -725,7 +768,7 @@ function CreateProject() {
                                                         (
                                                             floorImages.map((floorImage, idx) => (
                                                                 <div key={idx} className='flex-row relative w-[100px] mb-24 h-[100px] outline-dashed p-1'>
-                                                                    <img className='w-full h-full object-cover' src={floorImage.dataURL} />
+                                                                    <img className='w-full h-full object-cover' src={floorImage.dataURL || floorImage} />
                                                                     <p className='text-xl font-mono text-center mt-2'>{floorchips[idx]}</p>
                                                                     <p className='text-xl font-mono text-center mt-2'>{dimensionschips[idx]}</p>
                                                                     <p className='text-xl font-mono text-center mt-2'>{floorPriceChips[idx]}</p>
@@ -775,7 +818,7 @@ function CreateProject() {
                                                         (
                                                             amenitieImages.map((amenitieImage, idx) => (
                                                                 <div key={idx} className='flex-row relative w-[100px] mb-10 h-[100px] outline-dashed p-1'>
-                                                                    <img className='w-full h-full object-cover' src={amenitieImage.dataURL} />
+                                                                    <img className='w-full h-full object-cover' src={amenitieImage.dataURL || amenitieImage} />
                                                                     <p className='text-xl font-mono text-center mt-2'>{amenitiechips[idx]}</p>
                                                                     <span className='absolute top-0 right-0 cursor-pointer' onClick={() => removeAmenitieImage(idx)}> <IoMdClose /></span>
                                                                 </div>
@@ -796,7 +839,7 @@ function CreateProject() {
                                     <div className='flex justify-end'>
                                         <button
                                             type='submit'
-                                            className='bg-[#1677ff] text-xl w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-red-500 hover:scale-110 duration-300 ease-in-out transition-all'
+                                            className='bg-[#1677ff] text-md w-[140px] inline-block text-white rounded h-[40px] mt-3 hover:bg-blue-600 hover:scale-110 duration-300 ease-in-out transition-all'
                                         >
                                             {
                                                 editProject ? 'Update Project' : 'Create Project'

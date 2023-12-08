@@ -11,7 +11,7 @@ function AdminGetAllProject() {
     const productList = []
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { projects} = useSelector((state) => state.project);
+    const { projects } = useSelector((state) => state.project);
     console.log(projects);
 
     const handelEdit = (id) => {
@@ -64,7 +64,9 @@ function AdminGetAllProject() {
                                         <td>₹ {p.pricing.startingFrom}</td>
                                         <td>{p.contactInformation.phone}</td>
                                         <td>{p.createdAt}</td>
-                                        <td><button onClick={() => handelEdit(p._id)} className="p-2 no-border bg-success text-white rounded"><FiEdit /></button></td>
+                                        <td><button onClick={() => {
+                                            navigate(`/admin/dashboard/update-project/${p._id}`, { state: { ...p } })
+                                        }} className="p-2 no-border bg-success text-white rounded"><FiEdit /></button></td>
                                         <td><button onClick={() => onDeleteProject(p._id)} className="p-2 no-border bg-red-500 text-white rounded"><BsTrash /></button></td>
 
                                     </tr>

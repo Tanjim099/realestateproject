@@ -27,7 +27,7 @@ function ReadBlog() {
             <div className=' w-[100%] min-h-screen h-[100%] bg-slate-100'>
                 <div className='w-[80%] m-auto'>
                     <div className=' w-full flex gap-4 py-5'>
-                        {data.length !== 0 ? (
+                        {data ? (
                             <>
                                 <div id="my_modal_3" className="w-[70%] bg-white p-4">
                                     <div className="flex flex-col gap-4">
@@ -76,7 +76,9 @@ function ReadBlog() {
                                 </div>
                             </>
                         ) : (
-                            <h1>hello</h1>
+                            <div className=' flex items-center justify-center w-full min-h-screen'>
+                                <h2 className='text-[7vw] text-gray-300'>Data Not Found</h2>
+                            </div>
                         )}
                     </div>
                 </div>

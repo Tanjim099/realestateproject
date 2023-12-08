@@ -10,7 +10,7 @@ function Project({ data }) {
                 className='border border-border bg-dry'
             >
                 <div className="h-[200px]">
-                    <img className="w-full h-full object-cover border-b-2" src={data?.gallery[0]?.secure_url || "https://www.homznspace.com/wp-content/uploads/2023/11/Main-Elevation-Brigade-Sanctuary-324x235.jpg"} alt="" />
+                    <img className="w-full h-full object-cover border-b-2" src={data?.gallery[0]?.secure_url || "https://www.homznspace.com/wp-content/uploads/2023/11/Main-Elevation-Brigade-Sanctuary-324x235.jpg"} alt={data?.name || 'ProjectImage'} />
                 </div>
                 <div className="p-4 mt-2">
                     <div className="flex justify-between">
