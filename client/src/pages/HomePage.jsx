@@ -13,10 +13,11 @@ import Section_2 from "../components/Home/Section_2";
 import GallerySection from "../components/Home/GallerySection";
 import Section_3 from "../components/Home/Section_3";
 import BlogSection from "../components/Home/BlogSection";
+import Developer from "../components/Home/Developer";
 
 function HomePage() {
     const dispatch = useDispatch();
-    
+
     const { blogData } = useSelector((state) => state?.blog);
     console.log(blogData)
 
@@ -34,7 +35,7 @@ function HomePage() {
     return (
         <HomeLayout>
             <div className="homeContainer">
-                <HeroSection />
+                {/* <HeroSection /> */}
                 <CitySection />
                 <TopProjects />
                 <Section_1 />
@@ -42,9 +43,10 @@ function HomePage() {
                 <GallerySection />
                 <Section_3 />
                 <BlogSection />
+                <Developer />
 
                 {/* Section 1 */}
-              
+
                 {/* About Section */}
                 {/* <div className="grid grid-cols-10 mt-20 mb-10 mx-auto w-[1200px] gap-10">
                     <div className="col-span-3 rounded-tr-2xl rounded-bl-2xl  h-[700px]">
@@ -79,9 +81,9 @@ function HomePage() {
                 </div> */}
 
                 {/* Section 3 */}
-               
+
                 {/* Section 4 */}
-            
+
                 {/* Section 4 */}
                 {/* <div className="my-24 border-t-2">
                     <div className="text-center max-w-[700px] mx-auto p-3">
@@ -148,11 +150,11 @@ function HomePage() {
 
                 {/* Section 2 */}
 
-              
+
 
                 {/* Blog Section */}
 
-        
+
             </div>
         </HomeLayout>
     )

@@ -18,7 +18,7 @@ function Section_3() {
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     return (
         <div>
-            <div className="mx-auto relative w-[1200px] my-10">
+            <div className="mx-auto px-10 lg-p-0 relative max-w-[1200px] my-10">
                 <div className="text-center">
                     <h2 className="font-semibold text-2xl">Why buy with us ?</h2>
                     <p className="text-xl text-gray-500 mt-5">Aspects that make 360 Realtors India's leading Real Estate Advisory</p>
@@ -26,11 +26,19 @@ function Section_3() {
                 <Swiper
                     navigation={{ nextEl, prevEl }}
                     spaceBetween={20}
-                    slidesPerView={3}
+                    slidesPerView={1}
                     loop={true}
                     className="text-center my-10"
                     autoplay={{ delay: 2000, disableOnInteraction: false }}
                     modules={[FreeMode, Pagination, Navigation, Autoplay]}
+                    breakpoints={{
+                        700: {
+                            slidesPerView: 2,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                        },
+                    }}
                 >
                     <SwiperSlide className="flex items-center justify-center flex-col">
                         <div className="w-[100px] h-[100px]">
@@ -113,7 +121,7 @@ function Section_3() {
                         <BsCaretLeftFill />
                     </button>
                     <button
-                        className={`${classNames} top-[50%] right-0 cursor-pointer`}
+                        className={`${classNames} top-[50%] right-4 cursor-pointer`}
                         ref={(node) => setNextEl(node)}
                     >
                         <BsCaretRightFill />

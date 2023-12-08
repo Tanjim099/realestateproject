@@ -42,7 +42,7 @@ function CityCard() {
     // }, [])
 
     return (
-        <div className="flex justify-between gap-3 min-w-full">
+        <div className="flex justify-center lg:justify-between flex-wrap w-full gap-3">
             <NavLink to="/city/bangalore">
                 <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
                     <img src={Bangalore} className="w-[50px] h-[50px]" alt="CityImage" />

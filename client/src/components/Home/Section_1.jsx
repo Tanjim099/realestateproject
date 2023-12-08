@@ -17,7 +17,7 @@ function Section_1() {
                 transition: 'background 0.3s ease-in-out',
             }}>
                 <h2 className="text-white text-4xl text-center">How we help people?</h2>
-                <div className="bg-[#7f1657] rounded grid col-span-1 md:flex md:justify-between mt-10 px-4 text-white min-h-[300px] w-[70%]">
+                <div className="bg-[#7f1657] rounded grid col-span-1 md:flex md:justify-between mt-10 px-4 text-white min-h-[300px] w-[100%] md:w-[95%] lg:w-[80%]">
                     <div className="text-center md:w-[30%] flex flex-col items-center justify-center p-2">
                         <p className="text-[60px]"><MdOutlineHomeWork /></p>
                         <h3 className="text-xl my-3 font-bold">Sell home or office</h3>
