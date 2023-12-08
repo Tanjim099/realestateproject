@@ -7,6 +7,7 @@ const initialState = {
     role: localStorage.getItem('role') ? JSON.parse(localStorage.getItem('role')) : "",
     data: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : null,
     signData: null,
+    userData: [],
 }
 
 export const login = createAsyncThunk("/auth/login", async (data) => {
@@ -95,6 +96,21 @@ export const forgotPassword = createAsyncThunk('/auth/forgot-password', async (d
     }
 });
 
+export const getUserProfile = createAsyncThunk("/auth/user-profile", async (id) => {
+    try {
+        const res = axiosInstance.get(`auth/get-profile/${id}`);
+        toast.promise(res, {
+            loading: 'Wait! Fetching',
+            success: 'Fetched Successfully',
+            error: 'Failed Fetched Profile',
+        });
+        return (await res)?.data;
+    } catch (error) {
+        console.log(Error);
+        toast.error(error.message);
+    }
+})
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -125,6 +141,10 @@ const authSlice = createSlice({
         //     state.data = action?.payload?.data
         //     localStorage.setItem('data', JSON.stringify(action?.payload?.data));
         // })
+        builder.addCase(getUserProfile.fulfilled, (state, action) => {
+            state.userData = action?.payload?.data;
+            console.log(action);
+        })
     }
 })
 

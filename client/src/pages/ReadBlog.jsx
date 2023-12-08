@@ -37,7 +37,7 @@ function ReadBlog() {
                                         <div className='flex items-center gap-4'>
                                             <div className='flex items-center gap-1 bg-slate-200 p-1 text-xs rounded-sm'>
                                                 <CgProfile />By
-                                                <NavLink to={`/author/${data?.author?.firstName}`}>{data?.author?.firstName}</NavLink>
+                                                <NavLink to={`/author/${data?.author?._id}`}>{data?.author?.firstName}</NavLink>
                                             </div>
                                             <div className='flex items-center gap-1 bg-slate-200 p-1 text-xs rounded-sm'>
                                                 <FaCalendarAlt />

@@ -25,6 +25,7 @@ import City from './pages/City'
 import Dashboard from './pages/Admin/Dashboard'
 import Lead from './pages/Admin/Lead'
 import ReadBlog from './pages/ReadBlog'
+import Author from './pages/Author'
 
 function App() {
 
@@ -52,7 +53,7 @@ function App() {
         <Route path='/denied' element={<Denied />} />
         <Route path='/city/:cityname' element={<City />} />
         <Route path='/blog/:slug' element={<ReadBlog />} />
-        <Route path='*' element={<NotFound />} />
+        <Route path='/author/:id' element={<Author />} />
 
         <Route path='/admin/dashboard' element={<Dashboard />} />
 
@@ -67,7 +68,7 @@ function App() {
         <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
         <Route path='admin/dashboard/blogs/page/:page' element={<AdminAllBlogs />} />
         <Route path='admin/dashboard/blogs/update/:id' element={<UpdateBlog />} />
-
+        <Route path='*' element={<NotFound />} />
       </Routes>
 
 

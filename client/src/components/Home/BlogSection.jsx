@@ -8,7 +8,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { LuNewspaper } from "react-icons/lu";
 
 function BlogSection() {
-    
+
     const { blogData } = useSelector((state) => state?.blog);
     return (
         <div>
@@ -42,14 +42,14 @@ function BlogSection() {
                                                 <img src={blog?.image?.secure_url} className="h-full w-full object-cover" />
                                             </div>
                                             <div className="p-3">
-                                                <h3 className="font-medium text-lg mt-1">{blog?.title}</h3>
-                                                <p className="text-sm text-gray-500">{(blog?.description).substring(0, 160)} <span className=" text-red-400 underline">more</span></p>
+                                                <h3 className="font-medium text-lg mt-1">{(blog?.title).substring(0, 45)}...</h3>
+                                                <p className="text-sm text-gray-500">{(blog?.description).substring(0, 145)} <span className=" text-red-400 underline">more</span></p>
                                             </div>
                                             <hr />
                                             <div className='flex items-center justify-between p-2'>
                                                 <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
                                                     <CgProfile />By
-                                                    <p>Username</p>
+                                                    <p>{blog?.author?.firstName || "Robin"}</p>
                                                 </div>
                                                 <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
                                                     <FaCalendarAlt />

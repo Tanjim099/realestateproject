@@ -1,4 +1,3 @@
-
 import { FaBed } from "react-icons/fa";
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -19,8 +18,8 @@ function Project({ data }) {
                         <button onClick={() => navigate(`/project/${data.slug}`, { state: data })} className="px-2 py-1 rounded-sm  border-2">Details</button>
 
                     </div>
-                    <h3 className="project_name text-xl font-medium my-2">{data.name}</h3>
-                    <p className="project_description text-sm">3,4 BHK Apartment in Dhul Siras, Dwarka Delhi</p>
+                    <h3 className="project_name text-xl font-medium my-2">{(data.name.substring(0, 22))}</h3>
+                    <p className="project_description text-sm">{(data?.description).substring(0, 50)}</p>
                 </div>
             </div>
         </NavLink>
