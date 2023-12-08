@@ -30,7 +30,7 @@ function GallerySection() {
                                     <div onClick={() => getImage(project.gallery[0]?.secure_url)} key={idx} className="group col-span-1 relative">
                                         <img src={project?.gallery[0]?.secure_url} className="h-[180px] w-full object-cover border" alt="Gallery" />
                                         <div className="bg-gray-50 opacity-0 hover:opacity-[.6] transition-all duration-300 ease-in-out h-full w-full absolute top-0 flex items-center justify-center">
-                                            <h2 className="text-3xl text-black">{project?.name}</h2>
+                                            <h2 className="text-sm text-black">{project?.name}</h2>
                                         </div>
                                     </div>
                                 ))
