@@ -27,6 +27,7 @@ import Lead from './pages/Admin/Lead'
 import ReadBlog from './pages/ReadBlog'
 import Author from './pages/Author'
 import AllProjects from './pages/AllProjects'
+import Search from './pages/Search'
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
         <Route path='/city/:cityname' element={<City />} />
         <Route path='/blog/:slug' element={<ReadBlog />} />
         <Route path='/author' element={<Author />} />
+        <Route path='/search' element={<Search />} />
 
         <Route path='/admin/dashboard' element={<Dashboard />} />
 

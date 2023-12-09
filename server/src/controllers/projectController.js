@@ -290,38 +290,42 @@ const deleteProject = async (req, res, next) => {
 //search Project
 const searchProject = async (req, res, next) => {
     try {
-        const { page = 1, limit = 10, name, location, developer, floorPlan, } = req.query;
+        const { query } = req.query;
+        const projects = await Project.find({
+            $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { developer: { $regex: query, $options: 'i' } },
+                { location: { $regex: query, $options: 'i' } },
+            ],
+        });
 
-        // console.log(req.query);
-
-        const query = {};
-        if (name) {
-            query.name = { $regex: new RegExp(name, "i") };
-        }
-        if (location) {
-            query.location = { $regex: new RegExp(location, "i") };
-        }
-        if (developer) {
-            query.developer = { $regex: new RegExp(developer, "i") };
-        }
-        if (floorPlan) {
-            query.floorPlan = { $regex: new RegExp(floorPlan, "i") };
-        }
-
-        // console.log(query);
-
-        const projects = await Project.find(query).limit(limit * 1).skip((page - 1) * limit).exec();
-
-        // console.log(projects);
-
-        const count = await Project.countDocuments(query);
-        res.status(200).json({
-            projects,
-            totalPages: Math.ceil(count / limit),
-            currentPage: page
-        })
+        res.json(projects);
     } catch (error) {
-        return next(new ApiError(500, Error.message));
+        console.error(`Error in searchProject: ${error.message}`);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+const projectSuggestions = async (req, res, next) => {
+    try {
+        const { query } = req.query;
+        const suggestions = await Project.find({
+            $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { developer: { $regex: query, $options: 'i' } },
+                { location: { $regex: query, $options: 'i' } },
+            ],
+        })
+            .select('name')
+            .limit(5); // Adjust the limit as needed
+
+        const suggestionList = suggestions.map((project) => project.name);
+        res.json(suggestionList);
+    } catch (error) {
+
     }
 }
 export {
@@ -330,5 +334,6 @@ export {
     getProject,
     getAllProject,
     deleteProject,
-    searchProject
+    searchProject,
+    projectSuggestions
 }

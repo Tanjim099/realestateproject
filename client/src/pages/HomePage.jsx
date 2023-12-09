@@ -35,7 +35,7 @@ function HomePage() {
     return (
         <HomeLayout>
             <div className="homeContainer">
-                {/* <HeroSection /> */}
+                <HeroSection />
                 <CitySection />
                 <TopProjects />
                 <Section_1 />

@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 import CountUp from 'react-countup';
-import { searchProject } from '../../redux/slices/projectSlice';
-import { useDispatch } from 'react-redux';
+import { getSuggestions, searchProject, setQuery } from '../../redux/slices/projectSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function HeroSection() {
 
-    const [search, setSearch] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { query, results, suggestions, status, error } = useSelector((state) => state?.project);
+    console.log("results", results);
+    console.log("suggestions", suggestions);
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+        dispatch(setQuery(inputValue));
+    };
+
+    const handleSearch = async () => {
+        const response = await dispatch(searchProject(query));
+        if (response?.payload?.length > 1) {
+            navigate("/search")
+        }
+    };
 
     useEffect(() => {
-        try {
-            (async () => {
-                const res = await dispatch(searchProject(search));
-                console.log(res);
-            })()
-        } catch (Error) {
-            console.log(Error);
+        if (query) {
+            dispatch(getSuggestions(query));
         }
-    }, [search]);
+
+    }, [query, dispatch]);
+
+    const handleSuggestionClick = (suggestion) => {
+        dispatch(setQuery(suggestion));
+        dispatch(searchProject(suggestion));
+    }
 
     return (
         <div>
@@ -63,10 +79,36 @@ function HeroSection() {
                                 <div className="">
                                     <div className="flex items-center gap-2 w-full h-[50px]">
                                         <div className="relative flex items-center gap-2 w-full h-[50px]">
-                                            <input type="text" placeholder="Enter Location builder, project" name="" id="" className="border border-gray-200 shadow-sm outline-0 text-black h-full w-full rounded p-3 pl-10" onChange={(e) => setSearch(e.target.value)} />
+                                            <input
+                                                type="text"
+                                                placeholder="Enter Location builder, project"
+                                                name="query"
+                                                value={query}
+                                                id="query"
+                                                className="border border-gray-200 shadow-sm outline-0 text-black h-full w-full rounded p-3 pl-10"
+                                                onChange={handleInputChange}
+                                            />
                                             <span className="absolute z-10 top-4 left-4 text-gray-400"><FaSearch /></span>
                                         </div>
-                                        <button className="bg-[#7f1657] w-[100px] h-full flex items-center justify-center rounded text-white hover:text-black right-7 top-6">Search</button>
+                                        <button onClick={handleSearch} className="bg-[#7f1657] w-[100px] h-full flex items-center justify-center rounded text-white hover:text-black right-7 top-6">Search</button>
+                                    </div>
+                                    {status === 'loading' && <p>Loading...</p>}
+                                    {status === 'failed' && <p>Error: {error}</p>}
+                                    <ul>
+                                        {suggestions?.map((suggestion) => (
+                                            <li key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
+                                                {suggestion}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <div>
+                                        <h2>Search Results</h2>
+                                        <ul>
+                                            {results?.map((project) => (
+                                                <li key={project._id}>{project.projectName}</li>
+                                                // Display other project details as needed...
+                                            ))}
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

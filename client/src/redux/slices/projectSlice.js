@@ -7,6 +7,11 @@ const initialState = {
     projectByPage: [],
     editProject: false,
     project: null,
+    query: "",
+    results: [],
+    suggestions: [],
+    status: "idle",
+    error: null
 }
 
 export const createNewProject = createAsyncThunk("/project/create", async (data) => {
@@ -115,9 +120,11 @@ export const deleteProject = createAsyncThunk("/project/deleteProject", async (p
     }
 })
 
-export const searchProject = createAsyncThunk("/project/search", async (data) => {
+export const searchProject = createAsyncThunk("/project/search", async (query) => {
     try {
-        const res = axiosInstance.get(`project/search/project?name=${data}`);
+        const res = axiosInstance.get("project/search/project", {
+            params: { query },
+        });
 
         toast.promise(res, {
             loading: 'Wait! Searching',
@@ -131,6 +138,23 @@ export const searchProject = createAsyncThunk("/project/search", async (data) =>
     }
 });
 
+export const getSuggestions = createAsyncThunk("/project/suggestions", async (query) => {
+    try {
+        const res = axiosInstance.get("project/suggestions", {
+            params: { query },
+        })
+        toast.promise(res, {
+            loading: 'Wait! Searching',
+            success: 'Successfully',
+            error: 'Failed Searching'
+        });
+
+        return (await res)?.data;
+    } catch (error) {
+        console.log(Error);
+    }
+})
+
 const projectSlice = createSlice({
     name: "project",
     initialState,
@@ -140,7 +164,11 @@ const projectSlice = createSlice({
         },
         setProject: (state, action) => {
             state.project = action?.payload;
-        }
+        },
+        setQuery: (state, action) => {
+            console.log(action)
+            state.query = action?.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(createNewProject.pending, (state) => {
@@ -176,10 +204,19 @@ const projectSlice = createSlice({
         builder.addCase(getAllProjectsByPage.fulfilled, (state, action) => {
             state.projectByPage = action?.payload?.data
             console.log(action);
+        });
+        builder.addCase(searchProject.fulfilled, (state, action) => {
+            console.log(action);
+            state.status = "Succeeded",
+                state.results = action.payload;
+        });
+        builder.addCase(getSuggestions.fulfilled, (state, action) => {
+            console.log(action);
+            state.suggestions = action.payload;
         })
     }
 })
 
-export const { setEditProject, setProject } = projectSlice.actions;
+export const { setEditProject, setProject, setQuery } = projectSlice.actions;
 
 export default projectSlice.reducer;
