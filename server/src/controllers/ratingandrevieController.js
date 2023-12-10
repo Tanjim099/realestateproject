@@ -1,28 +1,30 @@
-import Project from "../models/projectModel";
-import ratingandreview from "../models/ratingandreview";
-import ApiError from "../utils/ApiError";
-import ApiResponse from "../utils/ApiResponse";
-import asyncHandler from "../utils/asyncHandler";
+import mongoose from "mongoose";
+import Project from "../models/projectModel.js";
+import ratingandreview from "../models/ratingandreview.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import asyncHandler from "../utils/asyncHandler.js";
 
 
 const createRating = asyncHandler(async (req, res, next) => {
     try {
         const { rating, review, projectId } = req.body;
         const id = req.user._id;
+
         if (!rating || !review || !projectId) {
             return next(new ApiError(403, 'Field are mandatory'));
         }
 
-        const alredyReview = await ratingandreview.findOne(
-            {
-                project: projectId,
-                user: id
-            }
-        );
+        // const alredyReview = await ratingandreview.findOne(
+        //     {
+        //         project: projectId,
+        //         user: id
+        //     }
+        // );
 
-        if (alredyReview) {
-            return next(new ApiError(403, 'Project is already reviewed by the user'))
-        }
+        // if (alredyReview) {
+        //     return next(new ApiError(403, 'Project is already reviewed by the user'))
+        // }
 
         const createRating = await ratingandreview.create({
             project: projectId,
@@ -63,15 +65,17 @@ const getAverageRating = asyncHandler(async (req, res, next) => {
         const result = await ratingandreview.aggregate([
             {
                 $match: {
-                    project: projectId
+                    project: new mongoose.Types.ObjectId(projectId),
                 },
+            },
+            {
                 $group: {
                     _id: null,
                     averageRating: {
                         $avg: "$rating",
                     }
-                }
-            }
+                },
+            },
 
         ]);
 
@@ -93,7 +97,33 @@ const getAverageRating = asyncHandler(async (req, res, next) => {
     }
 })
 
+
+const getAllRating = asyncHandler(async (req, res, next) => {
+    try {
+        const allReview = await ratingandreview.find({})
+            .populate({
+                path: 'user',
+                select: "firstName lastName email avatar",
+            })
+            .populate({
+                path: 'project',
+                select: "name",
+            })
+            .exec();
+
+        return res.status(201).json(
+            new ApiResponse(200, { data: allReview }, 'All reviews fetched successfully')
+        );
+
+    } catch (error) {
+        console.log(error.message);
+        return next(new ApiError(500, error.message));
+    }
+});
+
+
 export {
     createRating,
-    getAverageRating
+    getAverageRating,
+    getAllRating
 }

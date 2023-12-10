@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import morgan from "morgan"
 import blogRoutes from "./routes/blogRoute.js";
+import reviewRoutes from "./routes/ratingandreviewRouter.js";
 import miscRoutes from "./routes/miscellaneousRoute.js";
 import dotenv from "dotenv";
 const app = express();
@@ -38,6 +39,7 @@ app.get('/', (req, res) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/project", projectRoutes);
 app.use("/api/v1/blog", blogRoutes);
+app.use("/api/v1/rating", reviewRoutes);
 app.use("/api/v1", miscRoutes);
 
 app.all('*', (req, res) => {
