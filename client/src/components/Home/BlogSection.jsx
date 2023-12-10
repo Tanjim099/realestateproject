@@ -6,10 +6,12 @@ import { NavLink } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import { FaCalendarAlt } from "react-icons/fa";
 import { LuNewspaper } from "react-icons/lu";
+import dateFormeter from '../../redux/dateFormeter';
 
 function BlogSection() {
 
     const { blogData } = useSelector((state) => state?.blog);
+    console.log(blogData);
     return (
         <div>
             <div className="mb-10 px-10 lg:p-0">
@@ -42,6 +44,7 @@ function BlogSection() {
                                                 <img src={blog?.image?.secure_url} className="h-full w-full object-cover" />
                                             </div>
                                             <div className="p-3">
+                                                <span className='text-xs text-zinc-400'>{dateFormeter(blog?.createdAt)}</span>
                                                 <h3 className="font-medium text-lg mt-1">{(blog?.title).substring(0, 45)}...</h3>
                                                 <p className="text-sm text-gray-500">{(blog?.description).substring(0, 145)} <span className=" text-red-400 underline">more</span></p>
                                             </div>

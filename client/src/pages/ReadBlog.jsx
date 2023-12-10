@@ -6,6 +6,7 @@ import { LuNewspaper } from "react-icons/lu";
 import { useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { getBlog } from '../redux/slices/blogSlice';
+import dateFormeter from '../redux/dateFormeter';
 function ReadBlog() {
     const dispatch = useDispatch();
     const [data, setData] = useState([]);
@@ -41,7 +42,7 @@ function ReadBlog() {
                                             </div>
                                             <div className='flex items-center gap-1 bg-slate-200 p-1 text-xs rounded-sm'>
                                                 <FaCalendarAlt />
-                                                <p>25 November, 2023</p>
+                                                <p>{dateFormeter(data?.createdAt)}</p>
                                             </div>
                                         </div>
                                         <div>
