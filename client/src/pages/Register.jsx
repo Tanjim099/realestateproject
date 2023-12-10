@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import itemsImage from '../assets/items1.jpg';
+import { isEmail, isPassword } from '../helper/regexMatcher';
 
 function Register() {
     // firstName, lastName, email, phone, password, otp, answer
@@ -62,6 +63,17 @@ function Register() {
     const onFormSubmit = async (e) => {
         try {
             e.preventDefault();
+
+            if(!isEmail(userInput?.email)){
+                toast.error('Invalid Email');
+                return;
+            }
+
+            if(!isPassword(userInput?.password)){
+                toast.error('Password should be 6 - 16 character long with atleast a number and special character');
+                return;
+            }
+
             setLoading(true);
             console.log(userInput.email);
             await dispatch(sendOTP(userInput.email));

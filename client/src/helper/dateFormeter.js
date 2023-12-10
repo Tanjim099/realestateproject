@@ -9,7 +9,8 @@ const dateFormeter = (dateString) => {
     const period = hour >= 12 ? "PM" : "AM";
     const formattedTime = `${hour % 12}:${minute.toString().padStart(2,"0")} ${period}`;
 
-    return `${formattedDate} | ${formattedTime}`;
+    // return `${formattedDate} | ${formattedTime}`;
+    return `${formattedDate}`;
 
 }
 

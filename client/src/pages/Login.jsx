@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import itemsImage from '../assets/items1.jpg';
+import { isEmail, isPassword } from '../helper/regexMatcher';
 
 function Login() {
     const [loading, setLoading] = useState(false);
@@ -30,10 +31,19 @@ function Login() {
     const onFormSubmit = async (e) => {
         try {
             e.preventDefault();
-            setLoading(true);
             if (!userInput.email || !userInput.password) {
                 toast.error('All field are mandatory...');
             }
+            console.log(isEmail(userInput.email));
+            if (!isEmail(userInput.email)) {
+                toast.error('Invalid Email');
+                return;
+            }
+            if (!isPassword(userInput.password)) {
+                toast.error('Password should be 6 - 16 character long with atleast a number and special character');
+                return;
+            }
+            setLoading(true);
 
             const res = await dispatch(login(userInput));
 

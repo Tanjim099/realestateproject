@@ -9,6 +9,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { Link, useNavigate } from 'react-router-dom';
 import AdminLayout from '../../components/AdminLayout';
 import { IoMdClose } from "react-icons/io";
+import { isEmail } from '../../helper/regexMatcher';
 
 function CreateProject() {
     const [loading, setLoading] = useState(false);
@@ -368,11 +369,16 @@ function CreateProject() {
                 navigate('/admin/dashboard/all-projects');
                 return;
             }
-            setLoading(true);
+
             if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {
                 toast.error('Filed are all mandatory...');
                 return;
             }
+            if(!isEmail(projectCreateData?.email)){
+                toast.error('Invalid Email');
+                return;
+            }
+            setLoading(true);
 
             const formData = new FormData();
             formData.append('name', projectCreateData.name);
