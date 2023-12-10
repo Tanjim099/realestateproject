@@ -29,9 +29,9 @@ const projectSchema = new Schema({
         type: String,
         required: true,
     },
-    content:{
-        type:String,
-        required:true,
+    content: {
+        type: String,
+        required: true,
     },
     floorPlan: [
         {
@@ -119,7 +119,13 @@ const projectSchema = new Schema({
     reraNo: {
         type: String,
         required: true
-    }
+    },
+    ratingandreview: [
+        {
+            type: Schema.Types.ObjectId,
+            ref:'ratingandreview'
+        }
+    ]
 }, {
     timestamps: true,
 });
