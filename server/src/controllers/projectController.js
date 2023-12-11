@@ -328,6 +328,21 @@ const projectSuggestions = async (req, res, next) => {
 
     }
 }
+
+//similar project
+const similarProject = async (req, res, next) => {
+    const { developer, city } = req.params;
+    console.log(developer);
+    try {
+        const similarProjects = await Project.find({ developer, city }).limit(5);
+        res.status(201).json(
+            new ApiResponse(200, similarProjects, "Fetched Similar Project Successfully")
+        )
+    } catch (error) {
+        console.log(error)
+        return next(new ApiError(500, Error.message));
+    }
+}
 export {
     createProject,
     updateProject,
@@ -335,5 +350,6 @@ export {
     getAllProject,
     deleteProject,
     searchProject,
-    projectSuggestions
+    projectSuggestions,
+    similarProject
 }
