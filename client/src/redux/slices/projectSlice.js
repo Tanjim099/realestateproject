@@ -11,7 +11,8 @@ const initialState = {
     results: [],
     suggestions: [],
     status: "idle",
-    error: null
+    error: null,
+    similarProject: [],
 }
 
 export const createNewProject = createAsyncThunk("/project/create", async (data) => {
@@ -155,6 +156,25 @@ export const getSuggestions = createAsyncThunk("/project/suggestions", async (qu
     }
 })
 
+
+export const getSimilarProject = createAsyncThunk("/project/get-similar", async (data) => {
+    try {
+        console.log(data);
+        console.log(data[0]);
+        console.log(data[1]);
+        const res = axiosInstance.get(`project/similar/${data[0]}/${data[1]}`);
+        toast.promise(res, {
+            loading: 'Wait! Searching',
+            success: 'Successfully',
+            error: 'Failed Searching'
+        });
+
+        return (await res)?.data;
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
 const projectSlice = createSlice({
     name: "project",
     initialState,
@@ -213,6 +233,10 @@ const projectSlice = createSlice({
         builder.addCase(getSuggestions.fulfilled, (state, action) => {
             console.log(action);
             state.suggestions = action.payload;
+        });
+        builder.addCase(getSimilarProject.fulfilled, (state, action) => {
+            state.similarProject = action?.payload?.data;
+            console.log(action);
         })
     }
 })

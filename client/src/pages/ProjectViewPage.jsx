@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 import HomeLayout from "../components/HomeLayout";
 import SimilarProjectCard from "../components/SimilarProjectCard";
 import "../styles/ProjectViewPage.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createContact } from "../redux/store";
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
 import { NavLink, useParams } from "react-router-dom";
-import { getProject } from "../redux/slices/projectSlice";
+import { getProject, getSimilarProject } from "../redux/slices/projectSlice";
 import { IoLocationSharp } from "react-icons/io5";
-import { MdOutlineLocationCity } from "react-icons/md"
+import { MdOutlineLocationCity } from "react-icons/md";
+import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 
 function ProjectViewPage() {
 
     const dispatch = useDispatch();
+    const { similarProject } = useSelector((state) => state?.project);
+    console.log(similarProject);
     const [data, setData] = useState([]);
     console.log(data);
     const [userInput, setUserInput] = useState({
@@ -47,9 +50,26 @@ function ProjectViewPage() {
             setData(response?.payload?.data)
         }
     }
+
     useEffect(() => {
-        onLoadGetData()
+        onLoadGetData();
+        fetchSimilarProjects();
     }, [slug])
+
+    async function fetchSimilarProjects() {
+        console.log(data.developer);
+        console.log(data.city);
+        const response = await dispatch(getSimilarProject([data?.developer, data?.city]));
+        console.log(response);
+    }
+
+    useEffect(() => {
+        fetchSimilarProjects();
+    }, [data]);
+
+    const [nextEl, setNextEl] = useState(null);
+    const [prevEl, setPrevEl] = useState(null);
+    const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     return (
         <HomeLayout>
             {/* =================== */}
@@ -327,10 +347,54 @@ function ProjectViewPage() {
                             </div>
                             {/* similar project card section */}
                             <div className="mt-5 rounded-md">
-                                <h1 className=" text-xl font-semibold mb-3">Simila Projects</h1>
-                                <div className=" my-2">
-                                    <SimilarProjectCard />
-                                </div>
+                                <h2 className="border-b-2 border-[#7f1657] pb-2 my-10 text-2xl text-[#7f1657] font-semibold">
+                                    Similar Project
+                                </h2>
+                                <Swiper
+                                    navigation={{ nextEl, prevEl }}
+                                    slidesPerView={1}
+                                    spaceBetween={20}
+                                    loop={true}
+                                    autoplay={{ delay: 2000, disableOnInteraction: false }}
+                                    modules={[FreeMode, Pagination, Navigation, Autoplay]}
+                                    breakpoints={{
+                                        700: {
+                                            slidesPerView: 2,
+                                        },
+                                        1024: {
+                                            slidesPerView: 4,
+                                        },
+                                    }}
+                                    className="max-h-[30rem]"
+                                >
+                                    {
+                                        similarProject && (
+                                            similarProject.map((data, idx) => (
+                                                <SwiperSlide key={idx} className=" min-w-[300px] mb-5">
+                                                    <SimilarProjectCard data={data} />
+                                                </SwiperSlide>
+                                            ))
+                                        )
+                                    }
+                                </Swiper>
+                                {
+                                    similarProject && similarProject.length > 4 && (
+                                        <div className='flex justify-between gap-10'>
+                                            <button
+                                                className={`${classNames} top-[50%] left-[-3%]`}
+                                                ref={(node) => setPrevEl(node)}
+                                            >
+                                                <BsCaretLeftFill />
+                                            </button>
+                                            <button
+                                                className={`${classNames} top-[50%]`}
+                                                ref={(node) => setNextEl(node)}
+                                            >
+                                                <BsCaretRightFill />
+                                            </button>
+                                        </div>
+                                    )
+                                }
                             </div>
                         </div>
                         {/* =============================== */}

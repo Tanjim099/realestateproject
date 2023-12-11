@@ -41,8 +41,9 @@ function HomePage() {
                 <Section_1 />
                 <Section_2 />
                 <GallerySection />
-                <Section_3 />
+
                 <BlogSection />
+                <Section_3 />
                 <Developer />
 
                 {/* Section 1 */}

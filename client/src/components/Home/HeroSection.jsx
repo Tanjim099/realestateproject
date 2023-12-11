@@ -113,7 +113,7 @@ function HeroSection() {
                                 </div>
                             </div>
                             <div className="w-full flex justify-end items-end h-full">
-                                <div className="w-[90%] mx-auto text-white flex justify-between my-10 text-center">
+                                <div className="md:w-[90%] w-[100%] overflow-x-auto mx-auto text-white flex justify-between my-10 text-center">
                                     <div className="">
                                         <span className="text-4xl font-semibold text-white">
                                             <CountUp start={0} end={50} duration={2} delay={0} />
