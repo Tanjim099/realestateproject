@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 const initialState = {
     data: [],
     blogData: [],
+    latestBlogs: [],
 }
 
 export const createBlog = createAsyncThunk("/blog/create", async (data) => {
@@ -78,6 +79,21 @@ export const updateBlog = createAsyncThunk("/blog/update", async (id) => {
     }
 })
 
+export const getLatestBlogs = createAsyncThunk("/blog/get/latest-blog", async () => {
+    try {
+        const res = axiosInstance.get("blog/get/latest-blog");
+        toast.promise(res, {
+            loading: 'Wait! Deleting Blog',
+            success: 'Successfully',
+            error: 'Failed to delete'
+        });
+
+        return (await res)?.data;
+    } catch (error) {
+        toast.error(error.message);
+    }
+})
+
 const blogSlice = createSlice({
     name: 'blog',
     initialState,
@@ -86,6 +102,9 @@ const blogSlice = createSlice({
         builder.addCase(getAllBlogs.fulfilled, (state, action) => {
             state.blogData = action?.payload?.data?.blogs;
         })
+            .addCase(getLatestBlogs.fulfilled, (state, action) => {
+                state.latestBlogs = action?.payload?.data
+            })
     }
 });
 

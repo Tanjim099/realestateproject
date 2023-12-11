@@ -3,13 +3,15 @@ import HomeLayout from '../components/HomeLayout';
 import { CgProfile } from "react-icons/cg";
 import { FaCalendarAlt } from "react-icons/fa";
 import { LuNewspaper } from "react-icons/lu";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
-import { getBlog } from '../redux/slices/blogSlice';
+import { getBlog, getLatestBlogs } from '../redux/slices/blogSlice';
 import dateFormeter from '../helper/dateFormeter';
 function ReadBlog() {
     const dispatch = useDispatch();
     const [data, setData] = useState([]);
+    const { latestBlogs } = useSelector((state) => state?.blog);
+    console.log(latestBlogs);
     console.log(data);
     const { slug } = useParams();
     console.log(slug);
@@ -20,8 +22,13 @@ function ReadBlog() {
         //     setData(response?.payload?.data)
         // }
     }
+
+    async function fetchLatestBlog() {
+        const response = await dispatch(getLatestBlogs());
+    }
     useEffect(() => {
-        onFetchData()
+        onFetchData();
+        fetchLatestBlog();
     }, [slug]);
     return (
         <HomeLayout >
@@ -64,15 +71,19 @@ function ReadBlog() {
                                                 <p className=' text-sm'>Updates from around the world</p>
                                             </div>
                                         </div>
-                                        <NavLink className='flex items-center gap-2 bg-white p-4'>
-                                            <div className='h-[100%] text-white'>
-                                                <img className='w-[120px] h-[60px]' src="https://static.360realtors.ws/blog/736/Top_20_Residential_Areas_to_Live_in_Bangalore.jpg" alt="" />
-                                            </div>
-                                            <div>
-                                                <h3 className='text-lg font-medium'>Top 20 Residential Areas to Live in Bangalore</h3>
-                                                <p className=' text-sm'>Read more</p>
-                                            </div>
-                                        </NavLink>
+                                        {
+                                            latestBlogs?.map((blog) => (
+                                                <NavLink to={`/blog/${blog.slug}`} className='flex items-center gap-2 bg-white p-4'>
+                                                    <div className='h-[100%] text-white'>
+                                                        <img className='w-[120px] h-[60px]' src={blog?.image?.secure_url} alt="" />
+                                                    </div>
+                                                    <div>
+                                                        <h3 className='text-lg font-medium'>{(blog?.title).substring(0, 37)}..</h3>
+                                                        <p className=' text-sm'>Read more</p>
+                                                    </div>
+                                                </NavLink>
+                                            ))
+                                        }
                                     </div>
                                 </div>
                             </>

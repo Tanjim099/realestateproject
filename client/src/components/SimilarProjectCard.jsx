@@ -11,7 +11,7 @@ function SimilarProjectCard({ data }) {
     //     projects.scrollLeft += 400
     // }
     return (
-        <NavLink to={`/project/${data.slug}`} className=" min-w-[500px]">
+        <NavLink to={`/project/${data.slug}`}>
             <div
                 className='border border-border bg-dry'
             >
