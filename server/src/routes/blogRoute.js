@@ -1,6 +1,6 @@
 import { Router } from "express";
 import upload from "../middlewares/multerMiddleware.js";
-import { createBlog, deleteBlog, getAllBlog, getBlog, updateBlog } from "../controllers/blogController.js";
+import { createBlog, deleteBlog, getAllBlog, getBlog, getLatestBlog, updateBlog } from "../controllers/blogController.js";
 
 const blogRoutes = Router();
 
@@ -13,6 +13,8 @@ blogRoutes.get("/get-allblog", getAllBlog);
 blogRoutes.get("/get-blog/:slug", getBlog);
 
 blogRoutes.delete("/delete/:id", deleteBlog);
+
+blogRoutes.get("/latest-blog", getLatestBlog);
 
 
 export default blogRoutes;

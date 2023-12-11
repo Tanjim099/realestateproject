@@ -332,7 +332,6 @@ const projectSuggestions = async (req, res, next) => {
 //similar project
 const similarProject = async (req, res, next) => {
     const { developer, city } = req.params;
-    console.log(developer);
     try {
         const similarProjects = await Project.find({ developer, city }).limit(5);
         res.status(201).json(

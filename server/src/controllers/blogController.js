@@ -151,3 +151,17 @@ export const deleteBlog = async (req, res, next) => {
         next(new ApiError(500, error.message));
     }
 }
+
+
+//similar project
+export const getLatestBlog = async (req, res, next) => {
+    try {
+        const latestBlogs = await blogModel.find().sort({ createdAt: -1 }).limit(10);
+        res.status(201).json(
+            new ApiResponse(200, latestBlogs, "Latest Blog fetched successfully")
+        )
+    } catch (error) {
+        console.log(error)
+        next(new ApiError(500, error.message));
+    }
+}
