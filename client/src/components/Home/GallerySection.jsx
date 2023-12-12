@@ -23,7 +23,7 @@ function GallerySection() {
             <div className="border-b  px-10 lg:p-0">
                 <div className="max-w-[1200px] mx-auto my-10">
                     <h2 className="lg:text-4xl text-3xl font-semibold text-[#7f1657] border-b-2 border-[#7f1657] pb-4 my-10">Gallery</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+                    <div className="grid grid-rows-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
                         {
                             projects && (
                                 projects.slice(0, 20).map((project, idx) => (

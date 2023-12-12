@@ -11,6 +11,7 @@ import mumbai from '../assets/mumbai.png';
 import kolkata from '../assets/kolkata.png';
 import delhi from '../assets/delhi.png';
 import { NavLink } from "react-router-dom";
+import '../styles/CityCard.css';
 
 function CityCard() {
     const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function CityCard() {
     // }, [])
 
     return (
-        <div className="flex justify-center lg:justify-between flex-wrap w-full gap-3">
+        <div className="flex city justify-between overflow-x-auto w-full gap-3">
             <NavLink to="/city/bangalore">
                 <div className=" bg-white rounded-lg border w-[170px] h-[110px] gap-2 flex flex-col items-center justify-center text-center">
                     <img src={Bangalore} className="w-[50px] h-[50px]" alt="CityImage" />
