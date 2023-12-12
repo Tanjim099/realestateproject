@@ -20,7 +20,8 @@ function CreateProject() {
     const [amenitiechips, setAmenitieChips] = useState([]);
     const [floorPriceChips, setFloorPriceChips] = useState([]);
     const [dimensionschips, setDimensionsChips] = useState([]);
-
+    const [publcId, setPublcId] = useState({ ids: [] });
+    console.log(publcId);
     const editorConfig = {
         minHeight: '500px', // Set your desired height here
     };
@@ -33,8 +34,8 @@ function CreateProject() {
     const dispatch = useDispatch();
     const { editProject, project } = useSelector((state) => state.project);
 
-    console.log(project);
-    console.log(amenitiechips);
+    // console.log(project);
+    // console.log(amenitiechips);
 
     const [projectCreateData, setProjectCreateData] = useState({
         name: '',
@@ -121,7 +122,12 @@ function CreateProject() {
     }
 
     const removeFloorImage = (idx) => {
-        // console.log(idx);
+
+        setPublcId((prev) => ({
+            ...prev,
+            ids: [...prev.ids, project?.floorPlan[idx]?.image?.public_id],
+        }));
+
         const updateImages = [...floorImages.slice(0, idx), ...floorImages.slice(idx + 1)];
         const updateChips = [...floorchips.slice(0, idx), ...floorchips.slice(idx + 1)];
         const updatePrice = [...floorPriceChips.slice(0, idx), ...floorPriceChips.slice(idx + 1)];
@@ -314,6 +320,7 @@ function CreateProject() {
                 formData.append('phone', projectCreateData.phone);
                 formData.append('city', projectCreateData.city);
                 formData.append('content', projectCreateData.content);
+                formData.append('publicIds', JSON.stringify(publcId));
 
                 formData.append('map', projectCreateData.map);
                 formData.append('projectArea', projectCreateData.projectArea);
@@ -374,7 +381,7 @@ function CreateProject() {
                 toast.error('Filed are all mandatory...');
                 return;
             }
-            if(!isEmail(projectCreateData?.email)){
+            if (!isEmail(projectCreateData?.email)) {
                 toast.error('Invalid Email');
                 return;
             }

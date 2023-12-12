@@ -11,6 +11,7 @@ import { getProject, getSimilarProject } from "../redux/slices/projectSlice";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdOutlineLocationCity } from "react-icons/md";
 import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 
 function ProjectViewPage() {
 
@@ -178,15 +179,16 @@ function ProjectViewPage() {
                             {/* === */}
                             <div className="my-8 shadow-[0_0_3px_gray] p-3 rounded-md">
                                 <ul className="flex items-center justify-between">
-                                    <li><NavLink to="/#overflow">Overview</NavLink></li>
-                                    <li><NavLink to="/#about">About</NavLink></li>
-                                    <li><NavLink to="/#specification">Specification</NavLink></li>
-                                    <li><NavLink to="/#floor-plan">Floor Plan</NavLink></li>
-                                    <li><NavLink to="/#gallery">Gallery</NavLink></li>
-                                    <li><NavLink to="/#amenities">Amenities</NavLink></li>
-                                    <li><NavLink to="/#location">Location</NavLink></li>
+                                    <li className="cursor-pointer"><ScrollLink to="overflow" smooth={true} duration={500}>Overview</ScrollLink></li>
+                                    <li className="cursor-pointer"><ScrollLink to="about" smooth={true} duration={500}>About</ScrollLink></li >
+                                    <li className="cursor-pointer"><ScrollLink to="specification" smooth={true} duration={500}>Specification</ScrollLink></li>
+                                    <li className="cursor-pointer"><ScrollLink to="floor-plan" smooth={true} duration={500}>Floor Plan</ScrollLink></li>
+                                    <li className="cursor-pointer"><ScrollLink to="gallery" smooth={true} duration={500}>Gallery</ScrollLink></li>
+                                    <li className="cursor-pointer"><ScrollLink to="amenities" smooth={true} duration={500}>Amenities</ScrollLink></li>
+                                    <li className="cursor-pointer"><ScrollLink to="location" smooth={true} duration={500}>Location</ScrollLink></li>
                                 </ul>
                             </div>
+
                             <div className="bg-gradient-to-l from-indigo-200 p-2 rounded-md w-full mt-3" id="overflow">
                                 <h2 className="text-2xl  font-semibold">Overview of {data?.name}</h2>
                                 <div className="grid grid-cols-3 gap-4 mt-3">
@@ -324,7 +326,7 @@ function ProjectViewPage() {
 
                             {/* ==================== */}
 
-                            <div className="content06 mt-5 p-2 rounded-md" id="gallery">
+                            <div id='gallery' className="content06 mt-5 p-2 rounded-md">
                                 <h1 className="py-2 px-2 text-3xl font-semibold">Gallery</h1>
                                 <div className="gallery mt-4 grid grid-cols-4 gap-2">
                                     {

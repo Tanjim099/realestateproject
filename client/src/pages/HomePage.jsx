@@ -18,20 +18,20 @@ import Developer from "../components/Home/Developer";
 function HomePage() {
     const dispatch = useDispatch();
 
-    const { blogData } = useSelector((state) => state?.blog);
-    console.log(blogData)
+    // const { blogData } = useSelector((state) => state?.blog);
+    // console.log(blogData)
 
-    async function onLoadGetData() {
-        const response = await dispatch(getAllProjects());
-    }
+    // async function onLoadGetData() {
+    //     const response = await dispatch(getAllProjects());
+    // }
 
-    async function onLoadGetBlogData() {
-        const response = await dispatch(getAllBlogs());
-    }
-    useEffect(() => {
-        onLoadGetData();
-        onLoadGetBlogData();
-    }, [])
+    // async function onLoadGetBlogData() {
+    //     const response = await dispatch(getAllBlogs());
+    // }
+    // useEffect(() => {
+    //     onLoadGetData();
+    //     onLoadGetBlogData();
+    // }, [])
     return (
         <HomeLayout>
             <div className="homeContainer">
@@ -41,7 +41,6 @@ function HomePage() {
                 <Section_1 />
                 <Section_2 />
                 <GallerySection />
-
                 <BlogSection />
                 <Section_3 />
                 <Developer />
