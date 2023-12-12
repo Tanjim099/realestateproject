@@ -11,16 +11,25 @@ import { AiFillProject } from "react-icons/ai";
 import { FaStackOverflow } from "react-icons/fa";
 import { MdOutlineMoveToInbox } from "react-icons/md";
 import { Layout, Menu, Button, theme } from 'antd';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, NavLink } from 'react-router-dom';
 import "../styles/AdminLayout.css"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IoIosLogOut } from "react-icons/io";
+import { MdDashboard } from "react-icons/md";
+import { FiLogIn } from "react-icons/fi";
+import { FaUserPlus } from "react-icons/fa6";
+import { FaRegUser } from "react-icons/fa";
+import { logout } from '../redux/slices/authSlice';
 
 const { Header, Sider, Content } = Layout;
 
 function AdminLayout({ children }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false);
     const { editProject } = useSelector((state) => state.project);
+    const { data, role } = useSelector((state) => state.auth);
+    const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
     console.log(editProject);
     const {
         token: { colorBgContainer },
@@ -84,6 +93,17 @@ function AdminLayout({ children }) {
         },
 
     ];
+
+    const handelLogout = async (e) => {
+        // e.preventDefault();
+        const res = await dispatch(logout());
+        // console.log(res);
+        if (res?.payload?.success) {
+            window.location.reload();
+            navigate('/');
+        };
+    }
+
     return (
         <Layout className='h-100' style={{ height: '100vh' }}>
             <Sider trigger={null} collapsible collapsed={collapsed} className='overflow-y-scroll sideBar'>
@@ -123,21 +143,64 @@ function AdminLayout({ children }) {
                         }}
                     />
 
-                    <div className="dropdown dropdown-end mr-4 ">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar flex">
-                            <div className="w-10 rounded-full ">
-                                <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    <div className="dropdown dropdown-end px-5 mt-4">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 h-10 object-cover rounded-full">
+                                {
+                                    isLoggedIn ? (<img alt="User Image" src={data?.avatar?.secure_url} />) : (<FaRegUser className="text-3xl mt-1" />)
+                                }
                             </div>
-                        </div>
-                        <ul className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                        </label>
+                        <ul tabIndex={0} className="menu dropdown-content mr-5 z-[1] p-2 shadow bg-base-100 w-52">
+                            {!isLoggedIn ? (
+                                <>
+                                    <li className="bg-transparent flex flex-row items-center border-b-2">
+                                        <p className="">
+                                            <FiLogIn className="text-lg" />
+                                        </p>
+                                        <NavLink to="/login" className="bg-transparent text-lg">
+                                            Login
+                                        </NavLink>
+                                    </li>
+                                    <li className="flex flex-row items-center">
+                                        <p className="">
+                                            <FaUserPlus className="text-lg" />
+                                        </p>
+                                        <NavLink className={'text-lg'} to="/register" >
+                                            Register
+                                        </NavLink>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li className="border-b-2 border-[#7f1657]">
+                                        <p className="text-[#7f1657] italic text-md">Hey</p>
+                                        <span className="font-bold text-lg capitalize">{data?.firstName}</span>
+                                    </li>
+                                    <li className="flex flex-row items-center">
+                                        <p className="">
+                                            <FaRegUser className="text-lg" />
+                                        </p>
+                                        <NavLink className={'text-lg'} to={'/user-profile'}>My Profile</NavLink>
+                                    </li>
+                                    {
+                                        isLoggedIn && role === 'ADMIN' && (
+                                            <li className="flex flex-row items-center">
+                                                <p>
+                                                    <MdDashboard className="text-lg" />
+                                                </p>
+                                                <NavLink className="text-lg" to={'/'}>Home </NavLink>
+                                            </li>
+                                        )
+                                    }
+                                    <li className="flex flex-row items-center">
+                                        <p>
+                                            <IoIosLogOut className="text-lg" />
+                                        </p>
+                                        <Link className="text-lg" onClick={handelLogout}>Logout</Link>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </div>
                 </Header>

@@ -19,6 +19,9 @@ function ProjectViewPage() {
     console.log(similarProject);
     const [data, setData] = useState([]);
     console.log(data);
+    const [nextEl, setNextEl] = useState(null);
+    const [prevEl, setPrevEl] = useState(null);
+
     const [userInput, setUserInput] = useState({
         name: '',
         phone: '',
@@ -67,19 +70,17 @@ function ProjectViewPage() {
         fetchSimilarProjects();
     }, [data]);
 
-    const [nextEl, setNextEl] = useState(null);
-    const [prevEl, setPrevEl] = useState(null);
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     return (
         <HomeLayout>
             {/* =================== */}
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
-            <dialog id="my_modal_3" className="modal">
+            {/* <dialog id="my_modal_3" className="modal">
                 <div className="modal-box p-1 w-[25%] rounded-md bg-cyan-900">
 
                     <div className="contactformbox w-full bg-[#8ed1fc] p-5 rounded-md sticky top-10">
                         <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
+                            if there is a button in form, it will close the modal
                             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                         </form>
                         <div className="flex flex-col items-center justify-center gap-2">
@@ -124,12 +125,12 @@ function ProjectViewPage() {
                         </div>
                     </div>
                 </div>
-            </dialog>
+            </dialog> */}
             {/* =================== */}
-            <div className="projectviewpage_container sm:w-[100%] md:w-[80%] m-auto mt-4 sm:flex">
+            <div className="projectviewpage_container max-w-[1200px] mx-auto px-2 py-5 mt-4">
                 {data.length !== 0 ? (
-                    <div className="w-full flex sm:flex-col md:flex-row gap-6">
-                        <div className=" sm:w-[100%] md:w-[70%]">
+                    <div className="w-full flex gap-6">
+                        <div className="w-[100%] md:w-[70%]">
                             <Swiper
                                 slidesPerView={1}
                                 spaceBetween={20}
@@ -139,13 +140,13 @@ function ProjectViewPage() {
                                 className="carousel w-full rounded-md"
                             >
                                 <SwiperSlide id="slide1" className="carousel-item relative w-full rounded-md">
-                                    <img src={data?.gallery[0]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px] rounded-md" />
+                                    <img src={data?.gallery[0]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full object-cover h-[350px] md:h-[400px] lg:h-[500px] rounded" />
                                 </SwiperSlide>
                                 <SwiperSlide id="slide2" className="carousel-item relative w-full rounded-md">
-                                    <img src={data?.gallery[1]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px] rounded-md" />
+                                    <img src={data?.gallery[1]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full object-cover h-[350px] md:h-[400px] lg:h-[500px] rounded" />
                                 </SwiperSlide>
                                 <SwiperSlide id="slide3" className="carousel-item relative w-full rounded-md">
-                                    <img src={data?.gallery[2]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full h-[500px] rounded-md" />
+                                    <img src={data?.gallery[2]?.secure_url || "https://superadmin.homes247.in/images/uploadPropertyImgs/1617262167-1.jpg"} className="w-full object-cover h-[350px] md:h-[400px] lg:h-[500px] rounded" />
                                 </SwiperSlide>
 
                             </Swiper>
@@ -229,7 +230,7 @@ function ProjectViewPage() {
                                 </div>
                             </div>
 
-                            <div className="content04 mt-5 py-4 px-2  rounded-md" id="floor-plan">
+                            <div className="content04  relative mt-5 py-4 px-2  rounded-md" id="floor-plan">
                                 <h1 className="text-3xl font-semibold">Complete View of Floor Plans &amp; Pricing</h1>
                                 {/* <div className="content04_box">
                                     <div id="Flats" className="w-[35%] flex items-center justify-between my-3 mx-auto">
@@ -256,11 +257,12 @@ function ProjectViewPage() {
                                     </div>
                                 </div> */}
                                 <Swiper
+                                    navigation={{ nextEl, prevEl }}
                                     slidesPerView={1}
                                     spaceBetween={20}
                                     loop={true}
                                     autoplay={{ delay: 2000, disableOnInteraction: false }}
-                                    modules={[FreeMode, Pagination, Navigation, Autoplay]}
+                                    modules={[FreeMode, Pagination, Navigation]}
                                     className="carousel w-full rounded-md shadow-[0_0_1px_gray] mt-6"
                                 >
                                     {
@@ -298,9 +300,21 @@ function ProjectViewPage() {
                                             )
                                         })
                                     }
-
                                 </Swiper>
-
+                                <div className='flex justify-between gap-10'>
+                                    <button
+                                        className={`${classNames} top-[50%] left-[-3%]`}
+                                        ref={(node) => setPrevEl(node)}
+                                    >
+                                        <BsCaretLeftFill />
+                                    </button>
+                                    <button
+                                        className={`${classNames} right-[-3%] top-[50%]`}
+                                        ref={(node) => setNextEl(node)}
+                                    >
+                                        <BsCaretRightFill />
+                                    </button>
+                                </div>
                             </div>
 
 
@@ -398,8 +412,8 @@ function ProjectViewPage() {
                             </div>
                         </div>
                         {/* =============================== */}
-                        <div className=" sm:w-[100%] md:w-[30%] flex flex-col gap-6">
-                            <div className="w-full bg-[#8ed1fc] p-5 rounded-md">
+                        <div className=" sm:w-[100%] md:w-[30%] relative hidden lg:flex  flex-col gap-6">
+                            {/*   <div className="w-full bg-[#8ed1fc] p-5 rounded-md">
                                 <div className="flex items-center justify-center">
                                     <img className="w-[100px]" src="https://mantridevelopers.in/wp-content/uploads/2023/08/cropped-web-logo.png" alt="" />
                                 </div>
@@ -470,10 +484,11 @@ function ProjectViewPage() {
                                         <span>44.26 Acers</span>
                                     </div>
                                 </div>
-                                <button className=" bg-cyan-900 w-full p-1 mt-4 text-white rounded-sm" onClick={() => document.getElementById('my_modal_3').showModal()}>Get Call Instant Back</button>                        </div>
+                                <button className=" bg-cyan-900 w-full p-1 mt-4 text-white rounded-sm" onClick={() => document.getElementById('my_modal_3').showModal()}>Get Call Instant Back</button>
+                            </div> */}
                             <div>
                                 {/* ============================= */}
-                                <div className="main02_right">
+                                <div className="main02_right sticky">
                                     <div className="contactformbox w-full bg-[#8ed1fc] p-5 rounded-md sticky top-10">
                                         <div className="flex flex-col items-center justify-center gap-2">
                                             <img className="w-[90px]" id="contactformbox_logo" src="https://mantridevelopers.in/wp-content/uploads/2023/08/cropped-web-logo.png" alt />
