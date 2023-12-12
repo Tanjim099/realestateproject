@@ -4,8 +4,7 @@ import ApiError from "../utils/ApiError.js"
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js"
 import uploadCloudinary from "../utils/cloudinary.js";
-
-
+import cloudinary from 'cloudinary';
 
 const createProject = asyncHandler(async (req, res, next) => {
     try {
@@ -116,17 +115,22 @@ const createProject = asyncHandler(async (req, res, next) => {
 const updateProject = asyncHandler(async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { name, location, city, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo, content } = req.body;
-        let { floorName, amenitiesName, dimensions, floorPrice } = req.body;
+        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo } = req.body;
+        let { floorName, amenitiesName, dimensions, floorPrice, publicIds } = req.body;
+
+        publicIds = JSON.parse(publicIds);
         floorName = JSON.parse(floorName);
         amenitiesName = JSON.parse(amenitiesName);
         dimensions = JSON.parse(dimensions);
         floorPrice = JSON.parse(floorPrice);
+
         if (!id) {
             return next(new ApiError(403, 'Project id not found,Please try again later'));
         }
 
         const project = await Project.findById({ _id: id });
+
+
 
         if (!project) {
             return next(new ApiError(402, 'Project is not found...'));
@@ -161,39 +165,32 @@ const updateProject = asyncHandler(async (req, res, next) => {
 
         }
 
+        if (publicIds && publicIds.ids) {
 
-        if (req.files && req.files.floorPlan && req.files.gallery && req.files.amenities) {
+            updatedProject.floorPlan = updatedProject.floorPlan.filter(item => {
+                return !publicIds.ids.includes(item.image.public_id);
+            });
+
+            publicIds.ids.map(async (item) => {
+                try {
+                    const res = await cloudinary.v2.uploader.destroy(item, {
+                        resource_type: 'image',
+                        folder: 'Real_Estate'
+                    });
+                    // console.log(res);
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        if (req.files && req.files.floorPlan) {
             try {
-                const galleryImage = req.files.gallery;
                 const floorPlanImage = req.files.floorPlan;
-                const amenitiesImage = req.files.amenities;
-
-                // Upload images to Cloudinary
-                const galleryResult = await Promise.all(
-                    galleryImage.map((file) => uploadCloudinary(file.path))
-                );
 
                 const floorPlanResult = await Promise.all(
                     floorPlanImage.map((file) => uploadCloudinary(file.path))
                 );
-
-                const amenitiesResult = await Promise.all(
-                    amenitiesImage.map((file) => uploadCloudinary(file.path))
-                );
-
-                // Update the project with the new images
-                updatedProject.gallery = updatedProject.gallery.concat(galleryResult.map((result) => ({
-                    public_id: result.public_id,
-                    secure_url: result.secure_url,
-                })));
-
-                updatedProject.amenities = updatedProject.amenities.concat(amenitiesResult.map((result, idx) => ({
-                    name: amenitiesName[idx],
-                    image: {
-                        public_id: result.public_id,
-                        secure_url: result.secure_url,
-                    },
-                })));
 
                 updatedProject.floorPlan = updatedProject.floorPlan.concat(floorPlanResult.map((result, idx) => ({
                     types: floorName[idx],
@@ -204,10 +201,48 @@ const updateProject = asyncHandler(async (req, res, next) => {
                         secure_url: result.secure_url,
                     },
                 })));
+            } catch (error) {
+                return next(new ApiError(500, error.message));
+            }
 
-                // Save the updated project to the database
-                await updatedProject.save();
+        }
 
+        if (req.files && req.files.gallery) {
+            try {
+                const galleryImage = req.files.gallery;
+
+                const galleryResult = await Promise.all(
+                    galleryImage.map((file) => uploadCloudinary(file.path))
+                );
+
+                updatedProject.gallery = updatedProject.gallery.concat(galleryResult.map((result) => ({
+                    public_id: result.public_id,
+                    secure_url: result.secure_url,
+                })));
+            } catch (error) {
+                return next(new ApiError(500, error.message));
+            }
+        }
+
+        if (req.files && req.files.amenities) {
+            try {
+                const amenitiesImage = req.files.amenities;
+
+                // Upload images to Cloudinary
+
+                const amenitiesResult = await Promise.all(
+                    amenitiesImage.map((file) => uploadCloudinary(file.path))
+                );
+
+                // Update the project with the new images
+                updatedProject.amenities = updatedProject.amenities.concat(amenitiesResult.map((result, idx) => ({
+                    name: amenitiesName[idx],
+                    image: {
+                        public_id: result.public_id,
+                        secure_url: result.secure_url,
+                    },
+                })));
+                
             } catch (error) {
                 return next(new ApiError(500, error.message));
             }
@@ -220,7 +255,6 @@ const updateProject = asyncHandler(async (req, res, next) => {
         )
 
     } catch (Error) {
-        return next(new ApiError(500, Error.message));
     }
 })
 
