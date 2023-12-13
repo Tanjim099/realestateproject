@@ -14,6 +14,7 @@ import GallerySection from "../components/Home/GallerySection";
 import Section_3 from "../components/Home/Section_3";
 import BlogSection from "../components/Home/BlogSection";
 import Developer from "../components/Home/Developer";
+import Section_4 from "../components/Home/Section_4";
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function HomePage() {
                 <GallerySection />
                 <BlogSection />
                 <Section_3 />
+                <Section_4 />
                 <Developer />
 
                 {/* Section 1 */}

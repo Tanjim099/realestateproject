@@ -10,6 +10,7 @@ import { FiLogIn } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa6";
 import { topCities } from "../Constants/cityName";
 import { useState } from "react";
+import { MdAddIcCall } from "react-icons/md";
 function Navbar() {
 
 
@@ -46,7 +47,7 @@ function Navbar() {
     console.log(cityValue);
 
     return (
-        <div className="navbar bg-[#7f1657] z-20 sticky top-0 left-0 right-0">
+        <div className="navbar  bg-[#7f1657] z-20 sticky top-0 left-0 right-0">
             <div className="flex-1">
 
                 <div>
@@ -91,6 +92,7 @@ function Navbar() {
                     </div>
                 </div>
             </div>
+
             <div className="flex-none">
                 {/* <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -109,7 +111,10 @@ function Navbar() {
                         </div>
                     </div>
                 </div> */}
-                <div className="dropdown dropdown-end">
+                <div className="flex items-center text-sm gap-2 text-white bg-transparent relative left-[-70px] border-2 px-5 py-1 rounded-full">
+                    <MdAddIcCall /><NavLink className=" "> +1 234-567-8901</NavLink>
+                </div>
+                <div className="dropdown dropdown-end text-white">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 h-10 object-cover rounded-full">
                             {
@@ -117,22 +122,22 @@ function Navbar() {
                             }
                         </div>
                     </label>
-                    <ul tabIndex={0} className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 w-52">
+                    <ul tabIndex={0} className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 w-52 text-black hover:bg-none active:bg-none">
                         {!isLoggedIn ? (
                             <>
-                                <li className="bg-transparent flex flex-row items-center border-b-2">
-                                    <p className="">
-                                        <FiLogIn className="text-lg" />
+                                <li className="bg-transparent flex flex-row items-center border-b-2 text-black">
+                                    <p className="text-black">
+                                        <FiLogIn className="text-black text-lg" />
                                     </p>
-                                    <NavLink to="/login" className="bg-transparent text-lg">
+                                    <NavLink to="/login" className="bg-transparent text-lg text-black">
                                         Login
                                     </NavLink>
                                 </li>
-                                <li className="flex flex-row items-center">
+                                <li className="flex flex-row items-center text-black">
                                     <p className="">
-                                        <FaUserPlus className="text-lg" />
+                                        <FaUserPlus className=" text-black text-lg" />
                                     </p>
-                                    <NavLink className={'text-lg'} to="/register" >
+                                    <NavLink className="text-lg text-black hover:bg-none" to="/register" >
                                         Register
                                     </NavLink>
                                 </li>

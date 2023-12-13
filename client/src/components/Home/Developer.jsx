@@ -6,9 +6,9 @@ import { images } from '../../Constants/developerImage';
 function Developer() {
     return (
         <div>
-            <div className="max-w-[1200px] mx-auto mb-24">
+            <div className="max-w-[1200px] mx-auto my-14">
                 <Swiper
-                    slidesPerView={5}
+                    slidesPerView={7}
                     spaceBetween={20}
                     autoplay={{ delay: 2000, disableOnInteraction: false }}
                     modules={[Autoplay]}
@@ -16,7 +16,9 @@ function Developer() {
                     {
                         images.map((image, idx) => (
                             <SwiperSlide key={idx}>
-                                <img className='w-[100px] h-[50px]' src={image.url} alt='DeveloperImage' />
+                                <div className='bg-[#7f1657] flex items-center justify-center p-2 rounded-md'>
+                                    <img className='  w-full h-[60px] rounded-md cursor-pointer' src={image.url} alt='DeveloperImage' />
+                                </div>
                             </SwiperSlide>
                         ))
                     }
