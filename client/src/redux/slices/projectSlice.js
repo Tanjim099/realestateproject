@@ -129,7 +129,6 @@ export const searchProject = createAsyncThunk("/project/search", async (query) =
 
         toast.promise(res, {
             loading: 'Wait! Searching',
-            success: 'Successfully',
             error: 'Failed Searching'
         });
 
@@ -146,7 +145,6 @@ export const getSuggestions = createAsyncThunk("/project/suggestions", async (qu
         })
         toast.promise(res, {
             loading: 'Wait! Searching',
-            success: 'Successfully',
             error: 'Failed Searching'
         });
 

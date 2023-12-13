@@ -165,3 +165,17 @@ export const getLatestBlog = async (req, res, next) => {
         next(new ApiError(500, error.message));
     }
 }
+
+//get blog by user id
+export const getBlogByUserId = async (req, res, next) => {
+    const { userId } = req.params;
+    try {
+        const blogs = await blogModel.find({ author: userId });
+        res.status(201).json(
+            new ApiResponse(200, blogs, "Blogs fetched successfully By User ID")
+        )
+    } catch (error) {
+        console.log(error)
+        next(new ApiError(500, error.message));
+    }
+}
