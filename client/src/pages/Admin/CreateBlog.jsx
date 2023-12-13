@@ -18,7 +18,7 @@ function CreateBlog() {
     category: '',
     description: '',
     content: '',
-    author: data._id,
+    author: "6560edecf720289e7f081d64",
     image: '',
   });
 

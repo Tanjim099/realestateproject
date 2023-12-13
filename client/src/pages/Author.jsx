@@ -8,6 +8,8 @@ import { FaLinkedin, FaInstagramSquare, FaFacebookSquare } from "react-icons/fa"
 import { MdEditLocationAlt } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { FaCalendarAlt } from "react-icons/fa";
+import { getBlogsByUserId } from "../redux/slices/blogSlice";
+import dateFormeter from "../helper/dateFormeter";
 
 
 function Author() {
@@ -15,14 +17,20 @@ function Author() {
     const { id } = useParams();
     console.log(id);
     const { userData } = useSelector((state) => state?.auth);
-    console.log(userData)
+    const { userBlog } = useSelector((state) => state?.blog);
+    console.log(userBlog)
     async function getUserData() {
         const response = await dispatch(getUserProfile(id));
-        console.log(response);
+        // console.log(response);
+    }
+
+    async function fetchUserBlog() {
+        const response = await dispatch(getBlogsByUserId(id))
     }
     useEffect(() => {
-        getUserData()
-    }, []);
+        getUserData();
+        fetchUserBlog();
+    }, [id]);
     return (
         <HomeLayout>
             <div className=" h-16">
@@ -35,7 +43,7 @@ function Author() {
                             <img className="w-[100px] h-[100px] rounded-full" src={userData?.avatar?.secure_url || "https://superadmin.homes247.in/images/bloggerprofile/1699344848-WhatsApp%20Image%202023-11-07%20at%201.43.03%20PM.jpeg"} alt="" />
                         </div>
                         <div className="my-5">
-                            <h2 className="text-xl">{(userData?.firstName).toUpperCase()} {(userData?.lastName).toUpperCase()}</h2>
+                            <h2 className="text-xl">{(userData?.firstName)?.toUpperCase()} {(userData?.lastName)?.toUpperCase()}</h2>
                         </div>
                         <div className="w-[60%] border-b-2 border-gray-500"></div>
                         <div className="my-5 flex items-center gap-2">
@@ -62,7 +70,35 @@ function Author() {
                     </div>
                     <div className="w-[70%] mt-60">
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="border-2">
+                            {
+                                userBlog?.map((blog) => {
+                                    return (
+                                        <div className="border-2">
+                                            <NavLink to={`/blog/${blog?.slug}`}>
+                                                <div className="w-full h-[200px]">
+                                                    <img src={blog?.image?.secure_url || "https://res.cloudinary.com/dmz316wxm/image/upload/v1701973109/Real_Estate/nuynw7p9csk7x8grvwcm.jpg"} className="h-full w-full object-cover" />
+                                                </div>
+                                                <div className="p-3">
+                                                    <h3 className="font-medium text-lg mt-1">{(blog?.title).substring(0, 60)}...</h3>
+                                                    <p className="text-sm text-gray-500">{(blog?.description).substring(0, 125)} <span className=" text-red-400 underline"> more</span></p>
+                                                </div>
+                                                <hr />
+                                                <div className='flex items-center justify-between p-2'>
+                                                    <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                                        <CgProfile />Cate:
+                                                        <p>{blog?.category}</p>
+                                                    </div>
+                                                    <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
+                                                        <FaCalendarAlt />
+                                                        <p>{dateFormeter(blog?.createdAt)}</p>
+                                                    </div>
+                                                </div>
+                                            </NavLink>
+                                        </div>
+                                    )
+                                })
+                            }
+                            {/* <div className="border-2">
                                 <NavLink >
                                     <div className="w-full h-[200px]">
                                         <img src="https://res.cloudinary.com/dmz316wxm/image/upload/v1701973109/Real_Estate/nuynw7p9csk7x8grvwcm.jpg" className="h-full w-full object-cover" />
@@ -83,30 +119,8 @@ function Author() {
                                         </div>
                                     </div>
                                 </NavLink>
-                            </div>
-                            <div className="border-2">
-                                <NavLink >
-                                    <div className="w-full h-[200px]">
-                                        <img src="https://res.cloudinary.com/dmz316wxm/image/upload/v1701973109/Real_Estate/nuynw7p9csk7x8grvwcm.jpg" className="h-full w-full object-cover" />
-                                    </div>
-                                    <div className="p-3">
-                                        <h3 className="font-medium text-lg mt-1">Immediate ban on non-essential</h3>
-                                        <p className="text-sm text-gray-500">As Delhi's air quality continues to degrade, the national capital has entered GRAP-III. A prohibition on all non-essential <span className=" text-red-400 underline">more</span></p>
-                                    </div>
-                                    <hr />
-                                    <div className='flex items-center justify-between p-2'>
-                                        <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
-                                            <CgProfile />Cate:
-                                            <p>Real Estate News</p>
-                                        </div>
-                                        <div className='flex items-center gap-1  p-1 text-xs rounded-sm'>
-                                            <FaCalendarAlt />
-                                            <p>25 November, 2023</p>
-                                        </div>
-                                    </div>
-                                </NavLink>
-                            </div>
-                            <div className="border-2">
+                            </div> */}
+                            {/* <div className="border-2">
                                 <NavLink >
                                     <div className="w-full h-[200px]">
                                         <img src="https://res.cloudinary.com/dmz316wxm/image/upload/v1701973109/Real_Estate/nuynw7p9csk7x8grvwcm.jpg" className="h-full w-full object-cover" />
@@ -127,7 +141,7 @@ function Author() {
                                         </div>
                                     </div>
                                 </NavLink>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

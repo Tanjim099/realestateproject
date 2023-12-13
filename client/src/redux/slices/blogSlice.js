@@ -6,6 +6,7 @@ const initialState = {
     data: [],
     blogData: [],
     latestBlogs: [],
+    userBlog: []
 }
 
 export const createBlog = createAsyncThunk("/blog/create", async (data) => {
@@ -94,6 +95,20 @@ export const getLatestBlogs = createAsyncThunk("/blog/get/latest-blog", async ()
     }
 })
 
+export const getBlogsByUserId = createAsyncThunk("/blog/get/byuserid", async (uId) => {
+    try {
+        const res = axiosInstance.get(`blog/get-all-blog/${uId}`);
+        toast.promise(res, {
+            loading: "Wait Fetching Data",
+            success: "Fetched Successfully",
+            error: "Failed to Fetched"
+        })
+        return (await res).data
+    } catch (error) {
+        toast.error(error.message);
+    }
+})
+
 const blogSlice = createSlice({
     name: 'blog',
     initialState,
@@ -104,6 +119,9 @@ const blogSlice = createSlice({
         })
             .addCase(getLatestBlogs.fulfilled, (state, action) => {
                 state.latestBlogs = action?.payload?.data
+            })
+            .addCase(getBlogsByUserId.fulfilled, (state, action) => {
+                state.userBlog = action?.payload?.data
             })
     }
 });

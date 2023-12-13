@@ -55,7 +55,7 @@ function ReadBlog() {
                                         <div>
                                             <img className='w-full' src={data?.image?.secure_url} alt="" />
                                         </div>
-                                        <div dangerouslySetInnerHTML={{ __html: data?.description }}>
+                                        <div dangerouslySetInnerHTML={{ __html: data?.content }}>
                                         </div>
                                     </div>
                                 </div>
