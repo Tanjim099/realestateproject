@@ -36,7 +36,7 @@ function BlogSection() {
                         className="max-h-[30rem]"
                     >
                         {
-                            blogData?.map((blog, i) => {
+                         blogData && blogData?.map((blog, i) => {
                                 return (
 
                                     <SwiperSlide key={i} className="border w-[300px]">

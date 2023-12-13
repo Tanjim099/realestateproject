@@ -41,7 +41,6 @@ function HomePage() {
                 <Section_1 />
                 <Section_2 />
                 <GallerySection />
-
                 <BlogSection />
                 <Section_3 />
                 <Developer />

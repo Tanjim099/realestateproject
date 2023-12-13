@@ -56,7 +56,7 @@ function App() {
         <Route path='/denied' element={<Denied />} />
         <Route path='/city/:cityname' element={<City />} />
         <Route path='/blog/:slug' element={<ReadBlog />} />
-        <Route path='/author' element={<Author />} />
+        <Route path='/author/:id' element={<Author />} />
         <Route path='/search' element={<Search />} />
 
         <Route path='/admin/dashboard' element={<Dashboard />} />

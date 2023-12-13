@@ -11,18 +11,18 @@ import { FaCalendarAlt } from "react-icons/fa";
 
 
 function Author() {
-    // const dispatch = useDispatch();
-    // const { id } = useParams();
-    // console.log(id);
-    // const { userData } = useSelector((state) => state?.auth);
-    // console.log(userData)
-    // async function getUserData() {
-    //     const response = await dispatch(getUserProfile(id));
-    //     console.log(response);
-    // }
-    // useEffect(() => {
-    //     getUserData()
-    // }, []);
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    console.log(id);
+    const { userData } = useSelector((state) => state?.auth);
+    console.log(userData)
+    async function getUserData() {
+        const response = await dispatch(getUserProfile(id));
+        console.log(response);
+    }
+    useEffect(() => {
+        getUserData()
+    }, []);
     return (
         <HomeLayout>
             <div className=" h-16">
@@ -32,10 +32,10 @@ function Author() {
                 <div className="w-[100%] flex gap-4 my-4">
                     <div className="w-[30%] h-fit sticky top-10 flex items-center flex-col bg-white shadow-[0_0_2px_gray] rounded-md py-10">
                         <div>
-                            <img className="w-[100px] h-[100px] rounded-full" src="https://superadmin.homes247.in/images/bloggerprofile/1699344848-WhatsApp%20Image%202023-11-07%20at%201.43.03%20PM.jpeg" alt="" />
+                            <img className="w-[100px] h-[100px] rounded-full" src={userData?.avatar?.secure_url || "https://superadmin.homes247.in/images/bloggerprofile/1699344848-WhatsApp%20Image%202023-11-07%20at%201.43.03%20PM.jpeg"} alt="" />
                         </div>
                         <div className="my-5">
-                            <h2 className="text-xl">Akhil G Nair</h2>
+                            <h2 className="text-xl">{(userData?.firstName).toUpperCase()} {(userData?.lastName).toUpperCase()}</h2>
                         </div>
                         <div className="w-[60%] border-b-2 border-gray-500"></div>
                         <div className="my-5 flex items-center gap-2">
