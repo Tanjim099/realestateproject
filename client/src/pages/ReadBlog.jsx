@@ -33,11 +33,11 @@ function ReadBlog() {
     return (
         <HomeLayout >
             <div className=' w-[100%] min-h-screen h-[100%] bg-slate-100'>
-                <div className='w-[80%] m-auto'>
-                    <div className=' w-full flex gap-4 py-5'>
+                <div className='md:w-[100%] lg:w-[80%] sm:w-[100%] w-[100%] m-auto'>
+                    <div className=' w-full flex gap-4 py-5 flex-col md:flex-col lg:flex-row'>
                         {data ? (
                             <>
-                                <div id="my_modal_3" className="w-[70%] bg-white p-4">
+                                <div id="my_modal_3" className="md:w-[100%] lg:w-[70%] w-[100%] bg-white p-4">
                                     <div className="flex flex-col gap-4">
                                         <div>
                                             <h1 className=' text-3xl font-medium'>{data?.title}</h1>
@@ -60,7 +60,7 @@ function ReadBlog() {
                                     </div>
                                 </div>
                                 {/* =================== */}
-                                <div className="sm:w-[30%] md:w-[30%] w-[30%]">
+                                <div className="sm:w-[30%] md:w-[100%] lg:w-[30%] w-[100%]">
                                     <div className='w-[100%] flex flex-col gap-4'>
                                         <div className='flex items-center gap-2 bg-white p-4'>
                                             <div className='rounded-full p-2 bg-[#7f1657] text-white'>

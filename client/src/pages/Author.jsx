@@ -36,9 +36,9 @@ function Author() {
             <div className=" h-16">
                 <img className=" h-[280px] w-full" src="https://www.marthastewart.com/thmb/E_wOXQrYuq2-lUcQe_GK5vESNlw=/1500x375/filters:no_upscale():max_bytes(200000):strip_icc()/design--decor-banner-0323-9991afc2f0c34f57aef1d7e7a728eca7.jpg" alt="" />
             </div>
-            <div className="w-[70%] m-auto">
-                <div className="w-[100%] flex gap-4 my-4">
-                    <div className="w-[30%] h-fit sticky top-10 flex items-center flex-col bg-white shadow-[0_0_2px_gray] rounded-md py-10">
+            <div className="w-[100%] sm:w-[90%] lg:w-[70%] m-auto">
+                <div className="w-[100%] flex flex-col lg:flex-row gap-4 my-4">
+                    <div className="w-[90%] lg:w-[30%] m-auto h-fit sticky top-10 flex items-center flex-col bg-white shadow-[0_0_2px_gray] rounded-md py-10">
                         <div>
                             <img className="w-[100px] h-[100px] rounded-full" src={userData?.avatar?.secure_url || "https://superadmin.homes247.in/images/bloggerprofile/1699344848-WhatsApp%20Image%202023-11-07%20at%201.43.03%20PM.jpeg"} alt="" />
                         </div>
@@ -48,7 +48,7 @@ function Author() {
                         <div className="w-[60%] border-b-2 border-gray-500"></div>
                         <div className="my-5 flex items-center gap-2">
                             <ImBlog />
-                            <h3>54 Blogs</h3>
+                            <h3>{userBlog?.length} Blogs</h3>
                         </div>
                         <div className="w-[60%] border-b-2 border-gray-500"></div>
                         <div className="my-5 flex items-center gap-2">
@@ -68,7 +68,7 @@ function Author() {
                             </NavLink>
                         </div>
                     </div>
-                    <div className="w-[70%] mt-60">
+                    <div className="lg:w-[70%] w-[90%] m-auto lg:mt-60">
                         <div className="grid grid-cols-2 gap-4">
                             {
                                 userBlog?.map((blog) => {

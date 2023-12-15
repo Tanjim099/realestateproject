@@ -111,9 +111,9 @@ function Navbar() {
                         </div>
                     </div>
                 </div> */}
-                <div className="flex items-center text-sm gap-2 text-white bg-transparent relative left-[-70px] border-2 px-5 py-1 rounded-full">
+                {/* <div className="flex items-center text-sm gap-2 text-white bg-transparent relative left-[-70px] border-2 px-5 py-1 rounded-full">
                     <MdAddIcCall /><NavLink className=" "> +1 234-567-8901</NavLink>
-                </div>
+                </div> */}
                 <div className="dropdown dropdown-end text-white">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 h-10 object-cover rounded-full">
