@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 const initialState = {
     users: [],
+    usersCount: 0,
     blogs: [],
     leads: [],
     checkedItems: {},
@@ -85,7 +86,8 @@ const statSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getUsers.fulfilled, (state, action) => {
-                state.users = action?.payload?.data;
+                state.users = action?.payload?.users;
+                state.usersCount = action?.payload?.totalUsers;
             })
             .addCase(getBlogs.fulfilled, (state, action) => {
                 state.blogs = action?.payload?.data

@@ -76,16 +76,16 @@ function ProjectViewPage() {
         <HomeLayout>
             {/* =================== */}
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
-            {/* <dialog id="my_modal_3" className="modal">
+            <dialog id="my_modal_2" className="modal">
                 <div className="modal-box p-1 w-[25%] rounded-md bg-cyan-900">
 
                     <div className="contactformbox w-full bg-[#8ed1fc] p-5 rounded-md sticky top-10">
                         <form method="dialog">
-                            if there is a button in form, it will close the modal
+
                             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                         </form>
                         <div className="flex flex-col items-center justify-center gap-2">
-                            <img className="w-[90px]" id="contactformbox_logo" src="https://mantridevelopers.in/wp-content/uploads/2023/08/cropped-web-logo.png" alt />
+                            {/* <img className="w-[90px]" id="contactformbox_logo" src="https://mantridevelopers.in/wp-content/uploads/2023/08/cropped-web-logo.png" alt /> */}
                             <h3 id="contactformbox_title" className="text-center text-lg">Get Instant Call Back</h3>
                         </div>
                         <div className="contactformbox_box1 flex items-center justify-between mt-5">
@@ -126,7 +126,7 @@ function ProjectViewPage() {
                         </div>
                     </div>
                 </div>
-            </dialog> */}
+            </dialog>
             {/* =================== */}
             <div className="projectviewpage_container max-w-[1200px] mx-auto px-2 py-5 mt-4">
                 {data.length !== 0 ? (
@@ -289,7 +289,7 @@ function ProjectViewPage() {
                                                             </div>
                                                             <hr />
                                                             <div className="p-4 flex items-center justify-center">
-                                                                <button className=" bg-[#7f1657] text-white px-4 py-2 rounded-md">Price Sheet</button>
+                                                                <button className=" bg-[#7f1657] text-white px-4 py-2 rounded-md" onClick={() => document.getElementById('my_modal_2').showModal()}>Price Sheet</button>
                                                             </div>
                                                         </div>
                                                         <div className="w-[60%]">
@@ -331,7 +331,7 @@ function ProjectViewPage() {
                                 <div className="gallery mt-4 grid grid-cols-4 gap-2">
                                     {
                                         data?.gallery?.map((img) => {
-                                            return <img className="w-[200px] h-full rounded-sm" src={img?.secure_url} alt />
+                                            return <img className="w-[200px] h-full rounded-sm cursor-pointer" onClick={() => document.getElementById('my_modal_2').showModal()} src={img?.secure_url} alt />
                                         })
                                     }
                                 </div>

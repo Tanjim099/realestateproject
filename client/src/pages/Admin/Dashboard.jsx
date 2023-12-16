@@ -5,8 +5,19 @@ import AdminLayout from "../../components/AdminLayout";
 import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill } from 'react-icons/bs';
 import "../../styles/Dashboard.css";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { logVisitorAsync } from "../../redux/slices/visitorSlice";
 
 function Dashboard() {
+    // const dispatch = useDispatch();
+    // async function fetched() {
+    //     const page = window.location.pathname;
+    //     const res = await dispatch(logVisitorAsync({ page, location: "SampleLocation" }));
+    //     console.log(res)
+    // }
+    // useEffect(() => {
+    //     fetched()
+    // }, [])
     const [pieData, setPieData] = useState({
         labels: [],
         datasets: []
@@ -17,6 +28,8 @@ function Dashboard() {
         datasets: [],
     });
 
+    const { totalUsers } = useSelector((state) => state?.stat);
+    console.log(totalUsers)
     useEffect(() => {
         const userData = {
             labels: ["User Registrations", "Project Posts", "Blog Posts"],
@@ -55,6 +68,7 @@ function Dashboard() {
 
         setChartData(data);
     }, []);
+
 
     const editorConfig = {
         minHeight: '500px', // Set your desired height here

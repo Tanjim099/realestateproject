@@ -6,21 +6,22 @@ import statSlice from './slices/statSlice';
 import contactSlice from './slices/contactSlice';
 import axiosInstance from '../helper/axiosInstance';
 import toast from 'react-hot-toast';
+import visitorSlice from './slices/visitorSlice';
 
 
-export const createContact = createAsyncThunk('/contact/create',async (data) => {
-    try{
-        const res = axiosInstance.post('/contact',data);
+export const createContact = createAsyncThunk('/contact/create', async (data) => {
+    try {
+        const res = axiosInstance.post('/contact', data);
 
-        toast.promise(res,{
-            loading:'Waiting!',
-            success:'Successfully',
-            error:'Failed',
+        toast.promise(res, {
+            loading: 'Waiting!',
+            success: 'Successfully',
+            error: 'Failed',
         });
 
         return (await res)?.data;
 
-    }catch(Error){
+    } catch (Error) {
         console.log(Error);
     }
 })
@@ -31,7 +32,8 @@ const store = configureStore({
         project: projectSlice,
         blog: blogSlice,
         stat: statSlice,
-        contact: contactSlice
+        contact: contactSlice,
+        visitor: visitorSlice
     },
     devTools: true
 });

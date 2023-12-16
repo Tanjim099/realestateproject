@@ -28,6 +28,8 @@ import ReadBlog from './pages/ReadBlog'
 import Author from './pages/Author'
 import AllProjects from './pages/AllProjects'
 import Search from './pages/Search'
+import { useDispatch } from 'react-redux'
+import { logVisitorAsync } from './redux/slices/visitorSlice'
 
 function App() {
 
@@ -39,6 +41,17 @@ function App() {
       setLoading(false);
     }, 1000);
   }, []);
+
+
+  const dispatch = useDispatch();
+  async function fetched() {
+    const page = window.location.pathname;
+    const res = await dispatch(logVisitorAsync({ page, location: "SampleLocation" }));
+    console.log(res)
+  }
+  useEffect(() => {
+    fetched()
+  }, [])
 
   return (
     loading ? (

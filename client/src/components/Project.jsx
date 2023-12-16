@@ -9,6 +9,7 @@ function Project({ data }) {
             <div
                 className='border border-border bg-dry'
             >
+                <p className="absolute top-1 left-1 text-xs bg-[#7f1657] text-white px-1" style={{ borderRadius: "6px 0px" }}>Pre-Launch</p>
                 <div className="h-[200px]">
                     <img className="w-full h-full object-cover border-b-2" src={data?.gallery[0]?.secure_url || "https://www.homznspace.com/wp-content/uploads/2023/11/Main-Elevation-Brigade-Sanctuary-324x235.jpg"} alt={data?.name || 'ProjectImage'} />
                 </div>

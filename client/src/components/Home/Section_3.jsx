@@ -4,7 +4,7 @@ import buy2 from '../../assets/buy_icon_1.svg'
 import buy3 from '../../assets/buy_icon_3.svg'
 import buy4 from '../../assets/imgpsh_fullsize_anim.png'
 import buy5 from '../../assets/vastu.svg'
-import buy6 from '../../assets/legal-assistant2.png'
+import buy6 from '../../assets/legal-assistant2.png';
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper/modules';
@@ -60,7 +60,7 @@ function Section_3() {
                             <h3 className="font-semibold my-3 text-lg">Home Loan Consultation</h3>
                             <p className="text-sm">Attractive home loans have made purchasing property very convenient as buyers do not have to pay everything upfront. Our expertise in impartial loan advisory services...</p>
                             <p className="text-[#7f1657] my-3">
-                                <Link>Read More</Link>
+                                <Link >Read More</Link>
                             </p>
                         </div>
                     </SwiperSlide>
