@@ -11,9 +11,12 @@ export const allUsers = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
     try {
         const users = await authModel.find().skip((page - 1) * limit).limit(limit);
-        res.status(201).json(
-            new ApiResponse(200, users, "Users Fetched Successfully")
-        )
+        res.status(201).json({
+            success: true,
+            message: "Users Fetched Successfully",
+            users,
+            totalUsers
+        })
     } catch (error) {
         console.log(error);
         next(new ApiError(500, error.message));
