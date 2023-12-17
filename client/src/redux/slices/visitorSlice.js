@@ -9,6 +9,7 @@ const initialState = {
 
 export const logVisitorAsync = createAsyncThunk("visitor/logvisit", async (visitData) => {
     try {
+        // console.log('visitData',visitData);
         const res = axiosInstance.post("/visitor/log-visit", visitData);
         toast.promise(res, {
             success: "Successfully",
@@ -34,4 +35,4 @@ const visitorSlice = createSlice({
 
 // export const { addVisit } = visitorSlice.actions;
 // export const selectVisits = (state) => state.visitor.visits;
-export default visitorSlice.reducers;
+export default visitorSlice.reducer;

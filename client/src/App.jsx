@@ -34,8 +34,12 @@ import { logVisitorAsync } from './redux/slices/visitorSlice'
 function App() {
 
   const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState(null);
+
+  // console.log(location)
 
   useEffect(() => {
+    fetched();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -45,13 +49,29 @@ function App() {
 
   const dispatch = useDispatch();
   async function fetched() {
-    const page = window.location.pathname;
-    const res = await dispatch(logVisitorAsync({ page, location: "SampleLocation" }));
-    console.log(res)
+
+    // Check if geolocation is supported by the browser
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // console.log('Position -> ', position);
+        const { latitude, longitude } = position.coords;
+        setLocation({ latitude, longitude });
+      },
+        (error) => {
+          console.error('Error getting geolocation:', error.message);
+        })
+    } else {
+      console.error('Geolocation is not supported by your browser.');
+    }
+
+    if (location) {
+      const page = window.location.pathname;
+      // console.log('Page -> ', page);
+      const res = await dispatch(logVisitorAsync({ page, ...location }));
+      console.log(res)
+    }
+
   }
-  useEffect(() => {
-    fetched()
-  }, [])
 
   return (
     loading ? (

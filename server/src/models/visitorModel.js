@@ -9,7 +9,12 @@ const visitorSchema = new Schema({
         type: String
     },
     location: {
-        type: String
+        latitude: {
+            type: String
+        },
+        longitude: {
+            type: String
+        }
     }
 });
 
