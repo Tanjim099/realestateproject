@@ -71,9 +71,15 @@ export const deleteBlog = createAsyncThunk("/blog/delete", async (id) => {
     }
 });
 
-export const updateBlog = createAsyncThunk("/blog/update", async (id) => {
+export const updateBlog = createAsyncThunk("/blog/update", async (data) => {
     try {
-
+        const res = axiosInstance.put(`blog/update/${data[0]}`, data[1]);
+        toast.promise(res, {
+            loading: "Wait Updating Blog",
+            success: "Success to Updated",
+            error: "Failed to updated"
+        })
+        return (await res).data
     } catch (error) {
         console.log(error);
         toast.error(error.message);

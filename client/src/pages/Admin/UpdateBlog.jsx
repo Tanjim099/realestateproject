@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import HomeLayout from '../../components/HomeLayout'
 import { useDispatch, useSelector } from 'react-redux';
-import { createBlog } from '../../redux/slices/blogSlice';
+import { createBlog, updateBlog } from '../../redux/slices/blogSlice';
 import Spinner from '../../components/Spinner';
 import AdminLayout from '../../components/AdminLayout';
 import JoditEditor from 'jodit-react';
@@ -15,7 +15,7 @@ function UpdateBlog() {
     // console.log(data._id);
     const dispatch = useDispatch();
     const [previwImage, setPreviewImage] = useState('');
-    const [titles, setTitle] = useState("");
+    const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
     const [content, setContent] = useState("");
     const [description, setDescription] = useState("");
@@ -65,40 +65,40 @@ function UpdateBlog() {
     //     }));
     // }
 
-    // const onFormSubmit = async (e) => {
-    //     try {
-    //         e.preventDefault();
-    //         setLoading(true);
-    //         const formData = new FormData();
+    const onFormSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            setLoading(true);
+            const formData = new FormData();
 
-    //         formData.append("title", userInput.title);
-    //         formData.append("category", userInput.category);
-    //         formData.append("description", userInput.description);
-    //         formData.append("content", userInput.content);
-    //         formData.append("author", userInput.author);
-    //         formData.append("image", userInput.image);
+            formData.append("title", title);
+            formData.append("category", category);
+            formData.append("description", description);
+            formData.append("content", content);
+            formData.append("author", state?.author?._id)
+            formData.append("image", image);
 
-    //         const res = await dispatch(createBlog(formData));
+            const res = await dispatch(updateBlog([state?._id, formData]));
 
-    //         if (res?.payload?.success) {
-    //             setUserInput({
-    //                 title: '',
-    //                 category: '',
-    //                 description: '',
-    //                 content: '',
-    //                 author: '',
-    //                 image: '',
-    //             })
+            if (res?.payload?.success) {
+                setUserInput({
+                    title: '',
+                    category: '',
+                    description: '',
+                    content: '',
+                    author: '',
+                    image: '',
+                })
 
-    //             setPreviewImage('');
-    //         }
+                setPreviewImage('');
+            }
 
-    //         setLoading(false);
+            setLoading(false);
 
-    //     } catch (Error) {
-    //         console.log(Error);
-    //     }
-    // }
+        } catch (Error) {
+            console.log(Error);
+        }
+    }
     console.log(state)
     const editorConfig = {
         // JoditEditor customization options
@@ -124,7 +124,7 @@ function UpdateBlog() {
                             className='w-full p-2 rounded-sm outline-none text-xl mt-1'
                             style={{ border: "1px solid gray" }}
                             type="text"
-                            value={titles}
+                            value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder='title' />
                     </div>
@@ -198,7 +198,7 @@ function UpdateBlog() {
                         )}
                     </div>
                     <div>
-                        <button className=' bg-[#007aff] w-full rounded-md  text-white p-2 mt-5'>Create Blog</button>
+                        <button onClick={onFormSubmit} className=' bg-[#007aff] w-full rounded-md  text-white p-2 mt-5'>Create Blog</button>
                     </div>
                 </div>
             </div>

@@ -51,7 +51,10 @@ function ForgotPassword() {
     }
 
     return (
-        <HomeLayout>
+        <HomeLayout
+            title={"Home 99 - Forget Password"}
+            description={"Best Flat in New Delhi"}
+        >
             <div className='flex items-center justify-center h-screen'>
                 {
                     loading

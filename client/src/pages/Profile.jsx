@@ -29,7 +29,10 @@ function Profile() {
 
   console.log(userInput);
   return (
-    <HomeLayout>
+    <HomeLayout
+      title={`Home 99 - ${data?.firstName} ${data?.lastName}` || "Profile"}
+      description={"Best Flat in New Delhi"}
+    >
       <div className='grid grid-cols-1 lg:grid-cols-5 mt-10 min-h-screen p-5 mx-auto gap-3'>
         <div className='lg:col-span-2 h-[400px] border p-4'>
           <div className='flex flex-col items-center my-4'>

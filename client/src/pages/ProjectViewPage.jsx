@@ -71,10 +71,12 @@ function ProjectViewPage() {
     useEffect(() => {
         fetchSimilarProjects();
     }, [data]);
-
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     return (
-        <HomeLayout>
+        <HomeLayout
+            title={data?.name || "Project View Page"}
+            description={"Best Flat in New Delhi"}
+        >
             {/* =================== */}
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
             <dialog id="my_modal_2" className="modal">

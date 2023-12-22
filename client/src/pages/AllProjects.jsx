@@ -35,7 +35,10 @@ function AllProjects() {
         fetchData()
     }, [])
     return (
-        <HomeLayout>
+        <HomeLayout
+            title={"Home 99 - All Projects"}
+            description={"Best Flat in New Delhi"}
+        >
             <div className="w-[100%] md:w-[80%] m-auto">
                 <div className="flex gap-2 my-5">
                     <div className="w-[75%] flex flex-col gap-4">

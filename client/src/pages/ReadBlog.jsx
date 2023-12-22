@@ -31,7 +31,10 @@ function ReadBlog() {
         fetchLatestBlog();
     }, [slug]);
     return (
-        <HomeLayout >
+        <HomeLayout
+            title={data?.title || " Read Blog Page"}
+            description={"Best Flat in New Delhi"}
+        >
             <div className=' w-[100%] min-h-screen h-[100%] bg-slate-100'>
                 <div className='md:w-[100%] lg:w-[80%] sm:w-[100%] w-[100%] m-auto'>
                     <div className=' w-full flex gap-4 py-5 flex-col md:flex-col lg:flex-row'>

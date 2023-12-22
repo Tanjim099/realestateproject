@@ -64,12 +64,12 @@ function Register() {
         try {
             e.preventDefault();
 
-            if(!isEmail(userInput?.email)){
+            if (!isEmail(userInput?.email)) {
                 toast.error('Invalid Email');
                 return;
             }
 
-            if(!isPassword(userInput?.password)){
+            if (!isPassword(userInput?.password)) {
                 toast.error('Password should be 6 - 16 character long with atleast a number and special character');
                 return;
             }
@@ -87,7 +87,10 @@ function Register() {
 
 
     return (
-        <HomeLayout>
+        <HomeLayout
+            title={"Home 99 - Register"}
+            description={"Best Flat in New Delhi"}
+        >
             <div className='flex items-center justify-center min-h-screen my-4 p-5'>
                 {
                     loading

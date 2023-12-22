@@ -65,7 +65,10 @@ function Login() {
     }
 
     return (
-        <HomeLayout>
+        <HomeLayout
+            title={"Home 99 - Login"}
+            description={"Best Flat in New Delhi"}
+        >
             <div className='flex items-center flex-col justify-center min-h-screen my-4'>
                 {
                     loading
