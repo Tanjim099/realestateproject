@@ -54,7 +54,11 @@ function CreateProject() {
         projectType: '',
         reraNo: '',
         content: '',
+        status: '',
+        checkStatus: '',
     });
+
+    console.log(projectCreateData.checkStatus);
 
     useEffect(() => {
         if (editProject && project) {
@@ -321,6 +325,8 @@ function CreateProject() {
                 formData.append('city', projectCreateData.city);
                 formData.append('content', projectCreateData.content);
                 formData.append('publicIds', JSON.stringify(publcId));
+                formData.append('status', projectCreateData.status);
+                formData.append('checkStatus', projectCreateData.checkStatus);
 
                 formData.append('map', projectCreateData.map);
                 formData.append('projectArea', projectCreateData.projectArea);
@@ -399,6 +405,8 @@ function CreateProject() {
             formData.append('phone', projectCreateData.phone);
             formData.append('city', projectCreateData.city);
             formData.append('content', projectCreateData.content);
+            formData.append('status', projectCreateData.status);
+            formData.append('checkStatus', projectCreateData.checkStatus);
 
             formData.append('map', projectCreateData.map);
             formData.append('projectArea', projectCreateData.projectArea);
@@ -847,6 +855,22 @@ function CreateProject() {
                                                 }
                                             </div>
                                         </div>
+                                    </div>
+                                    {/* Status */}
+                                    <div>
+                                        <label htmlFor='status'>Status<sup className='text-pink-400'>*</sup></label>
+                                        <select name='status' id='status' onChange={userInput} value={projectCreateData.status} className='w-full py-3 px-3 rounded border outline-0'>
+                                            <option value={'pre-launch'}>pre-launch</option>
+                                            <option value={'ongoing'}>ongoing</option>
+                                            <option value={'completed'}>completed</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor='checkStatus'>Check Status<sup className='text-pink-400'>*</sup></label>
+                                        <select name='checkStatus' id='checkStatus' onChange={userInput} value={projectCreateData.checkStatus} className='w-full py-3 px-3 rounded border outline-0'>
+                                            <option value={'yes'}>yes</option>
+                                            <option value={'no'}>no</option>
+                                        </select>
                                     </div>
 
                                     <div className='flex justify-end'>

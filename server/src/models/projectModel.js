@@ -90,6 +90,11 @@ const projectSchema = new Schema({
         enum: ['pre-launch', 'ongoing', 'completed'],
         default: 'pre-launch',
     },
+    checkStatus: {
+        type: String,
+        default: 'yes',
+        enum: ['yes', 'no'],
+    },
     contactInformation: {
         email: {
             type: String,
@@ -123,7 +128,7 @@ const projectSchema = new Schema({
     ratingandreview: [
         {
             type: Schema.Types.ObjectId,
-            ref:'ratingandreview'
+            ref: 'ratingandreview'
         }
     ]
 }, {
