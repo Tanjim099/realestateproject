@@ -15,7 +15,7 @@ function BlogSection() {
 
     return (
         <div>
-            <div className="mb-10 px-10 lg:p-0">
+            <div className="mb-10 px-5 lg:p-0">
                 <div className="max-w-[1200px] mx-auto">
                     <h2 className="text-3xl font-semibold text-[#7f1657] border-b-2 border-[#7f1657] pb-4 my-10">Recent Blog</h2>
                     <Swiper
@@ -36,7 +36,7 @@ function BlogSection() {
                         className="max-h-[30rem]"
                     >
                         {
-                         blogData && blogData?.map((blog, i) => {
+                            blogData && blogData?.map((blog, i) => {
                                 return (
 
                                     <SwiperSlide key={i} className="border w-[300px]">
@@ -142,6 +142,7 @@ function BlogSection() {
                                 </div>
                             </SwiperSlide> */}
                     </Swiper>
+
                 </div>
             </div>
         </div>

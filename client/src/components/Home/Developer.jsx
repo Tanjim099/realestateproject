@@ -12,12 +12,13 @@ function Developer() {
                     spaceBetween={20}
                     autoplay={{ delay: 2000, disableOnInteraction: false }}
                     modules={[Autoplay]}
+                    className='flex gap-2'
                 >
                     {
                         images.map((image, idx) => (
                             <SwiperSlide key={idx}>
-                                <div className='bg-[#7f1657] flex items-center justify-center p-2 rounded-md'>
-                                    <img className='  w-full h-[60px] rounded-md cursor-pointer' src={image.url} alt='DeveloperImage' />
+                                <div className='bg-[#7f1657] flex items-center justify-center p-2 rounded-md min-w-[100px]'>
+                                    <img className='   w-full h-[60px] rounded-md cursor-pointer' src={image.url} alt='DeveloperImage' />
                                 </div>
                             </SwiperSlide>
                         ))

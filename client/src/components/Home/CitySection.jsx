@@ -4,8 +4,8 @@ import CityCard from '../CityCard'
 function CitySection() {
     return (
         <div>
-            <div className="my-5 mx-auto px-10 lg:p-0 lg:max-w-[1200px]">
-                <h2 className="border-b-2 border-[#7f1657] pb-4 my-10 text-2xl lg:text-3xl text-[#7f1657] font-semibold">
+            <div className="my-5 mx-auto px-5 lg:p-0 lg:max-w-[1200px]">
+                <h2 className="border-b-2 border-[#7f1657] pb-4 my-10 text-[22px] lg:text-3xl text-[#7f1657] font-[600] lg:font-semibold" >
                     Top Cities In India
                     <p className="text-xs lg:text-sm">Best places to live in India</p>
                 </h2>

@@ -42,7 +42,7 @@ function HeroSection() {
         <div>
             {/* Hero Section */}
             <div className="hero_section">
-                <div className="hero gradiantColor min-h-[500px] sm:h-[200px] md:h-[300px]"
+                <div className="hero gradiantColor  min-h-[360px] sm:h-[200px] md:h-[300px] lg:min-h-[550px]"
                 //  style={{
                 //     backgroundImage: `url(${backroundImage})`,
                 //     backgroundSize: 'cover',
@@ -59,9 +59,9 @@ function HeroSection() {
                     <div className="bg-opacity-60"></div>
                     <div className="hero-content overflow-hidden h-full text-neutral-content w-[100%]">
                         <div className="flex flex-col h-full w-full justify-around lg:items-center">
-                            <div className="text-white flex flex-col justify-end h-full text-center w-full md:w-[75%] lg:w-[60%]">
-                                <h1 className=" sm:text-4xl lg:font-semibold">Discover Properties in India</h1>
-                                <p className="text-xl my-5">We help you find your new home</p>
+                            <div className="text-white flex flex-col justify-end h-full text-center mt-12 w-full md:w-[75%] lg:w-[60%] md:m-auto">
+                                <h1 className=" lg:text-3xl text-xl md:text-lg lg:font-medium">Discover Properties in India</h1>
+                                <p className="text-sm lg:my-5 my-2">We help you find your new home</p>
                                 {/* <div className="flex">
                                     <input type="text" placeholder="Enter Location builder, project" name="" id="" className="w-[100%] outline-none p-1 sm:p-3 text-black sm:text-sm" />
                                     <button className="btn border-0 rounded-none bg-[#7f1657] text-white hover:text-black">Search</button>

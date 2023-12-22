@@ -34,7 +34,10 @@ function HomePage() {
         onLoadGetBlogData();
     }, [])
     return (
-        <HomeLayout>
+        <HomeLayout
+            title={"Best Property Management Company in India Home 99"}
+            description={"Best Flat in New Delhi"}
+        >
             <div className="homeContainer">
                 <HeroSection />
                 <CitySection />

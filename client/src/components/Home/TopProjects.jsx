@@ -15,8 +15,8 @@ function TopProjects() {
 
     return (
         <div>
-            <div className='mt-14 w-[80%] relative mx-auto'>
-                <h2 className="border-b-2 border-[#7f1657] pb-4 my-10 text-3xl text-[#7f1657] font-semibold">
+            <div className='mt-14 w-[90%] lg:w-[80%] relative mx-auto'>
+                <h2 className="border-b-2 border-[#7f1657] pb-4 my-10 text-[22px] lg:text-3xl text-[#7f1657] font-[600] lg:font-semibold">
                     Top Projects
                 </h2>
                 <Swiper
@@ -50,13 +50,13 @@ function TopProjects() {
                     projects && projects.length > 4 && (
                         <div className='flex justify-between gap-10'>
                             <button
-                                className={`${classNames} top-[50%] left-[-3%]`}
+                                className={`${classNames} top-[50%] left-[-3%] z-10`}
                                 ref={(node) => setPrevEl(node)}
                             >
                                 <BsCaretLeftFill />
                             </button>
                             <button
-                                className={`${classNames} right-[-3%] top-[50%]`}
+                                className={`${classNames} right-[-3%] top-[50%] z-10`}
                                 ref={(node) => setNextEl(node)}
                             >
                                 <BsCaretRightFill />
