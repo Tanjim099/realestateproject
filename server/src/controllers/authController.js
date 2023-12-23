@@ -238,29 +238,29 @@ export const updateUser = async (req, res, next) => {
     try {
         // console.log('Starting...');
         const { firstName, lastName, phone } = req.body;
-        console.log(req.user);
-
+        // console.log(req.user);
+        const { id } = req.params;
         const user = await authModel.findById(id);
 
         user.firstName = firstName || user.firstName;
         user.lastName = lastName || user.lastName;
         user.phone = phone || user.phone;
 
-        const avatarLocalPath = req.file.path;
-        // console.log(avatarLocalPath);
+        if (req.file) {
+            const avatarLocalPath = req.file.path;
 
-        if (!avatarLocalPath) {
-            next(new ApiError(400, "Avatar file is required"));
+            if (!avatarLocalPath) {
+                next(new ApiError(400, "Avatar file is required"));
+            }
+
+            const avatar = await uploadCloudinary(avatarLocalPath);
+
+            if (!avatar) {
+                next(new ApiError(400, "Avatar file is required"));
+            }
+            user.avatar.public_id = avatar.public_id;
+            user.avatar.secure_url = avatar.secure_url;
         }
-
-        const avatar = await uploadCloudinary(avatarLocalPath);
-
-        if (!avatar) {
-            next(new ApiError(400, "Avatar file is required"));
-        }
-
-        user.avatar.public_id = avatar.public_id;
-        user.avatar.secure_url = avatar.secure_url;
 
         await user.save();
 
