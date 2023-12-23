@@ -6,6 +6,7 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, 
     from 'react-icons/bs'
 import { FiEdit } from "react-icons/fi"
 import { useNavigate } from "react-router-dom";
+import dateFormeter from "../../helper/dateFormeter";
 
 function AdminGetAllProject() {
     const productList = []
@@ -63,7 +64,7 @@ function AdminGetAllProject() {
                                         <td>{p.city}</td>
                                         <td>₹ {p.pricing.startingFrom}</td>
                                         <td>{p.contactInformation.phone}</td>
-                                        <td>{p.createdAt}</td>
+                                        <td>{dateFormeter(p.createdAt)}</td>
                                         <td><button onClick={() => {
                                             navigate(`/admin/dashboard/update-project/${p._id}`, { state: { ...p } })
                                         }} className="p-2 no-border bg-success text-white rounded"><FiEdit /></button></td>

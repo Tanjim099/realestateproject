@@ -3,6 +3,7 @@ import AdminLayout from "../../components/AdminLayout";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllContact, updateCheckedItems } from "../../redux/slices/statSlice";
+import dateFormeter from "../../helper/dateFormeter";
 
 function Lead() {
     const dispatch = useDispatch();
@@ -61,6 +62,9 @@ function Lead() {
                             </div>
                             <div className="w-[30%]">
                                 <p className="">Adarsh Parkland</p>
+                            </div>
+                            <div>
+                                <p>{dateFormeter(lead?.createdAt)}</p>
                             </div>
                             <div className="w-[10%] flex items-center justify-end">
                                 <input

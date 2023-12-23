@@ -7,6 +7,7 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, 
 import { FiEdit } from "react-icons/fi"
 import { useNavigate, useParams } from 'react-router-dom';
 import { deleteBlog } from "../../redux/slices/blogSlice";
+import dateFormeter from "../../helper/dateFormeter";
 function AdminAllBlogs() {
     const dispatch = useDispatch();
     const { page } = useParams();
@@ -70,7 +71,7 @@ function AdminAllBlogs() {
                                         <td>{blog.category}</td>
                                         <td><img className="w-[50px] h-[50px] rounded-full" src={blog.image.secure_url} alt="" /></td>
                                         <td>{blog.author?.firstName || "Known"}</td>
-                                        <td>{blog.createdAt}</td>
+                                        <td>{dateFormeter(blog.createdAt)}</td>
                                         <td><button onClick={() => navigate(`/admin/dashboard/blogs/update/${blog._id}`, { state: blog })} className="p-2 no-border bg-green-500 text-white rounded"><FiEdit /></button></td>
                                         <td><button onClick={() => onDeleteBlog(blog._id)} className="p-2 no-border bg-red-500 text-white rounded"><BsTrash /></button></td>
                                     </tr>

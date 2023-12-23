@@ -20,7 +20,7 @@ function Navbar() {
 
     const handelSubmitValue = (e) => {
         setCityValue(e.target.value);
-        navigate(`/city/${e.target.value.split(" ").join("-")}`);
+        navigate(`/city/${e.target.value.split(" ").join("-").toLowerCase()}`);
     }
 
     const hideDrawer = () => {

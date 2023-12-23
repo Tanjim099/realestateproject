@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import HomeLayout from "../components/HomeLayout";
 import ProjectCard from "../components/ProjectCard";
+import Form from "../components/Form";
 
 function Search() {
     const dispatch = useDispatch();
@@ -37,10 +38,10 @@ function Search() {
             title={"Search Resuts"}
             description={"Best Flat in New Delhi"}
         >
-            <div className="w-[100%] md:w-[80%] m-auto">
+            <div className="w-[100%] md:w-[100%] lg:w-[80%] m-auto">
                 <div className="flex gap-2 my-5">
-                    <div className="w-[75%] flex flex-col gap-4">
-                        <h1 className="text-2xl text-center mt-3">Search Resuts</h1>
+                    <div className="w-[100%] lg:w-[72%] flex flex-col gap-4">
+                        <h1 className="text-2xl text-center lg:mt-2">Search Resuts</h1>
                         <h6 className="text-center">
                             {results.length < 1
                                 ? "No Products Found"
@@ -76,48 +77,9 @@ function Search() {
                             </div>
                         </div> */}
                     </div>
-                    <div className="w-[25%]">
-                        <div className="main02_right">
-                            <div className="contactformbox w-full bg-[#8ed1fc] p-5 rounded-md sticky top-10">
-                                <div className="flex flex-col items-center justify-center gap-2">
-                                    <h3 id="contactformbox_title" className="text-center text-lg">Quick Way To Save Time!!</h3>
-                                </div>
-                                <div className="contactformbox_box1 flex items-center justify-between mt-5">
-                                    <div className="flex flex-col items-center justify-between">
-                                        <img className="w-[30px]" src="https://mantridevelopers.in/wp-content/uploads/2023/09/phone-ringing-1.webp" alt />
-                                        <p className="text-xs">24/7 Support</p>
-                                    </div>
-                                    <div className="flex flex-col items-center justify-between">
-                                        <img className="w-[30px]" src="https://mantridevelopers.in/wp-content/uploads/2023/09/phone-ringing-1.webp" alt />
-                                        <p className="text-xs">24/7 Support</p>
-                                    </div>
-                                    <div className="flex flex-col items-center justify-between">
-                                        <img className="w-[30px]" src="https://mantridevelopers.in/wp-content/uploads/2023/09/phone-ringing-1.webp" alt />
-                                        <p className="text-xs">24/7 Support</p>
-                                    </div>
-                                </div>
-                                <form action className="contactform contactformbox_box2 flex mt-5 flex-col items-center justify-between gap-3">
-                                    <input type="text" placeholder="Name" className="w-full px-2 py-1 rounded-sm outline-none" id="second" />
-                                    <input type="text" placeholder="+91 - " className="w-full px-2 py-1 rounded-sm outline-none" />
-                                    <input type="email" placeholder="Email" className="w-full px-2 py-1 rounded-sm outline-none" />
-                                    <select className="w-full p-1 rounded-sm outline-none">
-                                        <option value>Interested for Site Visit?</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                    </select>
-                                    <button className=" bg-cyan-900 w-full p-1 text-white rounded-sm">Enquire Now</button>
-                                </form>
-                                <div className="contactformbox_box2 flex items-center justify-between mt-2">
-                                    <div className="flex items-center gap-1">
-                                        <img className="w-[30px]" src="https://mantridevelopers.in/wp-content/uploads/2023/09/phone-ringing-1.webp" alt />
-                                        <p className="text-sm">Call</p>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <img className="w-[30px]" src="https://mantridevelopers.in/wp-content/uploads/2023/09/whatsapp.webp" alt />
-                                        <p className="text-sm">WhatsApp</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="lg:w-[28%] w-[0%] hidden lg:block md:hidden sticky top-24 ">
+                        <div className="main02_right sticky top-20">
+                            <Form />
                         </div>
                     </div>
                 </div>

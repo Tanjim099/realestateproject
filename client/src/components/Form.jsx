@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { createContact } from "../redux/store";
+import { useDispatch } from "react-redux";
 
 function Form() {
+    const dispatch = useDispatch();
     const [userInput, setUserInput] = useState({
         name: '',
         phone: '',
@@ -28,7 +30,6 @@ function Form() {
     return (
         <div className="contactformbox w-full bg-[#8ed1fc] p-5 rounded-md sticky top-10">
             <div className="flex flex-col items-center justify-center gap-2">
-                <img className="w-[90px]" id="contactformbox_logo" src="https://mantridevelopers.in/wp-content/uploads/2023/08/cropped-web-logo.png" alt />
                 <h3 id="contactformbox_title" className="text-center text-lg">Get Instant Call Back</h3>
             </div>
             <div className="contactformbox_box1 flex items-center justify-between mt-5">

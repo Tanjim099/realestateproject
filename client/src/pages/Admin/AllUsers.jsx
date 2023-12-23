@@ -6,6 +6,7 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill, 
     from 'react-icons/bs'
 import { FiEdit } from "react-icons/fi"
 import { useNavigate, useParams } from 'react-router-dom';
+import dateFormeter from "../../helper/dateFormeter";
 function AllUsers() {
     const dispatch = useDispatch();
     // const [users, setUsers] = useState([]);
@@ -85,7 +86,7 @@ function AllUsers() {
                                         <td>{user.phone}</td>
                                         <td>{user.role}</td>
                                         <td>{user.posts || 0}</td>
-                                        <td>{user.createdAt}</td>
+                                        <td>{dateFormeter(user.createdAt)}</td>
                                         <td><button onClick={() => onDeleteUser(user._id)} className="p-2 no-border bg-red-500 text-white rounded"><BsTrash /></button></td>
 
                                     </tr>
