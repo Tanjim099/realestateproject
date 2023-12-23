@@ -6,13 +6,16 @@ import { images } from '../../Constants/developerImage';
 function Developer() {
     return (
         <div>
-            <div className="max-w-[1200px] mx-auto my-14">
+            <div className="max-w-[1200px] mx-auto my-14 px-4 lg:px-0 overflow-hidden">
+            <h2 className="border-b-2 border-[#7f1657] pb-4 my-10 text-[22px] lg:text-3xl text-[#7f1657] font-[600] lg:font-semibold">
+                    Developer Group
+                </h2>
                 <Swiper
                     slidesPerView={7}
                     spaceBetween={20}
                     autoplay={{ delay: 2000, disableOnInteraction: false }}
                     modules={[Autoplay]}
-                    className='flex gap-2'
+                    className='flex gap-10 min-w-[1100px]'
                 >
                     {
                         images.map((image, idx) => (

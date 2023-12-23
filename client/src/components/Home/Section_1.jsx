@@ -5,7 +5,7 @@ import { MdOutlineHomeWork } from "react-icons/md";
 function Section_1() {
     return (
         <div>
-            <div className="md:h-[500px] p-4 min-h-screen my-10 flex items-center flex-col justify-center" style={{
+            <div className="p-4 min-h-[700px] w-full my-10 flex items-center flex-col justify-center" style={{
                 backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',

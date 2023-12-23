@@ -39,7 +39,7 @@ function App() {
   // console.log(location)
 
   useEffect(() => {
-    fetched();
+    // fetched();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -56,7 +56,7 @@ function App() {
         // console.log('Position -> ', position);
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
-        console.log(position.coords);
+        // console.log(position.coords);
       },
         (error) => {
           console.error('Error getting geolocation:', error.message);

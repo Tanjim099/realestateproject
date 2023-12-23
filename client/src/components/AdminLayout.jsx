@@ -29,6 +29,7 @@ function AdminLayout({ children }) {
     const [collapsed, setCollapsed] = useState(false);
     const { editProject } = useSelector((state) => state.project);
     const { data, role } = useSelector((state) => state.auth);
+    console.log(role);
     const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
     console.log(editProject);
     const {
@@ -91,8 +92,31 @@ function AdminLayout({ children }) {
             label: 'Author',
             link: 'author',
         },
-
     ];
+
+    const userMenu = [
+
+        {
+            key: '1',
+            icon: <FaStackOverflow />,
+            label: 'Dashboard',
+            link: '',
+        },
+        {
+            key: '7',
+            icon: <AiFillProject />,
+            label: 'All Blog',
+            link: 'blogs/page/1',
+        },
+        {
+            key: '8',
+            icon: <GrUserAdmin />,
+            label: 'Add Blog',
+            link: 'add-blog',
+        },
+    ]
+
+    console.log(menuItems);
 
     const handelLogout = async (e) => {
         // e.preventDefault();
@@ -115,12 +139,28 @@ function AdminLayout({ children }) {
                     mode='inline'
                     defaultSelectedKeys={['1']}
                 >
-
-                    {menuItems.map(item => (
-                        <Menu.Item key={item.key} icon={item.icon}>
-                            <Link to={`/admin/dashboard/${item.link}`}>{item.label}</Link>
-                        </Menu.Item>
-                    ))}
+                    {
+                        role === 'ADMIN' ?
+                            (
+                                menuItems && menuItems.map(item => (
+                                    <Menu.Item key={item.key} icon={item.icon}>
+                                        {
+                                            <Link to={`/admin/dashboard/${item.link}`}>{item.label}</Link>
+                                        }
+                                    </Menu.Item>
+                                ))
+                            )
+                            :
+                            (
+                                userMenu && userMenu.map(item => (
+                                    <Menu.Item key={item.key} icon={item.icon}>
+                                        {
+                                            <Link to={`/admin/dashboard/${item.link}`}>{item.label}</Link>
+                                        }
+                                    </Menu.Item>
+                                ))
+                            )
+                    }
                 </Menu>
             </Sider>
             <Layout>
