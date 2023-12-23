@@ -236,9 +236,10 @@ export const forgetPassword = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
     try {
-
+        // console.log('Starting...');
         const { firstName, lastName, phone } = req.body;
-        const { id } = req.params;
+        console.log(req.user);
+
         const user = await authModel.findById(id);
 
         user.firstName = firstName || user.firstName;

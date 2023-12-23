@@ -6,6 +6,7 @@ const initialState = {
     isLoggedIn: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : false,
     role: localStorage.getItem('role') ? JSON.parse(localStorage.getItem('role')) : "",
     data: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : null,
+    token: localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null,
     signData: null,
     userData: [],
 }
@@ -47,7 +48,7 @@ export const sendOTP = createAsyncThunk("/auth/otp", async (data) => {
 export const register = createAsyncThunk("/auth/register", async (data) => {
     try {
         const res = axiosInstance.post('auth/register', data);
-        console.log(res);
+        // console.log(res);
 
         toast.promise(res, {
             loading: 'Wait! Register in progress...',
@@ -74,6 +75,29 @@ export const logout = createAsyncThunk('/auth/logout', async () => {
             error: "Failed to logout"
         });
         return (await res).data;
+    } catch (Error) {
+        console.log(Error);
+    }
+});
+
+export const updateProfile = createAsyncThunk('/auth/user/update', async (data) => {
+    try {
+        console.log(data[1]);
+        const res = axiosInstance.put(`auth/user/update`, data[0], {
+            headers: {
+                Authorization: `Bearer ${data[1]}`
+            }
+        });
+
+        toast.promise(res, {
+            loading: "Wait! Update...",
+            success: (data) => {
+                return data?.data?.message
+            },
+            error: "Failed to Update"
+        });
+        return (await res)?.data;
+
     } catch (Error) {
         console.log(Error);
     }
@@ -129,6 +153,7 @@ const authSlice = createSlice({
                 localStorage.setItem('data', JSON.stringify(action?.payload?.data));
                 localStorage.setItem('isLoggedIn', JSON.stringify(true));
                 localStorage.setItem('role', JSON.stringify(action?.payload?.data?.role));
+                localStorage.setItem('token', JSON.stringify(action?.payload?.data?.token));
             }
         })
         builder.addCase(logout.fulfilled, (state, action) => {

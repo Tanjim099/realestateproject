@@ -3,20 +3,19 @@ import authModel from "../models/authModel.js";
 import ApiError from "../utils/ApiError.js";
 
 export const requiredSignIn = async (req, res, next) => {
-    const  token  = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer","");
-
+    let token = req.cookies.token || req.body.token || (req.headers.authorization || '').replace('Bearer', '').trim();
+    console.log(req.headers);
     if (!token) {
         return next(new ApiError(400, 'Unauthenticated, please login'));
     }
 
-    const tokenDetails = JWT.verify(token, process.env.JWT_SECRET);
+    const tokenDetails = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!tokenDetails) {
-        return next(new ApiError(401, "Unauthenticated, please login"));
+        return next(new ApiError(401, 'Invalid token, please login'));
     }
 
     req.user = tokenDetails;
-
     next();
 }
 
