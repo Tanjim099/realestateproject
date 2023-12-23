@@ -83,23 +83,22 @@ export const logout = createAsyncThunk('/auth/logout', async () => {
 export const updateProfile = createAsyncThunk('/auth/user/update', async (data) => {
     try {
         console.log(data[1]);
-        const res = axiosInstance.put(`auth/user/update`, data[0], {
-            headers: {
-                Authorization: `Bearer ${data[1]}`
-            }
-        });
+        const res = axiosInstance.put(`auth/user/update/${data[1]}`, data[0]);
 
         toast.promise(res, {
-            loading: "Wait! Update...",
+            loading: "Wait! Logout in progress...",
             success: (data) => {
                 return data?.data?.message
             },
-            error: "Failed to Update"
+            error: "Failed to logout"
         });
-        return (await res)?.data;
 
-    } catch (Error) {
-        console.log(Error);
+        return (await res).data;
+
+    } catch (error) {
+        console.error(error);
+        toast.error("An error occurred while updating");
+        throw error;
     }
 });
 
@@ -169,6 +168,15 @@ const authSlice = createSlice({
         builder.addCase(getUserProfile.fulfilled, (state, action) => {
             state.userData = action?.payload?.data;
             console.log(action);
+        })
+        builder.addCase(updateProfile.fulfilled, (state, action) => {
+            state.data = action?.payload?.data;
+            state.role = action?.payload?.data?.role;
+            state.isLoggedIn = true;
+            localStorage.setItem('data', JSON.stringify(action?.payload?.data));
+            localStorage.setItem('isLoggedIn', JSON.stringify(true));
+            localStorage.setItem('role', JSON.stringify(action?.payload?.data?.role));
+            localStorage.setItem('token', JSON.stringify(action?.payload?.data?.token));
         })
     }
 })

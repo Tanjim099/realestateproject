@@ -3,6 +3,7 @@ import HomeLayout from '../components/HomeLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { GrDocumentUpdate } from "react-icons/gr";
 import { updateProfile } from '../redux/slices/authSlice';
+import { MdDelete } from "react-icons/md";
 
 function Profile() {
   const { data, token } = useSelector((state) => state.auth);
@@ -14,6 +15,7 @@ function Profile() {
     lastName: '',
     phone: '',
     avatar: '',
+    email:'',
   });
 
   useEffect(() => {
@@ -22,6 +24,7 @@ function Profile() {
       lastName: data?.lastName || '',
       phone: data?.phone || '',
       avatar: data?.avatar.secure_url || '',
+      email: data?.email || '',
     });
   }, [data]);
 
@@ -65,11 +68,13 @@ function Profile() {
 
       const formData = new FormData();
 
-      formData.append('firstName', firstName);
-      formData.append('lastName', lastName);
-      formData.append('phone', phone);
-
-      const res = await dispatch(updateProfile([formData, token]));
+      formData.append('firstName', userInput.firstName);
+      formData.append('lastName', userInput.lastName);
+      formData.append('phone', userInput.phone);
+      formData.append('avatar', userInput.avatar);
+      
+      console.log('Starting...');
+      const res = await dispatch(updateProfile([formData, data?._id]));
       console.log(res);
 
     } catch (error) {
@@ -83,7 +88,7 @@ function Profile() {
       description={"Best Flat in New Delhi"}
     >
       <form onSubmit={onFormSubmit}>
-        <div className='max-w-[1200px] border p-4 mx-auto mt-20'>
+        <div className='max-w-[1200px] border uppercase p-4 mx-auto mt-20'>
           <div className='flex items-center justify-between'>
             <div>
               <label className='inline-block relative rounded-full w-[100px] h-[100px] border ' htmlFor="avatar">
@@ -100,13 +105,14 @@ function Profile() {
                 onChange={updateImageHandler}
               />
             </div>
-            <div className='text-red-600 cursor-pointer'>
+            <div className='text-red-600 cursor-pointer flex gap-1 items-center justify-center'>
+              <MdDelete />
               Delete Account
             </div>
           </div>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
             <div className='my-3 flex flex-col gap-2'>
-              <label htmlFor='firstName' className=''>First Name <sup className='text-pink-400'>*</sup></label>
+              <label htmlFor='firstName' className=''>First Name</label>
               <input
                 type='text'
                 id='firstName'
@@ -118,7 +124,7 @@ function Profile() {
               />
             </div>
             <div className='my-3 flex flex-col gap-2'>
-              <label htmlFor='lastName' className=''>Last Name <sup className='text-pink-400'>*</sup></label>
+              <label htmlFor='lastName' className=''>Last Name</label>
               <input
                 type='text'
                 id='lastName'
@@ -130,24 +136,38 @@ function Profile() {
               />
             </div>
           </div>
-          <div className='my-3 flex flex-col gap-2'>
-            <label htmlFor='phone' className=''>Phone Number <sup className='text-pink-400'>*</sup></label>
-            <input
-              type='text'
-              id='phone'
-              name='phone'
-              className='w-full py-3 px-3 rounded border outline-0'
-              value={userInput.phone}
-              placeholder='Enter Your Phone Number'
-              onChange={handelUserInput}
-            />
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+            <div className='my-3 flex flex-col gap-2'>
+              <label htmlFor='email' className=''>Email</label>
+              <input
+                type='text'
+                id='email'
+                name='email'
+                className='w-full cursor-not-allowed text-gray-500 py-3 px-3 rounded border disabled:bg-white outline-0'
+                value={userInput.email}
+                placeholder='Enter Your Email'
+                disabled
+              />
+            </div>
+            <div className='my-3 flex flex-col gap-2'>
+              <label htmlFor='phone' className=''>Phone Number</label>
+              <input
+                type='text'
+                id='phone'
+                name='phone'
+                className='w-full py-3 px-3 rounded border outline-0'
+                value={userInput.phone}
+                placeholder='Enter Your Phone Number'
+                onChange={handelUserInput}
+              />
+            </div>
           </div>
           <div className='flex justify-end'>
             <button
               type='submit'
-              className='bg-[#7f1657] text-xl w-[100px] inline-block text-white rounded h-[40px] mt-3 hover:scale-110 duration-300 ease-in-out transition-all'
+              className='bg-[#7f1657] text-xl px-3 inline-block text-white rounded h-[40px] mt-3 hover:scale-110 duration-300 ease-in-out transition-all'
             >
-              Edit
+              Save Changes
             </button>
           </div>
         </div>

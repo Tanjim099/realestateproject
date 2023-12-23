@@ -3,8 +3,9 @@ import authModel from "../models/authModel.js";
 import ApiError from "../utils/ApiError.js";
 
 export const requiredSignIn = async (req, res, next) => {
-    let token = req.cookies.token || req.body.token || (req.headers.authorization || '').replace('Bearer', '').trim();
-    console.log(req.headers);
+    console.log('Enter');
+    const token = req.cookies.token || req.body.token || (req.headers.authorization || '').replace('Bearer', '').trim();
+    console.log(token);
     if (!token) {
         return next(new ApiError(400, 'Unauthenticated, please login'));
     }

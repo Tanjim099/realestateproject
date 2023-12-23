@@ -10,7 +10,7 @@ authRoutes.post("/register", upload.single("avatar"), register);
 authRoutes.post("/login", login);
 authRoutes.get("/logout", logout);
 authRoutes.post("/forget-password", forgetPassword);
-authRoutes.put("/user/update",requiredSignIn, upload.single("avatar"), updateUser);
+authRoutes.put("/user/update/:id", upload.single("avatar"), updateUser);
 authRoutes.get("/get-profile/:id", getUserProfile);
 
 export default authRoutes
