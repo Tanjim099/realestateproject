@@ -669,7 +669,23 @@ function CreateProject() {
                                                     onChange={userInput}
                                                 />
                                             </div>
-
+                                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                                                <div>
+                                                    <label htmlFor='status'>Status<sup className='text-pink-400'>*</sup></label>
+                                                    <select name='status' id='status' onChange={userInput} value={projectCreateData.status} className='w-full py-3 px-3 rounded border outline-0'>
+                                                        <option value={'pre-launch'}>pre-launch</option>
+                                                        <option value={'ongoing'}>ongoing</option>
+                                                        <option value={'completed'}>completed</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label htmlFor='checkStatus'>Check Status<sup className='text-pink-400'>*</sup></label>
+                                                    <select name='checkStatus' id='checkStatus' onChange={userInput} value={projectCreateData.checkStatus} className='w-full py-3 px-3 rounded border outline-0'>
+                                                        <option value={'yes'}>yes</option>
+                                                        <option value={'no'}>no</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
                                                 <div className='my-3 flex flex-col gap-2'>
                                                     <label htmlFor='email'>Email<sup className='text-pink-400'>*</sup></label>
@@ -855,22 +871,6 @@ function CreateProject() {
                                                 }
                                             </div>
                                         </div>
-                                    </div>
-                                    {/* Status */}
-                                    <div>
-                                        <label htmlFor='status'>Status<sup className='text-pink-400'>*</sup></label>
-                                        <select name='status' id='status' onChange={userInput} value={projectCreateData.status} className='w-full py-3 px-3 rounded border outline-0'>
-                                            <option value={'pre-launch'}>pre-launch</option>
-                                            <option value={'ongoing'}>ongoing</option>
-                                            <option value={'completed'}>completed</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label htmlFor='checkStatus'>Check Status<sup className='text-pink-400'>*</sup></label>
-                                        <select name='checkStatus' id='checkStatus' onChange={userInput} value={projectCreateData.checkStatus} className='w-full py-3 px-3 rounded border outline-0'>
-                                            <option value={'yes'}>yes</option>
-                                            <option value={'no'}>no</option>
-                                        </select>
                                     </div>
 
                                     <div className='flex justify-end'>

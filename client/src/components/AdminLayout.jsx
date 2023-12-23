@@ -95,7 +95,6 @@ function AdminLayout({ children }) {
     ];
 
     const userMenu = [
-
         {
             key: '1',
             icon: <FaStackOverflow />,
@@ -155,7 +154,7 @@ function AdminLayout({ children }) {
                                 userMenu && userMenu.map(item => (
                                     <Menu.Item key={item.key} icon={item.icon}>
                                         {
-                                            <Link to={`/admin/dashboard/${item.link}`}>{item.label}</Link>
+                                            <Link to={`/user/dashboard/${item.link}`}>{item.label}</Link>
                                         }
                                     </Menu.Item>
                                 ))

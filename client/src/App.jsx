@@ -28,7 +28,7 @@ import ReadBlog from './pages/ReadBlog'
 import Author from './pages/Author'
 import AllProjects from './pages/AllProjects'
 import Search from './pages/Search'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logVisitorAsync } from './redux/slices/visitorSlice'
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState(null);
 
+  const { role } = useSelector((state) => state.auth);
   // console.log(location)
 
   useEffect(() => {
@@ -98,14 +99,27 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
 
         </Route>
-        <Route path='admin/dashboard/leads/page/:page' element={<Lead />} />
-        <Route path='admin/dashboard/update-project/:projectId' element={<EditProject />} />
-        <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
-        <Route path='admin/dashboard/add-project' element={<CreateProject />} />
-        <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
-        <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
-        <Route path='admin/dashboard/blogs/page/:page' element={<AdminAllBlogs />} />
-        <Route path='admin/dashboard/blogs/update/:id' element={<UpdateBlog />} />
+        {
+          role === 'ADMIN' ? (
+            <>
+              <Route path='admin/dashboard/leads/page/:page' element={<Lead />} />
+              <Route path='admin/dashboard/update-project/:projectId' element={<EditProject />} />
+              <Route path='admin/dashboard/users/page/:page' element={<AllUsers />} />
+              <Route path='admin/dashboard/add-project' element={<CreateProject />} />
+              <Route path='admin/dashboard/all-projects' element={<AdminGetAllProject />} />
+              <Route path='/admin/dashboard/add-blog' element={<CreateBlog />} />
+              <Route path='admin/dashboard/blogs/page/:page' element={<AdminAllBlogs />} />
+              <Route path='admin/dashboard/blogs/update/:id' element={<UpdateBlog />} />
+            </>
+          )
+          :
+          (
+            <>
+              <Route path='/user/dashboard' element={<Dashboard />} />
+              <Route path='/user/dashboard/add-blog' element={<CreateBlog />} />
+            </>
+          )
+      }
         <Route path='*' element={<NotFound />} />
       </Routes>
 
