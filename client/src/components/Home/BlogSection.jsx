@@ -27,7 +27,7 @@ function BlogSection() {
                         modules={[FreeMode, Pagination, Navigation, Autoplay]}
                         breakpoints={{
                             700: {
-                                slidesPerView: 2,
+                                slidesPerView: 3,
                             },
                             1024: {
                                 slidesPerView: 4,
@@ -39,7 +39,7 @@ function BlogSection() {
                             blogData && blogData?.map((blog, i) => {
                                 return (
 
-                                    <SwiperSlide key={i} className="border w-[300px]">
+                                    <SwiperSlide key={i} className="border w-[300px] md:min-w-[300px]">
                                         <NavLink to={`/blog/${blog.slug}`} onClick={() => navigate({ state: blog })}>
                                             <div className="w-full h-[200px]">
                                                 <img src={blog?.image?.secure_url} className="h-full w-full object-cover" />

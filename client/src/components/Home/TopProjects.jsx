@@ -15,20 +15,20 @@ function TopProjects() {
 
     return (
         <div>
-            <div className='mt-14 w-[90%] lg:w-[80%] relative mx-auto'>
+            <div className='mt-14 w-[90%] md:w-[95%] lg:w-[80%] relative mx-auto'>
                 <h2 className="border-b-2 border-[#7f1657] pb-4 my-10 text-[22px] lg:text-3xl text-[#7f1657] font-[600] lg:font-semibold">
                     Top Projects
                 </h2>
                 <Swiper
                     navigation={{ nextEl, prevEl }}
                     slidesPerView={1}
-                    spaceBetween={20}
+                    spaceBetween={10}
                     loop={true}
                     autoplay={{ delay: 2000, disableOnInteraction: false }}
                     modules={[FreeMode, Pagination, Navigation, Autoplay]}
                     breakpoints={{
                         700: {
-                            slidesPerView: 2,
+                            slidesPerView: 3,
                         },
                         1024: {
                             slidesPerView: 4,
@@ -39,7 +39,7 @@ function TopProjects() {
                     {
                         projects && (
                             projects.map((data, idx) => (
-                                <SwiperSlide key={idx}>
+                                <SwiperSlide key={idx} className='md:min-w-[300px]'>
                                     <Project data={data} />
                                 </SwiperSlide>
                             ))

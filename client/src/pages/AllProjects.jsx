@@ -39,9 +39,9 @@ function AllProjects() {
             title={"Home 99 - All Projects"}
             description={"Best Flat in New Delhi"}
         >
-            <div className="w-[100%] md:w-[80%] m-auto">
+            <div className="w-[100%] md:w-[100%] lg:w-[80%] m-auto">
                 <div className="flex gap-2 my-5">
-                    <div className="w-[75%] flex flex-col gap-4">
+                    <div className="w-[100%] md:w-[100%] lg:w-[75%] flex flex-col gap-4">
                         <div className="flex flex-col gap-4">
                             {
                                 projectByPage?.map((p, i) => {
@@ -72,7 +72,7 @@ function AllProjects() {
                             </div>
                         </div>
                     </div>
-                    <div className="w-[25%]">
+                    <div className="w-[0%] lg:w-[25%] hidden lg:block">
                         <div className="main02_right">
                             <div className="contactformbox w-full bg-[#8ed1fc] p-5 rounded-md sticky top-10">
                                 <div className="flex flex-col items-center justify-center gap-2">

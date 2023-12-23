@@ -80,7 +80,7 @@ function ProjectViewPage() {
             {/* =================== */}
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
             <dialog id="my_modal_2" className="modal">
-                <div className="modal-box p-1 w-[25%] rounded-md bg-cyan-900">
+                <div className="modal-box p-1 w-[90%] md:w-[50%] lg:w-[25%] rounded-md bg-cyan-900">
 
                     <div className="contactformbox w-full bg-[#8ed1fc] p-5 rounded-md sticky top-10">
                         <form method="dialog">
