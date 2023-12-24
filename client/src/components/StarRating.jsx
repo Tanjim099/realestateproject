@@ -6,6 +6,7 @@ import {
 } from "react-icons/ti"
 
 function StarRating({ Review_Count, Star_Size }) {
+    console.log(Review_Count);
     const [starCount, SetStarCount] = useState({
         full: 0,
         half: 0,
@@ -35,4 +36,4 @@ function StarRating({ Review_Count, Star_Size }) {
     )
 }
 
-export default StarRating
+export default StarRating;

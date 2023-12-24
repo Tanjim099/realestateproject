@@ -28,7 +28,7 @@ function ProjectViewPage() {
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
     const [count, setCount] = useState(null);
-    console.log(data);
+    console.log(data?.ratingandreview);
 
     const [ratingReview, setRatingReview] = useState({
         rating: '',
@@ -66,14 +66,14 @@ function ProjectViewPage() {
         const response = await dispatch(getProject(slug));
         if (response?.payload?.success) {
             setData(response?.payload?.data)
+                console.log(response?.payload?.data);
+                let result = GetAvgRating(response?.payload?.data?.ratingandreview);
+                setCount(result);
         }
     }
 
-    useEffect(() => {
-        let result = GetAvgRating(data?.ratingandreview);
-        setCount(result);
-    },[]);
-    console.log("Rating -> ",count);
+
+    console.log("Rating -> ", count);
 
     useEffect(() => {
         onLoadGetData();
@@ -511,7 +511,9 @@ function ProjectViewPage() {
                                     </div>
                                 </form>
                             </div>
-                            <StarRating Review_Count={count} />
+                           {
+                            count &&  <StarRating Review_Count={count} />
+                           }
                         </div>
                         {/* =============================== */}
                         <div className=" sm:w-[100%] md:w-[30%] h-[100%] sticky top-24 z-10 hidden lg:flex  flex-col gap-6">
