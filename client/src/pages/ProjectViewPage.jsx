@@ -28,12 +28,12 @@ function ProjectViewPage() {
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
     const [count, setCount] = useState(null);
-    console.log(data?.ratingandreview);
+    console.log(data.ratingandreview);
+
     useEffect(() => {
         const res = GetAvgRating(data?.ratingandreview);
         console.log(res);
         setCount(res);
-
     }, [data]);
     const [ratingReview, setRatingReview] = useState({
         rating: '',
@@ -198,7 +198,18 @@ function ProjectViewPage() {
 
                             </Swiper>
                             <div className="bg-gradient-to-r from-indigo-200 p-2 rounded-md w-full mt-3">
-                                <h1 className="py-2 px-2 lg:text-3xl text-xl lg:font-semibold font-medium">{data?.name}</h1>
+                                <div className="flex items-center justify-between">
+                                    <h1 className="py-2 px-2 lg:text-3xl text-xl lg:font-semibold font-medium">{data?.name}</h1>
+                                    <div className="flex gap-1">
+                                        <span>
+                                            {(count)}
+                                        </span>
+                                        <StarRating Review_Count={count} />
+                                        <span>
+                                            ({(data?.ratingandreview?.length)} Review)
+                                        </span>
+                                    </div>
+                                </div>
                                 <div className="flex flex-col lg:flex-row lg:items-center gap-3 justify-between mt-3">
                                     <div className="flex lg:flex-row flex-col gap-3">
                                         <div className="flex items-center gap-1 text-sm">
@@ -517,7 +528,6 @@ function ProjectViewPage() {
                                     </div>
                                 </form>
                             </div>
-                            <StarRating Review_Count={count} />
                         </div>
                         {/* =============================== */}
                         <div className=" sm:w-[100%] md:w-[30%] h-[100%] sticky top-24 z-10 hidden lg:flex  flex-col gap-6">
