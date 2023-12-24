@@ -15,6 +15,8 @@ import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import Form from "../components/Form";
 import { FaStar } from "react-icons/fa";
 import { createRatingReview } from "../redux/slices/ratingReview";
+import StarRating from "../components/StarRating";
+import GetAvgRating from "../helper/avgRating";
 
 function ProjectViewPage() {
 
@@ -25,6 +27,8 @@ function ProjectViewPage() {
     const [data, setData] = useState([]);
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
+    const [count, setCount] = useState(null);
+    console.log(data);
 
     const [ratingReview, setRatingReview] = useState({
         rating: '',
@@ -64,6 +68,12 @@ function ProjectViewPage() {
             setData(response?.payload?.data)
         }
     }
+
+    useEffect(() => {
+        let result = GetAvgRating(data?.ratingandreview);
+        setCount(result);
+    },[]);
+    console.log("Rating -> ",count);
 
     useEffect(() => {
         onLoadGetData();
@@ -501,6 +511,7 @@ function ProjectViewPage() {
                                     </div>
                                 </form>
                             </div>
+                            <StarRating Review_Count={count} />
                         </div>
                         {/* =============================== */}
                         <div className=" sm:w-[100%] md:w-[30%] h-[100%] sticky top-24 z-10 hidden lg:flex  flex-col gap-6">
