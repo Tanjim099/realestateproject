@@ -25,8 +25,8 @@ function ProjectViewPage() {
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
 
-    const [rating,setRating] = useState(null);
-    const [hover,setHover] = useState(null);
+    const [rating, setRating] = useState(null);
+    const [hover, setHover] = useState(null);
     console.log(rating);
     const [userInput, setUserInput] = useState({
         name: '',
@@ -425,7 +425,38 @@ function ProjectViewPage() {
                                     )
                                 }
                             </div>
-                           
+                            {/* Rating and review */}
+                            <div>
+                                <form className="w-full border p-4">
+                                    <h2>Rating & Review</h2>
+                                    <div className="flex gap-5">
+                                        {
+                                            [...Array(5)].map((item, idx) => {
+                                                let currentRating = idx + 1;
+                                                return (
+                                                    <label>
+                                                        <input
+                                                            type="radio"
+                                                            name="rating"
+                                                            className="cursor-pointer hidden"
+                                                            value={currentRating}
+                                                            onChange={() => setRating(currentRating)}
+                                                        />
+                                                        <FaStar
+                                                            className="cursor-pointer"
+                                                            size={50}
+                                                            color={currentRating <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                                            onMouseEnter={() => setHover(currentRating)}
+                                                            onMouseLeave={() => setHover(null)}
+                                                        />
+
+                                                    </label>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         {/* =============================== */}
                         <div className=" sm:w-[100%] md:w-[30%] h-[100%] sticky top-24 z-10 hidden lg:flex  flex-col gap-6">
