@@ -1,4 +1,5 @@
-export const contactTemplate = (name, email, phone, interested) => {
+export const contactTemplate = (name, email, phone, interested, projectName) => {
+    console.log(projectName);
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -13,6 +14,7 @@ export const contactTemplate = (name, email, phone, interested) => {
     
     <body>
         <div>
+        <h1>${projectName}</h1>
         <h2>${name}</h2>
         <p>${email}</p>
         <p>${phone}</p>

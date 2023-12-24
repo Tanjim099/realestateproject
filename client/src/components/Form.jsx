@@ -2,13 +2,15 @@ import { useState } from "react";
 import { createContact } from "../redux/store";
 import { useDispatch } from "react-redux";
 
-function Form() {
+function Form({ projectName }) {
+    console.log(projectName)
     const dispatch = useDispatch();
     const [userInput, setUserInput] = useState({
         name: '',
         phone: '',
         email: '',
         interested: '',
+        projectName: projectName,
     });
 
     console.log(userInput);
@@ -23,7 +25,7 @@ function Form() {
 
     const onFormSubmit = async (e) => {
         e.preventDefault();
-
+        console.log("userInput", userInput)
         const res = await dispatch(createContact(userInput));
 
     }

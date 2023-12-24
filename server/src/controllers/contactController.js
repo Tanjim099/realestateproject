@@ -6,7 +6,9 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 const createContact = asyncHandler(async (req, res, next) => {
     try {
-        const { name, phone, email, interested } = req.body;
+        const { name, phone, email, interested, projectName } = req.body;
+        console.log("req.body", req.body)
+        console.log("projectName", projectName)
 
         if (!name || !phone || !email || !interested) {
             return next(new ApiError(403, 'All field are required...'));
@@ -16,7 +18,8 @@ const createContact = asyncHandler(async (req, res, next) => {
             name,
             phone,
             email,
-            interested
+            interested,
+            projectName
         });
 
         if (!contact) {

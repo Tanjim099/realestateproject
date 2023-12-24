@@ -76,6 +76,7 @@ function ProjectViewPage() {
         fetchSimilarProjects();
     }, [data]);
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
+    console.log(data?.name)
     return (
         <HomeLayout
             title={data?.name || "Project View Page"}
@@ -431,7 +432,7 @@ function ProjectViewPage() {
                             <div>
                                 {/* ============================= */}
                                 <div className="main02_right sticky top-10">
-                                    <Form />
+                                    <Form projectName={data?.name} />
                                 </div>
 
                                 {/* ============================= */}
