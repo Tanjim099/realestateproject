@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import sendEmail from '../utils/sendEmail.js';
 import { contactTemplate } from '../mail/template/contactTemplate.js';
 
@@ -18,13 +18,15 @@ const contectSchema = new Schema({
     interested: {
         type: String,
         required: true,
+    },
+    projectName: {
+        type: String,
     }
 }, { timestamps: true });
 
-async function sendEmailContact(email, name, phone, interested) {
+async function sendEmailContact(email, name, phone, interested, projectName) {
     try {
-        const mailResponse = await sendEmail(email, 'Contact Form Send', contactTemplate(name, phone, email, interested));
-        console.log(mailResponse);
+        const mailResponse = await sendEmail(email, 'Contact Form Send', contactTemplate(name, phone, email, interested, projectName));
     } catch (Error) {
         console.log(Error);
         throw new Error;
@@ -33,7 +35,7 @@ async function sendEmailContact(email, name, phone, interested) {
 
 contectSchema.pre('save', async function (next) {
     if (this.isNew) {
-        await sendEmailContact(this.email, this.name, this.phone, this.interested);
+        await sendEmailContact(this.email, this.name, this.phone, this.interested, this.projectName);
     }
     next();
 })
