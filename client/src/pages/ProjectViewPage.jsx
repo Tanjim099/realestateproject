@@ -13,17 +13,30 @@ import { MdOutlineLocationCity } from "react-icons/md";
 import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import Form from "../components/Form";
+import { FaStar } from "react-icons/fa";
+import { createRatingReview } from "../redux/slices/ratingReview";
+import StarRating from "../components/StarRating";
+import GetAvgRating from "../helper/avgRating";
 
 function ProjectViewPage() {
 
     const dispatch = useDispatch();
     const { similarProject } = useSelector((state) => state?.project);
+    const { _id } = useSelector((state) => state?.auth?.data);
     console.log(similarProject);
     const [data, setData] = useState([]);
-    console.log(data);
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
+    const [count, setCount] = useState(null);
+    console.log(data);
 
+    const [ratingReview, setRatingReview] = useState({
+        rating: '',
+        review: '',
+        id: _id,
+    });
+    const [hover, setHover] = useState(null);
+    console.log(ratingReview);
     const [userInput, setUserInput] = useState({
         name: '',
         phone: '',
@@ -57,6 +70,12 @@ function ProjectViewPage() {
     }
 
     useEffect(() => {
+        let result = GetAvgRating(data?.ratingandreview);
+        setCount(result);
+    },[]);
+    console.log("Rating -> ",count);
+
+    useEffect(() => {
         onLoadGetData();
         fetchSimilarProjects();
     }, [slug])
@@ -66,6 +85,24 @@ function ProjectViewPage() {
         console.log(data.city);
         const response = await dispatch(getSimilarProject([data?.developer, data?.city]));
         console.log(response);
+    }
+
+    async function onReviewFormSubmit(e) {
+        e.preventDefault();
+        try {
+            const res = dispatch(createRatingReview([ratingReview, data?._id]));
+            setRatingReview((prev) => ({
+                ...prev,
+                rating: '',
+                review: '',
+                id: _id,
+            }))
+
+            setHover(null);
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -421,6 +458,60 @@ function ProjectViewPage() {
                                     )
                                 }
                             </div>
+                            {/* Rating and review */}
+                            <div>
+                                <form onSubmit={onReviewFormSubmit} className="w-full border p-4">
+                                    <h2>Rating & Review</h2>
+                                    <div className="flex gap-5">
+                                        {
+                                            [...Array(5)].map((item, idx) => {
+                                                let currentRating = idx + 1;
+                                                return (
+                                                    <label>
+                                                        <input
+                                                            type="radio"
+                                                            name="rating"
+                                                            className="cursor-pointer hidden"
+                                                            value={currentRating}
+                                                            onChange={() => setRatingReview((prev) => ({
+                                                                ...prev,
+                                                                rating: currentRating
+                                                            }))}
+                                                        />
+                                                        <FaStar
+                                                            className="cursor-pointer"
+                                                            size={50}
+                                                            color={currentRating <= (hover || ratingReview.rating) ? "#ffc107" : "#e4e5e9"}
+                                                            onMouseEnter={() => setHover(currentRating)}
+                                                            onMouseLeave={() => setHover(null)}
+                                                        />
+                                                    </label>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    <div>
+                                        <textarea
+                                            className="border w-full h-[150px] placeholder:uppercase px-5 py-2 mt-5 resize-none outline-0"
+                                            placeholder="Enter Review"
+                                            value={ratingReview.review}
+                                            onChange={(e) => setRatingReview((prev) => ({
+                                                ...prev,
+                                                review: e.target.value
+                                            }))}
+                                        />
+                                    </div>
+                                    <div className='flex justify-end'>
+                                        <button
+                                            type='submit'
+                                            className='bg-[#7f1657] text-xl px-3 inline-block text-white rounded h-[40px] mt-3 hover:bg-[#7f1639] hover:scale-110 duration-300 ease-in-out transition-all'
+                                        >
+                                            Added
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <StarRating Review_Count={count} />
                         </div>
                         {/* =============================== */}
                         <div className=" sm:w-[100%] md:w-[30%] h-[100%] sticky top-24 z-10 hidden lg:flex  flex-col gap-6">

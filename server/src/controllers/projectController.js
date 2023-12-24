@@ -270,7 +270,7 @@ const updateProject = asyncHandler(async (req, res, next) => {
 const getProject = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const project = await Project.findOne({ slug: id });
+        const project = await Project.findOne({ slug: id }).populate('ratingandreview').exec();
         if (!project) {
             return next(new ApiError(403, 'Invalid Project id'));
         }
