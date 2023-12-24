@@ -470,8 +470,8 @@ function CreateProject() {
             setAmenitieChips([]);
             setFloorPriceChips([]);
             setDimensionsChips([]);
-            // setLoading(false);
-            // navigate('/admin/dashboard/all-projects');
+            setLoading(false);
+            navigate('/admin/dashboard/all-projects');
 
         } catch (Error) {
             console.log(Error);
