@@ -9,10 +9,10 @@ import cloudinary from 'cloudinary';
 const createProject = asyncHandler(async (req, res, next) => {
     try {
         // console.log('Starting...');
-        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo, status, checkStatus } = req.body;
+        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo, title, keywords, status, checkStatus } = req.body;
         let { floorName, amenitiesName, dimensions, floorPrice } = req.body;
 
-        if (!name || !location || !status || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName || !map || !projectArea || !possessionOn || !projectType || !reraNo || !dimensions || !floorPrice || !checkStatus) {
+        if (!name || !location || !status || !city || !developer || !description || !specifications || !startingFrom || !currency || !email || !phone || !floorName || !amenitiesName || !map || !projectArea || !possessionOn || !projectType || !reraNo || !dimensions || !floorPrice || !title || !keywords || !checkStatus) {
             return next(new ApiError(403, 'All Fields are required'));
         }
 
@@ -37,6 +37,8 @@ const createProject = asyncHandler(async (req, res, next) => {
             possessionOn,
             projectType,
             reraNo,
+            title,
+            keywords,
             pricing: {
                 startingFrom,
                 currency
@@ -117,7 +119,7 @@ const createProject = asyncHandler(async (req, res, next) => {
 const updateProject = asyncHandler(async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo, status, checkStatus } = req.body;
+        const { name, location, city, content, developer, description, specifications, startingFrom, currency, email, phone, map, projectArea, possessionOn, projectType, reraNo, title, keywords, status, checkStatus } = req.body;
         let { floorName, amenitiesName, dimensions, floorPrice, publicIds } = req.body;
 
         publicIds = JSON.parse(publicIds);
@@ -159,6 +161,8 @@ const updateProject = asyncHandler(async (req, res, next) => {
             projectArea: projectArea || project.projectArea,
             possessionOn: possessionOn || project.possessionOn,
             projectType: projectType || project.projectType,
+            title: title || project.title,
+            keywords: keywords || project.keywords,
             reraNo: reraNo || project.reraNo,
             status: status || project.status,
             checkStatus: checkStatus || project.checkStatus,

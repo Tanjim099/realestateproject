@@ -125,6 +125,14 @@ const projectSchema = new Schema({
         type: String,
         required: true
     },
+    title: {
+        type: String,
+        required: true
+    },
+    keywords: {
+        type: String,
+        required: true
+    },
     ratingandreview: [
         {
             type: Schema.Types.ObjectId,

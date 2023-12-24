@@ -13,8 +13,6 @@ function Form({ projectName }) {
         projectName: projectName,
     });
 
-    console.log(userInput);
-
     const handelInput = (e) => {
         const { value, name } = e.target;
         setUserInput((prev) => ({
@@ -25,7 +23,6 @@ function Form({ projectName }) {
 
     const onFormSubmit = async (e) => {
         e.preventDefault();
-        console.log("userInput", userInput)
         const res = await dispatch(createContact(userInput));
 
     }
