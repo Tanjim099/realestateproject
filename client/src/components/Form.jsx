@@ -3,7 +3,7 @@ import { createContact } from "../redux/store";
 import { useDispatch } from "react-redux";
 
 function Form({ projectName }) {
-    console.log(projectName)
+    // console.log(projectName)
     const dispatch = useDispatch();
     const [userInput, setUserInput] = useState({
         name: '',

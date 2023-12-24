@@ -23,20 +23,25 @@ function ProjectViewPage() {
     const dispatch = useDispatch();
     const { similarProject } = useSelector((state) => state?.project);
     const { _id } = useSelector((state) => state?.auth?.data);
-    console.log(similarProject);
+    // console.log(similarProject);
     const [data, setData] = useState([]);
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
     const [count, setCount] = useState(null);
     console.log(data?.ratingandreview);
+    useEffect(() => {
+        const res = GetAvgRating(data?.ratingandreview);
+        console.log(res);
+        setCount(res);
 
+    }, [data]);
     const [ratingReview, setRatingReview] = useState({
         rating: '',
         review: '',
         id: _id,
     });
     const [hover, setHover] = useState(null);
-    console.log(ratingReview);
+    // console.log(ratingReview);
     const [userInput, setUserInput] = useState({
         name: '',
         phone: '',
@@ -44,7 +49,7 @@ function ProjectViewPage() {
         interested: '',
     });
 
-    console.log(userInput);
+    // console.log(userInput);
 
     const handelInput = (e) => {
         const { value, name } = e.target;
@@ -66,14 +71,15 @@ function ProjectViewPage() {
         const response = await dispatch(getProject(slug));
         if (response?.payload?.success) {
             setData(response?.payload?.data)
-                console.log(response?.payload?.data);
-                let result = GetAvgRating(response?.payload?.data?.ratingandreview);
-                setCount(result);
         }
     }
 
+    // useEffect(() => {
+    //     const res = GetAvgRating(data)
+    //     console.log(res);
+    // },[])
 
-    console.log("Rating -> ", count);
+    // console.log("Rating -> ", count);
 
     useEffect(() => {
         onLoadGetData();
@@ -81,10 +87,10 @@ function ProjectViewPage() {
     }, [slug])
 
     async function fetchSimilarProjects() {
-        console.log(data.developer);
-        console.log(data.city);
+        // console.log(data.developer);
+        // console.log(data.city);
         const response = await dispatch(getSimilarProject([data?.developer, data?.city]));
-        console.log(response);
+        // console.log(response);
     }
 
     async function onReviewFormSubmit(e) {
@@ -109,7 +115,7 @@ function ProjectViewPage() {
         fetchSimilarProjects();
     }, [data]);
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
-    console.log(data?.name)
+    // console.log(data?.name)
     return (
         <HomeLayout
             title={data?.name || "Project View Page"}
@@ -309,9 +315,9 @@ function ProjectViewPage() {
                                     className="carousel w-full rounded-md shadow-[0_0_1px_gray] mt-6"
                                 >
                                     {
-                                        data?.floorPlan?.map((item) => {
+                                        data?.floorPlan?.map((item, idx) => {
                                             return (
-                                                <SwiperSlide id="slide3" className=" bg-white carousel-item relative w-[100%] rounded-md">
+                                                <SwiperSlide key={idx} id="slide3" className=" bg-white carousel-item relative w-[100%] rounded-md">
                                                     <div className="flex flex-col-reverse md:flex-row w-[100%]">
                                                         <div className="lg:w-[40%] md:w-[40%] w-[100%]">
                                                             <div className="lg:p-4 md:p-3 sm:p-2">
@@ -371,8 +377,8 @@ function ProjectViewPage() {
                                 <h2 className="py-2 px-2 lg:text-3xl text-xl lg:font-semibold font-medium">Gallery</h2>
                                 <div className="gallery mt-4 grid lg:grid-cols-4 md:grid-cols-4 grid-cols-2 gap-2">
                                     {
-                                        data?.gallery?.map((img) => {
-                                            return <img className="lg:w-[200px] h-full rounded-sm cursor-pointer" onClick={() => document.getElementById('my_modal_2').showModal()} src={img?.secure_url} alt />
+                                        data?.gallery?.map((img, idx) => {
+                                            return <img key={idx} className="lg:w-[200px] h-full rounded-sm cursor-pointer" onClick={() => document.getElementById('my_modal_2').showModal()} src={img?.secure_url} alt />
                                         })
                                     }
                                 </div>
@@ -380,9 +386,9 @@ function ProjectViewPage() {
                             <div className="content07 bg-gradient-to-r from-cyan-100 to-blue-10 mt-5 p-2 rounded-md" id="amenities">
                                 <h2 className="py-2 px-2 lg:text-3xl text-xl lg:font-semibold font-medium">Amenities You Would Love to Use</h2>
                                 <div className="Amenities grid lg:grid-cols-6 md:grid-cols-6 grid-cols-3 gap-2">
-                                    {data?.amenities?.map((item) => {
+                                    {data?.amenities?.map((item, idx) => {
                                         return (
-                                            <div className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
+                                            <div key={idx} className=" bg-white p-2 rounded-md flex flex-col items-center shadow-md">
                                                 <img className="w-[30px] " src={item?.image?.secure_url} width="30px" alt />
                                                 <p className=" text-center" >{item?.name}</p>
                                             </div>
@@ -467,7 +473,7 @@ function ProjectViewPage() {
                                             [...Array(5)].map((item, idx) => {
                                                 let currentRating = idx + 1;
                                                 return (
-                                                    <label>
+                                                    <label key={idx}>
                                                         <input
                                                             type="radio"
                                                             name="rating"
@@ -511,9 +517,7 @@ function ProjectViewPage() {
                                     </div>
                                 </form>
                             </div>
-                           {
-                            count &&  <StarRating Review_Count={count} />
-                           }
+                            <StarRating Review_Count={count} />
                         </div>
                         {/* =============================== */}
                         <div className=" sm:w-[100%] md:w-[30%] h-[100%] sticky top-24 z-10 hidden lg:flex  flex-col gap-6">

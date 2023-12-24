@@ -17,10 +17,10 @@ const initialState = {
 
 export const createNewProject = createAsyncThunk("/project/create", async (data) => {
     try {
-        console.log('Starting...');
-        console.log(data);
+        // console.log('Starting...');
+        // console.log(data);
         const res = axiosInstance.post('project/create/', data);
-        console.log(res);
+        // console.log(res);
 
         toast.promise(res, {
             loading: 'Creating New Project',
@@ -58,7 +58,7 @@ export const updateProject = createAsyncThunk('', async (data) => {
 export const getAllProjects = createAsyncThunk("/project/getall", async () => {
     try {
         const res = axiosInstance.get("project/getall");
-        console.log(res);
+        // console.log(res);
         toast.promise(res, {
             loading: "Wait Getting All Data",
             success: "All Data Fetched Successfully",
@@ -75,7 +75,7 @@ export const getAllProjects = createAsyncThunk("/project/getall", async () => {
 export const getAllProjectsByPage = createAsyncThunk("/project/get-all", async (data) => {
     try {
         const res = axiosInstance.get(`project/get-all/projets?page=${data.page}&limit=${data.limit}`);
-        console.log(res);
+        // console.log(res);
         toast.promise(res, {
             loading: "Wait Getting All Data",
             success: "All Data Fetched Successfully",
@@ -91,9 +91,9 @@ export const getAllProjectsByPage = createAsyncThunk("/project/get-all", async (
 
 export const getProject = createAsyncThunk("/project/getProject", async (pId) => {
     try {
-        console.log(pId);
+        // console.log(pId);
         const res = axiosInstance.get(`project/get/${pId}`);
-        console.log(res);
+        // console.log(res);
         toast.promise(res, {
             loading: 'Wating',
             success: 'Successfully',
@@ -157,9 +157,9 @@ export const getSuggestions = createAsyncThunk("/project/suggestions", async (qu
 
 export const getSimilarProject = createAsyncThunk("/project/get-similar", async (data) => {
     try {
-        console.log(data);
-        console.log(data[0]);
-        console.log(data[1]);
+        // console.log(data);
+        // console.log(data[0]);
+        // console.log(data[1]);
         const res = axiosInstance.get(`project/similar/${data[0]}/${data[1]}`);
         toast.promise(res, {
             loading: 'Wait! Searching',
@@ -217,11 +217,11 @@ const projectSlice = createSlice({
             toast.error('Failed to fetched project');
         });
         builder.addCase(getProject.fulfilled, (state, action) => {
-            console.log(action);
+            // console.log(action);
         });
         builder.addCase(getAllProjectsByPage.fulfilled, (state, action) => {
             state.projectByPage = action?.payload?.data
-            console.log(action);
+            // console.log(action);
         });
         builder.addCase(searchProject.fulfilled, (state, action) => {
             console.log(action);
@@ -229,12 +229,12 @@ const projectSlice = createSlice({
                 state.results = action.payload;
         });
         builder.addCase(getSuggestions.fulfilled, (state, action) => {
-            console.log(action);
+            // console.log(action);
             state.suggestions = action.payload;
         });
         builder.addCase(getSimilarProject.fulfilled, (state, action) => {
             state.similarProject = action?.payload?.data;
-            console.log(action);
+            // console.log(action);
         })
     }
 })

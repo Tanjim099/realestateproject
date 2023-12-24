@@ -44,7 +44,7 @@ function Navbar() {
         };
     }
 
-    console.log(cityValue);
+    // console.log(cityValue);
 
     return (
         <div className="navbar  bg-[#7f1657] z-20 sticky top-0 left-0 right-0">
