@@ -315,7 +315,16 @@ function CreateProject() {
                     toast.error('Filed are all mandatory...');
                     return;
                 }
-
+                // console.log(projectCreateData.title.length)
+                // if (projectCreateData?.title?.length > 60) {
+                //     toast.error('Title must be less than 60 characters...');
+                //     return;
+                // }
+                // console.log("projectCreateDatap", projectCreateData.title.description)
+                // if (projectCreateData.description.length > 160) {
+                //     toast.error('Description must be less than 160 characters...');
+                //     return;
+                // }
                 const formData = new FormData();
                 formData.append('name', projectCreateData.name);
                 formData.append('location', projectCreateData.location);
@@ -386,9 +395,9 @@ function CreateProject() {
                 setAmenitieChips([]);
                 setFloorPriceChips([]);
                 setDimensionsChips([]);
-                setLoading(false);
-                navigate('/admin/dashboard/all-projects');
-                return;
+                // setLoading(false);
+                // navigate('/admin/dashboard/all-projects');
+                // return;
             }
 
             if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {

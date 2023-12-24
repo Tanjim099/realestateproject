@@ -11,18 +11,25 @@ function HeroSection() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState();
+    console.log(searchQuery)
     const { query, results, suggestions, status, error } = useSelector((state) => state?.project);
     console.log("results", results);
     console.log("suggestions", suggestions);
     const handleInputChange = (e) => {
         const inputValue = e.target.value;
-        dispatch(setQuery(inputValue));
+        setSearchQuery(inputValue)
+        console.log(inputValue)
+        dispatch(setQuery(searchQuery));
     };
 
     const handleSearch = async () => {
         const response = await dispatch(searchProject(query));
         if (response?.payload?.length > 1) {
-            navigate("/search")
+            navigate("/search");
+            const emptyStr = ""
+            setSearchQuery(emptyStr);
+            console.log(searchQuery);
         }
     };
 
@@ -96,7 +103,7 @@ function HeroSection() {
                                             </div>
                                             <ul className='w-full'>
                                                 {suggestions?.map((suggestion) => (
-                                                    <li className={`${query === '' ? '' : 'bg-white'} max-h-[500px] overflow-y-auto text-black text-left w-full px-4 py-2 cursor-pointer`} key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
+                                                    <li className={`${query === '' ? '' : 'bg-white'} max-h-[500px] overflow-y-auto text-black text-left w-full px-4 py-2 cursor-pointer`} key={suggestion} onClick={handleSearch}>
 
                                                         {
                                                             query === ''

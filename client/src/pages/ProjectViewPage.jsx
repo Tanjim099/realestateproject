@@ -22,8 +22,11 @@ function ProjectViewPage() {
 
     const dispatch = useDispatch();
     const { similarProject } = useSelector((state) => state?.project);
+    const similarProjectData = similarProject.filter((data) => {
+        return data.checkStatus == "yes";
+    })
     const { _id } = useSelector((state) => state?.auth?.data);
-    // console.log(similarProject);
+    console.log(similarProject);
     const [data, setData] = useState([]);
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
@@ -114,12 +117,14 @@ function ProjectViewPage() {
     useEffect(() => {
         fetchSimilarProjects();
     }, [data]);
+    console.log(data)
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
     // console.log(data?.name)
     return (
         <HomeLayout
             title={data?.name || "Project View Page"}
-            description={"Best Flat in New Delhi"}
+            description={data?.description || "Best Flat in New Delhi"}
+            keywords={data?.keywords}
         >
             {/* =================== */}
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
@@ -424,57 +429,6 @@ function ProjectViewPage() {
                                     <Form />
                                 </div>
                             </div>
-                            {/* similar project card section */}
-                            <div className="mt-5 rounded-md">
-                                <h2 className="border-b-2 border-[#7f1657] pb-2 my-10 text-2xl text-[#7f1657] font-semibold">
-                                    Similar Project
-                                </h2>
-                                <Swiper
-                                    navigation={{ nextEl, prevEl }}
-                                    slidesPerView={1}
-                                    spaceBetween={20}
-                                    loop={true}
-                                    autoplay={{ delay: 2000, disableOnInteraction: false }}
-                                    modules={[FreeMode, Pagination, Navigation, Autoplay]}
-                                    breakpoints={{
-                                        700: {
-                                            slidesPerView: 2,
-                                        },
-                                        1024: {
-                                            slidesPerView: 4,
-                                        },
-                                    }}
-                                    className="max-h-[30rem]"
-                                >
-                                    {
-                                        similarProject && (
-                                            similarProject.map((data, idx) => (
-                                                <SwiperSlide key={idx} className=" min-w-[300px] max-w-[300px]  mb-5">
-                                                    <SimilarProjectCard data={data} />
-                                                </SwiperSlide>
-                                            ))
-                                        )
-                                    }
-                                </Swiper>
-                                {
-                                    similarProject && similarProject.length > 4 && (
-                                        <div className='flex justify-between gap-10'>
-                                            <button
-                                                className={`${classNames} top-[50%] left-[-3%]`}
-                                                ref={(node) => setPrevEl(node)}
-                                            >
-                                                <BsCaretLeftFill />
-                                            </button>
-                                            <button
-                                                className={`${classNames} top-[50%]`}
-                                                ref={(node) => setNextEl(node)}
-                                            >
-                                                <BsCaretRightFill />
-                                            </button>
-                                        </div>
-                                    )
-                                }
-                            </div>
                             {/* Rating and review */}
                             <div>
                                 <form onSubmit={onReviewFormSubmit} className="w-full border p-4">
@@ -488,7 +442,7 @@ function ProjectViewPage() {
                                                         <input
                                                             type="radio"
                                                             name="rating"
-                                                            className="cursor-pointer hidden"
+                                                            className="cursor-pointer text-sm hidden"
                                                             value={currentRating}
                                                             onChange={() => setRatingReview((prev) => ({
                                                                 ...prev,
@@ -496,7 +450,7 @@ function ProjectViewPage() {
                                                             }))}
                                                         />
                                                         <FaStar
-                                                            className="cursor-pointer"
+                                                            className="cursor-pointer text-sm"
                                                             size={50}
                                                             color={currentRating <= (hover || ratingReview.rating) ? "#ffc107" : "#e4e5e9"}
                                                             onMouseEnter={() => setHover(currentRating)}
@@ -528,6 +482,58 @@ function ProjectViewPage() {
                                     </div>
                                 </form>
                             </div>
+                            {/* similar project card section */}
+                            <div className="mt-5 rounded-md">
+                                <h2 className="border-b-2 border-[#7f1657] pb-2 my-10 text-2xl text-[#7f1657] font-semibold">
+                                    Similar Project
+                                </h2>
+                                <Swiper
+                                    navigation={{ nextEl, prevEl }}
+                                    slidesPerView={1}
+                                    spaceBetween={20}
+                                    loop={true}
+                                    autoplay={{ delay: 2000, disableOnInteraction: false }}
+                                    modules={[FreeMode, Pagination, Navigation, Autoplay]}
+                                    breakpoints={{
+                                        700: {
+                                            slidesPerView: 2,
+                                        },
+                                        1024: {
+                                            slidesPerView: 4,
+                                        },
+                                    }}
+                                    className="max-h-[30rem]"
+                                >
+                                    {
+                                        similarProjectData && (
+                                            similarProjectData.map((data, idx) => (
+                                                <SwiperSlide key={idx} className=" min-w-[300px] max-w-[300px]  mb-5">
+                                                    <SimilarProjectCard data={data} />
+                                                </SwiperSlide>
+                                            ))
+                                        )
+                                    }
+                                </Swiper>
+                                {
+                                    similarProject && similarProject.length > 4 && (
+                                        <div className='flex justify-between gap-10'>
+                                            <button
+                                                className={`${classNames} top-[50%] left-[-3%]`}
+                                                ref={(node) => setPrevEl(node)}
+                                            >
+                                                <BsCaretLeftFill />
+                                            </button>
+                                            <button
+                                                className={`${classNames} top-[50%]`}
+                                                ref={(node) => setNextEl(node)}
+                                            >
+                                                <BsCaretRightFill />
+                                            </button>
+                                        </div>
+                                    )
+                                }
+                            </div>
+
                         </div>
                         {/* =============================== */}
                         <div className=" sm:w-[100%] md:w-[30%] h-[100%] sticky top-24 z-10 hidden lg:flex  flex-col gap-6">

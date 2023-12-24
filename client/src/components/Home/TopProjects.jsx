@@ -9,8 +9,15 @@ function TopProjects() {
 
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
+    const [projectData, setProjectData] = useState([]);
     const { projects } = useSelector((state) => state.project);
+    const filterProject = projects.filter((data) => {
+        return data.checkStatus == "yes";
+    })
+    // setProjectData(filterProject)
+    // console.log(filterProject);
     // console.log(projects);
+    // console.log(projectData);
     const classNames = 'hover:bg-dry absolute flex items-center justify-center transitions text-sm rounded w-8 h-8 flex-colo bg-[#7f1657] text-white';
 
     return (
@@ -37,8 +44,8 @@ function TopProjects() {
                     className="max-h-[30rem]"
                 >
                     {
-                        projects && (
-                            projects.map((data, idx) => (
+                        filterProject && (
+                            filterProject.map((data, idx) => (
                                 <SwiperSlide key={idx} className='md:min-w-[300px]'>
                                     <Project data={data} />
                                 </SwiperSlide>
