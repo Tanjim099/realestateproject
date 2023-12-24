@@ -8,8 +8,11 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 const createRating = asyncHandler(async (req, res, next) => {
     try {
-        const { rating, review, projectId } = req.body;
-        const id = req.user._id;
+        console.log('Starting...');
+        const { rating, review, id } = req.body;
+        const {projectId} = req.params;
+        
+        // const id = req.user._id;
 
         if (!rating || !review || !projectId) {
             return next(new ApiError(403, 'Field are mandatory'));
