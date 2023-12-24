@@ -1,9 +1,21 @@
 import { FaBed } from "react-icons/fa";
 import { NavLink, useNavigate } from 'react-router-dom';
+import GetAvgRating from "../helper/avgRating";
+import { useEffect, useState } from "react";
+import StarRating from "./StarRating";
 
 function Project({ data }) {
     const navigate = useNavigate();
-    console.log(data);
+    // console.log(data);
+    const [count, setCount] = useState(null);
+    // console.log(data.ratingandreview);
+
+    useEffect(() => {
+        const res = GetAvgRating(data?.ratingandreview);
+        // console.log(res);
+        setCount(res);
+    }, []);
+
     return (
         <NavLink to={`/project/${data.slug}`}>
             <div
@@ -19,7 +31,18 @@ function Project({ data }) {
                         <button onClick={() => navigate(`/project/${data.slug}`, { state: data })} className="px-2 py-1 rounded-sm  border-2">Details</button>
 
                     </div>
-                    <h3 className="project_name text-xl font-medium my-2">{(data.name.substring(0, 22))}</h3>
+                    <div className="flex justify-between gap-2">
+                        <h3 className="project_name text-xl font-medium my-2">{(data.name.substring(0, 22))}</h3>
+                        <div className="flex items-center gap-1">
+                            <span>
+                                {(count)}
+                            </span>
+                            <StarRating Review_Count={count} />
+                            {/* <span>
+                                ({(data?.ratingandreview?.length)} Review)
+                            </span> */}
+                        </div>
+                    </div>
                     <p className="project_description text-sm">{(data?.description).substring(0, 50)}</p>
                 </div>
             </div>

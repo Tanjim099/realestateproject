@@ -23,13 +23,13 @@ function StarRating({ Review_Count, Star_Size }) {
   return (
     <div className="flex gap-1 text-yellow-100">
       {[...new Array(starCount.full)].map((_, i) => {
-        return <TiStarFullOutline key={i} size={Star_Size || 20} />
+        return <TiStarFullOutline color="#ffc107" key={i} size={Star_Size || 20} />
       })}
       {[...new Array(starCount.half)].map((_, i) => {
-        return <TiStarHalfOutline key={i} size={Star_Size || 20} />
+        return <TiStarHalfOutline color="#ffc107" key={i} size={Star_Size || 20} />
       })}
       {[...new Array(starCount.empty)].map((_, i) => {
-        return <TiStarOutline key={i} size={Star_Size || 20} />
+        return <TiStarOutline color="#ffc107" key={i} size={Star_Size || 20} />
       })}
     </div>
   )
