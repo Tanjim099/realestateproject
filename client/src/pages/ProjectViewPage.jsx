@@ -13,6 +13,7 @@ import { MdOutlineLocationCity } from "react-icons/md";
 import { BsCaretLeftFill, BsCaretRightFill } from 'react-icons/bs';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 import Form from "../components/Form";
+import { FaStar } from "react-icons/fa";
 
 function ProjectViewPage() {
 
@@ -24,6 +25,9 @@ function ProjectViewPage() {
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
 
+    const [rating,setRating] = useState(null);
+    const [hover,setHover] = useState(null);
+    console.log(rating);
     const [userInput, setUserInput] = useState({
         name: '',
         phone: '',
@@ -420,6 +424,7 @@ function ProjectViewPage() {
                                     )
                                 }
                             </div>
+                           
                         </div>
                         {/* =============================== */}
                         <div className=" sm:w-[100%] md:w-[30%] h-[100%] sticky top-24 z-10 hidden lg:flex  flex-col gap-6">
