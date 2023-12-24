@@ -180,7 +180,7 @@ function ProjectViewPage() {
                                 </div>
                             </div>
                             {/* === */}
-                            <div className="my-8 shadow-[0_0_3px_gray] p-3 rounded-md sticky top-1">
+                            <div className="my-8 shadow-[0_0_3px_gray] p-3 rounded-md sticky top-[66px] bg-white z-30">
                                 <ul className="flex items-center justify-between gap-6 overflow-x-auto">
                                     <li className="cursor-pointer"><ScrollLink to="overflow" smooth={true} duration={500}>Overview</ScrollLink></li>
                                     <li className="cursor-pointer"><ScrollLink to="about" smooth={true} duration={500}>About</ScrollLink></li >

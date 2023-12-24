@@ -53,6 +53,8 @@ function CreateProject() {
         possessionOn: '',
         projectType: '',
         reraNo: '',
+        title: "",
+        keywords: "",
         content: '',
         status: '',
         checkStatus: '',
@@ -80,6 +82,8 @@ function CreateProject() {
                 possessionOn: project.possessionOn,
                 projectType: project.projectType,
                 reraNo: project.reraNo,
+                title: project.title,
+                keywords: project.keywords
             }));
 
             setGalleryImages(project.gallery.map((item) => item.secure_url));
@@ -333,6 +337,8 @@ function CreateProject() {
                 formData.append('possessionOn', projectCreateData.possessionOn);
                 formData.append('projectType', projectCreateData.projectType);
                 formData.append('reraNo', projectCreateData.reraNo);
+                formData.append('title', projectCreateData.title);
+                formData.append('keywords', projectCreateData.keywords);
 
 
                 formData.append('floorName', JSON.stringify(floorchips));
@@ -369,6 +375,8 @@ function CreateProject() {
                     possessionOn: '',
                     projectType: '',
                     reraNo: '',
+                    title: "",
+                    keywords: "",
                     content: '',
                 })
                 setGalleryImages([]);
@@ -413,6 +421,8 @@ function CreateProject() {
             formData.append('possessionOn', projectCreateData.possessionOn);
             formData.append('projectType', projectCreateData.projectType);
             formData.append('reraNo', projectCreateData.reraNo);
+            formData.append('title', projectCreateData.title);
+            formData.append('keywords', projectCreateData.keywords);
 
 
             formData.append('floorName', JSON.stringify(floorchips));
@@ -449,6 +459,8 @@ function CreateProject() {
                 possessionOn: '',
                 projectType: '',
                 reraNo: '',
+                title: "",
+                keywords: "",
                 content: '',
             })
             setGalleryImages([]);
@@ -458,8 +470,8 @@ function CreateProject() {
             setAmenitieChips([]);
             setFloorPriceChips([]);
             setDimensionsChips([]);
-            setLoading(false);
-            navigate('/admin/dashboard/all-projects');
+            // setLoading(false);
+            // navigate('/admin/dashboard/all-projects');
 
         } catch (Error) {
             console.log(Error);
@@ -477,12 +489,14 @@ function CreateProject() {
                         : (
                             <div className='w-full min-h-[500px] rounded shadow-sm'>
                                 <form className='' onSubmit={onFormSubmit}>
-                                    <Link onClick={() => navigate(-1)}><FaArrowLeftLong /></Link>
-                                    <h2 className='text-3xl font-mono mt-3 border-b'>
-                                        {
-                                            editProject ? 'Update Project' : 'Create Project'
-                                        }
-                                    </h2>
+                                    <div className='flex items-center gap-2'>
+                                        <Link onClick={() => navigate(-1)}><FaArrowLeftLong /></Link>
+                                        <h2 className='text-xl font-medium border-b'>
+                                            {
+                                                editProject ? 'Update Project' : 'Create Project'
+                                            }
+                                        </h2>
+                                    </div>
                                     <div className='grid grid-cols-1 lg:grid-cols-3 gap-5'>
                                         <div className='col-span-2'>
                                             <div className='my-3 flex flex-col gap-2'>
@@ -525,16 +539,40 @@ function CreateProject() {
                                                     ref={editor}
                                                 />
                                             </div>
+                                            <div className='my-3 flex flex-col gap-1'>
+                                                <label htmlFor='title'>Title<sup className='text-pink-400'>*</sup></label>
+                                                <input
+                                                    type='text'
+                                                    name='title'
+                                                    id='title'
+                                                    className='border resize-none p-3 outline-none rounded'
+                                                    value={projectCreateData.title}
+                                                    onChange={userInput}
+                                                    placeholder='Enter Project Title'
+                                                />
+                                            </div>
                                             <div className='my-3 flex flex-col gap-2'>
-                                                <label htmlFor='description'>Description<sup className='text-pink-400'>*</sup></label>
+                                                <label htmlFor='description'>Meta Description<sup className='text-pink-400'>*</sup></label>
                                                 <textarea
                                                     type='text'
                                                     name='description'
                                                     id='description'
-                                                    className='border resize-none h-[200px] p-4 placeholder:text-2xl'
+                                                    className='border resize-none h-[100px] p-3 outline-none rounded'
                                                     value={projectCreateData.description}
                                                     onChange={userInput}
-                                                    placeholder='Enter Project Description'
+                                                    placeholder='Enter Project Meta Description'
+                                                />
+                                            </div>
+                                            <div className='my-3 flex flex-col gap-2'>
+                                                <label htmlFor='keywords'>Keywords<sup className='text-pink-400'>*</sup></label>
+                                                <textarea
+                                                    type='text'
+                                                    name='keywords'
+                                                    id='keywords'
+                                                    className='border resize-none h-[70px] p-3 outline-none rounded'
+                                                    value={projectCreateData.keywords}
+                                                    onChange={userInput}
+                                                    placeholder='Enter Project Keywords'
                                                 />
                                             </div>
                                         </div>
