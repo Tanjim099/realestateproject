@@ -60,7 +60,7 @@ function CreateProject() {
         checkStatus: '',
     });
 
-    console.log(projectCreateData.checkStatus);
+    // console.log(projectCreateData.checkStatus);
 
     useEffect(() => {
         if (editProject && project) {
@@ -395,9 +395,9 @@ function CreateProject() {
                 setAmenitieChips([]);
                 setFloorPriceChips([]);
                 setDimensionsChips([]);
-                // setLoading(false);
-                // navigate('/admin/dashboard/all-projects');
-                // return;
+                setLoading(false);
+                navigate('/admin/dashboard/all-projects');
+                return;
             }
 
             if (!projectCreateData.name || !projectCreateData.location || !projectCreateData.developer || !projectCreateData.description || !projectCreateData.startingFrom || !projectCreateData.currency || !projectCreateData.email || !projectCreateData.phone) {

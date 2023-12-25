@@ -35,14 +35,16 @@ function ProjectViewPage() {
 
     useEffect(() => {
         const res = GetAvgRating(data?.ratingandreview);
-        console.log(res);
+        // console.log(res);
         setCount(res);
     }, [data]);
+
     const [ratingReview, setRatingReview] = useState({
         rating: '',
         review: '',
         id: _id,
     });
+
     const [hover, setHover] = useState(null);
     // console.log(ratingReview);
     const [userInput, setUserInput] = useState({
@@ -64,7 +66,6 @@ function ProjectViewPage() {
 
     const onFormSubmit = async (e) => {
         e.preventDefault();
-
         const res = await dispatch(createContact(userInput));
 
     }
@@ -432,7 +433,9 @@ function ProjectViewPage() {
                             {/* Rating and review */}
                             <div>
                                 <form onSubmit={onReviewFormSubmit} className="w-full border p-4">
-                                    <h2>Rating & Review</h2>
+                                    <h2 className="border-b-2 border-[#7f1657] pb-2 my-10 text-2xl text-[#7f1657] font-semibold">
+                                        Rating & Review
+                                    </h2>
                                     <div className="flex gap-5">
                                         {
                                             [...Array(5)].map((item, idx) => {
@@ -451,7 +454,7 @@ function ProjectViewPage() {
                                                         />
                                                         <FaStar
                                                             className="cursor-pointer text-sm"
-                                                            size={50}
+                                                            size={20}
                                                             color={currentRating <= (hover || ratingReview.rating) ? "#ffc107" : "#e4e5e9"}
                                                             onMouseEnter={() => setHover(currentRating)}
                                                             onMouseLeave={() => setHover(null)}
@@ -475,7 +478,7 @@ function ProjectViewPage() {
                                     <div className='flex justify-end'>
                                         <button
                                             type='submit'
-                                            className='bg-[#7f1657] text-xl px-3 inline-block text-white rounded h-[40px] mt-3 hover:bg-[#7f1639] hover:scale-110 duration-300 ease-in-out transition-all'
+                                            className='bg-[#7f1657] text-lg px-3 inline-block text-white rounded h-[40px] mt-3 hover:bg-[#7f1639]'
                                         >
                                             Added
                                         </button>

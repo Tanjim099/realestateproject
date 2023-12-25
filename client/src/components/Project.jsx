@@ -1,20 +1,20 @@
-import { FaBed } from "react-icons/fa";
+// import { FaBed } from "react-icons/fa";
 import { NavLink, useNavigate } from 'react-router-dom';
-import GetAvgRating from "../helper/avgRating";
-import { useEffect, useState } from "react";
+// import GetAvgRating from "../helper/avgRating";
+// import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 
 function Project({ data }) {
     const navigate = useNavigate();
     // console.log(data);
-    const [count, setCount] = useState(null);
+    // const [count, setCount] = useState(null);
     // console.log(data.ratingandreview);
 
-    useEffect(() => {
-        const res = GetAvgRating(data?.ratingandreview);
-        // console.log(res);
-        setCount(res);
-    }, []);
+    // useEffect(() => {
+    //     const res = GetAvgRating(data?.ratingandreview);
+    //     // console.log(res);
+    //     setCount(res);
+    // }, []);
 
     return (
         <NavLink to={`/project/${data.slug}`}>
@@ -33,15 +33,15 @@ function Project({ data }) {
                     </div>
                     <div className="flex justify-between gap-2">
                         <h3 className="project_name text-xl font-medium my-2">{(data.name.substring(0, 22))}</h3>
-                        <div className="flex items-center gap-1">
+                        {/* <div className="flex items-center gap-1">
                             <span>
                                 {(count)}
                             </span>
                             <StarRating Review_Count={count} />
-                            {/* <span>
+                            <span>
                                 ({(data?.ratingandreview?.length)} Review)
-                            </span> */}
-                        </div>
+                            </span>
+                        </div> */}
                     </div>
                     <p className="project_description text-sm">{(data?.description).substring(0, 50)}</p>
                 </div>

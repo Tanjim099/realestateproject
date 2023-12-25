@@ -1,5 +1,5 @@
 export default function GetAvgRating(ratingArr) {
-    console.log("ratingArr ->", ratingArr);
+    // console.log("ratingArr ->", ratingArr);
 
     if (!ratingArr || ratingArr.length === 0) return 0;
 
